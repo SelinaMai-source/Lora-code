@@ -1,0 +1,73 @@
+{
+  "benchmark": "MOCK_CITB",
+  "version": "v0",
+  "stream": [
+    {
+      "segment_id": 0,
+      "segment_name": "math_basics",
+      "train": [
+        {
+          "instruction": "计算两个整数的和。",
+          "input": "a=2, b=3",
+          "output": "5"
+        },
+        {
+          "instruction": "将给定句子改写为更礼貌的语气。",
+          "input": "把门关上。",
+          "output": "请把门关上。"
+        },
+        {
+          "instruction": "从输入中提取邮箱地址。",
+          "input": "请联系 alice@example.com 获取更多信息。",
+          "output": "alice@example.com"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "计算两个整数的和。",
+          "input": "a=10, b=-2",
+          "output": "8"
+        },
+        {
+          "instruction": "将给定句子改写为更礼貌的语气。",
+          "input": "给我水。",
+          "output": "请给我水。"
+        }
+      ]
+    },
+    {
+      "segment_id": 1,
+      "segment_name": "format_and_reasoning",
+      "train": [
+        {
+          "instruction": "将列表去重并保持原顺序，输出为逗号分隔字符串。",
+          "input": "[1,2,2,3,1]",
+          "output": "1,2,3"
+        },
+        {
+          "instruction": "根据输入给出简短的因果解释。",
+          "input": "为什么冰会浮在水面上？",
+          "output": "因为冰的密度比液态水小，所以会浮在水面上。"
+        },
+        {
+          "instruction": "把给定 JSON 进行美化输出（缩进 2 空格）。",
+          "input": "{\"a\":1,\"b\":[2,3]}",
+          "output": "{\n  \"a\": 1,\n  \"b\": [\n    2,\n    3\n  ]\n}"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "将列表去重并保持原顺序，输出为逗号分隔字符串。",
+          "input": "[\"a\",\"b\",\"a\",\"c\"]",
+          "output": "a,b,c"
+        },
+        {
+          "instruction": "根据输入给出简短的因果解释。",
+          "input": "为什么晴天更容易看到远处的山？",
+          "output": "因为空气中水汽和颗粒物更少，光散射更弱，能见度更高。"
+        }
+      ]
+    }
+  ]
+}
+

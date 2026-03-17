@@ -1,0 +1,53 @@
+## Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+
+## Virtualenv
+.venv/
+venv/
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## Editor
+.vscode/
+.idea/
+
+## Weights / caches / artifacts (do not commit)
+assets/pretrained/**
+!assets/pretrained/README.md
+!assets/pretrained/download_model.sh
+
+assets/checkpoints/**
+!assets/checkpoints/README.md
+
+assets/cache/**
+!assets/cache/README.md
+
+## Results (keep folder structure, ignore run outputs)
+results/runs/**
+results/logs/**
+results/tables/**
+results/figures/**
+!results/**/.gitkeep
+
+## W&B / MLFlow (if enabled later)
+wandb/
+mlruns/
+
+## Temporary files
+*.tmp
+*.swp
+*.swo
+*.log
+
