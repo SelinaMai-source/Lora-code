@@ -1,6 +1,7 @@
 import json
 from dataclasses import dataclass
 from pathlib import Path
+import random
 from typing import Any, Dict, List, Optional, Tuple
 
 from core.utils import ensure_dir
@@ -178,6 +179,11 @@ def preprocess_citb_raw_to_processed(
     *,
     benchmark_name: str = "CITB",
     version: str = "unknown",
+    split_name: str = "cl_dialogue_tasks",
+    seed: int = 10,
+    max_train_instances_per_task: int = 50,
+    max_eval_instances_per_task: int = 10,
+    limit_tasks: int = -1,
 ) -> None:
     """
     Preprocessing scaffold (NOT a fake implementation).
@@ -203,12 +209,104 @@ def preprocess_citb_raw_to_processed(
 
     ensure_dir(str(Path(processed_out_path).parent))
 
-    raise NotImplementedError(
-        "CITB preprocessing is intentionally not implemented because the exact raw file "
-        "layout depends on how you obtained CITB. Implement parsing here:\n"
-        f"- Input raw_root: {raw_root}\n"
-        f"- Output processed_out_path: {processed_out_path}\n"
-        "Expected output format is described in data/processed/README.md.\n"
-        "Tip: map CITB tasks/domains to segment_id order, and create per-segment train/eval lists."
-    )
+    citb_root = Path(raw_root)
+    tasks_dir = citb_root / "data" / "tasks"
+    splits_dir = citb_root / "data" / "splits" / "CIT_splits"
+
+    split_txt_path = splits_dir / f"{split_name}.txt"
+    if not split_txt_path.exists():
+        raise FileNotFoundError(f"CITB split txt not found: {split_txt_path}")
+    if not tasks_dir.exists():
+        raise FileNotFoundError(f"CITB tasks dir not found: {tasks_dir}")
+
+    rng = random.Random(int(seed))
+
+    task_order: List[str] = []
+    with split_txt_path.open("r", encoding="utf-8") as f:
+        for line in f:
+            t = line.strip()
+            if not t:
+                continue
+            task_order.append(t)
+            if int(limit_tasks) > 0 and len(task_order) >= int(limit_tasks):
+                break
+    if not task_order:
+        raise ValueError(f"No tasks found in split file: {split_txt_path}")
+
+    def first_definition(def_obj: Any) -> str:
+        if isinstance(def_obj, list) and def_obj:
+            return str(def_obj[0])
+        if def_obj is None:
+            return ""
+        return str(def_obj)
+
+    def to_outputs(output_obj: Any) -> List[str]:
+        # CITB task json typically uses `output: [str, ...]` inside each instance.
+        if output_obj is None:
+            return [""]
+        if isinstance(output_obj, list):
+            return [str(x) for x in output_obj]
+        return [str(output_obj)]
+
+    def instance_to_examples(task_instruction: str, inst: Dict[str, Any]) -> List[Dict[str, str]]:
+        in_text = str(inst.get("input", ""))
+        outs = to_outputs(inst.get("output"))
+        return [
+            {"instruction": task_instruction, "input": in_text, "output": o}
+            for o in outs
+        ]
+
+    segments: List[Dict[str, Any]] = []
+    for seg_id, task_name in enumerate(task_order):
+        task_json_path = tasks_dir / f"{task_name}.json"
+        if not task_json_path.exists():
+            raise FileNotFoundError(f"Task JSON not found for {task_name}: {task_json_path}")
+
+        with task_json_path.open("r", encoding="utf-8") as f:
+            obj = json.load(f)
+
+        instruction = first_definition(obj.get("Definition"))
+        instances = obj.get("Instances") or []
+        if not isinstance(instances, list) or not instances:
+            raise ValueError(f"No Instances found in task json: {task_json_path}")
+
+        max_eval = max(0, int(max_eval_instances_per_task))
+        max_train = max(0, int(max_train_instances_per_task))
+
+        # Mirror `train_dev_test_split_by_task(..., continual=False)` behavior:
+        # - test: first max_eval instances
+        # - dev: next max_eval instances (ignored in our processed format)
+        # - remaining after max_eval*2: shuffle, then take max_train instances
+        test_instances = instances[:max_eval]
+        remaining = instances[max_eval * 2 :]
+        rng.shuffle(remaining)
+        train_instances = remaining[:max_train]
+
+        train_examples: List[Dict[str, str]] = []
+        for inst in train_instances:
+            train_examples.extend(instance_to_examples(instruction, inst))
+
+        eval_examples: List[Dict[str, str]] = []
+        for inst in test_instances:
+            eval_examples.extend(instance_to_examples(instruction, inst))
+
+        segments.append(
+            {
+                "segment_id": seg_id,
+                "segment_name": task_name,
+                "train": train_examples,
+                "eval": eval_examples,
+            }
+        )
+
+        print(
+            f"[{seg_id:03d}] {task_name}: "
+            f"train_instances={len(train_instances)} train_examples={len(train_examples)} "
+            f"eval_instances={len(test_instances)} eval_examples={len(eval_examples)}"
+        )
+
+    out = {"benchmark": benchmark_name, "version": version, "stream": segments}
+    ensure_dir(str(Path(processed_out_path).parent))
+    Path(processed_out_path).write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Wrote: {processed_out_path}")
 

@@ -45,6 +45,10 @@ results/figures/**
 wandb/
 mlruns/
 
+## Secrets (never commit)
+configs/hf_token.txt
+**/hf_token.txt
+
 ## Temporary files
 *.tmp
 *.swp

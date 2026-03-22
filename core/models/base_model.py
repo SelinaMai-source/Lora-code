@@ -1,7 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
+import json
 from typing import Any, Dict, List, Optional, Tuple
+from core.causal_lm_metrics import (
+    count_supervised_label_tokens,
+    teacher_forced_token_accuracy_shifted,
+)
+from core.train_labels import build_supervised_labels
 
 
 class BaseBackbone:
@@ -17,7 +24,28 @@ class BaseBackbone:
     def fit_batch(self, pairs: List[Tuple[str, str]], targets: List[str], lr: float) -> Dict[str, float]:
         raise NotImplementedError
 
-    def generate(self, prompts: List[str], max_new_tokens: int = 64) -> List[str]:
+    def generate(
+        self,
+        prompts: List[str],
+        max_new_tokens: int = 64,
+        *,
+        num_beams: Optional[int] = None,
+        do_sample: Optional[bool] = None,
+    ) -> List[str]:
+        raise NotImplementedError
+
+    def generate_with_ids(
+        self, prompts: List[str], max_new_tokens: int = 64
+    ) -> List[Dict[str, Any]]:
+        """
+        Debug helper for auditing prompt boundary + continuation slicing.
+
+        Returns per-sample dicts that must include:
+          - infer_prompt_token_ids
+          - generated_full_ids
+          - generated_continuation_ids
+          - raw_generated_text
+        """
         raise NotImplementedError
 
     def get_activations(self, prompts: List[str]) -> List[List[float]]:
@@ -64,7 +92,16 @@ class DebugTextModel(BaseBackbone):
         acc = correct / max(1, len(targets))
         return {"train_batch_acc": acc}
 
-    def generate(self, prompts: List[str], max_new_tokens: int = 64) -> List[str]:
+    def generate(
+        self,
+        prompts: List[str],
+        max_new_tokens: int = 64,
+        *,
+        num_beams: Optional[int] = None,
+        do_sample: Optional[bool] = None,
+    ) -> List[str]:
+        _ = num_beams  # debug model ignores beam width
+        _ = do_sample
         outs: List[str] = []
         for p in prompts:
             if p in self._memory:
@@ -72,6 +109,24 @@ class DebugTextModel(BaseBackbone):
             else:
                 outs.append(self._fallback(p))
         return outs
+
+    def generate_with_ids(
+        self, prompts: List[str], max_new_tokens: int = 64
+    ) -> List[Dict[str, Any]]:
+        # Debug model has no real tokenizer/ids; return placeholders.
+        outs = self.generate(prompts, max_new_tokens=max_new_tokens)
+        return [
+            {
+                "infer_prompt_token_ids": [],
+                "infer_prompt_token_len": 0,
+                "generated_full_ids": [],
+                "generated_continuation_ids": [],
+                "decoded_prompt_tail": "",
+                "decoded_continuation_head": "",
+                "raw_generated_text": out,
+            }
+            for out in outs
+        ]
 
     def get_activations(self, prompts: List[str]) -> List[List[float]]:
         import numpy as np
@@ -119,6 +174,578 @@ def _simple_tokenize(text: str) -> List[str]:
     return [t for t in re.split(r"[^a-z0-9\u4e00-\u9fff]+", text) if t]
 
 
+@dataclass
+class HFCausalLMConfig:
+    hf_model_name_or_path: str
+    torch_dtype: str = "bfloat16"  # string in YAML
+    device: str = "auto"  # "auto" | "cuda" | "cpu"
+    max_seq_len: int = 2048
+    gen_max_new_tokens: int = 64
+    # Deterministic greedy decoding defaults (overfit / eval debugging).
+    gen_do_sample: bool = False
+    gen_num_beams: int = 1
+    debug_print_formatted_examples: bool = False
+    debug_print_tokenized_examples: bool = False
+    debug_max_tokenized_examples: int = 2
+    debug_nan_guard: bool = False
+    debug_nan_dump_dir: str = ""
+    min_target_tokens_for_loss: int = 16
+    debug_alignment_dump_dir: str = ""
+    # Debug-only: token-level supervision/span audit for assistant boundary issues.
+    mask_eos_token_in_labels: bool = True
+    mask_all_special_tokens_in_labels: bool = True
+    debug_alignment_token_audit_max_examples: int = 3
+    # manual: mask by infer-prompt token length; completion_only: mask through response_template (HF/TRL-style)
+    train_labeling_mode: str = "manual"
+    completion_only_response_template: str = "<|start_header_id|>assistant<|end_header_id|>\n\n"
+
+
+class HFCausalLMBackbone(BaseBackbone):
+    """
+    HuggingFace causal LM backbone that supports LoRA adapters (PEFT).
+
+    This backbone is designed to work with the repo's existing train loop:
+      - `fit_batch(...)` computes loss and calls `loss.backward()`
+      - `LoRAWrapper.step_adapter()` is responsible for optimizer.step() + zero_grad()
+    """
+
+    def __init__(self, cfg: HFCausalLMConfig, *, seed: int = 0):
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        self.cfg = cfg
+        self._last_lr: float = 0.0
+        self._debug_printed_formatted = False
+        self._debug_printed_tokenized = False
+        self._nan_batch_counter = 0
+        # Token-level alignment audit (append until we hit max_examples, then write once).
+        self._alignment_token_audit_rows: List[Dict[str, Any]] = []
+        self._alignment_token_audit_written: bool = False
+
+        # Tokenizer
+        self.tokenizer = AutoTokenizer.from_pretrained(cfg.hf_model_name_or_path, use_fast=True)
+        # Decoder-only LMs generally require left padding for stable generation behavior.
+        self.tokenizer.padding_side = "left"
+        if self.tokenizer.pad_token_id is None:
+            # Causal LM padding uses EOS as pad
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+
+        # Device + dtype
+        if cfg.device == "auto":
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        else:
+            device = cfg.device
+        self.device = torch.device(device)
+
+        dtype_map = {
+            "bfloat16": torch.bfloat16,
+            "float16": torch.float16,
+            "fp16": torch.float16,
+            "float32": torch.float32,
+            "fp32": torch.float32,
+        }
+        torch_dtype = dtype_map.get(str(cfg.torch_dtype).lower(), torch.bfloat16)
+
+        # Model: load base causal LM (LoRA wrapper will attach PEFT model later).
+        self.model = AutoModelForCausalLM.from_pretrained(
+            cfg.hf_model_name_or_path,
+            torch_dtype=torch_dtype,
+            low_cpu_mem_usage=True,
+        )
+        self.model.to(self.device)
+        self.model.train()
+
+        # Training should not rely on KV cache
+        if hasattr(self.model, "config") and getattr(self.model.config, "use_cache", None):
+            self.model.config.use_cache = False
+
+        # Seed (best-effort; full determinism is not guaranteed across kernels)
+        try:
+            import random
+            import numpy as np
+
+            random.seed(seed)
+            np.random.seed(seed)
+            torch.manual_seed(seed)
+            if torch.cuda.is_available():
+                torch.cuda.manual_seed_all(seed)
+        except Exception:
+            pass
+
+    def attach_peft_model(self, peft_model: Any) -> None:
+        # Replace internal model reference with PEFT model.
+        self.model = peft_model
+        self.model.to(self.device)
+        self.model.train()
+
+    def fit_batch(self, pairs: List[Tuple[str, str]], targets: List[str], lr: float) -> Dict[str, float]:
+        import torch
+
+        # Persist lr for LoRAWrapper to pick up during optimizer.step()
+        self._last_lr = float(lr)
+
+        instructions = [str(ins) for (ins, _) in pairs]
+        input_texts = [str(inp) for (_, inp) in pairs]
+        max_len = int(self.cfg.max_seq_len)
+
+        prompt_texts: List[str] = []
+        full_texts: List[str] = []
+        input_ids_list: List[List[int]] = []
+        labels_list: List[List[int]] = []
+        attn_list: List[List[int]] = []
+        decoded_supervised_spans: List[str] = []
+        supervised_positions_per_example: List[List[int]] = []
+
+        for ins, inp, tgt in zip(instructions, input_texts, targets):
+            enc = build_supervised_labels(
+                self.tokenizer,
+                ins,
+                inp,
+                str(tgt),
+                max_len=max_len,
+                min_target_tokens=int(self.cfg.min_target_tokens_for_loss),
+                mask_eos_token_in_labels=bool(self.cfg.mask_eos_token_in_labels),
+                mask_all_special_tokens_in_labels=bool(self.cfg.mask_all_special_tokens_in_labels),
+                labeling_mode=str(self.cfg.train_labeling_mode),
+                completion_only_response_template=str(self.cfg.completion_only_response_template),
+            )
+            prompt_texts.append(enc.prompt_text)
+            full_texts.append(enc.full_text)
+            full_ids = enc.full_ids
+            labels = enc.labels
+            attn = [1] * len(full_ids)
+
+            input_ids_list.append(full_ids)
+            labels_list.append(labels)
+            attn_list.append(attn)
+            sup_positions = [i for i, v in enumerate(labels) if v != -100]
+            supervised_positions_per_example.append(sup_positions)
+            if sup_positions:
+                sup_ids = [full_ids[i] for i in sup_positions]
+                decoded_supervised_spans.append(self.tokenizer.decode(sup_ids, skip_special_tokens=True))
+            else:
+                decoded_supervised_spans.append("")
+
+        if self.cfg.debug_print_formatted_examples and not self._debug_printed_formatted:
+            show_n = min(2, len(prompt_texts))
+            print("\n[debug] Formatted training examples (before tokenization):")
+            for i in range(show_n):
+                print(f"[debug] example_{i}.prompt={repr(prompt_texts[i])}")
+                print(f"[debug] example_{i}.target={repr(str(targets[i]))}")
+            self._debug_printed_formatted = True
+
+        def _get_alignment_helper(input_ids: List[int], labels_for_audit: List[int]) -> Dict[str, Any]:
+            supervised_positions = [i for i, v in enumerate(labels_for_audit) if v != -100]
+            if not supervised_positions:
+                supervised_start_idx = len(labels_for_audit)
+                supervised_end_idx = -1
+                prompt_token_len = len(labels_for_audit)
+                decoded_prompt_tail = ""
+                decoded_supervised_head = ""
+            else:
+                supervised_start_idx = int(min(supervised_positions))
+                supervised_end_idx = int(max(supervised_positions))
+                prompt_token_len = supervised_start_idx
+                prompt_tail_start = max(0, supervised_start_idx - 30)
+                supervised_head_end = min(len(input_ids), supervised_start_idx + 30)
+                decoded_prompt_tail = self.tokenizer.decode(
+                    input_ids[prompt_tail_start:supervised_start_idx], skip_special_tokens=False
+                )
+                decoded_supervised_head = self.tokenizer.decode(
+                    input_ids[supervised_start_idx:supervised_head_end], skip_special_tokens=True
+                )
+
+            return {
+                "prompt_token_len": int(prompt_token_len),
+                "full_token_len": int(len(input_ids)),
+                "supervised_start_idx": int(supervised_start_idx),
+                "supervised_end_idx": int(supervised_end_idx),
+                "decoded_prompt_tail": decoded_prompt_tail,
+                "decoded_supervised_head": decoded_supervised_head,
+            }
+
+        batch_size = len(input_ids_list)
+        pad_id = int(self.tokenizer.pad_token_id)
+        max_batch_len = max(len(x) for x in input_ids_list)
+        max_batch_len = min(max_batch_len, max_len)
+
+        input_ids = torch.full((batch_size, max_batch_len), pad_id, dtype=torch.long, device=self.device)
+        labels = torch.full((batch_size, max_batch_len), -100, dtype=torch.long, device=self.device)
+        attention_mask = torch.zeros((batch_size, max_batch_len), dtype=torch.long, device=self.device)
+
+        for i, (ids, lab, attn) in enumerate(zip(input_ids_list, labels_list, attn_list)):
+            cur_len = min(len(ids), max_batch_len)
+            input_ids[i, :cur_len] = torch.tensor(ids[:cur_len], dtype=torch.long, device=self.device)
+            labels[i, :cur_len] = torch.tensor(lab[:cur_len], dtype=torch.long, device=self.device)
+            attention_mask[i, :cur_len] = torch.tensor(attn[:cur_len], dtype=torch.long, device=self.device)
+
+        if self.cfg.debug_print_tokenized_examples and not self._debug_printed_tokenized:
+            show_n = min(int(self.cfg.debug_max_tokenized_examples), batch_size)
+            print("\n[debug] Tokenized examples:")
+            for i in range(show_n):
+                ids = input_ids[i].detach().cpu().tolist()
+                labs = labels[i].detach().cpu().tolist()
+                masked = [idx for idx, v in enumerate(labs) if v == -100]
+                supervised = [idx for idx, v in enumerate(labs) if v != -100]
+                print(f"[debug] example_{i}.input_ids={ids}")
+                print(f"[debug] example_{i}.labels={labs}")
+                print(f"[debug] example_{i}.masked_label_positions(-100)={masked}")
+                print(f"[debug] example_{i}.num_supervised_tokens={len(supervised)}")
+                print(f"[debug] example_{i}.decoded_supervised_span={repr(decoded_supervised_spans[i])}")
+            self._debug_printed_tokenized = True
+
+        outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels, return_dict=True)
+        loss = outputs.loss
+        if self.cfg.debug_nan_guard:
+            has_bad_loss = bool(torch.isnan(loss).any().item() or torch.isinf(loss).any().item())
+            has_bad_logits = bool(torch.isnan(outputs.logits).any().item() or torch.isinf(outputs.logits).any().item())
+            if has_bad_loss or has_bad_logits:
+                self._nan_batch_counter += 1
+                dump_dir = self.cfg.debug_nan_dump_dir or "results/runs/nan_debug"
+                d = Path(dump_dir)
+                d.mkdir(parents=True, exist_ok=True)
+                snap = {
+                    "nan_batch_counter": self._nan_batch_counter,
+                    "has_bad_loss": has_bad_loss,
+                    "has_bad_logits": has_bad_logits,
+                    "loss": float(loss.detach().float().item()),
+                    "prompts": prompt_texts,
+                    "targets": [str(t) for t in targets],
+                    "input_ids": input_ids.detach().cpu().tolist(),
+                    "labels": labels.detach().cpu().tolist(),
+                    "attention_mask": attention_mask.detach().cpu().tolist(),
+                    "num_supervised_tokens": int(labels.ne(-100).sum().item()),
+                }
+                (d / f"nan_batch_{self._nan_batch_counter:04d}.json").write_text(
+                    json.dumps(snap, ensure_ascii=False, indent=2), encoding="utf-8"
+                )
+                raise RuntimeError(f"NaN/Inf detected in fit_batch; dumped to {str(d)}")
+        loss.backward()
+
+        with torch.no_grad():
+            logits = outputs.logits  # [B, T, V]
+            # Align with HF causal LM loss: compare argmax(logits[:, :-1]) to labels[:, 1:].
+            answer_token_acc, _, num_loss_tokens = teacher_forced_token_accuracy_shifted(logits, labels)
+            supervised_tokens = int(count_supervised_label_tokens(labels))
+            total_tokens = attention_mask.sum().item()
+            if supervised_tokens <= 0:
+                raise RuntimeError("num_supervised_tokens=0 after chat-template alignment; check truncation or formatting.")
+            if int(attention_mask.sum().item()) <= supervised_tokens:
+                print("[warn] prompt length may be collapsed; total tokens nearly equals supervised tokens.")
+
+        # Compute quick exact-match accuracy for drift signals.
+        # Note: generation is expensive, but used only for small batch sizes in early experiments.
+        with torch.no_grad():
+            preds = self.generate(prompt_texts, max_new_tokens=int(self.cfg.gen_max_new_tokens))
+            correct = 0
+            for pred, y in zip(preds, targets):
+                if self._normalize(pred) == self._normalize(y):
+                    correct += 1
+            acc = correct / max(1, len(targets))
+
+        if self.cfg.debug_alignment_dump_dir:
+            d = Path(self.cfg.debug_alignment_dump_dir)
+            d.mkdir(parents=True, exist_ok=True)
+            show_n = min(2, batch_size)
+            rows: List[Dict[str, Any]] = []
+            for i in range(show_n):
+                rows.append(
+                    {
+                        "formatted_train_prompt": prompt_texts[i],
+                        "formatted_train_full_text": full_texts[i],
+                        "input_ids": input_ids[i].detach().cpu().tolist(),
+                        "labels": labels[i].detach().cpu().tolist(),
+                        "supervised_token_indices": supervised_positions_per_example[i],
+                        "decoded_supervised_span": decoded_supervised_spans[i],
+                        "num_total_tokens": int(attention_mask[i].sum().item()),
+                        "num_supervised_tokens": int(labels[i].ne(-100).sum().item()),
+                        "target_text": str(targets[i]),
+                    }
+                )
+            (d / "train_alignment_examples.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        # Token-level assistant boundary audit (debug only).
+        if bool(self.cfg.debug_alignment_dump_dir) and not self._alignment_token_audit_written:
+            out_dir = Path(self.cfg.debug_alignment_dump_dir).parent  # keep required path shape: .../debug/alignment_token_audit.json
+            out_dir.mkdir(parents=True, exist_ok=True)
+            max_rows = max(0, int(self.cfg.debug_alignment_token_audit_max_examples))
+
+            # Collect across fit_batch calls until we have enough examples.
+            for i in range(min(batch_size, max_rows - len(self._alignment_token_audit_rows))):
+                helper = _get_alignment_helper(input_ids_list[i], labels_list[i])
+                sup_positions = supervised_positions_per_example[i]
+                decoded_supervised_span = decoded_supervised_spans[i]
+
+                def _norm_tokens(text: str) -> List[str]:
+                    t = self._normalize(text)
+                    return [tok for tok in t.split() if tok]
+
+                gold_text = str(targets[i])
+                gold_tokens = _norm_tokens(gold_text)
+                span_head_tokens = _norm_tokens(helper["decoded_supervised_head"])
+                k = min(len(gold_tokens), len(span_head_tokens))
+                span_prefix_match = bool(k > 0 and span_head_tokens[:k] == gold_tokens[:k])
+
+                # Heuristic: if span head contains template control markers, we flag it.
+                contains_control_markers = "<|" in helper["decoded_supervised_head"]
+                includes_control_tokens_unexpected = bool(contains_control_markers and "<|" not in gold_text)
+
+                self._alignment_token_audit_rows.append(
+                    {
+                        "formatted_train_prompt_text": prompt_texts[i],
+                        "formatted_full_train_text": full_texts[i],
+                        "prompt_token_ids": input_ids_list[i][: int(helper["prompt_token_len"])],
+                        "full_token_ids": input_ids_list[i],
+                        "supervised_token_indices": sup_positions,
+                        "decoded_supervised_span": decoded_supervised_span,
+                        "gold_target_text": gold_text,
+                        **helper,
+                        # Invariant checks (debug only; does not hard-fail by default).
+                        "span_prefix_match_with_gold": span_prefix_match,
+                        "includes_control_tokens_unexpected": includes_control_tokens_unexpected,
+                    }
+                )
+
+            if len(self._alignment_token_audit_rows) >= max_rows > 0:
+                (out_dir / "alignment_token_audit.json").write_text(
+                    json.dumps(self._alignment_token_audit_rows, ensure_ascii=False, indent=2),
+                    encoding="utf-8",
+                )
+                self._alignment_token_audit_written = True
+
+        return {
+            "train_batch_acc": float(acc),
+            "train_loss": float(loss.detach().item()),
+            "train_answer_token_acc": float(answer_token_acc),
+            "num_total_tokens": int(total_tokens),
+            "num_supervised_tokens": int(supervised_tokens),
+            "num_loss_tokens": int(num_loss_tokens),
+            "lr": float(self._last_lr),
+        }
+
+    def _make_generation_config(
+        self,
+        max_new_tokens: int,
+        *,
+        num_beams: Optional[int] = None,
+        do_sample: Optional[bool] = None,
+    ) -> Any:
+        from transformers import GenerationConfig
+
+        pad_id = int(self.tokenizer.pad_token_id) if self.tokenizer.pad_token_id is not None else None
+        eos_id = int(self.tokenizer.eos_token_id) if self.tokenizer.eos_token_id is not None else None
+        nb = int(num_beams) if num_beams is not None else int(self.cfg.gen_num_beams)
+        ds = bool(self.cfg.gen_do_sample) if do_sample is None else bool(do_sample)
+        return GenerationConfig(
+            max_new_tokens=int(max_new_tokens),
+            do_sample=ds,
+            num_beams=max(1, nb),
+            pad_token_id=pad_id,
+            eos_token_id=eos_id,
+            use_cache=True,
+            temperature=1.0,
+            top_p=1.0,
+            early_stopping=nb > 1,
+        )
+
+    def generate(
+        self,
+        prompts: List[str],
+        max_new_tokens: int = 64,
+        *,
+        num_beams: Optional[int] = None,
+        do_sample: Optional[bool] = None,
+    ) -> List[str]:
+        import torch
+
+        # Ensure eval-like generation behavior
+        was_training = self.model.training
+        self.model.eval()
+
+        inputs = self.tokenizer(
+            prompts,
+            padding=True,
+            truncation=True,
+            max_length=int(self.cfg.max_seq_len),
+            add_special_tokens=True,
+            return_tensors="pt",
+        )
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+        gen_cfg = self._make_generation_config(max_new_tokens, num_beams=num_beams, do_sample=do_sample)
+
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, generation_config=gen_cfg)
+
+        # Slice off prompt part to return only generated continuation.
+        # For batched generation with padding, generated sequences are aligned to the
+        # padded input width (not per-sample non-pad length), so slice by padded width.
+        gen_texts: List[str] = []
+        prompt_width = int(inputs["input_ids"].shape[1])
+        for i in range(outputs.shape[0]):
+            gen_ids = outputs[i, prompt_width:]
+            text = self.tokenizer.decode(gen_ids, skip_special_tokens=True)
+            gen_texts.append(text)
+
+        if was_training:
+            self.model.train()
+        return gen_texts
+
+    def generate_with_forced_answer_prefix(
+        self,
+        prompt: str,
+        max_new_tokens: int,
+        forced_answer_token_ids: List[int],
+        *,
+        num_beams: Optional[int] = None,
+    ) -> str:
+        """
+        Tokenize `prompt`, append `forced_answer_token_ids`, then generate continuation.
+        Returns decoded text for the assistant span starting at the first answer token position
+        (includes forced prefix + model continuation), using skip_special_tokens=True.
+        """
+        import torch
+
+        was_training = self.model.training
+        self.model.eval()
+        enc = self.tokenizer(
+            prompt,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=int(self.cfg.max_seq_len),
+            return_tensors="pt",
+        )
+        input_ids = enc["input_ids"].to(self.device)
+        attention_mask = enc["attention_mask"].to(self.device)
+        prompt_len = int(input_ids.shape[1])
+        if forced_answer_token_ids:
+            ft = torch.tensor([forced_answer_token_ids], dtype=torch.long, device=self.device)
+            input_ids = torch.cat([input_ids, ft], dim=1)
+            attention_mask = torch.cat(
+                [attention_mask, torch.ones(1, ft.shape[1], dtype=attention_mask.dtype, device=self.device)],
+                dim=1,
+            )
+        gen_cfg = self._make_generation_config(max_new_tokens, num_beams=num_beams)
+        gen_inputs = {"input_ids": input_ids, "attention_mask": attention_mask}
+        with torch.no_grad():
+            outputs = self.model.generate(**gen_inputs, generation_config=gen_cfg)
+        cont_ids = outputs[0, prompt_len:].detach().cpu().tolist()
+        text = self.tokenizer.decode(cont_ids, skip_special_tokens=True)
+        if was_training:
+            self.model.train()
+        return text
+
+    def generate_with_ids(self, prompts: List[str], max_new_tokens: int = 64) -> List[Dict[str, Any]]:
+        import torch
+        from transformers import GenerationConfig
+
+        was_training = self.model.training
+        self.model.eval()
+
+        inputs = self.tokenizer(
+            prompts,
+            padding=True,
+            truncation=True,
+            max_length=int(self.cfg.max_seq_len),
+            add_special_tokens=True,
+            return_tensors="pt",
+        )
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        prompt_width = int(inputs["input_ids"].shape[1])
+
+        gen_cfg = self._make_generation_config(max_new_tokens, num_beams=None)
+
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, generation_config=gen_cfg)
+
+        results: List[Dict[str, Any]] = []
+        for i in range(outputs.shape[0]):
+            full_ids = outputs[i].detach().cpu().tolist()
+            continuation_ids = outputs[i, prompt_width:].detach().cpu().tolist()
+            assert continuation_ids == full_ids[prompt_width:], "Continuation slicing mismatch"
+
+            infer_prompt_token_ids = inputs["input_ids"][i].detach().cpu().tolist()
+            decoded_prompt_tail = self.tokenizer.decode(
+                infer_prompt_token_ids[max(0, prompt_width - 30) : prompt_width],
+                skip_special_tokens=False,
+            )
+            decoded_continuation_head = self.tokenizer.decode(
+                continuation_ids[:30],
+                skip_special_tokens=False,
+            )
+            raw_generated_text = self.tokenizer.decode(continuation_ids, skip_special_tokens=True)
+
+            results.append(
+                {
+                    "infer_prompt_token_ids": infer_prompt_token_ids,
+                    "infer_prompt_token_len": prompt_width,
+                    "generated_full_ids": full_ids,
+                    "generated_continuation_ids": continuation_ids,
+                    "decoded_prompt_tail": decoded_prompt_tail,
+                    "decoded_continuation_head": decoded_continuation_head,
+                    "raw_generated_text": raw_generated_text,
+                }
+            )
+
+        if was_training:
+            self.model.train()
+        return results
+
+    def get_activations(self, prompts: List[str]) -> List[List[float]]:
+        pooled = self.get_activations_tensor(prompts, with_grad=False)
+        acts: List[List[float]] = []
+        import torch
+
+        for i in range(pooled.shape[0]):
+            acts.append(pooled[i].detach().cpu().to(torch.float32).tolist())
+        return acts
+
+    def get_activations_tensor(self, prompts: List[str], *, with_grad: bool) -> "Any":
+        """
+        Return a pooled, L2-normalized activation tensor for cosine similarity.
+
+        When `with_grad=True`, gradients will flow to the model parameters (needed for
+        anti-overlap regularization integrated into the training step).
+        """
+        import torch
+
+        was_training = self.model.training
+        self.model.eval()
+
+        inputs = self.tokenizer(
+            prompts,
+            padding=True,
+            truncation=True,
+            max_length=int(self.cfg.max_seq_len),
+            add_special_tokens=True,
+            return_tensors="pt",
+        )
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+        if with_grad:
+            outputs = self.model(**inputs, output_hidden_states=True, return_dict=True)
+        else:
+            with torch.no_grad():
+                outputs = self.model(**inputs, output_hidden_states=True, return_dict=True)
+
+        hidden = outputs.hidden_states[-1]  # [B, T, H]
+        mask = inputs["attention_mask"].unsqueeze(-1).to(hidden.dtype)  # [B, T, 1]
+        pooled = (hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1.0)  # [B, H]
+        pooled = torch.nn.functional.normalize(pooled, p=2, dim=-1)
+
+        # Keep training state stable
+        if was_training:
+            self.model.train()
+        else:
+            self.model.eval()
+
+        return pooled
+
+    @staticmethod
+    def _normalize(s: str) -> str:
+        return (s or "").strip().lower()
+
+
 def build_backbone(model_cfg: Dict[str, Any], *, mode: str, seed: int, debug_loading: str = "dummy") -> BaseBackbone:
     """
     Build backbone according to mode/config.
@@ -147,9 +774,29 @@ def build_hf_backbone(model_cfg: Dict[str, Any], *, seed: int) -> BaseBackbone:
     """
 
     hf_path = str(model_cfg.get("hf_model_name_or_path", "")).strip()
-    if hf_path:
-        # We do not hard-fail here to keep the repo runnable; instead we guide future extension.
-        # When you are ready, replace this with transformers AutoModelForCausalLM + tokenizer.
-        pass
-    return DebugTextModel(DebugTextModelConfig(), seed=seed)
+    if not hf_path:
+        raise ValueError("hf_model_name_or_path is required for baseline/ours HF backbone.")
+
+    cfg = HFCausalLMConfig(
+        hf_model_name_or_path=hf_path,
+        torch_dtype=str(model_cfg.get("torch_dtype", "bfloat16")),
+        device=str(model_cfg.get("device", "auto")),
+        max_seq_len=int(model_cfg.get("max_seq_len", 2048)),
+        gen_max_new_tokens=int(model_cfg.get("gen_max_new_tokens", 64)),
+        gen_do_sample=bool(model_cfg.get("gen_do_sample", False)),
+        gen_num_beams=int(model_cfg.get("gen_num_beams", 1)),
+        mask_eos_token_in_labels=bool(model_cfg.get("mask_eos_token_in_labels", True)),
+        mask_all_special_tokens_in_labels=bool(model_cfg.get("mask_all_special_tokens_in_labels", True)),
+        train_labeling_mode=str(model_cfg.get("train_labeling_mode", "manual")),
+        completion_only_response_template=str(model_cfg.get("completion_only_response_template", "<|start_header_id|>assistant<|end_header_id|>\n\n")),
+        debug_alignment_token_audit_max_examples=int(model_cfg.get("debug_alignment_token_audit_max_examples", 3)),
+        debug_print_formatted_examples=bool(model_cfg.get("debug_print_formatted_examples", False)),
+        debug_print_tokenized_examples=bool(model_cfg.get("debug_print_tokenized_examples", False)),
+        debug_max_tokenized_examples=int(model_cfg.get("debug_max_tokenized_examples", 2)),
+        debug_nan_guard=bool(model_cfg.get("debug_nan_guard", False)),
+        debug_nan_dump_dir=str(model_cfg.get("debug_nan_dump_dir", "")),
+        min_target_tokens_for_loss=int(model_cfg.get("min_target_tokens_for_loss", 16)),
+        debug_alignment_dump_dir=str(model_cfg.get("debug_alignment_dump_dir", "")),
+    )
+    return HFCausalLMBackbone(cfg, seed=seed)
 

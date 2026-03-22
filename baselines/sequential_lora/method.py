@@ -38,14 +38,32 @@ class SequentialLoRAMethod:
         pairs, targets = _to_pairs(segment.train)
 
         batch_accs = []
+        batch_losses = []
+        answer_token_accs = []
+        grad_norms = []
+        lr_values = []
+        total_tokens = 0
+        supervised_tokens = 0
         for _ in range(max(1, epochs)):
             for b_pairs, b_targets in _batch(pairs, targets, batch_size):
                 out = model.fit_batch(b_pairs, b_targets, lr=lr)
-                lora.step_adapter()
+                step_stats = lora.step_adapter()
                 batch_accs.append(float(out.get("train_batch_acc", 0.0)))
+                batch_losses.append(float(out.get("train_loss", 0.0)))
+                answer_token_accs.append(float(out.get("train_answer_token_acc", 0.0)))
+                grad_norms.append(float(step_stats.get("grad_norm", 0.0)))
+                lr_values.append(float(step_stats.get("lr", lr)))
+                total_tokens += int(out.get("num_total_tokens", 0))
+                supervised_tokens += int(out.get("num_supervised_tokens", 0))
                 metrics["batches"] += 1
 
         metrics["mean_batch_acc"] = sum(batch_accs) / max(1, len(batch_accs))
+        metrics["train.loss"] = sum(batch_losses) / max(1, len(batch_losses))
+        metrics["train.answer_token_acc"] = sum(answer_token_accs) / max(1, len(answer_token_accs))
+        metrics["num_total_tokens"] = int(total_tokens)
+        metrics["num_supervised_tokens"] = int(supervised_tokens)
+        metrics["grad_norm"] = sum(grad_norms) / max(1, len(grad_norms))
+        metrics["lr"] = sum(lr_values) / max(1, len(lr_values))
         metrics["active_adapter"] = lora.get_active_adapter_name()
         return metrics
 
@@ -54,17 +72,9 @@ def _to_pairs(examples: List[Example]) -> Tuple[List[Tuple[str, str]], List[str]
     pairs: List[Tuple[str, str]] = []
     targets: List[str] = []
     for ex in examples:
-        prompt = _format_prompt(ex.instruction, ex.input)
-        pairs.append((prompt, ex.input))
+        pairs.append((ex.instruction, ex.input))
         targets.append(ex.output)
     return pairs, targets
-
-
-def _format_prompt(instruction: str, input_text: str) -> str:
-    input_text = (input_text or "").strip()
-    if input_text:
-        return f"指令：{instruction}\n输入：{input_text}\n输出："
-    return f"指令：{instruction}\n输出："
 
 
 def _batch(pairs: List[Tuple[str, str]], targets: List[str], batch_size: int):

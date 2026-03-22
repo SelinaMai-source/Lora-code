@@ -14,7 +14,7 @@ baseline_name: "sequential_lora"
 paths:
   project_root: "."
   processed_stream_dir: "data/processed"
-  processed_stream_file: ""     # 若为空，代码会尝试在 processed_stream_dir 下自动寻找
+  processed_stream_file: "citb_cl_dialogue_tasks_train50_eval10.json"
   assets_dir: "assets"
   results_dir: "results"
 

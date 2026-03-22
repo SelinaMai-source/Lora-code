@@ -82,17 +82,9 @@ def _to_pairs(examples: List[Example]) -> Tuple[List[Tuple[str, str]], List[str]
     pairs: List[Tuple[str, str]] = []
     targets: List[str] = []
     for ex in examples:
-        prompt = _format_prompt(ex.instruction, ex.input)
-        pairs.append((prompt, ex.input))
+        pairs.append((ex.instruction, ex.input))
         targets.append(ex.output)
     return pairs, targets
-
-
-def _format_prompt(instruction: str, input_text: str) -> str:
-    input_text = (input_text or "").strip()
-    if input_text:
-        return f"指令：{instruction}\n输入：{input_text}\n输出："
-    return f"指令：{instruction}\n输出："
 
 
 def _batch(pairs: List[Tuple[str, str]], targets: List[str], batch_size: int):

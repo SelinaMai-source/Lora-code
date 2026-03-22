@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Tuple
 
 from core.data import Example, Segment
+from core.formatting import format_for_infer
 
 
 class RouterOnlyMethod:
@@ -71,7 +72,9 @@ class RouterOnlyMethod:
         for _ in range(max(1, epochs)):
             for b_pairs, b_targets in _batch(pairs, targets, batch_size):
                 # Route each prompt in the batch and train sequentially (simplified).
-                for (prompt, _), y in zip(b_pairs, b_targets):
+                for (instruction, input_text), y in zip(b_pairs, b_targets):
+                    tok = getattr(model, "tokenizer", None)
+                    prompt = format_for_infer(tok, instruction, input_text) if tok is not None else f"{instruction}\n\n{input_text}"
                     decision = router.predict_branch(
                         prompt=prompt,
                         branch_names=self._branch_names,
@@ -79,7 +82,7 @@ class RouterOnlyMethod:
                         segment_id=segment.segment_id,
                     )
                     lora.set_active_adapter(decision.branch_name)
-                    out = model.fit_batch([(prompt, "")], [y], lr=lr)
+                    out = model.fit_batch([(instruction, input_text)], [y], lr=lr)
                     lora.step_adapter()
                     metrics["routed_examples"] += 1
                     batch_accs.append(float(out.get("train_batch_acc", 0.0)))
@@ -98,17 +101,9 @@ def _to_pairs(examples: List[Example]) -> Tuple[List[Tuple[str, str]], List[str]
     pairs: List[Tuple[str, str]] = []
     targets: List[str] = []
     for ex in examples:
-        prompt = _format_prompt(ex.instruction, ex.input)
-        pairs.append((prompt, ex.input))
+        pairs.append((ex.instruction, ex.input))
         targets.append(ex.output)
     return pairs, targets
-
-
-def _format_prompt(instruction: str, input_text: str) -> str:
-    input_text = (input_text or "").strip()
-    if input_text:
-        return f"指令：{instruction}\n输入：{input_text}\n输出："
-    return f"指令：{instruction}\n输出："
 
 
 def _batch(pairs: List[Tuple[str, str]], targets: List[str], batch_size: int):

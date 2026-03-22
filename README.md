@@ -124,6 +124,12 @@ python core/train.py --config configs/ours.yaml
 
 ---
 
+## Overfit-8：序列行为诊断（teacher-forced vs 开环 greedy）
+
+当 loss / teacher-forced acc 已接近完美但 greedy EM 仍低时，优先用 **诊断产物** 定位开环轨迹问题，而不是继续改 drift/router 或泛泛调参。说明与 artifact 列表见 **`docs/sequence_behavior_diagnosis.md`**；配置示例 **`configs/baseline_alignment_overfit.yaml`**（含 Part A–F：`enable_sequence_behavior_diagnosis`、`run_decode_ablation`、`run_overfit_ladder`；ladder 较慢可在 YAML 中关）。
+
+---
+
 ## Ablation 如何只通过 ours.yaml 完成
 
 `configs/ours.yaml` 提供模块开关与子模块超参：

@@ -54,6 +54,46 @@ def compute_overlap_loss(
     return float(beta * mean_sim)
 
 
+def compute_overlap_loss_torch(
+    *,
+    activations_by_branch: Dict[str, "Any"],  # Dict[str, torch.Tensor] shape [B, H]
+    beta: float,
+) -> "Any":  # torch.Tensor scalar
+    """
+    Differentiable anti-overlap regularization for training-time integration.
+
+    Expects pooled, L2-normalized activations per prompt:
+      activations_by_branch[b] -> Tensor[B, H]
+    """
+    if beta <= 0:
+        import torch
+
+        return torch.tensor(0.0, dtype=torch.float32)
+
+    branches = sorted(list(activations_by_branch.keys()))
+    if len(branches) <= 1:
+        import torch
+
+        return torch.tensor(0.0, dtype=torch.float32)
+
+    import torch
+
+    # Mean pairwise cosine similarity over prompts and over branch pairs.
+    total = torch.tensor(0.0, device=next(iter(activations_by_branch.values())).device)
+    count = 0
+    for i in range(len(branches)):
+        for j in range(i + 1, len(branches)):
+            b1, b2 = branches[i], branches[j]
+            a1 = activations_by_branch[b1]  # [B, H]
+            a2 = activations_by_branch[b2]  # [B, H]
+            # Since vectors are L2-normalized, cosine similarity = dot product.
+            cos_per_prompt = (a1 * a2).sum(dim=-1)  # [B]
+            total = total + cos_per_prompt.mean()
+            count += 1
+    mean_sim = total / max(1, count)
+    return mean_sim * float(beta)
+
+
 def _mean_cosine_similarity(a_list: List[List[float]], b_list: List[List[float]]) -> float:
     import math
 

@@ -6,7 +6,7 @@ seed: 2026
 paths:
   project_root: "."
   processed_stream_dir: "data/processed"
-  processed_stream_file: ""
+  processed_stream_file: "citb_cl_dialogue_tasks_train50_eval10.json"
   assets_dir: "assets"
   results_dir: "results"
 

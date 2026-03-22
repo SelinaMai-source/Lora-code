@@ -9,7 +9,8 @@ from core.data import Example, Segment
 
 @dataclass
 class ReplayItem:
-    prompt: str
+    instruction: str
+    input_text: str
     target: str
 
 
@@ -68,8 +69,8 @@ class ReplayLoRAMethod:
         return metrics
 
     def _add_to_buffer(self, pairs: List[Tuple[str, str]], targets: List[str]) -> None:
-        for (prompt, _), y in zip(pairs, targets):
-            self._buffer.append(ReplayItem(prompt=prompt, target=y))
+        for (instruction, input_text), y in zip(pairs, targets):
+            self._buffer.append(ReplayItem(instruction=instruction, input_text=input_text, target=y))
         # keep buffer size
         if len(self._buffer) > self.buffer_size:
             overflow = len(self._buffer) - self.buffer_size
@@ -89,7 +90,7 @@ class ReplayLoRAMethod:
             return pairs, targets
 
         replay_items = random.sample(self._buffer, k=num_replay)
-        replay_pairs = [(it.prompt, "") for it in replay_items]
+        replay_pairs = [(it.instruction, it.input_text) for it in replay_items]
         replay_targets = [it.target for it in replay_items]
 
         mixed_pairs = pairs + replay_pairs
@@ -101,17 +102,9 @@ def _to_pairs(examples: List[Example]) -> Tuple[List[Tuple[str, str]], List[str]
     pairs: List[Tuple[str, str]] = []
     targets: List[str] = []
     for ex in examples:
-        prompt = _format_prompt(ex.instruction, ex.input)
-        pairs.append((prompt, ex.input))
+        pairs.append((ex.instruction, ex.input))
         targets.append(ex.output)
     return pairs, targets
-
-
-def _format_prompt(instruction: str, input_text: str) -> str:
-    input_text = (input_text or "").strip()
-    if input_text:
-        return f"指令：{instruction}\n输入：{input_text}\n输出："
-    return f"指令：{instruction}\n输出："
 
 
 def _batch(pairs: List[Tuple[str, str]], targets: List[str], batch_size: int):
