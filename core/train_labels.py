@@ -9,7 +9,7 @@ Supports:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 from core.formatting import format_for_infer, format_for_train
 
@@ -24,6 +24,50 @@ class SupervisedEncoding:
     """First supervised index when using completion_only template search (same as manual when aligned)."""
     prompt_text: str
     full_text: str
+
+
+def supervised_span_from_labels(
+    *,
+    tokenizer: Any,
+    full_ids: List[int],
+    labels: List[int],
+    preview_tokens: int = 5,
+) -> Dict[str, Any]:
+    """
+    Recover canonical supervised-span information from the *final* training labels.
+
+    Why this exists:
+    - The canonical "gold first token" for diagnosis should come from the exact span
+      that the model is trained on (`labels != -100`), not from re-tokenizing raw
+      answer text.
+    - Raw answer tokenization can differ at boundaries (leading space, wrapper text,
+      prompt/template concatenation), while `labels` is the authoritative supervision
+      contract actually used in loss computation.
+    """
+    n = min(len(full_ids), len(labels))
+    sup_positions = [i for i, lab in enumerate(labels[:n]) if int(lab) != -100]
+    if not sup_positions:
+        return {
+            "first_supervised_token_position": int(n),
+            "first_supervised_token_id": None,
+            "first_supervised_token_text": "",
+            "first_supervised_preview_token_ids": [],
+            "first_supervised_preview_token_texts": [],
+            "num_supervised_tokens": 0,
+        }
+    first_pos = int(sup_positions[0])
+    first_id = int(full_ids[first_pos])
+    preview_pos = sup_positions[: max(1, int(preview_tokens))]
+    preview_ids = [int(full_ids[p]) for p in preview_pos]
+    preview_texts = [tokenizer.convert_ids_to_tokens([tid])[0] for tid in preview_ids]
+    return {
+        "first_supervised_token_position": first_pos,
+        "first_supervised_token_id": first_id,
+        "first_supervised_token_text": tokenizer.convert_ids_to_tokens([first_id])[0],
+        "first_supervised_preview_token_ids": preview_ids,
+        "first_supervised_preview_token_texts": preview_texts,
+        "num_supervised_tokens": int(len(sup_positions)),
+    }
 
 
 def _find_subsequence(haystack: List[int], needle: List[int]) -> int:

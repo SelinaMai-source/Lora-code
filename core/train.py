@@ -7,6 +7,7 @@ import json
 import shutil
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+import yaml
 
 # Allow running as: `python core/train.py --config ...` without requiring package installs.
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +23,7 @@ from core.methods.router import Router
 from core.models.base_model import build_backbone
 from core.models.lora_wrapper import build_lora_wrapper
 from core.formatting import format_for_infer
+from core.run_artifacts import collect_overfit_stale_artifacts, init_overfit_run_manifest, manifest_add_artifact
 from core.utils import RunPaths, SimpleLogger, ensure_dir, load_yaml_config, make_run_paths, save_json, save_csv, set_seed
 
 
@@ -31,6 +33,7 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_yaml_config(args.config)
+    cfg["__config_path__"] = str(Path(args.config).resolve())
     mode = str(cfg.get("mode", "")).strip()
     if mode not in {"debug", "baseline", "ours"}:
         raise ValueError(f"Invalid mode={mode}. Expected one of: debug | baseline | ours")
@@ -48,8 +51,9 @@ def main() -> None:
     logger.log(f"Mode: {mode}")
     logger.log(f"Run ID: {run_paths.run_id}")
 
-    # Snapshot config for reproducibility
-    save_json(str(Path(run_paths.run_dir) / "config_snapshot.json"), cfg)
+    # Snapshot config for reproducibility (yaml preferred for readability).
+    config_snapshot_path = Path(run_paths.run_dir) / "config_snapshot.yaml"
+    config_snapshot_path.write_text(yaml.safe_dump(cfg, sort_keys=True, allow_unicode=True), encoding="utf-8")
 
     stream = _load_stream(cfg, mode=mode, logger=logger)
     logger.log(f"Loaded stream: benchmark={stream.benchmark} version={stream.version} segments={len(stream.stream)}")
@@ -749,6 +753,18 @@ def _run_overfit_8_mode(
     lr = float((cfg.get("train", {}) or {}).get("lr", 2e-4))
     out_dir = Path(run_paths.run_dir) / "debug" / "overfit8"
     ensure_dir(str(out_dir))
+    config_snapshot_path = Path(run_paths.run_dir) / "config_snapshot.yaml"
+    manifest_path = out_dir / "run_manifest.json"
+    run_manifest = init_overfit_run_manifest(
+        cfg=cfg,
+        run_id=run_paths.run_id,
+        config_path=str(cfg.get("__config_path__", "")),
+        config_snapshot_path=str(config_snapshot_path),
+        run_dir=Path(run_paths.run_dir),
+        debug_tools=debug_tools,
+    )
+    manifest_add_artifact(run_manifest, manifest_path)
+    manifest_add_artifact(run_manifest, config_snapshot_path)
     ckpt_root = out_dir / "lora_ckpt"
     state_path = out_dir / "overfit_state.json"
     csv_path = out_dir / "overfit8_steps.csv"
@@ -756,14 +772,18 @@ def _run_overfit_8_mode(
     fresh = bool(debug_tools.get("overfit_fresh_start", False))
     decode_only = bool(debug_tools.get("overfit_decode_ablation_only", False))
     if fresh and not resume and not decode_only:
-        if ckpt_root.is_dir():
-            shutil.rmtree(ckpt_root, ignore_errors=True)
-        for p in (state_path, csv_path):
-            if p.is_file():
-                p.unlink()
-        for p in (out_dir / "first_token_margin_over_time.csv", out_dir / "prefix_rollout_summary.csv"):
-            if p.is_file():
-                p.unlink()
+        stale = collect_overfit_stale_artifacts(out_dir)
+        logger.log(f"[overfit8][fresh_start][dry_run] will remove {len(stale)} artifact(s):")
+        for p in stale:
+            logger.log(f"[overfit8][fresh_start][dry_run] - {p}")
+        for p in stale:
+            try:
+                if p.is_dir():
+                    shutil.rmtree(p, ignore_errors=True)
+                elif p.is_file():
+                    p.unlink()
+            except Exception as e:
+                logger.log(f"[overfit8][fresh_start] failed to remove {p}: {e}")
 
     snapshot_every = int(debug_tools.get("overfit_checkpoint_every", 0))
     if snapshot_every <= 0:
@@ -870,6 +890,9 @@ def _run_overfit_8_mode(
             max_new_tokens=overfit_gen_max_new_tokens,
             normalization_cfg=normalization_cfg,
         )
+        manifest_add_artifact(run_manifest, out_dir / "decode_ablation.json")
+        manifest_add_artifact(run_manifest, out_dir / "decode_ablation.csv")
+        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
         logger.log("[overfit8] Wrote decode_ablation.json / decode_ablation.csv (decode_ablation_only).")
         return
 
@@ -884,6 +907,7 @@ def _run_overfit_8_mode(
     if start_step == 1 and not resume and hasattr(lora, "save_adapter_checkpoint"):
         ensure_dir(str(ckpt_root))
         lora.save_adapter_checkpoint(ladder_init_path)
+        manifest_add_artifact(run_manifest, Path(ladder_init_path))
         logger.log(f"[overfit8] Saved ladder_init adapter (pre-training) to {ladder_init_path}")
 
     if (
@@ -991,6 +1015,7 @@ def _run_overfit_8_mode(
             row["token_f1_mean"] = float(sum(token_f1_list) / max(1, len(token_f1_list)))
             row["lcs_overlap_mean"] = float(sum(lcs_list) / max(1, len(lcs_list)))
             save_json(str(out_dir / f"step_{step:04d}_predictions.json"), side_by_side)
+            manifest_add_artifact(run_manifest, out_dir / f"step_{step:04d}_predictions.json")
             row["exact_match_count"] = int(exact_match_cnt)
             row["prefix1_acc"] = float(prefix1_match_cnt / max(1, len(side_by_side)))
             row["prefix3_acc"] = float(prefix3_match_cnt / max(1, len(side_by_side)))
@@ -1028,6 +1053,8 @@ def _run_overfit_8_mode(
                         examples=train_subset,
                         infer_prompts=infer_prompts,
                         backbone=backbone,
+                        pairs=pairs,
+                        first_token_gold_source=str(debug_tools.get("first_token_gold_source", "supervised_span")),
                     )
                 if run_prefix_rollout:
                     run_prefix_rollout_step(
@@ -1039,20 +1066,33 @@ def _run_overfit_8_mode(
                         max_new_tokens=overfit_gen_max_new_tokens,
                         normalization_cfg=normalization_cfg,
                     )
+                manifest_add_artifact(run_manifest, out_dir / f"step_{step:04d}_failure_analysis.json")
+                manifest_add_artifact(run_manifest, out_dir / f"step_{step:04d}_failure_summary.csv")
+                manifest_add_artifact(run_manifest, out_dir / f"step_{step:04d}_first_token_audit.json")
+                manifest_add_artifact(run_manifest, out_dir / f"step_{step:04d}_first_token_gold_source_compare.json")
+                manifest_add_artifact(run_manifest, out_dir / "first_token_gold_source_compare.csv")
+                manifest_add_artifact(run_manifest, out_dir / "first_token_margin_over_time.csv")
+                manifest_add_artifact(run_manifest, out_dir / f"step_{step:04d}_prefix_rollout.json")
+                manifest_add_artifact(run_manifest, out_dir / "prefix_rollout_summary.csv")
 
         state_path.write_text(
             json.dumps({"last_completed_step": step, "overfit_steps": steps}, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
         save_csv(str(csv_path), per_step_rows)
+        manifest_add_artifact(run_manifest, state_path)
+        manifest_add_artifact(run_manifest, csv_path)
         # Always refresh latest/ each step so resume matches overfit_state.json.
         if hasattr(lora, "save_adapter_checkpoint"):
             ensure_dir(str(ckpt_root))
             lora.save_adapter_checkpoint(str(ckpt_root / "latest"))
+            manifest_add_artifact(run_manifest, ckpt_root / "latest")
         if snapshot_every > 0 and (step % snapshot_every == 0 or step == steps or step == 1):
             ensure_dir(str(ckpt_root))
             if hasattr(lora, "save_adapter_checkpoint"):
                 lora.save_adapter_checkpoint(str(ckpt_root / f"step_{step:06d}"))
+                manifest_add_artifact(run_manifest, ckpt_root / f"step_{step:06d}")
+        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     save_csv(str(csv_path), per_step_rows)
 
@@ -1060,6 +1100,7 @@ def _run_overfit_8_mode(
     if diag_enabled and (run_decode_ablation or run_overfit_ladder) and hasattr(lora, "save_adapter_checkpoint"):
         ensure_dir(str(ckpt_root))
         lora.save_adapter_checkpoint(post_overfit_adapter)
+        manifest_add_artifact(run_manifest, Path(post_overfit_adapter))
         logger.log(f"[overfit8] Saved post-overfit adapter for decode/ladder restore: {post_overfit_adapter}")
 
     if diag_enabled and run_decode_ablation:
@@ -1076,6 +1117,8 @@ def _run_overfit_8_mode(
             max_new_tokens=overfit_gen_max_new_tokens,
             normalization_cfg=normalization_cfg,
         )
+        manifest_add_artifact(run_manifest, out_dir / "decode_ablation.json")
+        manifest_add_artifact(run_manifest, out_dir / "decode_ablation.csv")
         logger.log("[overfit8] Wrote decode_ablation.json / decode_ablation.csv")
 
     if diag_enabled and run_overfit_ladder:
@@ -1101,6 +1144,7 @@ def _run_overfit_8_mode(
             out_csv=out_dir / "overfit_ladder.csv",
             logger=logger,
         )
+        manifest_add_artifact(run_manifest, out_dir / "overfit_ladder.csv")
         logger.log("[overfit8] Wrote overfit_ladder.csv")
 
     if diag_enabled and Path(post_overfit_adapter).is_dir() and hasattr(lora, "load_adapter_checkpoint"):
@@ -1113,11 +1157,12 @@ def _run_overfit_8_mode(
         results_dir = str(cfg.get("paths", {}).get("results_dir", "results"))
         experiment_name = str(cfg.get("experiment_name", "experiment"))
         write_sequence_behavior_report(
-            run_dir=Path(run_paths.run_dir),
+            run_manifest_path=manifest_path,
             results_dir=Path(results_dir),
             experiment_name=experiment_name,
             run_id=run_paths.run_id,
         )
+        manifest_add_artifact(run_manifest, Path(results_dir) / "debug_report_sequence_behavior_diagnosis.md")
         logger.log(
             f"[overfit8] Wrote sequence behavior report: "
             f"{Path(results_dir) / 'debug_report_sequence_behavior_diagnosis.md'}"
@@ -1133,6 +1178,7 @@ def _run_overfit_8_mode(
                 out_path=str(out_dir / "teacher_forced_audit_final.json"),
                 strict_assertions=bool(debug_tools.get("strict_teacher_metric_assertions", False)),
             )
+            manifest_add_artifact(run_manifest, out_dir / "teacher_forced_audit_final.json")
 
     # Final A/B generation prompt ablation on the same 8 overfit samples.
     # Variant A: add_generation_prompt=True
@@ -1179,6 +1225,7 @@ def _run_overfit_8_mode(
                 {"variant": "B_add_generation_prompt_false", **m_b},
             ],
         )
+        manifest_add_artifact(run_manifest, generation_ablation_out_csv)
 
         cont_head_rows: List[Dict[str, Any]] = []
         head_match_cnt = 0
@@ -1209,6 +1256,10 @@ def _run_overfit_8_mode(
             ),
             encoding="utf-8",
         )
+        manifest_add_artifact(run_manifest, generation_ablation_out_cont_json)
+    manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 
 
 if __name__ == "__main__":

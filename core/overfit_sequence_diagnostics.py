@@ -19,6 +19,7 @@ from core.sequence_behavior_diag import (
     failure_summary_row,
     summarize_failure_records,
 )
+from core.train_labels import build_supervised_labels, supervised_span_from_labels
 
 
 def _append_csv(path: Path, row: Dict[str, Any], fieldnames: Sequence[str]) -> None:
@@ -115,15 +116,18 @@ def hf_first_token_audit_one(
     backbone: Any,
     infer_prompt: str,
     gold_output: str,
+    supervised_gold: Optional[Dict[str, Any]],
     sample_id: int,
+    gold_source: str,
 ) -> Dict[str, Any]:
     """
     First-token audit at the **first generation step** (open-loop), aligned with `generate()` step 1.
 
     - **Position:** `logits = model(...).logits[0, -1, :]` — distribution for the token **after** the last
       prompt token (same as the first sampled/argmax token in HF `generate` given this `input_ids`).
-    - **Gold token:** `tokenizer.encode(gold_output, add_special_tokens=False)[0]` — first token of the
-      reference answer string.
+    - **Gold token:** selectable source:
+      - `raw_text`: first token from `tokenizer.encode(gold_output, add_special_tokens=False)`
+      - `supervised_span`: first token from the final training supervision span (`labels != -100`)
     - **gold_token_rank:** **0-based** index in logits sorted descending; **0 == top-1 (greedy choice)**.
       `gold_equals_greedy` is True iff `gold_token_rank == 0` (same as `gold_token_id == argmax(logits)`).
     """
@@ -141,13 +145,26 @@ def hf_first_token_audit_one(
     )
     input_ids = enc["input_ids"].to(device)
     attention_mask = enc["attention_mask"].to(device)
-    gold_ids = tok.encode(str(gold_output or ""), add_special_tokens=False)
-    if not gold_ids:
-        return {
-            "sample_id": sample_id,
-            "error": "empty_gold_tokenization",
-        }
-    gold_first_id = int(gold_ids[0])
+    src = str(gold_source or "supervised_span").strip().lower()
+    if src == "supervised_span":
+        if not supervised_gold or supervised_gold.get("first_supervised_token_id") is None:
+            return {
+                "sample_id": sample_id,
+                "error": "empty_supervised_span",
+            }
+        gold_first_id = int(supervised_gold["first_supervised_token_id"])
+        gold_token_text = str(supervised_gold.get("first_supervised_token_text", ""))
+        gold_source_detail = "supervised_span"
+    else:
+        gold_ids = tok.encode(str(gold_output or ""), add_special_tokens=False)
+        if not gold_ids:
+            return {
+                "sample_id": sample_id,
+                "error": "empty_gold_tokenization",
+            }
+        gold_first_id = int(gold_ids[0])
+        gold_token_text = tok.convert_ids_to_tokens([gold_first_id])[0]
+        gold_source_detail = "raw_text"
     was_training = model.training
     model.eval()
     with torch.no_grad():
@@ -176,8 +193,9 @@ def hf_first_token_audit_one(
         model.train()
     return {
         "sample_id": int(sample_id),
+        "gold_source": gold_source_detail,
         "gold_token_id": gold_first_id,
-        "gold_token_text": tok.convert_ids_to_tokens([gold_first_id])[0],
+        "gold_token_text": gold_token_text,
         "greedy_token_id": greedy_id,
         "greedy_token_text": tok.convert_ids_to_tokens([greedy_id])[0],
         "gold_token_rank": rank,
@@ -200,19 +218,93 @@ def run_first_token_audit_step(
     examples: Sequence[Example],
     infer_prompts: Sequence[str],
     backbone: Any,
+    pairs: Sequence[Tuple[str, str]],
+    first_token_gold_source: str = "supervised_span",
 ) -> None:
     rows: List[Dict[str, Any]] = []
-    for i, (ex, pr) in enumerate(zip(examples, infer_prompts)):
-        row = hf_first_token_audit_one(backbone, pr, ex.output or "", i)
+    source_cmp_rows: List[Dict[str, Any]] = []
+    cfg = getattr(backbone, "cfg", None)
+    if cfg is None:
+        raise RuntimeError("backbone.cfg is required for supervised_span first-token audit")
+    for i, (ex, pr, pair) in enumerate(zip(examples, infer_prompts, pairs)):
+        ins, inp = pair
+        supervised_enc = build_supervised_labels(
+            backbone.tokenizer,
+            str(ins),
+            str(inp),
+            str(ex.output or ""),
+            max_len=int(cfg.max_seq_len),
+            min_target_tokens=int(cfg.min_target_tokens_for_loss),
+            mask_eos_token_in_labels=bool(cfg.mask_eos_token_in_labels),
+            mask_all_special_tokens_in_labels=bool(cfg.mask_all_special_tokens_in_labels),
+            labeling_mode=str(cfg.train_labeling_mode),
+            completion_only_response_template=str(cfg.completion_only_response_template),
+        )
+        supervised_gold = supervised_span_from_labels(
+            tokenizer=backbone.tokenizer,
+            full_ids=supervised_enc.full_ids,
+            labels=supervised_enc.labels,
+            preview_tokens=5,
+        )
+        row = hf_first_token_audit_one(
+            backbone,
+            pr,
+            ex.output or "",
+            supervised_gold,
+            i,
+            first_token_gold_source,
+        )
         row["step"] = int(step)
+        row["first_token_gold_source"] = str(first_token_gold_source)
+        row.update(
+            {
+                "supervised_first_token_position": supervised_gold.get("first_supervised_token_position"),
+                "supervised_first_token_id": supervised_gold.get("first_supervised_token_id"),
+                "supervised_first_token_text": supervised_gold.get("first_supervised_token_text"),
+                "supervised_preview_token_ids": supervised_gold.get("first_supervised_preview_token_ids", []),
+                "supervised_preview_token_texts": supervised_gold.get("first_supervised_preview_token_texts", []),
+            }
+        )
         rows.append(row)
+        # Compare raw tokenization variants vs supervised span gold.
+        tok = backbone.tokenizer
+        raw = str(ex.output or "")
+        raw_ls = raw.lstrip()
+        variants = {
+            "raw_text": tok.encode(raw, add_special_tokens=False),
+            "lstrip_raw_text": tok.encode(raw_ls, add_special_tokens=False),
+            "space_plus_lstrip_raw_text": tok.encode(" " + raw_ls, add_special_tokens=False),
+        }
+        cmp_row: Dict[str, Any] = {
+            "step": int(step),
+            "sample_id": int(i),
+            "supervised_first_token_id": supervised_gold.get("first_supervised_token_id"),
+            "supervised_first_token_text": supervised_gold.get("first_supervised_token_text", ""),
+        }
+        for name, ids in variants.items():
+            first_id = int(ids[0]) if ids else None
+            first_text = tok.convert_ids_to_tokens([first_id])[0] if first_id is not None else ""
+            cmp_row[f"{name}_first_token_id"] = first_id
+            cmp_row[f"{name}_first_token_text"] = first_text
+            cmp_row[f"{name}_matches_supervised"] = bool(
+                first_id is not None and first_id == supervised_gold.get("first_supervised_token_id")
+            )
+        source_cmp_rows.append(cmp_row)
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"step_{step:04d}_first_token_audit.json").write_text(
         json.dumps({"step": step, "samples": rows}, ensure_ascii=False, indent=2), encoding="utf-8"
     )
+    (out_dir / f"step_{step:04d}_first_token_gold_source_compare.json").write_text(
+        json.dumps({"step": step, "samples": source_cmp_rows}, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    from core.utils import save_csv
+
+    save_csv(str(out_dir / "first_token_gold_source_compare.csv"), source_cmp_rows)
     ft_fields = (
         "step",
         "sample_id",
+        "gold_source",
+        "first_token_gold_source",
         "gold_token_id",
         "gold_token_text",
         "greedy_token_id",
@@ -227,6 +319,11 @@ def run_first_token_audit_step(
         "top5_token_texts",
         "top5_token_probs",
         "gold_equals_greedy",
+        "supervised_first_token_position",
+        "supervised_first_token_id",
+        "supervised_first_token_text",
+        "supervised_preview_token_ids",
+        "supervised_preview_token_texts",
     )
     csv_path = out_dir / "first_token_margin_over_time.csv"
     for r in rows:
@@ -237,6 +334,8 @@ def run_first_token_audit_step(
             {
                 "step": r["step"],
                 "sample_id": r["sample_id"],
+                "gold_source": r.get("gold_source", ""),
+                "first_token_gold_source": r.get("first_token_gold_source", ""),
                 "gold_token_id": r["gold_token_id"],
                 "gold_token_text": r["gold_token_text"],
                 "greedy_token_id": r["greedy_token_id"],
@@ -251,6 +350,13 @@ def run_first_token_audit_step(
                 "top5_token_texts": json.dumps(r["top5_token_texts"], ensure_ascii=False),
                 "top5_token_probs": json.dumps(r["top5_token_probs"], ensure_ascii=False),
                 "gold_equals_greedy": r["gold_equals_greedy"],
+                "supervised_first_token_position": r.get("supervised_first_token_position"),
+                "supervised_first_token_id": r.get("supervised_first_token_id"),
+                "supervised_first_token_text": r.get("supervised_first_token_text", ""),
+                "supervised_preview_token_ids": json.dumps(r.get("supervised_preview_token_ids", []), ensure_ascii=False),
+                "supervised_preview_token_texts": json.dumps(
+                    r.get("supervised_preview_token_texts", []), ensure_ascii=False
+                ),
             },
             ft_fields,
         )
@@ -518,13 +624,29 @@ def run_overfit_ladder(
 
 def write_sequence_behavior_report(
     *,
-    run_dir: Path,
+    run_manifest_path: Path,
     results_dir: Path,
     experiment_name: str,
     run_id: str,
 ) -> None:
-    """Aggregate diagnostics into a single markdown report (best-effort from CSV/JSON)."""
-    overfit8 = run_dir / "debug" / "overfit8"
+    """Aggregate diagnostics into a single markdown report using run manifest only."""
+    manifest: Dict[str, Any] = {}
+    if run_manifest_path.is_file():
+        try:
+            manifest = json.loads(run_manifest_path.read_text(encoding="utf-8"))
+        except Exception:
+            manifest = {}
+    artifacts = manifest.get("artifacts_generated_in_run", [])
+    art_set = {str(p) for p in artifacts} if isinstance(artifacts, list) else set()
+
+    def _manifest_path(name: str) -> Optional[Path]:
+        for p in sorted(art_set):
+            pp = Path(p)
+            if pp.name == name:
+                return pp
+        return None
+
+    overfit8 = run_manifest_path.parent
     lines: List[str] = [
         "# Sequence behavior diagnosis report",
         "",
@@ -552,7 +674,7 @@ def write_sequence_behavior_report(
         "surface form, stop/over-gen, or content.",
         "",
     ]
-    summaries = sorted(overfit8.glob("step_*_failure_summary.csv"))
+    summaries = sorted(Path(p) for p in art_set if Path(p).name.endswith("_failure_summary.csv"))
     last_summary_row: Optional[Dict[str, str]] = None
     if summaries:
         last = summaries[-1]
@@ -589,12 +711,12 @@ def write_sequence_behavior_report(
     lines.extend(["", "### Q1 answer (from latest failure summary)", "", q1_answer or "_No summary row._", ""])
 
     lines.extend(["", "## Q2 — First-token margin: rank, prob gap, logit margin", ""])
-    ft_csv = overfit8 / "first_token_margin_over_time.csv"
+    ft_csv = _manifest_path("first_token_margin_over_time.csv")
     ranks: List[int] = []
     margins: List[float] = []
     gold_probs: List[float] = []
     greedy_probs: List[float] = []
-    if ft_csv.is_file():
+    if ft_csv is not None and ft_csv.is_file():
         with ft_csv.open(encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 try:
@@ -641,8 +763,8 @@ def write_sequence_behavior_report(
     else:
         lines.append("_No first_token_margin_over_time.csv._")
     lines.extend(["", "## Q3 — Prefix rollouts: does forcing 1/3/5 gold tokens fix generation?", ""])
-    pr_csv = overfit8 / "prefix_rollout_summary.csv"
-    if pr_csv.is_file():
+    pr_csv = _manifest_path("prefix_rollout_summary.csv")
+    if pr_csv is not None and pr_csv.is_file():
         by_pl: Dict[str, List[Dict[str, str]]] = {}
         with pr_csv.open(encoding="utf-8") as f:
             for row in csv.DictReader(f):
@@ -674,8 +796,8 @@ def write_sequence_behavior_report(
     else:
         lines.append("_No prefix_rollout_summary.csv._")
     lines.extend(["", "## Q4 — Decode ablation: does beam beat greedy?", ""])
-    dab = overfit8 / "decode_ablation.csv"
-    if dab.is_file():
+    dab = _manifest_path("decode_ablation.csv")
+    if dab is not None and dab.is_file():
         with dab.open(encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 lines.append(
@@ -693,9 +815,9 @@ def write_sequence_behavior_report(
     else:
         lines.append("_No decode_ablation.csv._")
     lines.extend(["", "## Q5 — Overfit ladder: when does behavior break (1/2/4/8)?", ""])
-    lad = overfit8 / "overfit_ladder.csv"
+    lad = _manifest_path("overfit_ladder.csv")
     ladder_break = "unknown (missing CSV)"
-    if lad.is_file():
+    if lad is not None and lad.is_file():
         rows = list(csv.DictReader(lad.open(encoding="utf-8")))
         for row in rows:
             raw_c = row.get("raw_em_count", row.get("baseline_normalize_em_count", ""))
@@ -741,7 +863,7 @@ def write_sequence_behavior_report(
     )
     bottleneck = "deeper sequence-level behavior mismatch not solved by token-level fitting"
     ranks_for_q6 = ranks if ranks else []
-    if ft_csv.is_file() and pr_csv.is_file():
+    if (ft_csv is not None and ft_csv.is_file()) and (pr_csv is not None and pr_csv.is_file()):
         try:
             mean_r = sum(ranks_for_q6) / max(1, len(ranks_for_q6))
             p0 = p1 = None
@@ -767,7 +889,7 @@ def write_sequence_behavior_report(
                     pass
             if mean_r > 8:
                 bottleneck = "first-token margin too weak"
-            if dab.is_file():
+            if dab is not None and dab.is_file():
                 drows = list(csv.DictReader(dab.open(encoding="utf-8")))
                 if len(drows) >= 2:
                     g = drows[0].get("normalized_em_count", 0)

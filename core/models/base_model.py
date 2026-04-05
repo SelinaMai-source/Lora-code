@@ -9,6 +9,37 @@ from core.causal_lm_metrics import (
     teacher_forced_token_accuracy_shifted,
 )
 from core.train_labels import build_supervised_labels
+from core.formatting import format_for_infer
+
+
+def apply_prefix_mixing_to_supervised_tokens(
+    *,
+    full_ids: List[int],
+    labels: List[int],
+    self_prefix_ids: List[int],
+    prefix_k: int,
+) -> Dict[str, Any]:
+    """
+    Replace first k supervised positions with self-fed token ids.
+
+    Returns a dict with mixed ids/labels and bookkeeping that can be unit-tested
+    independently from the HF model forward pass.
+    """
+    out_ids = list(full_ids)
+    out_labels = list(labels)
+    sup_positions = [i for i, v in enumerate(out_labels) if int(v) != -100]
+    take = min(max(0, int(prefix_k)), len(sup_positions), len(self_prefix_ids))
+    replaced_positions: List[int] = []
+    for pos, tid in zip(sup_positions[:take], self_prefix_ids[:take]):
+        out_ids[pos] = int(tid)
+        out_labels[pos] = int(tid)
+        replaced_positions.append(int(pos))
+    return {
+        "mixed_full_ids": out_ids,
+        "mixed_labels": out_labels,
+        "replaced_positions": replaced_positions,
+        "effective_k": int(take),
+    }
 
 
 class BaseBackbone:
@@ -198,6 +229,11 @@ class HFCausalLMConfig:
     # manual: mask by infer-prompt token length; completion_only: mask through response_template (HF/TRL-style)
     train_labeling_mode: str = "manual"
     completion_only_response_template: str = "<|start_header_id|>assistant<|end_header_id|>\n\n"
+    # Minimal exposure-bias mitigation hook (debug-oriented, deterministic greedy only).
+    enable_scheduled_sampling_prefix_mixing: bool = False
+    scheduled_sampling_prefix_k: int = 0
+    scheduled_sampling_apply_every_n_steps: int = 1
+    scheduled_sampling_debug_log: bool = True
 
 
 class HFCausalLMBackbone(BaseBackbone):
@@ -221,6 +257,7 @@ class HFCausalLMBackbone(BaseBackbone):
         # Token-level alignment audit (append until we hit max_examples, then write once).
         self._alignment_token_audit_rows: List[Dict[str, Any]] = []
         self._alignment_token_audit_written: bool = False
+        self._fit_step_counter: int = 0
 
         # Tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(cfg.hf_model_name_or_path, use_fast=True)
@@ -295,6 +332,11 @@ class HFCausalLMBackbone(BaseBackbone):
         attn_list: List[List[int]] = []
         decoded_supervised_spans: List[str] = []
         supervised_positions_per_example: List[List[int]] = []
+        self._fit_step_counter += 1
+        use_sched = bool(self.cfg.enable_scheduled_sampling_prefix_mixing) and int(self.cfg.scheduled_sampling_prefix_k) > 0
+        apply_every = max(1, int(self.cfg.scheduled_sampling_apply_every_n_steps))
+        apply_sched_this_step = use_sched and (self._fit_step_counter % apply_every == 0)
+        scheduled_sampling_applied_count = 0
 
         for ins, inp, tgt in zip(instructions, input_texts, targets):
             enc = build_supervised_labels(
@@ -309,6 +351,17 @@ class HFCausalLMBackbone(BaseBackbone):
                 labeling_mode=str(self.cfg.train_labeling_mode),
                 completion_only_response_template=str(self.cfg.completion_only_response_template),
             )
+            if apply_sched_this_step:
+                mixed = self._build_scheduled_sampling_mixed_encoding(
+                    instruction=ins,
+                    input_text=inp,
+                    target=str(tgt),
+                    base_enc=enc,
+                    prefix_k=max(0, int(self.cfg.scheduled_sampling_prefix_k)),
+                )
+                if mixed is not None:
+                    enc = mixed
+                    scheduled_sampling_applied_count += 1
             prompt_texts.append(enc.prompt_text)
             full_texts.append(enc.full_text)
             full_ids = enc.full_ids
@@ -521,7 +574,86 @@ class HFCausalLMBackbone(BaseBackbone):
             "num_supervised_tokens": int(supervised_tokens),
             "num_loss_tokens": int(num_loss_tokens),
             "lr": float(self._last_lr),
+            "scheduled_sampling_applied_examples": int(scheduled_sampling_applied_count),
         }
+
+    def _build_scheduled_sampling_mixed_encoding(
+        self,
+        *,
+        instruction: str,
+        input_text: str,
+        target: str,
+        base_enc: Any,
+        prefix_k: int,
+    ) -> Optional[Any]:
+        """
+        Minimal exposure-bias mitigation hook:
+        - Greedily self-generate up to `prefix_k` answer-prefix tokens from infer prompt.
+        - Replace first k supervised gold tokens with those self-fed tokens.
+        - Keep supervision mask unchanged (prompt still unsupervised).
+
+        This is intentionally conservative and debug-oriented; it is not a full
+        scheduled-sampling research implementation.
+        """
+        import torch
+
+        if prefix_k <= 0:
+            return None
+        labels = list(base_enc.labels)
+        full_ids = list(base_enc.full_ids)
+        sup_positions = [i for i, v in enumerate(labels) if int(v) != -100]
+        if not sup_positions:
+            return None
+        take = min(int(prefix_k), len(sup_positions))
+        prompt_text = format_for_infer(self.tokenizer, instruction, input_text, add_generation_prompt=True)
+        enc = self.tokenizer(
+            prompt_text,
+            return_tensors="pt",
+            add_special_tokens=True,
+            truncation=True,
+            max_length=int(self.cfg.max_seq_len),
+        )
+        input_ids = enc["input_ids"].to(self.device)
+        attention_mask = enc["attention_mask"].to(self.device)
+        was_training = bool(self.model.training)
+        self.model.eval()
+        generated: List[int] = []
+        with torch.no_grad():
+            for _ in range(take):
+                out = self.model(input_ids=input_ids, attention_mask=attention_mask, return_dict=True)
+                next_id = int(torch.argmax(out.logits[0, -1]).item())
+                generated.append(next_id)
+                next_t = torch.tensor([[next_id]], dtype=input_ids.dtype, device=self.device)
+                input_ids = torch.cat([input_ids, next_t], dim=1)
+                attention_mask = torch.cat(
+                    [attention_mask, torch.ones((1, 1), dtype=attention_mask.dtype, device=self.device)],
+                    dim=1,
+                )
+        if was_training:
+            self.model.train()
+        mixed = apply_prefix_mixing_to_supervised_tokens(
+            full_ids=full_ids,
+            labels=labels,
+            self_prefix_ids=generated,
+            prefix_k=take,
+        )
+        full_ids = list(mixed["mixed_full_ids"])
+        labels = list(mixed["mixed_labels"])
+        if bool(self.cfg.scheduled_sampling_debug_log):
+            print(
+                "[scheduled_sampling_prefix_mixing] "
+                f"k={prefix_k} effective_k={take} "
+                f"gold_head={sup_positions[:take]} mixed_ids={generated}"
+            )
+        # Reuse metadata from base encoding; only token ids/labels are changed.
+        return type(base_enc)(
+            full_ids=full_ids,
+            labels=labels,
+            manual_prompt_len=int(base_enc.manual_prompt_len),
+            completion_supervise_start=int(base_enc.completion_supervise_start),
+            prompt_text=str(base_enc.prompt_text),
+            full_text=str(base_enc.full_text),
+        )
 
     def _make_generation_config(
         self,
@@ -789,6 +921,10 @@ def build_hf_backbone(model_cfg: Dict[str, Any], *, seed: int) -> BaseBackbone:
         mask_all_special_tokens_in_labels=bool(model_cfg.get("mask_all_special_tokens_in_labels", True)),
         train_labeling_mode=str(model_cfg.get("train_labeling_mode", "manual")),
         completion_only_response_template=str(model_cfg.get("completion_only_response_template", "<|start_header_id|>assistant<|end_header_id|>\n\n")),
+        enable_scheduled_sampling_prefix_mixing=bool(model_cfg.get("enable_scheduled_sampling_prefix_mixing", False)),
+        scheduled_sampling_prefix_k=int(model_cfg.get("scheduled_sampling_prefix_k", 0)),
+        scheduled_sampling_apply_every_n_steps=int(model_cfg.get("scheduled_sampling_apply_every_n_steps", 1)),
+        scheduled_sampling_debug_log=bool(model_cfg.get("scheduled_sampling_debug_log", True)),
         debug_alignment_token_audit_max_examples=int(model_cfg.get("debug_alignment_token_audit_max_examples", 3)),
         debug_print_formatted_examples=bool(model_cfg.get("debug_print_formatted_examples", False)),
         debug_print_tokenized_examples=bool(model_cfg.get("debug_print_tokenized_examples", False)),
