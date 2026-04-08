@@ -49,23 +49,84 @@ class LoRABank:
     def list_branches(self) -> List[str]:
         return list(self._branches.keys())
 
+    def list_frozen_branches(self) -> List[str]:
+        return [name for name, info in self._branches.items() if bool(info.frozen)]
+
+    def list_trainable_branches(self) -> List[str]:
+        return [name for name, info in self._branches.items() if not bool(info.frozen)]
+
+    def is_branch_frozen(self, name: str) -> bool:
+        info = self._branches.get(name)
+        if info is None:
+            raise KeyError(f"Branch '{name}' not found. Existing: {sorted(self._branches)}")
+        return bool(info.frozen)
+
     def freeze_current_branch(self) -> None:
         b = self.get_active_branch()
         self._branches[b].frozen = True
+        if self._lora_wrapper is not None and hasattr(self._lora_wrapper, "freeze_adapter"):
+            self._lora_wrapper.freeze_adapter(b)
+
+    def merge_most_similar_branches(self) -> None:
+        """
+        Find the two most similar frozen branches by cosine similarity of their weights,
+        and merge them using weight averaging to free up capacity.
+        """
+        if self._lora_wrapper is None or not hasattr(self._lora_wrapper, "get_adapter_vector"):
+            return
+        
+        frozen = self.list_frozen_branches()
+        if len(frozen) < 2:
+            return
+            
+        import torch
+        import torch.nn.functional as F
+        
+        vectors = {}
+        for b in frozen:
+            vec = self._lora_wrapper.get_adapter_vector(b)
+            if vec.numel() > 0:
+                vectors[b] = vec
+                
+        if len(vectors) < 2:
+            return
+            
+        best_sim = -float("inf")
+        best_pair = (None, None)
+        
+        frozen_list = list(vectors.keys())
+        for i in range(len(frozen_list)):
+            for j in range(i + 1, len(frozen_list)):
+                b1, b2 = frozen_list[i], frozen_list[j]
+                sim = F.cosine_similarity(vectors[b1].unsqueeze(0), vectors[b2].unsqueeze(0)).item()
+                if sim > best_sim:
+                    best_sim = sim
+                    best_pair = (b1, b2)
+                    
+        keep_name, drop_name = best_pair
+        if keep_name and drop_name:
+            # Merge drop_name into keep_name
+            if hasattr(self._lora_wrapper, "merge_adapters"):
+                self._lora_wrapper.merge_adapters(keep_name, drop_name)
+            del self._branches[drop_name]
 
     def spawn_new_branch(self, *, lora_wrapper: Any, segment_id: int) -> str:
         """
         Create a new branch and switch to it.
-        If max_branches reached, apply a simple policy: do not delete; reuse last branch name with suffix.
-        (Future: implement eviction/merge policy.)
+        If max_branches reached, merge the two most similar frozen branches to free capacity.
         """
 
         self._lora_wrapper = lora_wrapper
         if len(self._branches) >= self.max_branches:
-            # simple deterministic reuse naming to avoid destructive deletes
-            name = f"b{len(self._branches)}_overflow_s{segment_id}"
+            self.merge_most_similar_branches()
+            
+        # Find an available name
+        for i in range(self.max_branches + 100):
+            name = f"b{i}"
+            if name not in self._branches:
+                break
         else:
-            name = f"b{len(self._branches)}"
+            name = f"b{len(self._branches)}_overflow_s{segment_id}"
 
         if name not in lora_wrapper.list_adapters():
             lora_wrapper.create_adapter(name)
@@ -85,10 +146,20 @@ class LoRABank:
             raise RuntimeError("LoRABank has no lora_wrapper reference; initialize/spawn must be called first.")
         self._lora_wrapper.set_active_adapter(name)
 
+    def available_adapters(self) -> List[str]:
+        if self._lora_wrapper is None or not hasattr(self._lora_wrapper, "list_adapters"):
+            return self.list_branches()
+        return list(self._lora_wrapper.list_adapters())
+
+    def has_adapter(self, name: str) -> bool:
+        return name in set(self.available_adapters())
+
     def state_dict(self) -> Dict[str, Any]:
         return {
             "max_branches": self.max_branches,
             "active": self._active,
+            "trainable_branches": self.list_trainable_branches(),
+            "frozen_branches": self.list_frozen_branches(),
             "branches": {k: vars(v) for k, v in self._branches.items()},
         }
 

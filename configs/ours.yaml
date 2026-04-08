@@ -52,9 +52,10 @@ modules:
 
 drift:
   anchor_size: 64
+  anchor_refresh_segments: 1
   monitor_interval: 50
-  calibration_window: 200
-  threshold: 0.15
+  calibration_window: 3
+  threshold: 0.10
   score_ema: 0.9
 
 bank:
@@ -67,6 +68,8 @@ router:
   pseudo_label_strategy: "self_consistency"
   temperature: 1.0
   router_warmup_segments: 1
+  margin_filter_min_gap: 0.0
+  learning_rate: 2.0e-3
 
 overlap:
   beta: 0.1

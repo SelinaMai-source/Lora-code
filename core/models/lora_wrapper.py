@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Set, Union
 
 import torch
 
@@ -41,6 +41,7 @@ class LoRAWrapper:
         self.cfg = cfg
         self._active_adapter_name: str = "default"
         self._adapter_steps: Dict[str, int] = {"default": 0}
+        self._frozen_adapters: Set[str] = set()
 
         if not self.cfg.enabled:
             # Still create a wrapper so downstream code doesn't crash, but do not add adapters.
@@ -89,7 +90,7 @@ class LoRAWrapper:
             # PEFT parameter names typically include: "...lora_A.<adapter_name>..." / "...lora_B.<adapter_name>..."
             for param_name, param in self.peft_model.named_parameters():
                 if "lora_" in param_name:
-                    param.requires_grad = (name in param_name)
+                    param.requires_grad = (name in param_name) and (name not in self._frozen_adapters)
                 else:
                     param.requires_grad = False
 
@@ -139,6 +140,7 @@ class LoRAWrapper:
         )
         self.peft_model.add_adapter(adapter_name=name, peft_config=peft_cfg)
         self._adapter_steps[name] = 0
+        self._frozen_adapters.discard(name)
 
         # New adapter adds new parameters, so rebuild optimizer param groups.
         self._rebuild_optimizer()
@@ -156,6 +158,59 @@ class LoRAWrapper:
         if not self.cfg.enabled or self.peft_model is None:
             return []
         return [p for p in self.peft_model.parameters() if p.requires_grad]
+
+    def freeze_adapter(self, name: str) -> None:
+        if name not in self.list_adapters():
+            raise KeyError(f"Adapter '{name}' not found. Existing: {sorted(self.list_adapters())}")
+        self._frozen_adapters.add(name)
+        if self._active_adapter_name == name:
+            self.set_active_adapter(name)
+
+    def unfreeze_adapter(self, name: str) -> None:
+        self._frozen_adapters.discard(name)
+        if self._active_adapter_name == name:
+            self.set_active_adapter(name)
+
+    def is_adapter_frozen(self, name: str) -> bool:
+        return name in self._frozen_adapters
+
+    def get_adapter_vector(self, name: str) -> torch.Tensor:
+        if not self.cfg.enabled or self.peft_model is None:
+            return torch.tensor([])
+        tensors = []
+        for param_name, param in self.peft_model.named_parameters():
+            if f"lora_A.{name}." in param_name or f"lora_B.{name}." in param_name:
+                tensors.append(param.detach().view(-1))
+        if not tensors:
+            return torch.tensor([])
+        return torch.cat(tensors)
+
+    def merge_adapters(self, keep_name: str, drop_name: str) -> None:
+        if not self.cfg.enabled or self.peft_model is None:
+            return
+        
+        # Average weights from drop_name into keep_name
+        with torch.no_grad():
+            for param_name, param in self.peft_model.named_parameters():
+                if f"lora_A.{keep_name}." in param_name or f"lora_B.{keep_name}." in param_name:
+                    drop_param_name = param_name.replace(f".{keep_name}.", f".{drop_name}.")
+                    # Find drop param
+                    drop_param = None
+                    for n, p in self.peft_model.named_parameters():
+                        if n == drop_param_name:
+                            drop_param = p
+                            break
+                    if drop_param is not None:
+                        param.data = (param.data + drop_param.data) / 2.0
+        
+        # Delete drop_name
+        self.peft_model.delete_adapter(drop_name)
+        if drop_name in self._adapter_steps:
+            del self._adapter_steps[drop_name]
+        self._frozen_adapters.discard(drop_name)
+        if self._active_adapter_name == drop_name:
+            self.set_active_adapter(keep_name)
+        self._rebuild_optimizer()
 
     def step_adapter(self) -> Dict[str, Any]:
         if not self.cfg.enabled or self.peft_model is None or self._optimizer is None:
@@ -225,6 +280,7 @@ class LoRAWrapper:
             "target_modules": tm_out,
             "active_adapter": self._active_adapter_name,
             "adapters": dict(self._adapter_steps),
+            "frozen_adapters": sorted(self._frozen_adapters),
             "total_parameters": int(total_params),
             "trainable_parameters": int(trainable_params),
             "trainable_parameter_names": trainable_names,
@@ -256,6 +312,7 @@ class DebugLoRAWrapper:
         self.cfg = cfg
         self._active_adapter_name: str = "default"
         self._adapter_steps: Dict[str, int] = {"default": 0}
+        self._frozen_adapters: Set[str] = set()
 
     def set_active_adapter(self, name: str) -> None:
         if name not in self._adapter_steps:
@@ -266,12 +323,24 @@ class DebugLoRAWrapper:
         if name in self._adapter_steps:
             raise KeyError(f"Adapter '{name}' already exists.")
         self._adapter_steps[name] = 0
+        self._frozen_adapters.discard(name)
 
     def list_adapters(self) -> List[str]:
         return list(self._adapter_steps.keys())
 
     def trainable_parameters(self) -> List[Any]:
         return []
+
+    def freeze_adapter(self, name: str) -> None:
+        if name not in self._adapter_steps:
+            raise KeyError(f"Adapter '{name}' not found. Existing: {sorted(list(self._adapter_steps.keys()))}")
+        self._frozen_adapters.add(name)
+
+    def unfreeze_adapter(self, name: str) -> None:
+        self._frozen_adapters.discard(name)
+
+    def is_adapter_frozen(self, name: str) -> bool:
+        return name in self._frozen_adapters
 
     def step_adapter(self) -> Dict[str, Any]:
         self._adapter_steps[self._active_adapter_name] = self._adapter_steps.get(self._active_adapter_name, 0) + 1
@@ -302,6 +371,7 @@ class DebugLoRAWrapper:
             "target_modules": tm_out,
             "active_adapter": self._active_adapter_name,
             "adapters": dict(self._adapter_steps),
+            "frozen_adapters": sorted(self._frozen_adapters),
         }
 
 

@@ -29,6 +29,66 @@ class ContinualStream:
     stream: List[Segment]
 
 
+@dataclass(frozen=True)
+class ProcessedStreamSpec:
+    stream_name: str
+    aliases: Tuple[str, ...]
+    processed_file: str
+    split_name: str
+    benchmark_name: str
+    version: str
+
+
+KNOWN_PROCESSED_STREAMS: Tuple[ProcessedStreamSpec, ...] = (
+    ProcessedStreamSpec(
+        stream_name="instrdialog",
+        aliases=("instrdialog", "citb_dialogue", "cl_dialogue_tasks", "dialogue"),
+        processed_file="citb_cl_dialogue_tasks_train50_eval10.json",
+        split_name="cl_dialogue_tasks",
+        benchmark_name="CITB-InstrDialog",
+        version="citb_instrdialog_train50_eval10_v1",
+    ),
+    ProcessedStreamSpec(
+        stream_name="instrdialog++",
+        aliases=("instrdialog++", "instrdialogpp", "citb_38_random", "38_random_tasks", "random38"),
+        processed_file="citb_cl_38_random_tasks_train50_eval10.json",
+        split_name="38_random_tasks",
+        benchmark_name="CITB-InstrDialog++",
+        version="citb_instrdialogpp_train50_eval10_v1",
+    ),
+)
+
+
+def _stream_alias_index() -> Dict[str, ProcessedStreamSpec]:
+    out: Dict[str, ProcessedStreamSpec] = {}
+    for spec in KNOWN_PROCESSED_STREAMS:
+        for alias in (spec.stream_name, *spec.aliases):
+            out[alias.strip().lower()] = spec
+    return out
+
+
+STREAM_ALIAS_TO_SPEC = _stream_alias_index()
+
+
+def get_processed_stream_spec(stream_name: str) -> Optional[ProcessedStreamSpec]:
+    if not stream_name:
+        return None
+    return STREAM_ALIAS_TO_SPEC.get(stream_name.strip().lower())
+
+
+def list_known_processed_streams() -> List[Dict[str, str]]:
+    return [
+        {
+            "stream_name": spec.stream_name,
+            "processed_file": spec.processed_file,
+            "split_name": spec.split_name,
+            "benchmark_name": spec.benchmark_name,
+            "version": spec.version,
+        }
+        for spec in KNOWN_PROCESSED_STREAMS
+    ]
+
+
 def _parse_example(obj: Dict[str, Any]) -> Example:
     for k in ["instruction", "input", "output"]:
         if k not in obj:
@@ -80,6 +140,13 @@ def load_continual_stream(
     sample_stream_path: Optional[str],
     processed_stream_dir: Optional[str],
     processed_stream_file: str = "",
+    processed_stream_name: str = "",
+    auto_prepare_processed: bool = False,
+    raw_citb_root: Optional[str] = None,
+    seed: int = 10,
+    processed_stream_train_instances_per_task: int = 50,
+    processed_stream_eval_instances_per_task: int = 10,
+    processed_stream_limit_tasks: int = -1,
     max_segments: int = -1,
     max_train_examples_per_segment: int = -1,
     max_eval_examples_per_segment: int = -1,
@@ -98,7 +165,17 @@ def load_continual_stream(
     else:
         if not processed_stream_dir:
             raise ValueError("baseline/ours mode requires processed_stream_dir")
-        stream_path = resolve_processed_stream_path(processed_stream_dir, processed_stream_file)
+        stream_path = prepare_processed_stream_path(
+            processed_stream_dir=processed_stream_dir,
+            processed_stream_file=processed_stream_file,
+            processed_stream_name=processed_stream_name,
+            auto_prepare_processed=auto_prepare_processed,
+            raw_citb_root=raw_citb_root,
+            seed=seed,
+            max_train_instances_per_task=processed_stream_train_instances_per_task,
+            max_eval_instances_per_task=processed_stream_eval_instances_per_task,
+            limit_tasks=processed_stream_limit_tasks,
+        )
         stream = _parse_stream_json(stream_path)
 
     stream = truncate_stream(
@@ -136,11 +213,16 @@ def truncate_stream(
     return ContinualStream(benchmark=stream.benchmark, version=stream.version, stream=new_segments)
 
 
-def resolve_processed_stream_path(processed_stream_dir: str, processed_stream_file: str = "") -> str:
+def resolve_processed_stream_path(
+    processed_stream_dir: str,
+    processed_stream_file: str = "",
+    processed_stream_name: str = "",
+) -> str:
     """
     Find a processed stream json path.
 
     - If processed_stream_file is provided, use it (relative to processed_stream_dir if not absolute)
+    - Else if `processed_stream_name` matches a known benchmark alias, map it to the canonical file
     - Otherwise, try to auto-detect a single *.json file inside processed_stream_dir
     """
 
@@ -159,6 +241,16 @@ def resolve_processed_stream_path(processed_stream_dir: str, processed_stream_fi
             raise FileNotFoundError(f"Processed stream file not found: {str(p)}")
         return str(p)
 
+    spec = get_processed_stream_spec(processed_stream_name)
+    if spec is not None:
+        p = d / spec.processed_file
+        if not p.exists():
+            raise FileNotFoundError(
+                f"Processed stream for '{processed_stream_name}' not found: {p}. "
+                "You can enable auto_prepare_processed in config to build it from raw CITB."
+            )
+        return str(p)
+
     candidates = sorted(list(d.glob("*.json")))
     if len(candidates) == 1:
         return str(candidates[0])
@@ -171,6 +263,50 @@ def resolve_processed_stream_path(processed_stream_dir: str, processed_stream_fi
         f"Multiple processed stream json files found in {processed_stream_dir}: "
         f"{[c.name for c in candidates]}. Please set processed_stream_file in config."
     )
+
+
+def prepare_processed_stream_path(
+    *,
+    processed_stream_dir: str,
+    processed_stream_file: str = "",
+    processed_stream_name: str = "",
+    auto_prepare_processed: bool = False,
+    raw_citb_root: Optional[str] = None,
+    seed: int = 10,
+    max_train_instances_per_task: int = 50,
+    max_eval_instances_per_task: int = 10,
+    limit_tasks: int = -1,
+) -> str:
+    try:
+        return resolve_processed_stream_path(
+            processed_stream_dir=processed_stream_dir,
+            processed_stream_file=processed_stream_file,
+            processed_stream_name=processed_stream_name,
+        )
+    except FileNotFoundError:
+        if processed_stream_file or not auto_prepare_processed:
+            raise
+
+    spec = get_processed_stream_spec(processed_stream_name)
+    if spec is None:
+        raise FileNotFoundError(
+            f"Could not resolve processed stream '{processed_stream_name}'. "
+            f"Known options: {[x['stream_name'] for x in list_known_processed_streams()]}"
+        )
+
+    out_path = Path(processed_stream_dir) / spec.processed_file
+    preprocess_citb_raw_to_processed(
+        raw_root=str(raw_citb_root or Path("data/raw/citb")),
+        processed_out_path=str(out_path),
+        benchmark_name=spec.benchmark_name,
+        version=spec.version,
+        split_name=spec.split_name,
+        seed=seed,
+        max_train_instances_per_task=max_train_instances_per_task,
+        max_eval_instances_per_task=max_eval_instances_per_task,
+        limit_tasks=limit_tasks,
+    )
+    return str(out_path)
 
 
 def preprocess_citb_raw_to_processed(

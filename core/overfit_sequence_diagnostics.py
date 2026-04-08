@@ -139,7 +139,8 @@ def hf_first_token_audit_one(
     enc = tok(
         infer_prompt,
         return_tensors="pt",
-        add_special_tokens=True,
+        # `infer_prompt` is already a chat-template string with special tokens included.
+        add_special_tokens=False,
         truncation=True,
         max_length=int(backbone.cfg.max_seq_len),
     )

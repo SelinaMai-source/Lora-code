@@ -52,6 +52,19 @@ def save_json(path: str, obj: Any, indent: int = 2) -> None:
         json.dump(obj, f, ensure_ascii=False, indent=indent)
 
 
+def append_jsonl(path: str, obj: Any) -> None:
+    ensure_dir(str(Path(path).parent))
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+
+def save_jsonl(path: str, rows: List[Any]) -> None:
+    ensure_dir(str(Path(path).parent))
+    with open(path, "w", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
 def save_text(path: str, text: str) -> None:
     ensure_dir(str(Path(path).parent))
     with open(path, "w", encoding="utf-8") as f:

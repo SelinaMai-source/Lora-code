@@ -83,6 +83,10 @@ class BaseBackbone:
         """Return per-prompt activation vectors (used by overlap/diversity regularization)."""
         raise NotImplementedError
 
+    def score_answer_nlls(self, pairs: List[Tuple[str, str]], targets: List[str]) -> List[float]:
+        """Teacher-forced mean NLL per example on the supervised answer span."""
+        raise NotImplementedError
+
 
 @dataclass
 class DebugTextModelConfig:
@@ -173,6 +177,25 @@ class DebugTextModel(BaseBackbone):
             v = v / norm
             acts.append(v.tolist())
         return acts
+
+    def score_answer_nlls(self, pairs: List[Tuple[str, str]], targets: List[str]) -> List[float]:
+        scores: List[float] = []
+        for (prompt, _), target in zip(pairs, targets):
+            pred = self._memory.get(prompt, self._fallback(prompt))
+            pred_tokens = _simple_tokenize(pred)
+            gold_tokens = _simple_tokenize(target)
+            if not gold_tokens:
+                scores.append(0.0)
+                continue
+            overlap = len(set(pred_tokens) & set(gold_tokens))
+            precision = overlap / max(1, len(set(pred_tokens)))
+            recall = overlap / max(1, len(set(gold_tokens)))
+            if precision + recall <= 0:
+                f1 = 0.0
+            else:
+                f1 = 2.0 * precision * recall / (precision + recall)
+            scores.append(float(max(0.0, 1.0 - f1)))
+        return scores
 
     def _remember(self, prompt: str, output: str) -> None:
         if prompt in self._memory:
@@ -577,6 +600,78 @@ class HFCausalLMBackbone(BaseBackbone):
             "scheduled_sampling_applied_examples": int(scheduled_sampling_applied_count),
         }
 
+    def score_answer_nlls(self, pairs: List[Tuple[str, str]], targets: List[str]) -> List[float]:
+        import torch
+        import torch.nn.functional as F
+
+        if len(pairs) != len(targets):
+            raise ValueError("pairs and targets must have the same length")
+        if not pairs:
+            return []
+
+        instructions = [str(ins) for (ins, _) in pairs]
+        input_texts = [str(inp) for (_, inp) in pairs]
+        max_len = int(self.cfg.max_seq_len)
+
+        input_ids_list: List[List[int]] = []
+        labels_list: List[List[int]] = []
+        attn_list: List[List[int]] = []
+        for ins, inp, tgt in zip(instructions, input_texts, targets):
+            enc = build_supervised_labels(
+                self.tokenizer,
+                ins,
+                inp,
+                str(tgt),
+                max_len=max_len,
+                min_target_tokens=int(self.cfg.min_target_tokens_for_loss),
+                mask_eos_token_in_labels=bool(self.cfg.mask_eos_token_in_labels),
+                mask_all_special_tokens_in_labels=bool(self.cfg.mask_all_special_tokens_in_labels),
+                labeling_mode=str(self.cfg.train_labeling_mode),
+                completion_only_response_template=str(self.cfg.completion_only_response_template),
+            )
+            input_ids_list.append(list(enc.full_ids))
+            labels_list.append(list(enc.labels))
+            attn_list.append([1] * len(enc.full_ids))
+
+        batch_size = len(input_ids_list)
+        pad_id = int(self.tokenizer.pad_token_id)
+        max_batch_len = min(max(len(x) for x in input_ids_list), max_len)
+        input_ids = torch.full((batch_size, max_batch_len), pad_id, dtype=torch.long, device=self.device)
+        labels = torch.full((batch_size, max_batch_len), -100, dtype=torch.long, device=self.device)
+        attention_mask = torch.zeros((batch_size, max_batch_len), dtype=torch.long, device=self.device)
+        for i, (ids, lab, attn) in enumerate(zip(input_ids_list, labels_list, attn_list)):
+            cur_len = min(len(ids), max_batch_len)
+            input_ids[i, :cur_len] = torch.tensor(ids[:cur_len], dtype=torch.long, device=self.device)
+            labels[i, :cur_len] = torch.tensor(lab[:cur_len], dtype=torch.long, device=self.device)
+            attention_mask[i, :cur_len] = torch.tensor(attn[:cur_len], dtype=torch.long, device=self.device)
+
+        was_training = self.model.training
+        self.model.eval()
+        with torch.no_grad():
+            outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, return_dict=True)
+            shift_logits = outputs.logits[:, :-1, :].contiguous()
+            shift_labels = labels[:, 1:].contiguous()
+            token_losses = F.cross_entropy(
+                shift_logits.view(-1, shift_logits.size(-1)),
+                shift_labels.view(-1),
+                ignore_index=-100,
+                reduction="none",
+            ).view(shift_labels.shape)
+
+        nlls: List[float] = []
+        for i in range(batch_size):
+            mask = shift_labels[i].ne(-100)
+            if bool(mask.any().item()):
+                nlls.append(float(token_losses[i][mask].mean().item()))
+            else:
+                nlls.append(0.0)
+
+        if was_training:
+            self.model.train()
+        else:
+            self.model.eval()
+        return nlls
+
     def _build_scheduled_sampling_mixed_encoding(
         self,
         *,
@@ -609,7 +704,8 @@ class HFCausalLMBackbone(BaseBackbone):
         enc = self.tokenizer(
             prompt_text,
             return_tensors="pt",
-            add_special_tokens=True,
+            # `prompt_text` already comes from apply_chat_template and includes BOS/chat markers.
+            add_special_tokens=False,
             truncation=True,
             max_length=int(self.cfg.max_seq_len),
         )
@@ -699,7 +795,8 @@ class HFCausalLMBackbone(BaseBackbone):
             padding=True,
             truncation=True,
             max_length=int(self.cfg.max_seq_len),
-            add_special_tokens=True,
+            # Prompts are preformatted chat-template strings; adding special tokens again duplicates BOS.
+            add_special_tokens=False,
             return_tensors="pt",
         )
         inputs = {k: v.to(self.device) for k, v in inputs.items()}
@@ -742,7 +839,8 @@ class HFCausalLMBackbone(BaseBackbone):
         self.model.eval()
         enc = self.tokenizer(
             prompt,
-            add_special_tokens=True,
+            # `prompt` already includes chat-template special tokens.
+            add_special_tokens=False,
             truncation=True,
             max_length=int(self.cfg.max_seq_len),
             return_tensors="pt",
@@ -779,7 +877,8 @@ class HFCausalLMBackbone(BaseBackbone):
             padding=True,
             truncation=True,
             max_length=int(self.cfg.max_seq_len),
-            add_special_tokens=True,
+            # Prompts are preformatted chat-template strings; keep tokenization identical to training.
+            add_special_tokens=False,
             return_tensors="pt",
         )
         inputs = {k: v.to(self.device) for k, v in inputs.items()}
@@ -849,7 +948,8 @@ class HFCausalLMBackbone(BaseBackbone):
             padding=True,
             truncation=True,
             max_length=int(self.cfg.max_seq_len),
-            add_special_tokens=True,
+            # Activations should be computed on the same prompt tokenization used by training/eval.
+            add_special_tokens=False,
             return_tensors="pt",
         )
         inputs = {k: v.to(self.device) for k, v in inputs.items()}

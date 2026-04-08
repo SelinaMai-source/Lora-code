@@ -16,15 +16,54 @@ if str(REPO_ROOT) not in sys.path:
 
 from core.data import ContinualStream, Segment, load_continual_stream
 from core.evaluate import evaluate_stream
-from core.methods.drift_detector import DriftDetector
+from core.methods.drift_detector import AnchorSet, DriftDetector, DriftEvent, build_anchor_set
 from core.methods.lora_bank import LoRABank
-from core.methods.overlap_loss import compute_overlap_loss, compute_overlap_loss_torch
+from core.methods.overlap_loss import compute_overlap_loss, compute_overlap_loss_torch, compute_orthogonal_weight_loss
 from core.methods.router import Router
 from core.models.base_model import build_backbone
 from core.models.lora_wrapper import build_lora_wrapper
 from core.formatting import format_for_infer
-from core.run_artifacts import collect_overfit_stale_artifacts, init_overfit_run_manifest, manifest_add_artifact
-from core.utils import RunPaths, SimpleLogger, ensure_dir, load_yaml_config, make_run_paths, save_json, save_csv, set_seed
+from core.run_artifacts import (
+    collect_overfit_stale_artifacts,
+    finalize_run_manifest,
+    init_overfit_run_manifest,
+    init_run_manifest,
+    manifest_add_artifact,
+)
+from core.utils import (
+    RunPaths,
+    SimpleLogger,
+    append_jsonl,
+    ensure_dir,
+    load_yaml_config,
+    make_run_paths,
+    save_csv,
+    save_json,
+    set_seed,
+)
+
+
+def _summarize_lora_info(lora: Any) -> Dict[str, Any]:
+    info = lora.info() if hasattr(lora, "info") else {}
+    if not isinstance(info, dict):
+        return {"raw_info": str(info)}
+    trainable_names = info.get("trainable_parameter_names", [])
+    if not isinstance(trainable_names, list):
+        trainable_names = []
+    return {
+        "enabled": bool(info.get("enabled", False)),
+        "r": info.get("r"),
+        "alpha": info.get("alpha"),
+        "dropout": info.get("dropout"),
+        "target_modules": info.get("target_modules", []),
+        "active_adapter": info.get("active_adapter"),
+        "num_adapters": len(info.get("adapters", {}) if isinstance(info.get("adapters", {}), dict) else {}),
+        "frozen_adapters": info.get("frozen_adapters", []),
+        "total_parameters": info.get("total_parameters"),
+        "trainable_parameters": info.get("trainable_parameters"),
+        "num_trainable_parameter_tensors": len(trainable_names),
+        "trainable_parameter_name_preview": trainable_names[:8],
+    }
 
 
 def main() -> None:
@@ -54,75 +93,119 @@ def main() -> None:
     # Snapshot config for reproducibility (yaml preferred for readability).
     config_snapshot_path = Path(run_paths.run_dir) / "config_snapshot.yaml"
     config_snapshot_path.write_text(yaml.safe_dump(cfg, sort_keys=True, allow_unicode=True), encoding="utf-8")
+    manifest_path = Path(run_paths.run_dir) / "run_manifest.json"
+    run_manifest = init_run_manifest(
+        cfg=cfg,
+        run_id=run_paths.run_id,
+        config_path=str(cfg.get("__config_path__", "")),
+        config_snapshot_path=str(config_snapshot_path),
+        run_dir=Path(run_paths.run_dir),
+    )
+    manifest_add_artifact(run_manifest, config_snapshot_path)
+    manifest_add_artifact(run_manifest, Path(run_paths.log_file))
+    manifest_add_artifact(run_manifest, manifest_path)
 
-    stream = _load_stream(cfg, mode=mode, logger=logger)
-    logger.log(f"Loaded stream: benchmark={stream.benchmark} version={stream.version} segments={len(stream.stream)}")
+    def _flush_run_manifest(status: str, error: str = "") -> None:
+        finalize_run_manifest(run_manifest, status=status, error=error)
+        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    debug_loading = str(cfg.get("debug", {}).get("model_loading", "dummy")) if isinstance(cfg.get("debug", {}), dict) else "dummy"
-    backbone = build_backbone(cfg.get("model", {}), mode=mode, seed=seed, debug_loading=debug_loading)
-    lora = build_lora_wrapper(backbone, cfg.get("lora", {}))
-    logger.log(f"LoRA: {json.dumps(lora.info(), ensure_ascii=False)}")
+    _flush_run_manifest(status="running")
 
-    debug_tools = cfg.get("debug_tools", {}) if isinstance(cfg.get("debug_tools", {}), dict) else {}
-    if bool(debug_tools.get("enable_overfit_8_mode", False)):
-        _run_overfit_8_mode(
-            cfg=cfg,
-            stream=stream,
-            backbone=backbone,
-            lora=lora,
-            run_paths=run_paths,
-            logger=logger,
-        )
-        if bool(debug_tools.get("stop_after_overfit_mode", True)):
-            logger.log("Stop after overfit_8_mode as requested.")
-            return
+    try:
+        stream = _load_stream(cfg, mode=mode, logger=logger)
+        logger.log(f"Loaded stream: benchmark={stream.benchmark} version={stream.version} segments={len(stream.stream)}")
 
-    segment_metrics_rows: List[Dict[str, Any]] = []
+        debug_loading = str(cfg.get("debug", {}).get("model_loading", "dummy")) if isinstance(cfg.get("debug", {}), dict) else "dummy"
+        backbone = build_backbone(cfg.get("model", {}), mode=mode, seed=seed, debug_loading=debug_loading)
+        lora = build_lora_wrapper(backbone, cfg.get("lora", {}))
+        logger.log(f"LoRA: {json.dumps(_summarize_lora_info(lora), ensure_ascii=False)}")
 
-    if mode == "debug":
-        baseline_name = str(cfg.get("baseline", {}).get("baseline_name", "sequential_lora"))
-        final_metrics = run_baseline(
-            cfg=cfg,
-            stream=stream,
-            backbone=backbone,
-            lora=lora,
-            baseline_name=baseline_name,
-            run_paths=run_paths,
-            logger=logger,
-            segment_metrics_rows=segment_metrics_rows,
-            mode="debug",
-        )
-    elif mode == "baseline":
-        baseline_name = str(cfg.get("baseline_name", "")).strip()
-        if not baseline_name:
-            raise ValueError("baseline mode requires config field: baseline_name")
-        final_metrics = run_baseline(
-            cfg=cfg,
-            stream=stream,
-            backbone=backbone,
-            lora=lora,
-            baseline_name=baseline_name,
-            run_paths=run_paths,
-            logger=logger,
-            segment_metrics_rows=segment_metrics_rows,
-            mode="baseline",
-        )
-    else:
-        final_metrics = run_ours(
-            cfg=cfg,
-            stream=stream,
-            backbone=backbone,
-            lora=lora,
-            run_paths=run_paths,
-            logger=logger,
-            segment_metrics_rows=segment_metrics_rows,
-        )
+        debug_tools = cfg.get("debug_tools", {}) if isinstance(cfg.get("debug_tools", {}), dict) else {}
+        if bool(debug_tools.get("enable_overfit_8_mode", False)):
+            _run_overfit_8_mode(
+                cfg=cfg,
+                stream=stream,
+                backbone=backbone,
+                lora=lora,
+                run_paths=run_paths,
+                logger=logger,
+            )
+            if bool(debug_tools.get("stop_after_overfit_mode", True)):
+                logger.log("Stop after overfit_8_mode as requested.")
+                for artifact in [
+                    Path(run_paths.log_file),
+                    config_snapshot_path,
+                    manifest_path,
+                ]:
+                    if artifact.exists():
+                        manifest_add_artifact(run_manifest, artifact)
+                _flush_run_manifest(status="completed")
+                return
 
-    # Save final metrics + per-segment table
-    save_json(run_paths.metrics_json, final_metrics)
-    save_csv(run_paths.segment_metrics_csv, segment_metrics_rows)
-    logger.log(f"Saved final metrics: {run_paths.metrics_json}")
-    logger.log(f"Saved per-segment table: {run_paths.segment_metrics_csv}")
+        segment_metrics_rows: List[Dict[str, Any]] = []
+
+        if mode == "debug":
+            baseline_name = str(cfg.get("baseline", {}).get("baseline_name", "sequential_lora"))
+            final_metrics = run_baseline(
+                cfg=cfg,
+                stream=stream,
+                backbone=backbone,
+                lora=lora,
+                baseline_name=baseline_name,
+                run_paths=run_paths,
+                logger=logger,
+                segment_metrics_rows=segment_metrics_rows,
+                mode="debug",
+            )
+        elif mode == "baseline":
+            baseline_name = str(cfg.get("baseline_name", "")).strip()
+            if not baseline_name:
+                raise ValueError("baseline mode requires config field: baseline_name")
+            final_metrics = run_baseline(
+                cfg=cfg,
+                stream=stream,
+                backbone=backbone,
+                lora=lora,
+                baseline_name=baseline_name,
+                run_paths=run_paths,
+                logger=logger,
+                segment_metrics_rows=segment_metrics_rows,
+                mode="baseline",
+            )
+        else:
+            final_metrics = run_ours(
+                cfg=cfg,
+                stream=stream,
+                backbone=backbone,
+                lora=lora,
+                run_paths=run_paths,
+                logger=logger,
+                segment_metrics_rows=segment_metrics_rows,
+            )
+
+        # Save final metrics + per-segment table
+        save_json(run_paths.metrics_json, final_metrics)
+        save_csv(run_paths.segment_metrics_csv, segment_metrics_rows)
+        logger.log(f"Saved final metrics: {run_paths.metrics_json}")
+        logger.log(f"Saved per-segment table: {run_paths.segment_metrics_csv}")
+
+        for artifact in [
+            Path(run_paths.log_file),
+            Path(run_paths.metrics_json),
+            Path(run_paths.segment_metrics_csv),
+            config_snapshot_path,
+            manifest_path,
+            Path(run_paths.run_dir) / "anchor_monitor.jsonl",
+            Path(run_paths.run_dir) / "anchor_set.json",
+            Path(run_paths.run_dir) / "anchor_set_history.jsonl",
+            Path(run_paths.run_dir) / "branch_registry.json",
+        ]:
+            if artifact.exists():
+                manifest_add_artifact(run_manifest, artifact)
+        _flush_run_manifest(status="completed")
+    except Exception as exc:
+        _flush_run_manifest(status="failed", error=repr(exc))
+        raise
 
 
 def _load_stream(cfg: Dict[str, Any], *, mode: str, logger: SimpleLogger) -> ContinualStream:
@@ -130,6 +213,7 @@ def _load_stream(cfg: Dict[str, Any], *, mode: str, logger: SimpleLogger) -> Con
     sample_stream_path = paths.get("sample_stream_path")
     processed_dir = paths.get("processed_stream_dir")
     processed_file = str(paths.get("processed_stream_file", "")).strip()
+    raw_citb_root = str(paths.get("raw_citb_root", "data/raw/citb")).strip()
 
     if mode == "debug":
         dbg = cfg.get("debug", {}) if isinstance(cfg.get("debug", {}), dict) else {}
@@ -147,6 +231,11 @@ def _load_stream(cfg: Dict[str, Any], *, mode: str, logger: SimpleLogger) -> Con
         )
 
     data_cfg = cfg.get("data", {}) if isinstance(cfg.get("data", {}), dict) else {}
+    processed_stream_name = str(data_cfg.get("stream_name", "")).strip()
+    auto_prepare_processed = bool(data_cfg.get("auto_prepare_processed", False))
+    processed_stream_train_instances_per_task = int(data_cfg.get("processed_stream_train_instances_per_task", 50))
+    processed_stream_eval_instances_per_task = int(data_cfg.get("processed_stream_eval_instances_per_task", 10))
+    processed_stream_limit_tasks = int(data_cfg.get("processed_stream_limit_tasks", -1))
     max_segments = int(data_cfg.get("max_segments", -1))
     max_train = int(data_cfg.get("max_train_examples_per_segment", -1))
     max_eval = int(data_cfg.get("max_eval_examples_per_segment", -1))
@@ -154,15 +243,158 @@ def _load_stream(cfg: Dict[str, Any], *, mode: str, logger: SimpleLogger) -> Con
     if processed_dir is None:
         raise ValueError("processed_stream_dir is required for baseline/ours modes")
 
+    if processed_stream_name:
+        logger.log(
+            f"Requested processed stream alias='{processed_stream_name}' "
+            f"(auto_prepare_processed={auto_prepare_processed})"
+        )
+
     return load_continual_stream(
         mode=mode,
         sample_stream_path=None,
         processed_stream_dir=str(processed_dir),
         processed_stream_file=processed_file,
+        processed_stream_name=processed_stream_name,
+        auto_prepare_processed=auto_prepare_processed,
+        raw_citb_root=raw_citb_root,
+        seed=int(cfg.get("seed", 0)),
+        processed_stream_train_instances_per_task=processed_stream_train_instances_per_task,
+        processed_stream_eval_instances_per_task=processed_stream_eval_instances_per_task,
+        processed_stream_limit_tasks=processed_stream_limit_tasks,
         max_segments=max_segments,
         max_train_examples_per_segment=max_train,
         max_eval_examples_per_segment=max_eval,
     )
+
+
+def _drift_anchor_refresh_segment_count(cfg: Dict[str, Any]) -> int:
+    drift_cfg = cfg.get("drift", {}) if isinstance(cfg.get("drift", {}), dict) else {}
+    return max(1, int(drift_cfg.get("anchor_refresh_segments", 1)))
+
+
+def _maybe_build_drift_anchor_set(
+    *,
+    stream: ContinualStream,
+    source_segments: List[Segment],
+    drift: Optional[DriftDetector],
+    cfg: Dict[str, Any],
+    run_paths: RunPaths,
+    logger: SimpleLogger,
+    reason: str,
+    model: Optional[Any] = None,
+) -> Optional[AnchorSet]:
+    if drift is None or not source_segments:
+        return None
+    drift_cfg = cfg.get("drift", {}) if isinstance(cfg.get("drift", {}), dict) else {}
+    anchor_stream = ContinualStream(
+        benchmark=stream.benchmark,
+        version=stream.version,
+        stream=list(source_segments),
+    )
+    anchor_set = build_anchor_set(anchor_stream, drift_cfg, seed=int(cfg.get("seed", 0)), model=model)
+    save_json(str(Path(run_paths.run_dir) / "anchor_set.json"), anchor_set.to_dict())
+    source_segment_ids = [int(seg.segment_id) for seg in source_segments]
+    append_jsonl(
+        str(Path(run_paths.run_dir) / "anchor_set_history.jsonl"),
+        {
+            "reason": reason,
+            "source_segment_ids": source_segment_ids,
+            "num_source_segments": len(source_segment_ids),
+            **anchor_set.summary(),
+        },
+    )
+    logger.log(
+        "Built drift anchor set "
+        f"({reason}): {json.dumps({**anchor_set.summary(), 'source_segment_ids': source_segment_ids}, ensure_ascii=False)}"
+    )
+    return anchor_set
+
+
+def _compute_anchor_monitor_metrics(model: Any, anchor_set: AnchorSet) -> Dict[str, Any]:
+    core_pairs = [(x.instruction, x.input_text) for x in anchor_set.core]
+    core_targets = [x.output for x in anchor_set.core]
+    probe_pairs = [(x.instruction, x.input_text) for x in anchor_set.probe]
+    probe_targets = [x.output for x in anchor_set.probe]
+
+    core_nlls = model.score_answer_nlls(core_pairs, core_targets)
+    probe_nlls = model.score_answer_nlls(probe_pairs, probe_targets)
+    return {
+        "core_mean_nll": float(sum(core_nlls) / max(1, len(core_nlls))),
+        "probe_mean_nll": float(sum(probe_nlls) / max(1, len(probe_nlls))),
+        "core_num_examples": int(len(core_nlls)),
+        "probe_num_examples": int(len(probe_nlls)),
+    }
+
+
+def _record_drift_monitor(
+    *,
+    run_paths: RunPaths,
+    seg: Segment,
+    active_adapter: str,
+    monitor_metrics: Dict[str, Any],
+    event: DriftEvent,
+) -> Dict[str, Any]:
+    row = {
+        "segment_id": int(seg.segment_id),
+        "segment_name": str(seg.segment_name),
+        "active_adapter": str(active_adapter),
+        **monitor_metrics,
+        **event.to_row(),
+    }
+    append_jsonl(str(Path(run_paths.run_dir) / "anchor_monitor.jsonl"), row)
+    if event.triggered:
+        append_jsonl(str(Path(run_paths.run_dir) / "drift_events.jsonl"), row)
+    return row
+
+
+def _summarize_drift_proxy_quality(stream: ContinualStream, drift: Optional[DriftDetector]) -> Dict[str, Any]:
+    if drift is None:
+        return {}
+    history = drift.monitor_history()
+    events = drift.drift_events()
+    if not history:
+        return {}
+
+    true_shift_segments = [int(seg.segment_id) for seg in stream.stream[1:]]
+    detected_segments = [int(row.get("segment_id", -1)) for row in events]
+    matched_event_indices: set[int] = set()
+    delays: List[float] = []
+    misses = 0
+    for shift_seg in true_shift_segments:
+        match_idx = next(
+            (idx for idx, det_seg in enumerate(detected_segments) if idx not in matched_event_indices and det_seg >= shift_seg),
+            None,
+        )
+        if match_idx is None:
+            misses += 1
+            continue
+        matched_event_indices.add(int(match_idx))
+        delays.append(float(detected_segments[match_idx] - shift_seg))
+
+    false_alarms = len([idx for idx in range(len(detected_segments)) if idx not in matched_event_indices])
+    return {
+        "num_monitor_points": int(len(history)),
+        "num_true_shifts": int(len(true_shift_segments)),
+        "num_detected_events": int(len(detected_segments)),
+        "false_alarm_count": int(false_alarms),
+        "false_alarm_rate": float(false_alarms / max(1, len(history))),
+        "miss_count": int(misses),
+        "miss_rate": float(misses / max(1, len(true_shift_segments))),
+        "detection_delay_mean": float(sum(delays) / max(1, len(delays))) if delays else -1.0,
+    }
+
+
+def _routing_row_metrics(eval_metrics: Dict[str, Any]) -> Dict[str, Any]:
+    extra = eval_metrics.get("extra", {}) if isinstance(eval_metrics.get("extra", {}), dict) else {}
+    routing = extra.get("routing", {}) if isinstance(extra.get("routing", {}), dict) else {}
+    return {
+        "eval.anytime_score": float(extra.get("anytime_score", eval_metrics.get("seen_avg_score", 0.0))),
+        "routing.num_routed": int(routing.get("num_routed", 0)),
+        "routing.oracle_agreement_rate": float(routing.get("oracle_agreement_rate", 0.0)),
+        "routing.decision_confidence_mean": float(routing.get("decision_confidence_mean", 0.0)),
+        "routing.decision_entropy_mean": float(routing.get("decision_entropy_mean", 0.0)),
+        "routing.oracle_margin_mean": float(routing.get("oracle_margin_mean", 0.0)),
+    }
 
 
 def run_baseline(
@@ -190,19 +422,35 @@ def run_baseline(
     lora_bank = LoRABank(max_branches=int(cfg.get("periodic", {}).get("max_branches", 8)) if isinstance(cfg.get("periodic", {}), dict) else 8)
     router = Router(cfg.get("router", {}) if isinstance(cfg.get("router", {}), dict) else {})
     drift = DriftDetector(cfg.get("drift", {}) if isinstance(cfg.get("drift", {}), dict) else {})
+    drift_anchor_set: Optional[AnchorSet] = None
+    anchor_refresh_segments = _drift_anchor_refresh_segment_count(cfg)
 
     method = _build_baseline_method(baseline_name, cfg)
     debug_tools = cfg.get("debug_tools", {}) if isinstance(cfg.get("debug_tools", {}), dict) else {}
     normalization_cfg = cfg.get("eval_normalization", {}) if isinstance(cfg.get("eval_normalization", {}), dict) else {}
 
     seen_segments: List[Segment] = []
+    historical_best_per_segment: Dict[int, float] = {}
     stream_segments = stream.stream
+    last_eval_metrics: Dict[str, Any] = {}
     if bool(debug_tools.get("enable_single_segment_mode", False)):
         target_segment_idx = int(debug_tools.get("single_segment_index", 0))
         stream_segments = [stream.stream[target_segment_idx]]
         logger.log(f"Single-segment mode enabled: segment_index={target_segment_idx}")
     for seg in stream_segments:
         logger.log(f"=== Segment {seg.segment_id}: {seg.segment_name} ===")
+
+        if baseline_name == "bank_no_router" and drift is not None and drift_anchor_set is None:
+            drift_anchor_set = _maybe_build_drift_anchor_set(
+                stream=stream,
+                source_segments=[seg],
+                drift=drift,
+                cfg=cfg,
+                run_paths=run_paths,
+                logger=logger,
+                reason=f"bootstrap_segment_{seg.segment_id}",
+                model=backbone,
+            )
 
         hook_info = {}
         if hasattr(method, "on_segment_start"):
@@ -226,7 +474,6 @@ def run_baseline(
                 model=backbone,
                 lora=lora,
                 lora_bank=lora_bank,
-                drift=drift,
                 lr=lr,
                 epochs=epochs,
                 batch_size=batch_size,
@@ -240,6 +487,7 @@ def run_baseline(
 
         # Evaluate on seen segments (unified)
         seen_segments.append(seg)
+        active_adapter_before_eval = lora.get_active_adapter_name()
         eval_metrics = evaluate_stream(
             model=backbone,
             segments_seen=seen_segments,
@@ -249,8 +497,54 @@ def run_baseline(
             segment_id=seg.segment_id,
             normalization_cfg=normalization_cfg,
             save_debug_examples_dir=str(Path(run_paths.run_dir) / "eval_debug"),
+            historical_best_per_segment=historical_best_per_segment,
         )
+        last_eval_metrics = eval_metrics
+        if lora_bank.list_branches() and active_adapter_before_eval in lora.list_adapters():
+            lora.set_active_adapter(active_adapter_before_eval)
         logger.log(f"Eval metrics: {json.dumps(eval_metrics, ensure_ascii=False)}")
+
+        drift_row: Optional[Dict[str, Any]] = None
+        if baseline_name == "bank_no_router" and drift_anchor_set is not None:
+            active_branch = lora_bank.get_active_branch() if lora_bank.list_branches() else lora.get_active_adapter_name()
+            if active_branch in lora.list_adapters():
+                lora.set_active_adapter(active_branch)
+            monitor_metrics = _compute_anchor_monitor_metrics(backbone, drift_anchor_set)
+            event = drift.update(
+                core_mean_nll=float(monitor_metrics["core_mean_nll"]),
+                probe_mean_nll=float(monitor_metrics["probe_mean_nll"]),
+                segment_id=seg.segment_id,
+                monitor_step=seg.segment_id + 1,
+            )
+            drift_row = _record_drift_monitor(
+                run_paths=run_paths,
+                seg=seg,
+                active_adapter=active_branch,
+                monitor_metrics=monitor_metrics,
+                event=event,
+            )
+            logger.log(
+                "Drift detector: "
+                f"triggered={event.triggered} calibrated={event.calibrated} "
+                f"probe_mean_nll={event.probe_mean_nll:.4f} core_mean_nll={event.core_mean_nll:.4f} "
+                f"probe_cusum={event.probe_cusum:.4f} threshold={event.threshold:.4f} reason={event.reason}"
+            )
+            if event.triggered:
+                lora_bank.freeze_current_branch()
+                new_b = lora_bank.spawn_new_branch(lora_wrapper=lora, segment_id=seg.segment_id)
+                train_metrics["spawned_branch"] = new_b
+                logger.log(f"Spawned new branch due to drift: {new_b}")
+                drift.reset(keep_history=True)
+                drift_anchor_set = _maybe_build_drift_anchor_set(
+                    stream=stream,
+                    source_segments=seen_segments[-anchor_refresh_segments:] or [seg],
+                    drift=drift,
+                    cfg=cfg,
+                    run_paths=run_paths,
+                    logger=logger,
+                    reason=f"refresh_after_drift_segment_{seg.segment_id}",
+                    model=backbone,
+                )
 
         row = {
             "run_id": run_paths.run_id,
@@ -260,15 +554,28 @@ def run_baseline(
             "segment_name": seg.segment_name,
             **_flatten_metrics("train", train_metrics),
             **_flatten_metrics("eval", eval_metrics),
+            **_routing_row_metrics(eval_metrics),
             **{f"hook.{k}": v for k, v in (hook_info or {}).items()},
             "active_adapter": lora.get_active_adapter_name(),
         }
+        if drift_row is not None:
+            row["drift.triggered"] = bool(drift_row.get("triggered", False))
+            row["drift.score"] = float(drift_row.get("score", 0.0))
+            row["drift.core_mean_nll"] = float(drift_row.get("core_mean_nll", 0.0))
+            row["drift.probe_mean_nll"] = float(drift_row.get("probe_mean_nll", 0.0))
+            row["drift.core_cusum"] = float(drift_row.get("core_cusum", 0.0))
+            row["drift.probe_cusum"] = float(drift_row.get("probe_cusum", 0.0))
         segment_metrics_rows.append(row)
 
         # Save per-segment artifact
         seg_dir = ensure_dir(str(Path(run_paths.run_dir) / f"segment_{seg.segment_id:03d}"))
         save_json(str(Path(seg_dir) / "train_metrics.json"), train_metrics)
         save_json(str(Path(seg_dir) / "eval_metrics.json"), eval_metrics)
+        if baseline_name == "bank_no_router":
+            save_json(str(Path(seg_dir) / "drift_state.json"), drift.state_dict())
+            save_json(str(Path(seg_dir) / "bank_state.json"), lora_bank.state_dict())
+            save_json(str(Path(run_paths.run_dir) / "branch_registry.json"), lora_bank.state_dict())
+        append_jsonl(str(Path(run_paths.run_dir) / "metrics.jsonl"), row)
 
     final = segment_metrics_rows[-1] if segment_metrics_rows else {}
     return {
@@ -276,6 +583,12 @@ def run_baseline(
         "mode": mode,
         "baseline_name": baseline_name,
         "final": final,
+        "drift_quality": _summarize_drift_proxy_quality(stream, drift if baseline_name == "bank_no_router" else None),
+        "routing_quality": (
+            (last_eval_metrics.get("extra", {}) if isinstance(last_eval_metrics.get("extra", {}), dict) else {}).get("routing", {})
+            if last_eval_metrics
+            else {}
+        ),
     }
 
 
@@ -322,14 +635,30 @@ def run_ours(
     overlap_cfg = cfg.get("overlap", {}) if isinstance(cfg.get("overlap", {}), dict) else {}
     beta = float(overlap_cfg.get("beta", 0.1))
     normalization_cfg = cfg.get("eval_normalization", {}) if isinstance(cfg.get("eval_normalization", {}), dict) else {}
+    drift_anchor_set: Optional[AnchorSet] = None
+    anchor_refresh_segments = _drift_anchor_refresh_segment_count(cfg)
 
     # Initialize bank with first branch if enabled
     if lora_bank is not None:
         lora_bank.initialize(lora_wrapper=lora, initial_branch="b0", segment_id=0)
 
     seen_segments: List[Segment] = []
+    historical_best_per_segment: Dict[int, float] = {}
+    last_eval_metrics: Dict[str, Any] = {}
     for seg in stream.stream:
         logger.log(f"=== Segment {seg.segment_id}: {seg.segment_name} ===")
+
+        if drift is not None and drift_anchor_set is None:
+            drift_anchor_set = _maybe_build_drift_anchor_set(
+                stream=stream,
+                source_segments=[seg],
+                drift=drift,
+                cfg=cfg,
+                run_paths=run_paths,
+                logger=logger,
+                reason=f"bootstrap_segment_{seg.segment_id}",
+                model=backbone,
+            )
 
         # Decide which branch to use for training
         if lora_bank is not None and router is not None:
@@ -377,9 +706,19 @@ def run_ours(
 
         # Optional overlap loss (logged as a scalar proxy)
         overlap_value = 0.0
+        overlap_mean_cosine = 0.0
         if use_overlap and lora_bank is not None:
             tok = getattr(backbone, "tokenizer", None)
-            if tok is not None:
+            overlap_items = drift_anchor_set.probe if drift_anchor_set is not None else []
+            if overlap_items:
+                if tok is not None:
+                    anchor_prompts = [
+                        format_for_infer(tok, item.instruction, item.input_text, add_generation_prompt=True)
+                        for item in overlap_items
+                    ]
+                else:
+                    anchor_prompts = [f"{item.instruction}\n\n{item.input_text}" for item in overlap_items]
+            elif tok is not None:
                 anchor_prompts = [format_for_infer(tok, ex.instruction, ex.input) for ex in seg.eval[:8]]
             else:
                 anchor_prompts = [f"{ex.instruction}\n\n{ex.input}" for ex in seg.eval[:8]]
@@ -387,13 +726,16 @@ def run_ours(
             for b in lora_bank.list_branches():
                 lora.set_active_adapter(b)
                 activations_by_branch[b] = backbone.get_activations(anchor_prompts)
-            overlap_value = compute_overlap_loss(activations_by_branch=activations_by_branch, beta=beta)
+            overlap_mean_cosine = compute_overlap_loss(activations_by_branch=activations_by_branch, beta=1.0)
+            overlap_value = float(overlap_mean_cosine * beta)
             train_metrics["overlap_loss_proxy"] = float(overlap_value)
+            train_metrics["overlap_mean_cosine"] = float(overlap_mean_cosine)
 
         logger.log(f"Train metrics: {json.dumps(train_metrics, ensure_ascii=False)}")
 
         # Evaluate
         seen_segments.append(seg)
+        active_adapter_before_eval = lora.get_active_adapter_name()
         eval_metrics = evaluate_stream(
             model=backbone,
             segments_seen=seen_segments,
@@ -403,26 +745,59 @@ def run_ours(
             segment_id=seg.segment_id,
             normalization_cfg=normalization_cfg,
             save_debug_examples_dir=str(Path(run_paths.run_dir) / "eval_debug"),
+            historical_best_per_segment=historical_best_per_segment,
         )
+        last_eval_metrics = eval_metrics
+        if active_adapter_before_eval in lora.list_adapters():
+            lora.set_active_adapter(active_adapter_before_eval)
         logger.log(f"Eval metrics: {json.dumps(eval_metrics, ensure_ascii=False)}")
 
-        # Drift update after seeing eval results (simple proxy)
+        # Drift update after evaluation using fixed anchor monitoring
         drift_event = None
-        if drift is not None:
-            signal = 1.0 - float(eval_metrics.get("current_score", 0.0))
-            drift_event = drift.update(signal=signal, segment_id=seg.segment_id)
+        if drift is not None and drift_anchor_set is not None:
+            active_branch = lora_bank.get_active_branch() if lora_bank is not None else lora.get_active_adapter_name()
+            if active_branch in lora.list_adapters():
+                lora.set_active_adapter(active_branch)
+            monitor_metrics = _compute_anchor_monitor_metrics(backbone, drift_anchor_set)
+            drift_event = drift.update(
+                core_mean_nll=float(monitor_metrics["core_mean_nll"]),
+                probe_mean_nll=float(monitor_metrics["probe_mean_nll"]),
+                segment_id=seg.segment_id,
+                monitor_step=seg.segment_id + 1,
+            )
+            _record_drift_monitor(
+                run_paths=run_paths,
+                seg=seg,
+                active_adapter=active_branch,
+                monitor_metrics=monitor_metrics,
+                event=drift_event,
+            )
             logger.log(
-                f"Drift detector: triggered={drift_event.triggered} score={drift_event.score:.4f} "
-                f"threshold={drift_event.threshold:.4f} reason={drift_event.reason}"
+                "Drift detector: "
+                f"triggered={drift_event.triggered} calibrated={drift_event.calibrated} "
+                f"probe_mean_nll={drift_event.probe_mean_nll:.4f} core_mean_nll={drift_event.core_mean_nll:.4f} "
+                f"probe_cusum={drift_event.probe_cusum:.4f} threshold={drift_event.threshold:.4f} "
+                f"reason={drift_event.reason}"
             )
 
         # Spawn branch on drift (if enabled)
-        if lora_bank is not None and drift_event is not None:
-            if bool(bank_cfg.get("spawn_on_drift", True)) and drift_event.triggered:
+        if drift is not None and drift_event is not None and drift_event.triggered:
+            if lora_bank is not None and bool(bank_cfg.get("spawn_on_drift", True)):
                 if bool(bank_cfg.get("freeze_old_branches", True)):
                     lora_bank.freeze_current_branch()
                 new_b = lora_bank.spawn_new_branch(lora_wrapper=lora, segment_id=seg.segment_id)
                 logger.log(f"Spawned new branch due to drift: {new_b}")
+            drift.reset(keep_history=True)
+            drift_anchor_set = _maybe_build_drift_anchor_set(
+                stream=stream,
+                source_segments=seen_segments[-anchor_refresh_segments:] or [seg],
+                drift=drift,
+                cfg=cfg,
+                run_paths=run_paths,
+                logger=logger,
+                reason=f"refresh_after_drift_segment_{seg.segment_id}",
+                model=backbone,
+            )
 
         row = {
             "run_id": run_paths.run_id,
@@ -431,13 +806,19 @@ def run_ours(
             "segment_name": seg.segment_name,
             **_flatten_metrics("train", train_metrics),
             **_flatten_metrics("eval", eval_metrics),
+            **_routing_row_metrics(eval_metrics),
             "active_adapter": lora.get_active_adapter_name(),
             "overlap_loss_proxy": float(overlap_value),
+            "overlap_mean_cosine": float(overlap_mean_cosine),
             "num_branches": len(lora_bank.list_branches()) if lora_bank is not None else 1,
         }
         if drift_event is not None:
             row["drift.triggered"] = bool(drift_event.triggered)
             row["drift.score"] = float(drift_event.score)
+            row["drift.core_mean_nll"] = float(drift_event.core_mean_nll)
+            row["drift.probe_mean_nll"] = float(drift_event.probe_mean_nll)
+            row["drift.core_cusum"] = float(drift_event.core_cusum)
+            row["drift.probe_cusum"] = float(drift_event.probe_cusum)
         segment_metrics_rows.append(row)
 
         seg_dir = ensure_dir(str(Path(run_paths.run_dir) / f"segment_{seg.segment_id:03d}"))
@@ -447,11 +828,23 @@ def run_ours(
             save_json(str(Path(seg_dir) / "drift_state.json"), drift.state_dict())
         if lora_bank is not None:
             save_json(str(Path(seg_dir) / "bank_state.json"), lora_bank.state_dict())
+            save_json(str(Path(run_paths.run_dir) / "branch_registry.json"), lora_bank.state_dict())
         if router is not None:
             save_json(str(Path(seg_dir) / "router_state.json"), router.state_dict())
+        append_jsonl(str(Path(run_paths.run_dir) / "metrics.jsonl"), row)
 
     final = segment_metrics_rows[-1] if segment_metrics_rows else {}
-    return {"run_id": run_paths.run_id, "mode": "ours", "final": final}
+    return {
+        "run_id": run_paths.run_id,
+        "mode": "ours",
+        "final": final,
+        "drift_quality": _summarize_drift_proxy_quality(stream, drift),
+        "routing_quality": (
+            (last_eval_metrics.get("extra", {}) if isinstance(last_eval_metrics.get("extra", {}), dict) else {}).get("routing", {})
+            if last_eval_metrics
+            else {}
+        ),
+    }
 
 
 def _build_baseline_method(baseline_name: str, cfg: Dict[str, Any]) -> Any:
@@ -533,7 +926,9 @@ def _train_on_active_branch(
                     activations_by_branch[b] = acts
                 lora.set_active_adapter(active_adapter)
                 overlap_loss = compute_overlap_loss_torch(activations_by_branch=activations_by_branch, beta=beta)
-                overlap_loss.backward()
+                ortho_loss = compute_orthogonal_weight_loss(lora_wrapper=lora, beta=beta)
+                total_loss = overlap_loss + ortho_loss
+                total_loss.backward()
 
             step_stats = lora.step_adapter()
             batch_accs.append(float(out.get("train_batch_acc", 0.0)))
@@ -557,6 +952,130 @@ def _train_on_active_branch(
     }
 
 
+def _extract_router_features(
+    *,
+    model: Any,
+    lora: Any,
+    lora_bank: LoRABank,
+    router: Router,
+    prompts: List[str],
+) -> tuple[Any, str]:
+    import torch
+
+    feature_adapter = (
+        router.feature_adapter_name
+        if hasattr(lora_bank, "has_adapter") and lora_bank.has_adapter(router.feature_adapter_name)
+        else lora.get_active_adapter_name()
+    )
+    active_before = lora.get_active_adapter_name()
+    if feature_adapter in lora.list_adapters():
+        lora.set_active_adapter(feature_adapter)
+    try:
+        if hasattr(model, "get_activations_tensor"):
+            features = model.get_activations_tensor(prompts, with_grad=False)
+        else:
+            features = torch.tensor(model.get_activations(prompts), dtype=torch.float32)
+    finally:
+        if active_before in lora.list_adapters():
+            lora.set_active_adapter(active_before)
+    return features, feature_adapter
+
+
+def _update_router_with_segment_pseudo_labels(
+    *,
+    segment: Segment,
+    model: Any,
+    lora: Any,
+    lora_bank: LoRABank,
+    router: Router,
+) -> Dict[str, Any]:
+    import torch
+
+    branch_names = lora_bank.list_branches()
+    tok = getattr(model, "tokenizer", None)
+    pairs = [(ex.instruction, ex.input) for ex in segment.train]
+    targets = [ex.output for ex in segment.train]
+    prompts = [
+        format_for_infer(tok, ins, inp, add_generation_prompt=True) if tok is not None else f"{ins}\n\n{inp}"
+        for (ins, inp) in pairs
+    ]
+    features, feature_adapter = _extract_router_features(
+        model=model,
+        lora=lora,
+        lora_bank=lora_bank,
+        router=router,
+        prompts=prompts,
+    )
+    if len(branch_names) <= 1:
+        return {
+            "router_feature_adapter": feature_adapter,
+            "router_num_candidates": int(len(segment.train)),
+            "router_num_labels": 0,
+            "router_num_skipped_low_margin": int(len(segment.train)),
+            "router_mean_margin": 0.0,
+            "router_loss": 0.0,
+            "router_train_acc": 0.0,
+        }
+
+    active_before = lora.get_active_adapter_name()
+    loss_by_branch: Dict[str, List[float]] = {}
+    try:
+        for branch_name in branch_names:
+            lora.set_active_adapter(branch_name)
+            loss_by_branch[branch_name] = model.score_answer_nlls(pairs, targets)
+    finally:
+        if active_before in lora.list_adapters():
+            lora.set_active_adapter(active_before)
+
+    pseudo_labels: List[str] = []
+    kept_indices: List[int] = []
+    margins: List[float] = []
+    for i in range(len(pairs)):
+        ranked = sorted((float(loss_by_branch[b][i]), b) for b in branch_names)
+        best_loss, best_branch = ranked[0]
+        second_loss = ranked[1][0] if len(ranked) > 1 else best_loss
+        margin = float(second_loss - best_loss)
+        
+        base_margin = float(router.margin_filter_min_gap)
+        dynamic_margin = min(0.02, base_margin + (getattr(router, "_num_updates", 0) / 50.0) * 0.02)
+        
+        if len(ranked) > 1 and margin < dynamic_margin:
+            continue
+        pseudo_labels.append(best_branch)
+        kept_indices.append(i)
+        margins.append(margin)
+
+    if not kept_indices:
+        return {
+            "router_feature_adapter": feature_adapter,
+            "router_num_candidates": int(len(pairs)),
+            "router_num_labels": 0,
+            "router_num_skipped_low_margin": int(len(pairs)),
+            "router_mean_margin": 0.0,
+            "router_loss": 0.0,
+            "router_train_acc": 0.0,
+        }
+
+    if isinstance(features, torch.Tensor):
+        kept_features = features[kept_indices]
+    else:
+        kept_features = [features[i] for i in kept_indices]
+
+    update_metrics = router.update_with_pseudo_labels(
+        features=kept_features,
+        pseudo_labels=pseudo_labels,
+        branch_names=branch_names,
+    )
+    return {
+        "router_feature_adapter": feature_adapter,
+        "router_num_candidates": int(len(pairs)),
+        "router_num_labels": int(len(pseudo_labels)),
+        "router_num_skipped_low_margin": int(len(pairs) - len(pseudo_labels)),
+        "router_mean_margin": float(sum(margins) / max(1, len(margins))),
+        **update_metrics,
+    }
+
+
 def _train_with_router(
     *,
     segment: Segment,
@@ -570,77 +1089,28 @@ def _train_with_router(
     use_overlap: bool,
     beta: float,
 ) -> Dict[str, Any]:
-    from baselines.sequential_lora.method import _batch
-
-    pairs = [(ex.instruction, ex.input) for ex in segment.train]
-    targets = [ex.output for ex in segment.train]
-
-    routed = 0
-    batch_accs: List[float] = []
-    batch_losses: List[float] = []
-    batch_ans_accs: List[float] = []
-    grad_norms: List[float] = []
-    delta_norms: List[float] = []
-    total_tokens = 0
-    supervised_tokens = 0
-    batches = 0
-    for _ in range(max(1, epochs)):
-        for b_pairs, b_targets in _batch(pairs, targets, batch_size):
-            for (ins, inp), y in zip(b_pairs, b_targets):
-                tok = getattr(model, "tokenizer", None)
-                prompt = format_for_infer(tok, ins, inp) if tok is not None else f"{ins}\n\n{inp}"
-                decision = router.predict_branch(
-                    prompt=prompt,
-                    branch_names=lora_bank.list_branches(),
-                    branch_meta=lora_bank.state_dict(),
-                    segment_id=segment.segment_id,
-                )
-                lora.set_active_adapter(decision.branch_name)
-                out = model.fit_batch([(ins, inp)], [y], lr=lr)
-
-                # Anti-overlap integrated into training step (per routed example).
-                if (
-                    use_overlap
-                    and beta > 0
-                    and hasattr(model, "get_activations_tensor")
-                    and len(lora_bank.list_branches()) > 1
-                ):
-                    active_adapter = lora.get_active_adapter_name()
-                    activations_by_branch = {}
-                    for b in lora_bank.list_branches():
-                        lora.set_active_adapter(b)
-                        with_grad = b == active_adapter
-                        acts = model.get_activations_tensor([prompt], with_grad=with_grad)
-                        if not with_grad:
-                            acts = acts.detach()
-                        activations_by_branch[b] = acts
-                    lora.set_active_adapter(active_adapter)
-                    overlap_loss = compute_overlap_loss_torch(activations_by_branch=activations_by_branch, beta=beta)
-                    overlap_loss.backward()
-
-                step_stats = lora.step_adapter()
-                routed += 1
-                batch_accs.append(float(out.get("train_batch_acc", 0.0)))
-                batch_losses.append(float(out.get("train_loss", 0.0)))
-                batch_ans_accs.append(float(out.get("train_answer_token_acc", 0.0)))
-                grad_norms.append(float(step_stats.get("grad_norm", 0.0)))
-                delta_norms.append(float(step_stats.get("lora_param_delta_l2", 0.0)))
-                total_tokens += int(out.get("num_total_tokens", 0))
-                supervised_tokens += int(out.get("num_supervised_tokens", 0))
-            batches += 1
-    return {
-        "batches": batches,
-        "mean_batch_acc": sum(batch_accs) / max(1, len(batch_accs)),
-        "train.loss": sum(batch_losses) / max(1, len(batch_losses)),
-        "train.answer_token_acc": sum(batch_ans_accs) / max(1, len(batch_ans_accs)),
-        "num_total_tokens": int(total_tokens),
-        "num_supervised_tokens": int(supervised_tokens),
-        "grad_norm": sum(grad_norms) / max(1, len(grad_norms)),
-        "lora_param_delta_l2": sum(delta_norms) / max(1, len(delta_norms)),
-        "lr": float(lr),
-        "routed_examples": routed,
-        "num_branches": len(lora_bank.list_branches()),
-    }
+    train_metrics = _train_on_active_branch(
+        segment=segment,
+        model=model,
+        lora=lora,
+        lora_bank=lora_bank,
+        lr=lr,
+        epochs=epochs,
+        batch_size=batch_size,
+        use_overlap=use_overlap,
+        beta=beta,
+    )
+    router_metrics = _update_router_with_segment_pseudo_labels(
+        segment=segment,
+        model=model,
+        lora=lora,
+        lora_bank=lora_bank,
+        router=router,
+    )
+    train_metrics.update(router_metrics)
+    train_metrics["num_branches"] = len(lora_bank.list_branches())
+    train_metrics["num_trainable_branches"] = len(lora_bank.list_trainable_branches())
+    return train_metrics
 
 
 def _train_bank_no_router(
@@ -649,7 +1119,6 @@ def _train_bank_no_router(
     model: Any,
     lora: Any,
     lora_bank: LoRABank,
-    drift: DriftDetector,
     lr: float,
     epochs: int,
     batch_size: int,
@@ -657,8 +1126,9 @@ def _train_bank_no_router(
     """
     Baseline mode: bank + no router.
 
-    - Uses drift detector to decide spawning new branch
     - Does NOT route per-example; always trains on the active branch
+    - Drift monitoring / spawning is handled in `run_baseline(...)` so it can share
+      the same anchor-based logging path as `run_ours(...)`
     - This baseline exists as baseline_name in config/code, without a new top-level folder.
     """
 
@@ -677,17 +1147,6 @@ def _train_bank_no_router(
         use_overlap=False,
         beta=0.0,
     )
-
-    # Update drift with a simple proxy signal from training accuracy
-    signal = 1.0 - float(train_metrics.get("mean_batch_acc", 0.0))
-    event = drift.update(signal=signal, segment_id=segment.segment_id)
-    train_metrics["drift_triggered"] = bool(event.triggered)
-    train_metrics["drift_score"] = float(event.score)
-
-    if event.triggered:
-        lora_bank.freeze_current_branch()
-        new_b = lora_bank.spawn_new_branch(lora_wrapper=lora, segment_id=segment.segment_id)
-        train_metrics["spawned_branch"] = new_b
 
     train_metrics["num_branches"] = len(lora_bank.list_branches())
     train_metrics["active_branch"] = lora_bank.get_active_branch() if lora_bank.list_branches() else ""
@@ -765,6 +1224,10 @@ def _run_overfit_8_mode(
     )
     manifest_add_artifact(run_manifest, manifest_path)
     manifest_add_artifact(run_manifest, config_snapshot_path)
+
+    def _flush_overfit_manifest() -> None:
+        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+
     ckpt_root = out_dir / "lora_ckpt"
     state_path = out_dir / "overfit_state.json"
     csv_path = out_dir / "overfit8_steps.csv"
@@ -892,7 +1355,7 @@ def _run_overfit_8_mode(
         )
         manifest_add_artifact(run_manifest, out_dir / "decode_ablation.json")
         manifest_add_artifact(run_manifest, out_dir / "decode_ablation.csv")
-        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+        _flush_overfit_manifest()
         logger.log("[overfit8] Wrote decode_ablation.json / decode_ablation.csv (decode_ablation_only).")
         return
 
@@ -1092,7 +1555,7 @@ def _run_overfit_8_mode(
             if hasattr(lora, "save_adapter_checkpoint"):
                 lora.save_adapter_checkpoint(str(ckpt_root / f"step_{step:06d}"))
                 manifest_add_artifact(run_manifest, ckpt_root / f"step_{step:06d}")
-        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+        _flush_overfit_manifest()
 
     save_csv(str(csv_path), per_step_rows)
 
@@ -1156,6 +1619,7 @@ def _run_overfit_8_mode(
 
         results_dir = str(cfg.get("paths", {}).get("results_dir", "results"))
         experiment_name = str(cfg.get("experiment_name", "experiment"))
+        _flush_overfit_manifest()
         write_sequence_behavior_report(
             run_manifest_path=manifest_path,
             results_dir=Path(results_dir),
@@ -1163,6 +1627,7 @@ def _run_overfit_8_mode(
             run_id=run_paths.run_id,
         )
         manifest_add_artifact(run_manifest, Path(results_dir) / "debug_report_sequence_behavior_diagnosis.md")
+        _flush_overfit_manifest()
         logger.log(
             f"[overfit8] Wrote sequence behavior report: "
             f"{Path(results_dir) / 'debug_report_sequence_behavior_diagnosis.md'}"
@@ -1257,7 +1722,7 @@ def _run_overfit_8_mode(
             encoding="utf-8",
         )
         manifest_add_artifact(run_manifest, generation_ablation_out_cont_json)
-    manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    _flush_overfit_manifest()
 
 
 

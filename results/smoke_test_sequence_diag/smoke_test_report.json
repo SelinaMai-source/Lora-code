@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "checks": [
+    "first_token_gold_source",
+    "fresh_start_cleanup_and_manifest",
+    "scheduled_sampling_prefix_mixing_alignment",
+    "report_reads_manifest_only"
+  ]
+}

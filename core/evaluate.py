@@ -22,6 +22,69 @@ class EvalResult:
     extra: Dict[str, Any]
 
 
+def _extract_router_feature_for_prompt(model: Any, router: Any, lora_bank: Any, prompt: str) -> Any:
+    import torch
+
+    feature_adapter = (
+        router.feature_adapter_name
+        if hasattr(lora_bank, "has_adapter") and lora_bank.has_adapter(router.feature_adapter_name)
+        else None
+    )
+    active_before = lora_bank.get_active_branch() if hasattr(lora_bank, "get_active_branch") else None
+    if feature_adapter is not None and hasattr(lora_bank, "set_active_adapter"):
+        lora_bank.set_active_adapter(feature_adapter)
+    try:
+        if hasattr(model, "get_activations_tensor"):
+            return model.get_activations_tensor([prompt], with_grad=False)
+        return torch.tensor(model.get_activations([prompt]), dtype=torch.float32)
+    finally:
+        if active_before is not None and hasattr(lora_bank, "set_active_adapter") and lora_bank.has_adapter(active_before):
+            lora_bank.set_active_adapter(active_before)
+
+
+def _normalized_routing_scores(scores: Dict[str, float]) -> Dict[str, float]:
+    total = float(sum(max(0.0, float(v)) for v in scores.values()))
+    if total <= 0:
+        n = max(1, len(scores))
+        return {k: 1.0 / n for k in scores}
+    return {k: float(max(0.0, float(v)) / total) for k, v in scores.items()}
+
+
+def _routing_entropy(prob_scores: Dict[str, float]) -> float:
+    import math
+
+    entropy = 0.0
+    for p in prob_scores.values():
+        if p > 0:
+            entropy -= float(p) * math.log(float(p) + 1e-12)
+    return float(entropy)
+
+
+def _oracle_branch_for_example(model: Any, lora_bank: Any, ex: Example, branch_names: List[str]) -> Dict[str, Any]:
+    pairs = [(ex.instruction, ex.input)]
+    targets = [ex.output]
+    active_before = lora_bank.get_active_branch() if hasattr(lora_bank, "get_active_branch") else None
+    losses: Dict[str, float] = {}
+    try:
+        for branch_name in branch_names:
+            if hasattr(lora_bank, "set_active_adapter"):
+                lora_bank.set_active_adapter(branch_name)
+            losses[branch_name] = float(model.score_answer_nlls(pairs, targets)[0])
+    finally:
+        if active_before is not None and hasattr(lora_bank, "set_active_adapter") and lora_bank.has_adapter(active_before):
+            lora_bank.set_active_adapter(active_before)
+
+    ranked = sorted((loss, name) for name, loss in losses.items())
+    best_loss, best_branch = ranked[0]
+    second_loss = ranked[1][0] if len(ranked) > 1 else best_loss
+    return {
+        "oracle_branch": best_branch,
+        "oracle_best_loss": float(best_loss),
+        "oracle_margin": float(second_loss - best_loss),
+        "oracle_losses": losses,
+    }
+
+
 def evaluate_stream(
     *,
     model: Any,
@@ -32,6 +95,7 @@ def evaluate_stream(
     segment_id: int,
     normalization_cfg: Optional[Dict[str, Any]] = None,
     save_debug_examples_dir: Optional[str] = None,
+    historical_best_per_segment: Optional[Dict[int, float]] = None,
 ) -> Dict[str, Any]:
     """
     Unified evaluation for continual instruction tuning.
@@ -50,7 +114,16 @@ def evaluate_stream(
 
     # Track per-segment accuracy over time
     per_seg_acc: List[Tuple[int, float]] = []
-    routing_stats = {"num_routed": 0, "branch_counts": {}}
+    routing_stats = {
+        "num_routed": 0,
+        "branch_counts": {},
+        "oracle_best_branch_counts": {},
+        "oracle_agreement_count": 0,
+        "oracle_num_examples": 0,
+        "confidence_sum": 0.0,
+        "entropy_sum": 0.0,
+        "oracle_margin_sum": 0.0,
+    }
 
     all_examples_for_dump: List[Dict[str, Any]] = []
     all_token_f1: List[float] = []
@@ -82,14 +155,49 @@ def evaluate_stream(
     # current segment is the last in segments_seen
     current_score = per_seg_acc[-1][1] if per_seg_acc else 0.0
     seen_avg_score = sum(a for _, a in per_seg_acc) / max(1, len(per_seg_acc))
+    anytime_score = float(seen_avg_score)
 
-    # forgetting proxy: difference between best seen accuracy and current accuracy, clipped >= 0
-    best_seen = max(a for _, a in per_seg_acc) if per_seg_acc else 0.0
-    forgetting = max(0.0, best_seen - current_score)
+    if historical_best_per_segment is None:
+        historical_best_per_segment = {}
+    previous_segment_ids = {sid for sid, _ in per_seg_acc[:-1]}
+    forgetting_by_segment: List[Dict[str, float]] = []
+    forgetting_values: List[float] = []
+    for sid, acc in per_seg_acc:
+        best_before = float(historical_best_per_segment.get(sid, acc))
+        seg_forgetting = float(max(0.0, best_before - acc)) if sid in previous_segment_ids else 0.0
+        if sid in previous_segment_ids:
+            forgetting_values.append(seg_forgetting)
+        forgetting_by_segment.append(
+            {
+                "segment_id": int(sid),
+                "accuracy": float(acc),
+                "best_historical_accuracy": float(best_before),
+                "forgetting": float(seg_forgetting),
+            }
+        )
+        historical_best_per_segment[sid] = max(best_before, float(acc))
+    forgetting = float(sum(forgetting_values) / max(1, len(forgetting_values))) if forgetting_values else 0.0
+
+    routing_num = int(routing_stats.get("num_routed", 0))
+    branch_counts = dict(routing_stats.get("branch_counts", {}))
+    branch_utilization = {
+        branch: float(count) / max(1, routing_num)
+        for branch, count in sorted(branch_counts.items())
+    }
+    oracle_num = int(routing_stats.get("oracle_num_examples", 0))
 
     extra = {
         "per_segment_accuracy": [{"segment_id": sid, "accuracy": acc} for sid, acc in per_seg_acc],
-        "routing": routing_stats,
+        "anytime_score": anytime_score,
+        "forgetting_by_segment": forgetting_by_segment,
+        "routing": {
+            **routing_stats,
+            "branch_utilization": branch_utilization,
+            "decision_confidence_mean": float(routing_stats.get("confidence_sum", 0.0) / max(1, routing_num)),
+            "decision_entropy_mean": float(routing_stats.get("entropy_sum", 0.0) / max(1, routing_num)),
+            "oracle_agreement_rate": float(routing_stats.get("oracle_agreement_count", 0) / max(1, oracle_num)),
+            "oracle_margin_mean": float(routing_stats.get("oracle_margin_sum", 0.0) / max(1, oracle_num)),
+        },
         "token_f1_mean": float(sum(all_token_f1) / max(1, len(all_token_f1))),
         "lcs_overlap_mean": float(sum(all_lcs_overlap) / max(1, len(all_lcs_overlap))),
         "prefix_1_match_mean": float(sum(all_prefix1) / max(1, len(all_prefix1))),
@@ -140,7 +248,16 @@ def _eval_segment(
     correct = 0
     total = 0
 
-    routing_stats = {"num_routed": 0, "branch_counts": {}}
+    routing_stats = {
+        "num_routed": 0,
+        "branch_counts": {},
+        "oracle_best_branch_counts": {},
+        "oracle_agreement_count": 0,
+        "oracle_num_examples": 0,
+        "confidence_sum": 0.0,
+        "entropy_sum": 0.0,
+        "oracle_margin_sum": 0.0,
+    }
 
     tok = getattr(model, "tokenizer", None)
     if tok is None:
@@ -161,13 +278,39 @@ def _eval_segment(
         branch_names = lora_bank.list_branches()
         branch_meta = lora_bank.state_dict()
         preds: List[str] = []
-        for p in prompts:
+        routing_details: List[Dict[str, Any]] = []
+        for ex, p in zip(eval_examples, prompts):
+            features = _extract_router_feature_for_prompt(model, router, lora_bank, p)
             decision = router.predict_branch(
-                prompt=p, branch_names=branch_names, branch_meta=branch_meta, segment_id=segment_id
+                prompt=p,
+                branch_names=branch_names,
+                branch_meta=branch_meta,
+                segment_id=segment_id,
+                features=features,
             )
+            prob_scores = _normalized_routing_scores(decision.scores)
             routing_stats["num_routed"] += 1
             routing_stats["branch_counts"][decision.branch_name] = (
                 routing_stats["branch_counts"].get(decision.branch_name, 0) + 1
+            )
+            routing_stats["confidence_sum"] += float(max(prob_scores.values()) if prob_scores else 0.0)
+            routing_stats["entropy_sum"] += float(_routing_entropy(prob_scores))
+            oracle = _oracle_branch_for_example(model, lora_bank, ex, branch_names)
+            routing_stats["oracle_num_examples"] += 1
+            routing_stats["oracle_agreement_count"] += int(decision.branch_name == oracle["oracle_branch"])
+            routing_stats["oracle_margin_sum"] += float(oracle["oracle_margin"])
+            routing_stats["oracle_best_branch_counts"][oracle["oracle_branch"]] = (
+                routing_stats["oracle_best_branch_counts"].get(oracle["oracle_branch"], 0) + 1
+            )
+            routing_details.append(
+                {
+                    "routing_selected_branch": decision.branch_name,
+                    "routing_confidence": float(max(prob_scores.values()) if prob_scores else 0.0),
+                    "routing_entropy": float(_routing_entropy(prob_scores)),
+                    "routing_oracle_branch": oracle["oracle_branch"],
+                    "routing_oracle_margin": float(oracle["oracle_margin"]),
+                    "routing_oracle_best_loss": float(oracle["oracle_best_loss"]),
+                }
             )
             # Switch adapter before generating (needed for real multi-adapter evaluation).
             if hasattr(lora_bank, "set_active_adapter"):
@@ -180,9 +323,10 @@ def _eval_segment(
         else:
             gen_audit = None
             preds = model.generate(prompts, max_new_tokens=max_new_tokens)
+        routing_details = [{} for _ in preds]
 
     details: List[Dict[str, Any]] = []
-    for ex, p, pred, y in zip(eval_examples, prompts, preds, targets):
+    for ex, p, pred, y, routing_detail in zip(eval_examples, prompts, preds, targets, routing_details):
         total += 1
         norm_pred = _normalize(pred, prompt=p, cfg=normalization_cfg)
         norm_gold = _normalize(y, prompt=p, cfg=normalization_cfg)
@@ -288,6 +432,7 @@ def _eval_segment(
                 "teacher_forced_answer_token_acc": teacher_forced_answer_token_acc,
                 "teacher_forced_num_loss_tokens": teacher_forced_num_loss_tokens,
                 "teacher_forced_num_supervised_label_tokens": teacher_forced_num_supervised_label_tokens,
+                **routing_detail,
             }
         )
 
@@ -327,6 +472,13 @@ def _merge_routing_stats(dst: Dict[str, Any], src: Dict[str, Any]) -> None:
     dst["num_routed"] += int(src.get("num_routed", 0))
     for k, v in src.get("branch_counts", {}).items():
         dst["branch_counts"][k] = dst["branch_counts"].get(k, 0) + int(v)
+    for k, v in src.get("oracle_best_branch_counts", {}).items():
+        dst["oracle_best_branch_counts"][k] = dst["oracle_best_branch_counts"].get(k, 0) + int(v)
+    dst["oracle_agreement_count"] += int(src.get("oracle_agreement_count", 0))
+    dst["oracle_num_examples"] += int(src.get("oracle_num_examples", 0))
+    dst["confidence_sum"] += float(src.get("confidence_sum", 0.0))
+    dst["entropy_sum"] += float(src.get("entropy_sum", 0.0))
+    dst["oracle_margin_sum"] += float(src.get("oracle_margin_sum", 0.0))
 
 
 def _normalize(s: str, *, prompt: str, cfg: Dict[str, Any]) -> str:

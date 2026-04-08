@@ -76,6 +76,62 @@ def init_overfit_run_manifest(
     }
 
 
+def init_run_manifest(
+    *,
+    cfg: Dict[str, Any],
+    run_id: str,
+    config_path: str,
+    config_snapshot_path: str,
+    run_dir: Path,
+) -> Dict[str, Any]:
+    paths_cfg = cfg.get("paths", {}) if isinstance(cfg.get("paths", {}), dict) else {}
+    data_cfg = cfg.get("data", {}) if isinstance(cfg.get("data", {}), dict) else {}
+    dataset_path = ""
+    processed_file = str(paths_cfg.get("processed_stream_file", "")).strip()
+    processed_dir = str(paths_cfg.get("processed_stream_dir", "")).strip()
+    if processed_file:
+        dataset_path = processed_file
+    elif processed_dir:
+        dataset_path = processed_dir
+    dataset_sha = ""
+    p = Path(dataset_path) if dataset_path else None
+    if p and p.is_file():
+        dataset_sha = sha256_file(p)
+    repo_dir = Path(__file__).resolve().parents[1]
+    model_cfg = cfg.get("model", {}) if isinstance(cfg.get("model", {}), dict) else {}
+    status_porcelain = git_cmd(repo_dir, ["status", "--short"])
+    return {
+        "run_id": str(run_id),
+        "start_time": datetime.now(timezone.utc).isoformat(),
+        "status": "running",
+        "git_branch_name": git_cmd(repo_dir, ["rev-parse", "--abbrev-ref", "HEAD"]),
+        "git_commit_sha": git_cmd(repo_dir, ["rev-parse", "HEAD"]),
+        "git_status_porcelain": status_porcelain.splitlines(),
+        "git_is_dirty": bool(status_porcelain.strip()),
+        "mode": str(cfg.get("mode", "")),
+        "experiment_name": str(cfg.get("experiment_name", "")),
+        "benchmark_alias": str(data_cfg.get("stream_name", "")),
+        "config_path": str(config_path),
+        "config_snapshot_path": str(config_snapshot_path),
+        "dataset_path": str(dataset_path),
+        "dataset_sha256": str(dataset_sha),
+        "tokenizer_path_or_name": str(model_cfg.get("hf_model_name_or_path", "")),
+        "model_path_or_name": str(model_cfg.get("hf_model_name_or_path", "")),
+        "lora_config": cfg.get("lora", {}),
+        "train_config": cfg.get("train", {}),
+        "modules_config": cfg.get("modules", {}),
+        "run_dir": str(run_dir),
+        "artifacts_generated_in_run": [],
+    }
+
+
+def finalize_run_manifest(manifest: Dict[str, Any], *, status: str, error: str = "") -> None:
+    manifest["status"] = str(status)
+    manifest["end_time"] = datetime.now(timezone.utc).isoformat()
+    if error:
+        manifest["error"] = str(error)
+
+
 def manifest_add_artifact(manifest: Dict[str, Any], path: Path) -> None:
     artifacts = manifest.get("artifacts_generated_in_run")
     if not isinstance(artifacts, list):

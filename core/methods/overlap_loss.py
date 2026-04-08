@@ -94,6 +94,52 @@ def compute_overlap_loss_torch(
     return mean_sim * float(beta)
 
 
+def compute_orthogonal_weight_loss(
+    *,
+    lora_wrapper: "Any",
+    beta: float,
+) -> "Any":
+    """
+    Orthogonal regularization on LoRA weight matrices.
+    Penalizes the cosine similarity between the flattened weight vectors of different branches.
+    """
+    import torch
+
+    if beta <= 0 or lora_wrapper is None or not hasattr(lora_wrapper, "list_adapters"):
+        return torch.tensor(0.0, dtype=torch.float32)
+
+    branches = sorted(lora_wrapper.list_adapters())
+    if len(branches) <= 1:
+        return torch.tensor(0.0, dtype=torch.float32)
+
+    vectors = {}
+    for b in branches:
+        vec = lora_wrapper.get_adapter_vector(b)
+        if vec.numel() > 0:
+            vectors[b] = vec
+
+    if len(vectors) <= 1:
+        return torch.tensor(0.0, dtype=torch.float32)
+
+    import torch.nn.functional as F
+
+    total = torch.tensor(0.0, device=next(iter(vectors.values())).device)
+    count = 0
+    branch_list = list(vectors.keys())
+    for i in range(len(branch_list)):
+        for j in range(i + 1, len(branch_list)):
+            b1, b2 = branch_list[i], branch_list[j]
+            v1 = vectors[b1]
+            v2 = vectors[b2]
+            sim = F.cosine_similarity(v1.unsqueeze(0), v2.unsqueeze(0)).squeeze()
+            # We want to penalize absolute similarity (both highly correlated and highly anti-correlated)
+            # or just positive similarity. Usually, minimizing squared cosine similarity or absolute value.
+            total = total + sim.abs()
+            count += 1
+
+    mean_sim = total / max(1, count)
+    return mean_sim * float(beta)
+
 def _mean_cosine_similarity(a_list: List[List[float]], b_list: List[List[float]]) -> float:
     import math
 
