@@ -34,6 +34,7 @@ from core.utils import (
     RunPaths,
     SimpleLogger,
     append_jsonl,
+    build_experiment_tracker,
     ensure_dir,
     load_yaml_config,
     make_run_paths,
@@ -85,6 +86,7 @@ def main() -> None:
     run_name = str(cfg.get("output", {}).get("run_name", "")) if isinstance(cfg.get("output", {}), dict) else ""
     run_paths = make_run_paths(results_dir=results_dir, experiment_name=experiment_name, run_name=run_name)
     logger = SimpleLogger(run_paths.log_file)
+    tracker = build_experiment_tracker(cfg, run_id=run_paths.run_id, run_dir=run_paths.run_dir, mode=mode)
 
     logger.log(f"Config: {args.config}")
     logger.log(f"Mode: {mode}")
@@ -156,6 +158,7 @@ def main() -> None:
                 logger=logger,
                 segment_metrics_rows=segment_metrics_rows,
                 mode="debug",
+                tracker=tracker,
             )
         elif mode == "baseline":
             baseline_name = str(cfg.get("baseline_name", "")).strip()
@@ -171,6 +174,7 @@ def main() -> None:
                 logger=logger,
                 segment_metrics_rows=segment_metrics_rows,
                 mode="baseline",
+                tracker=tracker,
             )
         else:
             final_metrics = run_ours(
@@ -181,11 +185,13 @@ def main() -> None:
                 run_paths=run_paths,
                 logger=logger,
                 segment_metrics_rows=segment_metrics_rows,
+                tracker=tracker,
             )
 
         # Save final metrics + per-segment table
         save_json(run_paths.metrics_json, final_metrics)
         save_csv(run_paths.segment_metrics_csv, segment_metrics_rows)
+        tracker.summary_update(final_metrics)
         logger.log(f"Saved final metrics: {run_paths.metrics_json}")
         logger.log(f"Saved per-segment table: {run_paths.segment_metrics_csv}")
 
@@ -206,6 +212,8 @@ def main() -> None:
     except Exception as exc:
         _flush_run_manifest(status="failed", error=repr(exc))
         raise
+    finally:
+        tracker.finish()
 
 
 def _load_stream(cfg: Dict[str, Any], *, mode: str, logger: SimpleLogger) -> ContinualStream:
@@ -408,6 +416,7 @@ def run_baseline(
     logger: SimpleLogger,
     segment_metrics_rows: List[Dict[str, Any]],
     mode: str,
+    tracker: Any,
 ) -> Dict[str, Any]:
     logger.log(f"Baseline selected: {baseline_name}")
 
@@ -566,6 +575,7 @@ def run_baseline(
             row["drift.core_cusum"] = float(drift_row.get("core_cusum", 0.0))
             row["drift.probe_cusum"] = float(drift_row.get("probe_cusum", 0.0))
         segment_metrics_rows.append(row)
+        tracker.log(row, step=seg.segment_id)
 
         # Save per-segment artifact
         seg_dir = ensure_dir(str(Path(run_paths.run_dir) / f"segment_{seg.segment_id:03d}"))
@@ -601,6 +611,7 @@ def run_ours(
     run_paths: RunPaths,
     logger: SimpleLogger,
     segment_metrics_rows: List[Dict[str, Any]],
+    tracker: Any,
 ) -> Dict[str, Any]:
     modules = cfg.get("modules", {}) if isinstance(cfg.get("modules", {}), dict) else {}
     use_drift = bool(modules.get("use_drift_detector", True))
@@ -820,6 +831,7 @@ def run_ours(
             row["drift.core_cusum"] = float(drift_event.core_cusum)
             row["drift.probe_cusum"] = float(drift_event.probe_cusum)
         segment_metrics_rows.append(row)
+        tracker.log(row, step=seg.segment_id)
 
         seg_dir = ensure_dir(str(Path(run_paths.run_dir) / f"segment_{seg.segment_id:03d}"))
         save_json(str(Path(seg_dir) / "train_metrics.json"), train_metrics)
@@ -1729,4 +1741,3 @@ def _run_overfit_8_mode(
 
 if __name__ == "__main__":
     main()
-

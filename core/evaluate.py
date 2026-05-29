@@ -260,15 +260,16 @@ def _eval_segment(
     }
 
     tok = getattr(model, "tokenizer", None)
-    if tok is None:
-        raise RuntimeError("Model has no tokenizer; cannot format chat prompts for evaluation.")
     eval_examples = list(segment.eval)
     enable_infer_token_audit = bool(normalization_cfg.get("enable_infer_token_audit", False))
     enable_teacher_forced_eval = bool(normalization_cfg.get("enable_teacher_forced_eval", False))
     infer_token_audit_max_examples = int(normalization_cfg.get("infer_token_audit_max_examples", 8))
     teacher_forced_eval_max_examples = int(normalization_cfg.get("teacher_forced_eval_max_examples", 8))
 
-    prompts = [format_for_infer(tok, ex.instruction, ex.input, add_generation_prompt=True) for ex in eval_examples]
+    if tok is None:
+        prompts = [_format_prompt(ex.instruction, ex.input) for ex in eval_examples]
+    else:
+        prompts = [format_for_infer(tok, ex.instruction, ex.input, add_generation_prompt=True) for ex in eval_examples]
     targets = [ex.output for ex in eval_examples]
 
     # If router/bank available, route per prompt (simplified hard routing).
@@ -571,6 +572,13 @@ def _extract_instruction_from_prompt(prompt: str) -> str:
     return prompt
 
 
+def _format_prompt(instruction: str, input_text: str) -> str:
+    input_text = (input_text or "").strip()
+    if input_text:
+        return f"指令：{instruction}\n输入：{input_text}\n输出："
+    return f"指令：{instruction}\n输出："
+
+
 def _save_debug_examples(
     *,
     save_dir: str,
@@ -588,4 +596,3 @@ def _save_debug_examples(
         "examples": examples,
     }
     (d / f"eval_segment_{segment_id:03d}.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-

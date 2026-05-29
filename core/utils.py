@@ -134,3 +134,91 @@ class SimpleLogger:
         with open(self.log_path, "a", encoding="utf-8") as f:
             f.write(line + "\n")
 
+
+class ExperimentTracker:
+    """Optional W&B tracker with a no-op fallback."""
+
+    def __init__(
+        self,
+        *,
+        enabled: bool,
+        project: str,
+        run_id: str,
+        run_name: str,
+        config: Dict[str, Any],
+        run_dir: str,
+        mode: str = "online",
+        entity: str = "",
+        tags: Optional[List[str]] = None,
+    ):
+        self.run = None
+        if not enabled:
+            return
+        try:
+            import wandb
+
+            self.run = wandb.init(
+                project=project or "lora-citb",
+                entity=entity or None,
+                id=run_id,
+                name=run_name or run_id,
+                config=config,
+                dir=run_dir,
+                mode=mode or "online",
+                tags=tags or [],
+                resume="allow",
+                save_code=True,
+            )
+        except Exception as exc:  # pragma: no cover - optional tracking path
+            self.run = None
+            print(f"[tracker] W&B disabled: {exc}")
+
+    def log(self, metrics: Dict[str, Any], *, step: Optional[int] = None) -> None:
+        if self.run is None:
+            return
+        self.run.log(_flatten_for_tracking(metrics), step=step)
+
+    def summary_update(self, metrics: Dict[str, Any]) -> None:
+        if self.run is None:
+            return
+        self.run.summary.update(_flatten_for_tracking(metrics))
+
+    def finish(self) -> None:
+        if self.run is not None:
+            self.run.finish()
+
+
+def build_experiment_tracker(cfg: Dict[str, Any], *, run_id: str, run_dir: str, mode: str) -> ExperimentTracker:
+    output = cfg.get("output", {}) if isinstance(cfg.get("output", {}), dict) else {}
+    tracking = output.get("tracking", {}) if isinstance(output.get("tracking", {}), dict) else {}
+    tags = tracking.get("wandb_tags", [])
+    if not isinstance(tags, list):
+        tags = [str(tags)]
+    tags = [str(x) for x in tags if str(x).strip()]
+    paper = cfg.get("paper", {}) if isinstance(cfg.get("paper", {}), dict) else {}
+    for key in ["benchmark_alias", "method_variant", "category"]:
+        value = str(paper.get(key, "")).strip()
+        if value:
+            tags.append(value)
+    return ExperimentTracker(
+        enabled=bool(tracking.get("use_wandb", False)),
+        project=str(tracking.get("wandb_project", "") or "lora-citb"),
+        entity=str(tracking.get("wandb_entity", "") or ""),
+        run_id=run_id,
+        run_name=str(output.get("run_name", "") or run_id),
+        config=cfg,
+        run_dir=run_dir,
+        mode=str(tracking.get("wandb_mode", "online") or "online"),
+        tags=[mode, str(cfg.get("experiment_name", "experiment")), *tags],
+    )
+
+
+def _flatten_for_tracking(obj: Dict[str, Any], prefix: str = "") -> Dict[str, Any]:
+    flat: Dict[str, Any] = {}
+    for key, value in obj.items():
+        name = f"{prefix}/{key}" if prefix else str(key)
+        if isinstance(value, dict):
+            flat.update(_flatten_for_tracking(value, name))
+        elif isinstance(value, (str, int, float, bool)) or value is None:
+            flat[name] = value
+    return flat

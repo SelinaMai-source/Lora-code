@@ -48,6 +48,17 @@ output:
   save_every_segment: true
   write_tables: true
   write_logs: true
+  tracking:
+    use_wandb: true
+    wandb_project: lora-citb
+    wandb_entity: ''
+    wandb_mode: online
+    wandb_tags:
+    - paper
+    - ours
+    - ablation
+    - ours_no_drift
+    - instrdialog++
 modules:
   use_drift_detector: false
   use_lora_bank: true

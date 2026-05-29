@@ -120,6 +120,7 @@ def init_run_manifest(
         "lora_config": cfg.get("lora", {}),
         "train_config": cfg.get("train", {}),
         "modules_config": cfg.get("modules", {}),
+        "tracking_config": (cfg.get("output", {}) if isinstance(cfg.get("output", {}), dict) else {}).get("tracking", {}),
         "run_dir": str(run_dir),
         "artifacts_generated_in_run": [],
     }

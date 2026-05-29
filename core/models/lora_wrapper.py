@@ -6,10 +6,6 @@ from typing import Any, Dict, List, Optional, Set, Union
 
 import torch
 
-from peft import LoraConfig as PeftLoraConfig
-from peft import TaskType
-from peft import get_peft_model
-
 
 @dataclass
 class LoRAConfig:
@@ -55,6 +51,7 @@ class LoRAWrapper:
 
         peft_modules: Any = tm if isinstance(tm, str) else list(tm)
 
+        PeftLoraConfig, TaskType, get_peft_model = _peft_imports()
         peft_cfg = PeftLoraConfig(
             r=int(self.cfg.r),
             lora_alpha=int(self.cfg.alpha),
@@ -130,6 +127,7 @@ class LoRAWrapper:
         tm = self.cfg.target_modules
         peft_modules_add: Any = tm if isinstance(tm, str) else list(tm or [])
 
+        PeftLoraConfig, TaskType, _ = _peft_imports()
         peft_cfg = PeftLoraConfig(
             r=int(self.cfg.r),
             lora_alpha=int(self.cfg.alpha),
@@ -396,3 +394,10 @@ def build_lora_wrapper(base_model: Any, lora_cfg_dict: Dict[str, Any]) -> LoRAWr
 
     return LoRAWrapper(backbone=base_model, cfg=cfg)
 
+
+def _peft_imports() -> Any:
+    from peft import LoraConfig as PeftLoraConfig
+    from peft import TaskType
+    from peft import get_peft_model
+
+    return PeftLoraConfig, TaskType, get_peft_model

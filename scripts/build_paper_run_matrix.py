@@ -90,6 +90,15 @@ def _apply_common_metadata(
     cfg["seed"] = int(seed)
     output_cfg = _ensure_mapping(cfg, "output")
     output_cfg["run_name"] = run_name
+    tracking_cfg = _ensure_mapping(output_cfg, "tracking")
+    tracking_cfg["use_wandb"] = bool(tracking_cfg.get("use_wandb", True))
+    tracking_cfg["wandb_project"] = str(tracking_cfg.get("wandb_project", "lora-citb"))
+    tracking_cfg["wandb_entity"] = str(tracking_cfg.get("wandb_entity", ""))
+    tracking_cfg["wandb_mode"] = str(tracking_cfg.get("wandb_mode", "online"))
+    existing_tags = tracking_cfg.get("wandb_tags", [])
+    if not isinstance(existing_tags, list):
+        existing_tags = [str(existing_tags)]
+    tracking_cfg["wandb_tags"] = list(dict.fromkeys([*existing_tags, "paper", category, method_variant, benchmark]))
 
     paper_cfg = _ensure_mapping(cfg, "paper")
     paper_cfg["track"] = "paper"

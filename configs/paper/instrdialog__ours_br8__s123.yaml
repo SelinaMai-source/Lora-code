@@ -48,6 +48,17 @@ output:
   save_every_segment: true
   write_tables: true
   write_logs: true
+  tracking:
+    use_wandb: true
+    wandb_project: lora-citb
+    wandb_entity: ''
+    wandb_mode: online
+    wandb_tags:
+    - paper
+    - ours
+    - sweep
+    - ours_max_branches
+    - instrdialog
 modules:
   use_drift_detector: true
   use_lora_bank: true
@@ -55,9 +66,10 @@ modules:
   use_overlap_loss: true
 drift:
   anchor_size: 64
+  anchor_refresh_segments: 1
   monitor_interval: 50
   calibration_window: 3
-  threshold: 0.15
+  threshold: 0.1
   score_ema: 0.9
 bank:
   max_branches: 8
@@ -68,6 +80,8 @@ router:
   pseudo_label_strategy: self_consistency
   temperature: 1.0
   router_warmup_segments: 1
+  margin_filter_min_gap: 0.0
+  learning_rate: 0.002
 overlap:
   beta: 0.1
 paper:
