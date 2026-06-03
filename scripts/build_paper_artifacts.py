@@ -30,6 +30,11 @@ LABELS = {
     "ours_r32": "OursR32",
     "ours_br4": "OursBr4",
     "ours_br8": "OursBr8",
+    "ours_beta001": "OursBeta001",
+    "ours_beta003": "OursBeta003",
+    "ours_beta006": "OursBeta006",
+    "ours_no_meta_threshold": "OursNoMetaThreshold",
+    "ours_reverse_curriculum": "OursReverseCurriculum",
 }
 
 
@@ -120,8 +125,16 @@ def _effective_reporting_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]
         ours_rows = [r for r in rows if str(r.get("benchmark", "")) == benchmark and str(r.get("family", "")) == "ours"]
         if not ours_rows:
             continue
-        best_row = max(ours_rows, key=_report_rank_key)
-        best_ours_by_benchmark[benchmark] = str(best_row.get("resolved_run_name", ""))
+        declared_main = [
+            r
+            for r in ours_rows
+            if str(r.get("category", "")) == "main" and str(r.get("variant_id", "")) == "ours_full"
+        ]
+        if declared_main:
+            best_ours_by_benchmark[benchmark] = str(declared_main[0].get("resolved_run_name", ""))
+        else:
+            best_row = max(ours_rows, key=_report_rank_key)
+            best_ours_by_benchmark[benchmark] = str(best_row.get("resolved_run_name", ""))
 
     effective: List[Dict[str, Any]] = []
     for row in rows:
@@ -198,6 +211,8 @@ def _collect_run_rows(
     available: List[Dict[str, Any]] = []
     missing: List[Dict[str, str]] = []
     for row in matrix_rows:
+        if _is_pilot_or_override_row(row):
+            continue
         run_name = _row_run_name(row)
         run_dir = results_dir / "runs" / run_name
         metrics_path = run_dir / "final_metrics.json"
@@ -238,6 +253,22 @@ def _collect_run_rows(
         }
         available.append(row_out)
     return available, missing
+
+
+def _is_pilot_or_override_row(row: Dict[str, str]) -> bool:
+    """Paper artifacts should not promote smoke/mini override runs into main tables."""
+    if str(row.get("run_name_suffix", "")).strip():
+        return True
+    if str(row.get("generic_overrides_json", "")).strip() not in {"", "{}"}:
+        return True
+    override_keys = [
+        "max_segments_override",
+        "max_train_examples_override",
+        "max_eval_examples_override",
+        "epochs_per_segment_override",
+        "batch_size_override",
+    ]
+    return any(str(row.get(k, "")).strip() for k in override_keys)
 
 
 def _plot_anytime(rows: List[Dict[str, Any]], *, repo_root: Path, out_path: Path) -> None:
@@ -395,26 +426,30 @@ def _plot_pipeline(out_path: Path) -> None:
     import matplotlib.pyplot as plt
     from matplotlib.patches import FancyBboxPatch
 
-    fig, ax = plt.subplots(figsize=(11, 2.8))
+    fig, ax = plt.subplots(figsize=(12.5, 3.6))
     ax.axis("off")
     stages = [
-        ("Detect", 0.05),
-        ("Allocate", 0.25),
-        ("Train", 0.45),
-        ("Route", 0.65),
-        ("Feedback", 0.85),
+        ("Curriculum\nAnchors", 0.08),
+        ("Meta CUSUM\nChange Point", 0.28),
+        ("LoRA Bank\nAllocate/Merge", 0.48),
+        ("Routed\nOnline Train", 0.68),
+        ("Anti-Overlap\nSpecialize", 0.88),
     ]
     for label, x in stages:
-        box = FancyBboxPatch((x - 0.08, 0.35), 0.16, 0.28, boxstyle="round,pad=0.02", linewidth=1.5)
+        box = FancyBboxPatch((x - 0.09, 0.42), 0.18, 0.30, boxstyle="round,pad=0.02", linewidth=1.5)
         ax.add_patch(box)
-        ax.text(x, 0.49, label, ha="center", va="center", fontsize=12, fontweight="bold")
+        ax.text(x, 0.57, label, ha="center", va="center", fontsize=10.5, fontweight="bold")
     for i in range(len(stages) - 1):
-        x0 = stages[i][1] + 0.08
-        x1 = stages[i + 1][1] - 0.08
-        ax.annotate("", xy=(x1, 0.49), xytext=(x0, 0.49), arrowprops=dict(arrowstyle="->", lw=1.5))
-    ax.text(0.25, 0.2, "Frozen branches", fontsize=10)
-    ax.text(0.55, 0.2, "Active branch updated", fontsize=10)
-    ax.text(0.8, 0.2, "Router trained from bank signals", fontsize=10)
+        x0 = stages[i][1] + 0.09
+        x1 = stages[i + 1][1] - 0.09
+        ax.annotate("", xy=(x1, 0.57), xytext=(x0, 0.57), arrowprops=dict(arrowstyle="->", lw=1.5))
+    ax.annotate("", xy=(0.68, 0.40), xytext=(0.88, 0.40), arrowprops=dict(arrowstyle="<->", lw=1.2))
+    ax.text(0.78, 0.31, "router weights and LoRA branches are regularized jointly", ha="center", fontsize=9)
+    ax.text(0.08, 0.20, "easy core anchors\nhard probe anchors", ha="center", fontsize=9)
+    ax.text(0.28, 0.20, "learn threshold from\nanchor volatility", ha="center", fontsize=9)
+    ax.text(0.48, 0.20, "freeze old branches\nspawn or merge", ha="center", fontsize=9)
+    ax.text(0.68, 0.20, "per-example branch\nassignment", ha="center", fontsize=9)
+    ax.text(0.88, 0.20, "activation + weight\northogonality", ha="center", fontsize=9)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=180, bbox_inches="tight")
     plt.close(fig)

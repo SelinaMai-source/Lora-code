@@ -297,3 +297,45 @@ LoRA bank 是当前 `ours` 方法中证据最充分的正结果来源之一。
 综合上述分析，可将当前阶段的核心结论压缩为以下表述：
 
 `drift + bank` 构成了当前 `ours` 中最主要的有效来源，`router` 具有一定模块增益但尚未闭环证成，而 `anti-overlap regularization` 仍未得到当前实验结果的支持。
+
+## 10. Run V1 继续实验记录
+
+本轮在不改变正式 paper matrix 口径的前提下，新增了若干带 `run_name_suffix` 的 smoke / mini override runs；这些运行只用于验证后续改动，不进入 `paper_main_results.csv`、`paper_ablation_results.csv` 与主表汇总。聚合结果写入：
+
+- `results/run_v1_focused_experiments_summary.md`
+- `results/tables/run_v1_focused_experiments.csv`
+
+### 10.1 Routed training 变体
+
+代码中新增 `router.training_strategy`，默认仍为 `active_branch`，因此既有 `run_v1` winner 行为保持不变。新开关目前支持：
+
+- `active_branch`：沿用旧行为，训练阶段始终更新当前 active branch。
+- `oracle_min_nll`：训练前用各 branch 的 answer NLL 生成 per-example assignment；若 oracle branch 已冻结，则默认回退到当前 active branch，避免破坏 frozen branch 语义。
+- `learned_router`：训练阶段用当前 router 预测 branch assignment。
+
+在 2 段 smoke 与 4 段 mini 中，`oracle_min_nll` 路径已跑通并落盘；当 drift 未触发、bank 只有一个 branch 时，它与默认路径等价，主要验证代码路径与指标记录。
+
+### 10.2 Drift sweep 观察
+
+仅调低 degradation-only detector 的 `threshold / calibration_window / min_consecutive_probe_hits` 并不能解决 mini 场景中的高 miss rate，因为当前 anchor NLL 多数是下降而非上升，默认 detector 只把“性能退化”视为 drift 信号。为诊断该问题，新增 `drift.shift_stat`：
+
+- `degradation`：默认值，保持原有一侧退化检测语义。
+- `absolute`：用于 sweep，把 anchor NLL 相对 baseline 的绝对偏移作为 shift proxy。
+
+在 `mini_abs_drift_routed` 中，`absolute` sweep 触发了 branch spawning：最终 `num_branches=3`，`drift.miss_rate=0.3333`，`detection_delay_mean=0.5`，显著低于默认 mini 的 `miss_rate=1.0`。但该配置的 `seen_avg=0.0625`、`token_f1=0.3175`，弱于默认 mini 的 `seen_avg=0.1875`、`token_f1=0.3764`。因此它证明了当前高 miss rate 与单侧 drift statistic 强相关，但还不能作为主配置推广。
+
+### 10.3 当前结论更新
+
+本轮代码改动把 router 的训练闭环问题从“不可验证”推进到“可配置验证”；同时 drift sweep 暴露出 proxy shift label 与 degradation-only detector 之间的口径不匹配。下一步若继续扩大实验，应优先比较 `absolute` / degradation detector 在更长 stream 和更多 seed 上的 trade-off，并修正 routed training 中 frozen-branch oracle 与 active-branch fallback 的监督不一致问题。
+
+## 11. ACL/ARR Anti-Overlap 主实验重定位
+
+根据最新导师反馈，后续投稿目标从 AAAI 口径调整为更贴近 NLP 社区的 ACL/ARR 口径，且 `anti-overlap` 必须作为主实验而非 optional ablation。为此，本轮工程口径作如下更新：
+
+1. 主表 `Ours` 固定为 `ours_full`，即 drift + LoRA bank + routed online training + anti-overlap；`ours_no_overlap` 保留为关键消融。
+2. `anti-overlap` 不再是单一固定 `beta=0.1` 的正交惩罚，而是拆分为 activation-space diversity 与 LoRA weight-space orthogonality，并加入 curriculum warmup、branch-count scaling 与细粒度指标记录。
+3. `change-point statistics` 加入课程学习视角：默认使用 easy-core / hard-probe anchor split；同时加入基于 anchor calibration volatility 的 meta-threshold 配置，用于对比固定阈值 CUSUM。
+4. `LoRA bank management` 与 `inference-time routing` 被整合为闭环：主配置启用 `router.training_strategy=learned_router`，并记录 routed training branch counts、router balance loss 与 router-head orthogonality。
+5. `scripts/build_paper_run_matrix.py` 新增 `ours_beta001 / ours_beta003 / ours_beta006 / ours_no_meta_threshold / ours_reverse_curriculum` 等 sweep，用于支撑 anti-overlap 和 curriculum/meta change-point 的机制分析。
+
+需要注意：本节是工程和实验设计口径更新，已有历史结果仍显示旧 `OursFull` 表现较弱。因此，最终论文结论必须依赖重新运行后的 ACL/ARR matrix，不能直接复用旧的 overlap-enabled 数字作为正结果。

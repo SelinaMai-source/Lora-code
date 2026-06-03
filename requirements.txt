@@ -9,3 +9,5 @@ transformers>=4.45.0
 peft>=0.12.0
 accelerate>=0.33.0
 
+# 实验追踪（可选；仅在 output.tracking.use_wandb=true 时需要）
+wandb>=0.17.0

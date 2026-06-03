@@ -174,13 +174,14 @@ class LoRAWrapper:
     def is_adapter_frozen(self, name: str) -> bool:
         return name in self._frozen_adapters
 
-    def get_adapter_vector(self, name: str) -> torch.Tensor:
+    def get_adapter_vector(self, name: str, *, detach: bool = True) -> torch.Tensor:
         if not self.cfg.enabled or self.peft_model is None:
             return torch.tensor([])
         tensors = []
         for param_name, param in self.peft_model.named_parameters():
             if f"lora_A.{name}." in param_name or f"lora_B.{name}." in param_name:
-                tensors.append(param.detach().view(-1))
+                tensor = param.detach() if detach else param
+                tensors.append(tensor.view(-1))
         if not tensors:
             return torch.tensor([])
         return torch.cat(tensors)

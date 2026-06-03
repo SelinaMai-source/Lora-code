@@ -3,7 +3,7 @@
 TITLE: Task-Free Online LoRA with Drift Detection and Inference-Time Routing for Continual Instruction Tuning
 
 # 2. Abstract
-Large language models deployed on non-stationary instruction streams need continual updates without task boundaries, replay-heavy storage, or full-model retraining. The current lora-code repository now implements a task-free online LoRA system built around anchor-based drift detection, a growing LoRA bank, inference-time routing, and orthogonal-weight anti-overlap regularization with activation-space monitoring. Relative to RP(Lora)_v2, this v3 report updates the proposal into a code-grounded paper-style status document: drift is monitored with teacher-forced answer NLL on core/probe anchors under a calibrated one-sided CUSUM rule; branch allocation is handled by a LoRA bank that freezes prior adapters and spawns new branches on drift; router pseudo-labels are produced from per-branch answer NLL with margin filtering; and the current implementation trains the active branch segment-wise while using the router for per-example selection at evaluation time. On the currently completed single-seed InstrDialog runs, the current main-table `Ours` configuration (the no-overlap winner) reaches seen_avg 0.0421, token_f1 0.0411, and oracle_agreement 0.0806. It improves on the best completed InstrDialog baseline in seen_avg (PeriodicLatest: 0.0263), but it does not beat the strongest baseline on token_f1 (PeriodicLatest: 0.1552) or forgetting (Replay(50): 0.0222). Cross-benchmark coverage remains incomplete because the current main matrix still lacks several InstrDialog++ routed counterparts, including the full `Ours` row. The updated report therefore presents both the implemented method and the most important remaining risks before a paper-ready claim set is possible.
+Large language models deployed on non-stationary instruction streams need continual updates without task boundaries, replay-heavy storage, or full-model retraining. The current lora-code repository now implements a task-free online LoRA system built around curriculum-aware anchor drift detection, a growing LoRA bank, closed-loop routing, and anti-overlap regularization over activation and LoRA-weight space. Relative to RP(Lora)_v2, this v3 report updates the proposal into a code-grounded paper-style status document: drift is monitored with teacher-forced answer NLL on core/probe anchors under a calibrated one-sided CUSUM rule; branch allocation is handled by a LoRA bank that freezes prior adapters and spawns new branches on drift; router pseudo-labels are produced from per-branch answer NLL with margin filtering; and the current implementation supports routed per-example training assignments as well as per-example selection at evaluation time. On the currently completed single-seed InstrDialog runs, the current main-table `Ours` configuration (anti-overlap main method) reaches seen_avg 0.0000, token_f1 0.0000, and oracle_agreement 0.0853. The strongest completed InstrDialog baseline on seen_avg is PeriodicLatest (0.0263); the current overlap-enabled row must be re-run after the new curriculum anti-overlap fix before final claims. It also does not yet beat the strongest baseline on token_f1 (PeriodicLatest: 0.1552) or forgetting (Replay(50): 0.0222). Cross-benchmark claims should wait for refreshed InstrDialog++ runs under the ACL/ARR matrix. The updated report therefore presents both the implemented method and the most important remaining risks before a paper-ready claim set is possible.
 
 # 3. Background and Motivation
 ## 3.1 Real-world problem: non-stationary instruction streams
@@ -36,19 +36,18 @@ The current implementation uses a single frozen Llama-3.1-8B-Instruct backbone a
 The code follows standard LoRA parameterization: DeltaW = BA with rank r, frozen base weights W, and trainable low-rank matrices A and B only. The wrapper in `core/models/lora_wrapper.py` exposes multi-adapter creation, freezing, and adapter-wise optimizer stepping so that the rest of the training loop can stay unified across baselines and our method.
 
 ## 6.3 Drift detection via anchor monitoring + curriculum-aware sequential change statistics
-Anchors are constructed from eval examples across stream segments and split into core and probe subsets using K-Center Greedy feature sampling based on model activations, ensuring a diverse and representative anchor set. For each monitoring event, the model computes teacher-forced answer NLL on core and probe anchors. The detector smooths both streams with EMA, calibrates baselines and standard deviations over an initial window, and then applies a one-sided CUSUM-style update. A drift event is triggered only when probe degradation is sustained and the core subset also passes a guard condition. When the trigger fires, the active branch can be frozen, a new branch is spawned, and the anchor set is refreshed.
+Anchors are constructed from eval examples across stream segments and split into core and probe subsets using K-Center Greedy feature sampling based on model activations, ensuring a diverse and representative anchor set. The current ACL/ARR version makes this split curriculum-aware: easier anchors form the stable core by default, while harder anchors are used as the probe side for change-point sensitivity. For each monitoring event, the model computes teacher-forced answer NLL on core and probe anchors. The detector smooths both streams with EMA, calibrates baselines and standard deviations over an initial window, and then applies a one-sided CUSUM-style update. A meta-threshold option learns the effective threshold from anchor volatility during calibration. A drift event is triggered only when probe degradation is sustained and the core subset also passes a guard condition. When the trigger fires, the active branch can be frozen, a new branch is spawned, and the anchor set is refreshed.
 Implementation note: the current code path performs anchor monitoring once per segment after evaluation, not every K optimization steps. The `monitor_interval` field is part of the detector configuration, but the operational monitoring schedule is segment-level in `run_ours(...)`. The reported drift quality is also a proxy metric because every inter-segment boundary is treated as a candidate shift.
 
 ## 6.4 Unified LoRA bank management + inference-time routing (closed-loop)
-The LoRA bank tracks branch metadata, the active branch, frozen branches, and the maximum branch budget. When the capacity limit is reached, a LoRA Branch Merging mechanism is triggered, which performs weight averaging of the two most similar frozen branches to free up capacity. The router is a lightweight linear classifier over pooled prompt activations. During router training, the code scores each training example under every branch, uses the minimum answer NLL as a pseudo-label, and applies Dynamic Margin Filtering (where the margin linearly increases from 0.0 to 0.02 based on the number of updates) to ensure stable pseudo-label training. During evaluation, the router extracts prompt features, predicts a branch, switches the active adapter, and then generates with that branch.
-Implementation note: RP(Lora)_v2 described a stronger online loop in which routing would directly determine the branch used for each training example. The current repository does not yet do that in `run_ours(...)`. Instead, segment training updates only the current active branch, and router supervision is applied afterward using pseudo-labels from the trained bank. Per-example routing is therefore a real evaluation-time behavior, but not yet the main training-time update rule.
+The LoRA bank tracks branch metadata, the active branch, frozen branches, and the maximum branch budget. When the capacity limit is reached, a LoRA Branch Merging mechanism is triggered, which performs weight averaging of the two most similar frozen branches to free up capacity. The router is a lightweight linear classifier over pooled prompt activations. During routed online training, the code can assign each training example to a branch using either the learned router or an oracle-min-NLL diagnostic policy. Router supervision scores each training example under every branch, uses the minimum answer NLL as a pseudo-label, and applies Dynamic Margin Filtering (where the margin linearly increases from 0.0 to 0.02 based on the number of updates) to ensure stable pseudo-label training. The router head also supports balance and orthogonality regularization so bank management and inference-time routing form one closed loop. During evaluation, the router extracts prompt features, predicts a branch, switches the active adapter, and then generates with that branch.
 
-## 6.5 Anti-overlap regularization for LoRA specialization (Orthogonal Weight Regularization)
-The repository implements anti-overlap as Orthogonal Weight Regularization, penalizing the pairwise cosine similarity of the flattened LoRA weight matrices between different branches. This directly encourages functional specialization of LoRA branches in the parameter space. There is also a logged post-segment overlap proxy computed on anchor or eval prompts to monitor activation-space diversity.
+## 6.5 Anti-overlap regularization for LoRA specialization (main method)
+The ACL/ARR version treats anti-overlap as part of the main method rather than an optional add-on. The loss combines activation-space diversity with LoRA weight-space orthogonality, uses a curriculum warmup over early segments, and scales with the number of branches so the regularizer does not overwhelm supervised adaptation immediately after a branch split. The same run records activation overlap, weight overlap, effective beta, and router-head orthogonality metrics.
 
 # 7. Experimental Evaluation
 ## 7.1 Benchmark and setup
-The current matrix is built around CITB `instrdialog` and `instrdialog++` with Llama-3.1-8B-Instruct as the backbone. Replay budgets follow the planned 0/10/50 pattern, routing is hard top-1, and the main summary is still single-seed on the completed runs. At the time of this v3 build, the refreshed artifact summary reports 15 available runs and 1 missing run across the current main+ablation package.
+The current matrix is built around CITB `instrdialog` and `instrdialog++` with Llama-3.1-8B-Instruct as the backbone. Replay budgets follow the planned 0/10/50 pattern, routing is hard top-1, and the main summary is still single-seed on the completed runs. At the time of this v3 build, the refreshed artifact summary reports 18 available runs and 0 missing run across the current main+ablation package.
 
 ## 7.2 Baselines
 - Sequential LoRA (single branch, no drift, no router)
@@ -56,7 +55,7 @@ The current matrix is built around CITB `instrdialog` and `instrdialog++` with L
 - Periodic Multi-LoRA (latest-only inference)
 - Bank + no router (drift + bank, latest-only inference)
 - Router-only (fixed branches with routing, no drift detector)
-- Ours-family variants (drift + bank + router; the current main-table winner is the no-overlap configuration, while `OursFull` keeps anti-overlap enabled in the ablation table)
+- Ours-family variants (drift + bank + routed online training + anti-overlap; `OursFull` is the ACL/ARR main method, while `OursNoOverlap` is the key ablation)
 
 ## 7.3.1 Metrics
 - Final-step performance: `eval.current_score`
@@ -83,8 +82,8 @@ Figure 5 would compare router-oracle agreement and branch utilization for the cu
 Figure 6 would depict the current closed-loop pipeline schematic used in the artifact builder.
 
 ## 7.4 Main Results
-On `instrdialog`, the current main-table `Ours` configuration (the no-overlap winner) is currently the best completed method on seen-average performance (0.0421), ahead of PeriodicLatest at 0.0263. It does not beat the strongest baseline on token F1 (PeriodicLatest: 0.1552) or forgetting (Replay(50): 0.0222). The current `Ours` row is reported from variant `ours_no_overlap` rather than `OursFull`, which matters when interpreting the overlap claim. RouterOnly reaches the highest completed oracle agreement (0.7204) but does not translate that into downstream accuracy, which suggests that branch selection quality alone is not sufficient.
-On `instrdialog++`, the currently completed main-table rows are `BankNoRouter`, `PeriodicLatest`, `Replay(10)`, `Replay(50)`. Among those available rows, BankNoRouter reaches final-step 0.1000, seen_avg 0.1026, and forgetting 0.2756. RouterOnly is still listed as missing/running in the current summary, and the routed `Ours` row is not yet available, so the repository does not yet support cross-benchmark claims about the routed method.
+On `instrdialog`, the current main-table `Ours` configuration (anti-overlap main method) is currently the best completed method on seen-average performance (0.0000), ahead of PeriodicLatest at 0.0263. It does not beat the strongest baseline on token F1 (PeriodicLatest: 0.1552) or forgetting (Replay(50): 0.0222). The current `Ours` row is reported from variant `ours_full`; for ACL/ARR, this should be the overlap-enabled `ours_full` configuration. RouterOnly reaches the highest completed oracle agreement (0.7204) but does not translate that into downstream accuracy, which suggests that branch selection quality alone is not sufficient.
+On `instrdialog++`, the currently completed main-table rows are `BankNoRouter`, `PeriodicLatest`, `Replay(10)`, `Replay(50)`, `RouterOnly`, `Sequential`, `Ours`. Among those available rows, BankNoRouter reaches final-step 0.1000, seen_avg 0.1026, and forgetting 0.2756. The ACL/ARR matrix now keeps the overlap-enabled Ours row as the declared main method on both benchmarks; cross-benchmark claims should still wait for refreshed runs under the curriculum anti-overlap implementation.
 
 Table 1. Main comparison on the currently completed matrix rows.
 | benchmark | method | final_step | seen_avg | forgetting | token_f1 | oracle_agreement |
@@ -95,41 +94,41 @@ Table 1. Main comparison on the currently completed matrix rows.
 | instrdialog | PeriodicLatest | 0.0000 | 0.0263 | 0.3380 | 0.1552 | 0.0000 |
 | instrdialog | BankNoRouter | 0.1000 | 0.0211 | 0.1870 | 0.1247 | 0.0000 |
 | instrdialog | RouterOnly | 0.0000 | 0.0000 | 0.0556 | 0.0731 | 0.7204 |
-| instrdialog | Ours | 0.0000 | 0.0421 | 0.0824 | 0.0411 | 0.0806 |
-| instrdialog++ | Sequential | [TBD] | [TBD] | [TBD] | [TBD] | [TBD] |
+| instrdialog | Ours | 0.0000 | 0.0000 | 0.1370 | 0.0000 | 0.0853 |
+| instrdialog++ | Sequential | 0.0000 | 0.0000 | 0.0490 | 0.0000 | 0.0000 |
 | instrdialog++ | Replay(10) | 0.0000 | 0.0000 | 0.0270 | 0.0429 | 0.0000 |
 | instrdialog++ | Replay(50) | 0.0000 | 0.0000 | 0.0198 | 0.0343 | 0.0000 |
 | instrdialog++ | PeriodicLatest | 0.0000 | 0.0100 | 0.2008 | 0.1353 | 0.0000 |
 | instrdialog++ | BankNoRouter | 0.1000 | 0.1026 | 0.2756 | 0.1545 | 0.0000 |
-| instrdialog++ | RouterOnly | [TBD] | [TBD] | [TBD] | [TBD] | [TBD] |
-| instrdialog++ | Ours | [TBD] | [TBD] | [TBD] | [TBD] | [TBD] |
+| instrdialog++ | RouterOnly | 0.0000 | 0.0531 | 0.1368 | 0.1664 | 0.7888 |
+| instrdialog++ | Ours | 0.0000 | 0.0793 | 0.2167 | 0.1917 | 0.4440 |
 
 ## 7.5 Ablations and diagnostics
-Compared with the current main-table `Ours` row (ours_no_overlap), removing the router lowers seen_avg to 0.0158, while turning off drift or bank lowers it to 0.0053 and 0.0000, respectively. The ablation table does not include a separate `OursNoOverlap` row because that configuration is already promoted into the main table. By contrast, `OursFull` (the overlap-enabled row) reaches seen_avg 0.0000 and token_f1 0.0000 in the current single-seed matrix. This means the bank/router stack still appears useful on seen-average, but anti-overlap is not yet a validated gain and should be treated as an unresolved risk.
+Compared with the current main-table `Ours` row (ours_full), removing the router lowers seen_avg to 0.0158, while turning off drift or bank lowers it to 0.0053 and 0.0000, respectively. The key anti-overlap ablation is now `OursNoOverlap`, which removes the specialization loss while keeping drift, bank, and routing active. The overlap-enabled row reaches seen_avg 0.0000 and token_f1 0.0000 under the current available matrix; this row must be re-run after the curriculum anti-overlap fix before making final paper claims.
 
 Table 2. Key ablations on InstrDialog.
 | method | final_step | seen_avg | forgetting | token_f1 | oracle_agreement |
 | --- | --- | --- | --- | --- | --- |
-| OursFull | 0.0000 | 0.0000 | 0.1370 | 0.0000 | 0.0853 |
+| OursNoOverlap | 0.0000 | 0.0421 | 0.0824 | 0.0411 | 0.0806 |
 | OursNoBank | 0.0000 | 0.0000 | 0.0333 | 0.0063 | 0.0000 |
 | OursNoDrift | 0.0000 | 0.0053 | 0.1546 | 0.0680 | 1.0000 |
 | OursNoRouter | 0.0000 | 0.0158 | 0.1408 | 0.1091 | 0.0000 |
 
-The current main-table `Ours` row on InstrDialog reports false_alarm_rate 0.0000, miss_rate 0.8889, and detection_delay_mean 9.5000. This indicates a conservative detector that is not firing often enough under the present proxy definition of shifts.
+The current main-table `Ours` row on InstrDialog reports false_alarm_rate 0.0000, miss_rate 0.8333, and detection_delay_mean 8.6667. This indicates a conservative detector that is not firing often enough under the present proxy definition of shifts.
 Sequence-behavior diagnostics remain important. The latest diagnosis report attributes the dominant bottleneck to 'first-token margin too weak', with failure counts first_token_wrong=5, extra_preamble=2, and prefix_drift_1to5=1. Overfit exact match improved from `1/8` to `3/8` after removing duplicated BOS in generation-time prompt tokenization.
 
 ## 7.6 Current coverage gaps
-- `paper_instrdialogpp_router_only_s123` (instrdialog++ / router_only)
+- No missing runs were reported in the current paper summary.
 
 # 8. Current Contributions
 - A unified, config-driven continual instruction tuning pipeline that covers baselines and the full bank/routing method inside one code path.
-- A concrete implementation of core/probe anchor monitoring, LoRA bank management, router pseudo-label training, and orthogonal-weight anti-overlap regularization with activation-space monitoring.
+- A concrete implementation of curriculum-aware core/probe anchor monitoring, LoRA bank management, routed online training, and curriculum anti-overlap regularization over both activation and weight space.
 - Script-generated tables, figures, and packaging outputs that can be refreshed without interrupting ongoing training runs.
 - Additional behavior diagnostics that help separate continual-learning failures from open-loop generation failures.
 
 # 9. Risks and Mitigations
 - Risk 1: detector conservativeness. Current miss rate is high under the proxy shift definition. Mitigation: complete the planned threshold / anchor-size / monitor-interval sweeps and refine the proxy labeling scheme before making strong drift claims.
-- Risk 2: router training / evaluation mismatch. The router is evaluated per example, but the active branch is still trained segment-wise. Mitigation: add a true routed training variant or clearly scope claims to inference-time routing only.
+- Risk 2: router training stability. Routed online training is now configurable, but learned-router assignments can still collapse. Mitigation: report branch utilization, router balance loss, and oracle-min-NLL diagnostic runs.
 - Risk 3: forgetting remains weaker than replay-heavy baselines. Mitigation: treat seen-average and specialization gains as the current strength, not forgetting superiority, until more runs are complete.
 - Risk 4: sequence-level behavior bottlenecks can contaminate continual-learning conclusions. Mitigation: keep the behavior gate and overfit diagnostics in the evaluation loop before promoting paper-grade claims.
 - Risk 5: incomplete benchmark coverage and single-seed evidence. Mitigation: finish the missing InstrDialog++ runs and expand the validated winner to multi-seed evaluation before final packaging.

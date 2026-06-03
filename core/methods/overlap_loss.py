@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List
+import math
+from typing import Any, Dict, List, Optional, Tuple
 
 
 def compute_overlap_loss(
@@ -94,10 +95,112 @@ def compute_overlap_loss_torch(
     return mean_sim * float(beta)
 
 
+def overlap_betas_for_segment(
+    cfg: Dict[str, Any],
+    *,
+    segment_id: int,
+    num_branches: int,
+) -> Dict[str, float]:
+    """Curriculum schedule for anti-overlap strength.
+
+    The regularizer is intentionally weak early on: before the bank contains
+    multiple branches, overlap is not meaningful; immediately after the first
+    branch split, a full-strength penalty can dominate supervised adaptation.
+    """
+    base_beta = float(cfg.get("beta", 0.0))
+    min_branches = int(cfg.get("min_branches", 2))
+    if base_beta <= 0.0 or num_branches < min_branches:
+        return {
+            "beta": 0.0,
+            "activation_beta": 0.0,
+            "weight_beta": 0.0,
+            "schedule_scale": 0.0,
+            "branch_scale": 0.0,
+        }
+
+    warmup_segments = max(0, int(cfg.get("warmup_segments", 1)))
+    if warmup_segments <= 0:
+        schedule_scale = 1.0
+    else:
+        schedule_scale = min(1.0, max(0.0, (float(segment_id) + 1.0) / float(warmup_segments + 1)))
+
+    branch_scale_mode = str(cfg.get("branch_scale", "sqrt")).strip().lower()
+    if branch_scale_mode == "none":
+        branch_scale = 1.0
+    elif branch_scale_mode == "linear":
+        branch_scale = 1.0 / max(1.0, float(num_branches - 1))
+    else:
+        branch_scale = 1.0 / math.sqrt(max(1.0, float(num_branches - 1)))
+
+    beta = min(float(cfg.get("max_beta", base_beta)), base_beta * schedule_scale * branch_scale)
+    activation_ratio = float(cfg.get("activation_beta_ratio", 0.5))
+    weight_ratio = float(cfg.get("weight_beta_ratio", 0.5))
+    return {
+        "beta": float(beta),
+        "activation_beta": float(beta * activation_ratio),
+        "weight_beta": float(beta * weight_ratio),
+        "schedule_scale": float(schedule_scale),
+        "branch_scale": float(branch_scale),
+    }
+
+
+def compute_anti_overlap_training_loss(
+    *,
+    activations_by_branch: Dict[str, "Any"],
+    lora_wrapper: "Any",
+    cfg: Dict[str, Any],
+    segment_id: int,
+    active_adapter: Optional[str],
+) -> Tuple["Any", Dict[str, float]]:
+    import torch
+
+    betas = overlap_betas_for_segment(
+        cfg,
+        segment_id=segment_id,
+        num_branches=len(activations_by_branch),
+    )
+    device = None
+    if activations_by_branch:
+        device = next(iter(activations_by_branch.values())).device
+    total = torch.tensor(0.0, dtype=torch.float32, device=device)
+    activation_loss = torch.tensor(0.0, dtype=torch.float32, device=device)
+    weight_loss = torch.tensor(0.0, dtype=torch.float32, device=device)
+
+    if betas["activation_beta"] > 0:
+        activation_loss = compute_overlap_loss_torch(
+            activations_by_branch=activations_by_branch,
+            beta=betas["activation_beta"],
+        )
+        total = total + activation_loss
+    if betas["weight_beta"] > 0:
+        weight_loss = compute_orthogonal_weight_loss(
+            lora_wrapper=lora_wrapper,
+            beta=betas["weight_beta"],
+            active_adapter=active_adapter,
+            similarity=str(cfg.get("weight_similarity", "squared_cosine")),
+        )
+        if device is not None:
+            weight_loss = weight_loss.to(device)
+        total = total + weight_loss
+
+    return total, {
+        "anti_overlap_beta": float(betas["beta"]),
+        "anti_overlap_activation_beta": float(betas["activation_beta"]),
+        "anti_overlap_weight_beta": float(betas["weight_beta"]),
+        "anti_overlap_schedule_scale": float(betas["schedule_scale"]),
+        "anti_overlap_branch_scale": float(betas["branch_scale"]),
+        "anti_overlap_activation_loss": float(activation_loss.detach().float().cpu().item()),
+        "anti_overlap_weight_loss": float(weight_loss.detach().float().cpu().item()),
+        "anti_overlap_total_loss": float(total.detach().float().cpu().item()),
+    }
+
+
 def compute_orthogonal_weight_loss(
     *,
     lora_wrapper: "Any",
     beta: float,
+    active_adapter: Optional[str] = None,
+    similarity: str = "squared_cosine",
 ) -> "Any":
     """
     Orthogonal regularization on LoRA weight matrices.
@@ -114,7 +217,14 @@ def compute_orthogonal_weight_loss(
 
     vectors = {}
     for b in branches:
-        vec = lora_wrapper.get_adapter_vector(b)
+        # Keep gradients only for the active adapter; other branches serve as
+        # fixed anchors so the regularizer does not accidentally update frozen
+        # historical branches.
+        detach = active_adapter is not None and b != active_adapter
+        try:
+            vec = lora_wrapper.get_adapter_vector(b, detach=detach)
+        except TypeError:
+            vec = lora_wrapper.get_adapter_vector(b)
         if vec.numel() > 0:
             vectors[b] = vec
 
@@ -132,9 +242,13 @@ def compute_orthogonal_weight_loss(
             v1 = vectors[b1]
             v2 = vectors[b2]
             sim = F.cosine_similarity(v1.unsqueeze(0), v2.unsqueeze(0)).squeeze()
-            # We want to penalize absolute similarity (both highly correlated and highly anti-correlated)
-            # or just positive similarity. Usually, minimizing squared cosine similarity or absolute value.
-            total = total + sim.abs()
+            if similarity == "abs_cosine":
+                penalty = sim.abs()
+            elif similarity == "positive_cosine":
+                penalty = F.relu(sim)
+            else:
+                penalty = sim.pow(2)
+            total = total + penalty
             count += 1
 
     mean_sim = total / max(1, count)

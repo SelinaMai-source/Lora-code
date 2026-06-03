@@ -70,6 +70,7 @@ class DriftEvent:
 def build_anchor_set(stream: ContinualStream, cfg: Dict[str, Any], *, seed: int, model: Optional[Any] = None) -> AnchorSet:
     anchor_size = max(2, int(cfg.get("anchor_size", 64)))
     core_fraction = float(cfg.get("anchor_core_fraction", 0.5))
+    curriculum_strategy = str(cfg.get("curriculum_strategy", "easy_core_hard_probe")).strip()
     rng = random.Random(int(seed))
 
     all_items: List[AnchorItem] = []
@@ -153,7 +154,7 @@ def build_anchor_set(stream: ContinualStream, cfg: Dict[str, Any], *, seed: int,
     if len(selected) < 2:
         raise ValueError("Need at least two anchor examples to build core/probe sets.")
 
-    ordered = sorted(selected, key=lambda x: (x.complexity, x.anchor_id))
+    ordered = _order_anchors_for_curriculum(selected, strategy=curriculum_strategy)
     core_size = int(round(len(ordered) * core_fraction))
     core_size = max(1, min(len(ordered) - 1, core_size))
     probe_size = len(ordered) - core_size
@@ -172,6 +173,22 @@ def build_anchor_set(stream: ContinualStream, cfg: Dict[str, Any], *, seed: int,
             clone.split = "probe"
             probe_items.append(clone)
     return AnchorSet(core=core_items, probe=probe_items)
+
+
+def _order_anchors_for_curriculum(items: List[AnchorItem], *, strategy: str) -> List[AnchorItem]:
+    ordered = sorted(items, key=lambda x: (x.complexity, x.anchor_id))
+    if strategy in {"easy_core_hard_probe", "curriculum", "easy_to_hard"}:
+        return ordered
+    if strategy in {"hard_core_easy_probe", "reverse_curriculum", "hard_to_easy"}:
+        return list(reversed(ordered))
+    if strategy in {"interleaved", "balanced"}:
+        easy = ordered[::2]
+        hard = ordered[1::2]
+        return easy + hard
+    raise ValueError(
+        "drift.curriculum_strategy must be one of: "
+        "easy_core_hard_probe | hard_core_easy_probe | interleaved"
+    )
 
 
 def _anchor_complexity(item: AnchorItem) -> float:
@@ -207,6 +224,13 @@ class DriftDetector:
         self.probe_slack_scale = float(cfg.get("probe_slack_scale", 0.5))
         self.core_guard_scale = float(cfg.get("core_guard_scale", 0.5))
         self.min_consecutive_probe_hits = int(cfg.get("min_consecutive_probe_hits", 2))
+        self.shift_stat = str(cfg.get("shift_stat", "degradation")).strip() or "degradation"
+        if self.shift_stat not in {"degradation", "absolute"}:
+            raise ValueError("drift.shift_stat must be one of: degradation | absolute")
+        self.meta_threshold_enabled = bool(cfg.get("meta_threshold_enabled", False))
+        self.meta_threshold_scale = float(cfg.get("meta_threshold_scale", 1.0))
+        self.meta_threshold_min = float(cfg.get("meta_threshold_min", self.threshold))
+        self.meta_threshold_max = float(cfg.get("meta_threshold_max", max(self.threshold, 10.0)))
 
         self._num_updates = 0
         self._history: List[Dict[str, Any]] = []
@@ -299,12 +323,30 @@ class DriftDetector:
         probe_std = float(self._probe_std or 1e-6)
         core_baseline = float(self._core_baseline)
         probe_baseline = float(self._probe_baseline)
-        core_dev = core_obs - core_baseline
-        probe_dev = probe_obs - probe_baseline
+        raw_core_dev = core_obs - core_baseline
+        raw_probe_dev = probe_obs - probe_baseline
+        if self.shift_stat == "absolute":
+            core_dev = abs(raw_core_dev)
+            probe_dev = abs(raw_probe_dev)
+        else:
+            core_dev = raw_core_dev
+            probe_dev = raw_probe_dev
         core_slack = max(1e-6, core_std * self.core_slack_scale)
         probe_slack = max(1e-6, probe_std * self.probe_slack_scale)
         core_threshold = max(self.threshold, core_std * self.core_threshold_scale)
         probe_threshold = max(self.threshold, probe_std * self.probe_threshold_scale)
+        if self.meta_threshold_enabled:
+            baseline_gap = abs(probe_baseline - core_baseline)
+            core_threshold = _clamp(
+                self.threshold + self.meta_threshold_scale * (core_std + baseline_gap),
+                self.meta_threshold_min,
+                self.meta_threshold_max,
+            )
+            probe_threshold = _clamp(
+                self.threshold + self.meta_threshold_scale * (probe_std + baseline_gap),
+                self.meta_threshold_min,
+                self.meta_threshold_max,
+            )
 
         self._core_cusum = max(0.0, self._core_cusum + core_dev - core_slack)
         self._probe_cusum = max(0.0, self._probe_cusum + probe_dev - probe_slack)
@@ -344,8 +386,12 @@ class DriftDetector:
             consecutive_probe_hits=int(self._consecutive_probe_hits),
         )
         row = event.to_row()
+        row["raw_core_dev"] = float(raw_core_dev)
+        row["raw_probe_dev"] = float(raw_probe_dev)
+        row["shift_stat"] = self.shift_stat
         row["core_threshold"] = float(core_threshold)
         row["probe_threshold"] = float(probe_threshold)
+        row["meta_threshold_enabled"] = bool(self.meta_threshold_enabled)
         self._history.append(row)
         if triggered:
             self._events.append(row)
@@ -372,6 +418,9 @@ class DriftDetector:
             "core_cusum": self._core_cusum,
             "probe_cusum": self._probe_cusum,
             "consecutive_probe_hits": self._consecutive_probe_hits,
+            "shift_stat": self.shift_stat,
+            "meta_threshold_enabled": bool(self.meta_threshold_enabled),
+            "meta_threshold_scale": float(self.meta_threshold_scale),
             "history_tail": self._history[-50:],
             "events_tail": self._events[-50:],
         }
@@ -395,4 +444,8 @@ def _std(values: List[float]) -> float:
     mu = _mean(values)
     var = sum((x - mu) ** 2 for x in values) / max(1, len(values) - 1)
     return float(max(1e-6, math.sqrt(max(0.0, var))))
+
+
+def _clamp(value: float, lo: float, hi: float) -> float:
+    return float(max(lo, min(hi, value)))
 

@@ -18,7 +18,7 @@ from core.data import ContinualStream, Segment, load_continual_stream
 from core.evaluate import evaluate_stream
 from core.methods.drift_detector import AnchorSet, DriftDetector, DriftEvent, build_anchor_set
 from core.methods.lora_bank import LoRABank
-from core.methods.overlap_loss import compute_overlap_loss, compute_overlap_loss_torch, compute_orthogonal_weight_loss
+from core.methods.overlap_loss import compute_anti_overlap_training_loss, compute_overlap_loss
 from core.methods.router import Router
 from core.models.base_model import build_backbone
 from core.models.lora_wrapper import build_lora_wrapper
@@ -41,6 +41,7 @@ from core.utils import (
     save_json,
     set_seed,
 )
+from core.wandb_tracker import WandbTracker, parse_tracking_cfg
 
 
 def _summarize_lora_info(lora: Any) -> Dict[str, Any]:
@@ -85,6 +86,18 @@ def main() -> None:
     run_name = str(cfg.get("output", {}).get("run_name", "")) if isinstance(cfg.get("output", {}), dict) else ""
     run_paths = make_run_paths(results_dir=results_dir, experiment_name=experiment_name, run_name=run_name)
     logger = SimpleLogger(run_paths.log_file)
+    tracker = WandbTracker.from_config(
+        cfg=cfg,
+        run_id=run_paths.run_id,
+        config_path=str(cfg.get("__config_path__", "")),
+        run_dir=run_paths.run_dir,
+    )
+    tracking_cfg = parse_tracking_cfg(cfg)
+    if tracking_cfg["use_wandb"]:
+        logger.log(
+            f"W&B enabled: project={tracking_cfg['project']} "
+            f"group={tracking_cfg['group']} mode={tracking_cfg['mode']}"
+        )
 
     logger.log(f"Config: {args.config}")
     logger.log(f"Mode: {mode}")
@@ -140,6 +153,7 @@ def main() -> None:
                     if artifact.exists():
                         manifest_add_artifact(run_manifest, artifact)
                 _flush_run_manifest(status="completed")
+                tracker.finish(success=True)
                 return
 
         segment_metrics_rows: List[Dict[str, Any]] = []
@@ -156,6 +170,7 @@ def main() -> None:
                 logger=logger,
                 segment_metrics_rows=segment_metrics_rows,
                 mode="debug",
+                tracker=tracker,
             )
         elif mode == "baseline":
             baseline_name = str(cfg.get("baseline_name", "")).strip()
@@ -171,6 +186,7 @@ def main() -> None:
                 logger=logger,
                 segment_metrics_rows=segment_metrics_rows,
                 mode="baseline",
+                tracker=tracker,
             )
         else:
             final_metrics = run_ours(
@@ -181,6 +197,7 @@ def main() -> None:
                 run_paths=run_paths,
                 logger=logger,
                 segment_metrics_rows=segment_metrics_rows,
+                tracker=tracker,
             )
 
         # Save final metrics + per-segment table
@@ -202,8 +219,19 @@ def main() -> None:
         ]:
             if artifact.exists():
                 manifest_add_artifact(run_manifest, artifact)
+        if tracking_cfg.get("log_artifacts", True):
+            tracker.log_artifacts(
+                [
+                    Path(run_paths.metrics_json),
+                    Path(run_paths.segment_metrics_csv),
+                    config_snapshot_path,
+                ]
+            )
+        tracker.log_final(final_metrics)
+        tracker.finish(success=True)
         _flush_run_manifest(status="completed")
     except Exception as exc:
+        tracker.finish(success=False, error=repr(exc))
         _flush_run_manifest(status="failed", error=repr(exc))
         raise
 
@@ -408,6 +436,7 @@ def run_baseline(
     logger: SimpleLogger,
     segment_metrics_rows: List[Dict[str, Any]],
     mode: str,
+    tracker: Optional[WandbTracker] = None,
 ) -> Dict[str, Any]:
     logger.log(f"Baseline selected: {baseline_name}")
 
@@ -576,6 +605,8 @@ def run_baseline(
             save_json(str(Path(seg_dir) / "bank_state.json"), lora_bank.state_dict())
             save_json(str(Path(run_paths.run_dir) / "branch_registry.json"), lora_bank.state_dict())
         append_jsonl(str(Path(run_paths.run_dir) / "metrics.jsonl"), row)
+        if tracker is not None:
+            tracker.log_segment_row(row)
 
     final = segment_metrics_rows[-1] if segment_metrics_rows else {}
     return {
@@ -601,6 +632,7 @@ def run_ours(
     run_paths: RunPaths,
     logger: SimpleLogger,
     segment_metrics_rows: List[Dict[str, Any]],
+    tracker: Optional[WandbTracker] = None,
 ) -> Dict[str, Any]:
     modules = cfg.get("modules", {}) if isinstance(cfg.get("modules", {}), dict) else {}
     use_drift = bool(modules.get("use_drift_detector", True))
@@ -674,6 +706,7 @@ def run_ours(
                 batch_size=batch_size,
                 use_overlap=use_overlap,
                 beta=beta,
+                overlap_cfg=overlap_cfg,
             )
         elif lora_bank is not None and router is None:
             # No router: always use the active branch
@@ -687,6 +720,7 @@ def run_ours(
                 batch_size=batch_size,
                 use_overlap=use_overlap,
                 beta=beta,
+                overlap_cfg=overlap_cfg,
             )
         else:
             # No bank: fall back to single default adapter
@@ -702,6 +736,7 @@ def run_ours(
                 batch_size=batch_size,
                 use_overlap=use_overlap,
                 beta=beta,
+                overlap_cfg=overlap_cfg,
             )
 
         # Optional overlap loss (logged as a scalar proxy)
@@ -832,6 +867,8 @@ def run_ours(
         if router is not None:
             save_json(str(Path(seg_dir) / "router_state.json"), router.state_dict())
         append_jsonl(str(Path(run_paths.run_dir) / "metrics.jsonl"), row)
+        if tracker is not None:
+            tracker.log_segment_row(row)
 
     final = segment_metrics_rows[-1] if segment_metrics_rows else {}
     return {
@@ -884,6 +921,7 @@ def _train_on_active_branch(
     batch_size: int,
     use_overlap: bool,
     beta: float,
+    overlap_cfg: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     from baselines.sequential_lora.method import _batch
 
@@ -895,6 +933,8 @@ def _train_on_active_branch(
     batch_ans_accs: List[float] = []
     grad_norms: List[float] = []
     delta_norms: List[float] = []
+    overlap_metric_sums: Dict[str, float] = {}
+    overlap_steps = 0
     total_tokens = 0
     supervised_tokens = 0
     batches = 0
@@ -925,10 +965,17 @@ def _train_on_active_branch(
                         acts = acts.detach()
                     activations_by_branch[b] = acts
                 lora.set_active_adapter(active_adapter)
-                overlap_loss = compute_overlap_loss_torch(activations_by_branch=activations_by_branch, beta=beta)
-                ortho_loss = compute_orthogonal_weight_loss(lora_wrapper=lora, beta=beta)
-                total_loss = overlap_loss + ortho_loss
+                total_loss, overlap_metrics = compute_anti_overlap_training_loss(
+                    activations_by_branch=activations_by_branch,
+                    lora_wrapper=lora,
+                    cfg={**(overlap_cfg or {}), "beta": beta},
+                    segment_id=segment.segment_id,
+                    active_adapter=active_adapter,
+                )
                 total_loss.backward()
+                for key, value in overlap_metrics.items():
+                    overlap_metric_sums[key] = overlap_metric_sums.get(key, 0.0) + float(value)
+                overlap_steps += 1
 
             step_stats = lora.step_adapter()
             batch_accs.append(float(out.get("train_batch_acc", 0.0)))
@@ -939,7 +986,7 @@ def _train_on_active_branch(
             total_tokens += int(out.get("num_total_tokens", 0))
             supervised_tokens += int(out.get("num_supervised_tokens", 0))
             batches += 1
-    return {
+    metrics = {
         "batches": batches,
         "mean_batch_acc": sum(batch_accs) / max(1, len(batch_accs)),
         "train.loss": sum(batch_losses) / max(1, len(batch_losses)),
@@ -950,6 +997,10 @@ def _train_on_active_branch(
         "lora_param_delta_l2": sum(delta_norms) / max(1, len(delta_norms)),
         "lr": float(lr),
     }
+    if overlap_steps > 0:
+        metrics.update({k: v / float(overlap_steps) for k, v in overlap_metric_sums.items()})
+        metrics["anti_overlap_steps"] = int(overlap_steps)
+    return metrics
 
 
 def _extract_router_features(
@@ -1088,18 +1139,44 @@ def _train_with_router(
     batch_size: int,
     use_overlap: bool,
     beta: float,
+    overlap_cfg: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    train_metrics = _train_on_active_branch(
-        segment=segment,
-        model=model,
-        lora=lora,
-        lora_bank=lora_bank,
-        lr=lr,
-        epochs=epochs,
-        batch_size=batch_size,
-        use_overlap=use_overlap,
-        beta=beta,
-    )
+    strategy = str(getattr(router, "training_strategy", "active_branch") or "active_branch")
+    if strategy == "active_branch":
+        train_metrics = _train_on_active_branch(
+            segment=segment,
+            model=model,
+            lora=lora,
+            lora_bank=lora_bank,
+            lr=lr,
+            epochs=epochs,
+            batch_size=batch_size,
+            use_overlap=use_overlap,
+            beta=beta,
+            overlap_cfg=overlap_cfg,
+        )
+        train_metrics["router_training_strategy"] = strategy
+        train_metrics["routed_train_examples"] = 0
+    elif strategy in {"oracle_min_nll", "learned_router"}:
+        train_metrics = _train_with_routed_assignments(
+            segment=segment,
+            model=model,
+            lora=lora,
+            lora_bank=lora_bank,
+            router=router,
+            lr=lr,
+            epochs=epochs,
+            batch_size=batch_size,
+            use_overlap=use_overlap,
+            beta=beta,
+            strategy=strategy,
+            overlap_cfg=overlap_cfg,
+        )
+    else:
+        raise ValueError(
+            "Unknown router.training_strategy. Expected one of: "
+            "active_branch | oracle_min_nll | learned_router"
+        )
     router_metrics = _update_router_with_segment_pseudo_labels(
         segment=segment,
         model=model,
@@ -1111,6 +1188,272 @@ def _train_with_router(
     train_metrics["num_branches"] = len(lora_bank.list_branches())
     train_metrics["num_trainable_branches"] = len(lora_bank.list_trainable_branches())
     return train_metrics
+
+
+def _train_with_routed_assignments(
+    *,
+    segment: Segment,
+    model: Any,
+    lora: Any,
+    lora_bank: LoRABank,
+    router: Router,
+    lr: float,
+    epochs: int,
+    batch_size: int,
+    use_overlap: bool,
+    beta: float,
+    strategy: str,
+    overlap_cfg: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    from baselines.sequential_lora.method import _batch
+
+    pairs = [(ex.instruction, ex.input) for ex in segment.train]
+    targets = [ex.output for ex in segment.train]
+    branch_names = lora_bank.list_branches()
+    active_branch = lora_bank.get_active_branch()
+    assignments, assignment_metrics = _assign_training_branches(
+        segment=segment,
+        pairs=pairs,
+        targets=targets,
+        model=model,
+        lora=lora,
+        lora_bank=lora_bank,
+        router=router,
+        branch_names=branch_names,
+        active_branch=active_branch,
+        strategy=strategy,
+    )
+
+    branch_to_examples: Dict[str, List[int]] = {}
+    for idx, branch_name in enumerate(assignments):
+        branch_to_examples.setdefault(branch_name, []).append(idx)
+
+    batch_accs: List[float] = []
+    batch_losses: List[float] = []
+    batch_ans_accs: List[float] = []
+    grad_norms: List[float] = []
+    delta_norms: List[float] = []
+    overlap_metric_sums: Dict[str, float] = {}
+    overlap_steps = 0
+    total_tokens = 0
+    supervised_tokens = 0
+    batches = 0
+    active_before = lora.get_active_adapter_name()
+    try:
+        for _ in range(max(1, epochs)):
+            for branch_name in sorted(branch_to_examples):
+                if branch_name not in lora.list_adapters():
+                    continue
+                lora.set_active_adapter(branch_name)
+                idxs = branch_to_examples[branch_name]
+                routed_pairs = [pairs[i] for i in idxs]
+                routed_targets = [targets[i] for i in idxs]
+                for b_pairs, b_targets in _batch(routed_pairs, routed_targets, batch_size):
+                    out = model.fit_batch(b_pairs, b_targets, lr=lr)
+                    if (
+                        use_overlap
+                        and beta > 0
+                        and hasattr(model, "get_activations_tensor")
+                        and len(lora_bank.list_branches()) > 1
+                    ):
+                        tok = getattr(model, "tokenizer", None)
+                        if tok is not None:
+                            prompts = [format_for_infer(tok, ins, inp) for (ins, inp) in b_pairs]
+                        else:
+                            prompts = [f"{ins}\n\n{inp}" for (ins, inp) in b_pairs]
+                        active_adapter = lora.get_active_adapter_name()
+                        activations_by_branch = {}
+                        for b in lora_bank.list_branches():
+                            lora.set_active_adapter(b)
+                            with_grad = b == active_adapter
+                            acts = model.get_activations_tensor(prompts, with_grad=with_grad)
+                            if not with_grad:
+                                acts = acts.detach()
+                            activations_by_branch[b] = acts
+                        lora.set_active_adapter(active_adapter)
+                        total_loss, overlap_metrics = compute_anti_overlap_training_loss(
+                            activations_by_branch=activations_by_branch,
+                            lora_wrapper=lora,
+                            cfg={**(overlap_cfg or {}), "beta": beta},
+                            segment_id=segment.segment_id,
+                            active_adapter=active_adapter,
+                        )
+                        total_loss.backward()
+                        for key, value in overlap_metrics.items():
+                            overlap_metric_sums[key] = overlap_metric_sums.get(key, 0.0) + float(value)
+                        overlap_steps += 1
+
+                    step_stats = lora.step_adapter()
+                    batch_accs.append(float(out.get("train_batch_acc", 0.0)))
+                    batch_losses.append(float(out.get("train_loss", 0.0)))
+                    batch_ans_accs.append(float(out.get("train_answer_token_acc", 0.0)))
+                    grad_norms.append(float(step_stats.get("grad_norm", 0.0)))
+                    delta_norms.append(float(step_stats.get("lora_param_delta_l2", 0.0)))
+                    total_tokens += int(out.get("num_total_tokens", 0))
+                    supervised_tokens += int(out.get("num_supervised_tokens", 0))
+                    batches += 1
+    finally:
+        restore_branch = active_branch if active_branch in lora.list_adapters() else active_before
+        if restore_branch in lora.list_adapters():
+            lora.set_active_adapter(restore_branch)
+
+    metrics = {
+        "batches": batches,
+        "mean_batch_acc": sum(batch_accs) / max(1, len(batch_accs)),
+        "train.loss": sum(batch_losses) / max(1, len(batch_losses)),
+        "train.answer_token_acc": sum(batch_ans_accs) / max(1, len(batch_ans_accs)),
+        "num_total_tokens": int(total_tokens),
+        "num_supervised_tokens": int(supervised_tokens),
+        "grad_norm": sum(grad_norms) / max(1, len(grad_norms)),
+        "lora_param_delta_l2": sum(delta_norms) / max(1, len(delta_norms)),
+        "lr": float(lr),
+        "router_training_strategy": strategy,
+        "routed_train_examples": int(len(assignments)),
+        **assignment_metrics,
+    }
+    if overlap_steps > 0:
+        metrics.update({k: v / float(overlap_steps) for k, v in overlap_metric_sums.items()})
+        metrics["anti_overlap_steps"] = int(overlap_steps)
+    return metrics
+
+
+def _resolve_trainable_training_branch(
+    *,
+    raw_branch: str,
+    branch_names: List[str],
+    lora_bank: LoRABank,
+    active_branch: str,
+    fallback_to_active: bool,
+    ranked_branches: Optional[List[tuple[float, str]]] = None,
+) -> str:
+    """When oracle/router picks a frozen branch, train on the best trainable alternative."""
+    if ranked_branches:
+        for _loss, branch_name in ranked_branches:
+            if branch_name in branch_names and not lora_bank.is_branch_frozen(branch_name):
+                return branch_name
+    trainable = [b for b in branch_names if not lora_bank.is_branch_frozen(b)]
+    if fallback_to_active and active_branch in trainable:
+        return active_branch
+    if trainable:
+        return trainable[0]
+    return active_branch
+
+
+def _assign_training_branches(
+    *,
+    segment: Segment,
+    pairs: List[tuple[str, str]],
+    targets: List[str],
+    model: Any,
+    lora: Any,
+    lora_bank: LoRABank,
+    router: Router,
+    branch_names: List[str],
+    active_branch: str,
+    strategy: str,
+) -> tuple[List[str], Dict[str, Any]]:
+    if len(branch_names) <= 1:
+        return [active_branch for _ in pairs], {
+            "routed_train_num_branches": int(len(branch_names)),
+            "routed_train_fallback_to_active": int(len(pairs)),
+            "routed_train_branch_counts_json": json.dumps({active_branch: len(pairs)}, sort_keys=True),
+            "routed_train_mean_margin": 0.0,
+        }
+
+    raw_assignments: List[str] = []
+    margins: List[float] = []
+    loss_by_branch: Dict[str, List[float]] = {}
+    if strategy == "oracle_min_nll":
+        active_before = lora.get_active_adapter_name()
+        try:
+            for branch_name in branch_names:
+                lora.set_active_adapter(branch_name)
+                loss_by_branch[branch_name] = model.score_answer_nlls(pairs, targets)
+        finally:
+            if active_before in lora.list_adapters():
+                lora.set_active_adapter(active_before)
+        for i in range(len(pairs)):
+            ranked = sorted((float(loss_by_branch[b][i]), b) for b in branch_names)
+            best_loss, best_branch = ranked[0]
+            second_loss = ranked[1][0] if len(ranked) > 1 else best_loss
+            raw_assignments.append(best_branch)
+            margins.append(float(second_loss - best_loss))
+    elif strategy == "learned_router":
+        tok = getattr(model, "tokenizer", None)
+        prompts = [
+            format_for_infer(tok, ins, inp, add_generation_prompt=True) if tok is not None else f"{ins}\n\n{inp}"
+            for (ins, inp) in pairs
+        ]
+        features, _feature_adapter = _extract_router_features(
+            model=model,
+            lora=lora,
+            lora_bank=lora_bank,
+            router=router,
+            prompts=prompts,
+        )
+        branch_meta = lora_bank.state_dict()
+        for i, prompt in enumerate(prompts):
+            feat_i = features[i : i + 1] if hasattr(features, "__getitem__") else [features[i]]
+            decision = router.predict_branch(
+                prompt=prompt,
+                branch_names=branch_names,
+                branch_meta=branch_meta,
+                segment_id=segment.segment_id,
+                features=feat_i,
+            )
+            raw_assignments.append(decision.branch_name)
+            prob_scores = sorted(((float(v), k) for k, v in decision.scores.items()), reverse=True)
+            if len(prob_scores) > 1:
+                margins.append(float(prob_scores[0][0] - prob_scores[1][0]))
+            else:
+                margins.append(0.0)
+    else:
+        raise ValueError(f"Unsupported routed training strategy: {strategy}")
+
+    assignments: List[str] = []
+    fallback_count = 0
+    train_frozen = bool(getattr(router, "train_frozen_branches", False))
+    fallback_to_active = bool(getattr(router, "training_fallback_to_active", True))
+    for idx, branch_name in enumerate(raw_assignments):
+        target_branch = branch_name
+        if (
+            not train_frozen
+            and branch_name in branch_names
+            and lora_bank.is_branch_frozen(branch_name)
+        ):
+            resolved = _resolve_trainable_training_branch(
+                raw_branch=branch_name,
+                branch_names=branch_names,
+                lora_bank=lora_bank,
+                active_branch=active_branch,
+                fallback_to_active=fallback_to_active,
+                ranked_branches=(
+                    sorted((float(loss_by_branch[b][idx]), b) for b in branch_names)
+                    if strategy == "oracle_min_nll" and loss_by_branch
+                    else None
+                ),
+            )
+            target_branch = resolved
+            fallback_count += 1
+        if target_branch not in branch_names:
+            target_branch = active_branch
+            fallback_count += 1
+        assignments.append(target_branch)
+
+    branch_counts: Dict[str, int] = {}
+    raw_branch_counts: Dict[str, int] = {}
+    for branch_name in assignments:
+        branch_counts[branch_name] = branch_counts.get(branch_name, 0) + 1
+    for branch_name in raw_assignments:
+        raw_branch_counts[branch_name] = raw_branch_counts.get(branch_name, 0) + 1
+
+    return assignments, {
+        "routed_train_num_branches": int(len(branch_names)),
+        "routed_train_fallback_to_active": int(fallback_count),
+        "routed_train_branch_counts_json": json.dumps(branch_counts, sort_keys=True),
+        "routed_train_raw_branch_counts_json": json.dumps(raw_branch_counts, sort_keys=True),
+        "routed_train_mean_margin": float(sum(margins) / max(1, len(margins))),
+    }
 
 
 def _train_bank_no_router(

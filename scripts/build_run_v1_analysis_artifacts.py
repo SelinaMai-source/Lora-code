@@ -185,7 +185,7 @@ def _plot_method_block_router(main_rows: Sequence[Dict[str, str]], ablation_rows
 
 def _plot_method_block_overlap(main_rows: Sequence[Dict[str, str]], ablation_rows: Sequence[Dict[str, str]], out_path: Path) -> None:
     ours = _lookup_row(main_rows, benchmark="instrdialog", method_label="Ours")
-    ours_full = _lookup_row(ablation_rows, benchmark="instrdialog", method_label="OursFull")
+    no_overlap = _lookup_row(ablation_rows, benchmark="instrdialog", method_label="OursNoOverlap")
     metric_specs = [
         ("eval.seen_avg_score", "Seen Avg"),
         ("eval.forgetting", "Forgetting"),
@@ -195,13 +195,13 @@ def _plot_method_block_overlap(main_rows: Sequence[Dict[str, str]], ablation_row
 
     fig, axes = plt.subplots(1, 4, figsize=(15.0, 4.2))
     for ax, (metric_key, title) in zip(axes, metric_specs):
-        labels = ["Ours(main=no_overlap)", "OursFull"]
-        values = [_safe_float(ours.get(metric_key)), _safe_float(ours_full.get(metric_key))]
+        labels = ["OursFull(main)", "OursNoOverlap"]
+        values = [_safe_float(ours.get(metric_key)), _safe_float(no_overlap.get(metric_key))]
         x = np.arange(len(labels))
-        ax.bar(x, values, color=["#dd8452", "#c44e52"])
+        ax.bar(x, values, color=["#55a868", "#dd8452"])
         ax.set_title(title)
         ax.set_xticks(x)
-        ax.set_xticklabels(["Ours(main)", "OursFull"], rotation=20, ha="right")
+        ax.set_xticklabels(["OursFull", "NoOverlap"], rotation=20, ha="right")
         ax.grid(axis="y", linestyle="--", alpha=0.3)
         _annotate_bars(ax, x, values)
     fig.suptitle("Method Block: Anti-Overlap Regularization", fontsize=14)

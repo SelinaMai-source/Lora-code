@@ -34,6 +34,11 @@ class Router:
         self.weight_decay = float(cfg.get("weight_decay", 0.0))
         self.margin_filter_min_gap = float(cfg.get("margin_filter_min_gap", 0.05))
         self.feature_adapter_name = str(cfg.get("feature_adapter_name", "default"))
+        self.training_strategy = str(cfg.get("training_strategy", "active_branch")).strip() or "active_branch"
+        self.training_fallback_to_active = bool(cfg.get("training_fallback_to_active", True))
+        self.train_frozen_branches = bool(cfg.get("train_frozen_branches", False))
+        self.balance_beta = float(cfg.get("balance_beta", 0.0))
+        self.orthogonal_head_beta = float(cfg.get("orthogonal_head_beta", 0.0))
 
         self._num_updates = 0
         self._branch_names: List[str] = []
@@ -93,7 +98,11 @@ class Router:
             device=feat_t.device,
         )
         logits = self._project_logits(feat_t, branch_names)
-        loss = F.cross_entropy(logits, target_idx)
+        ce_loss = F.cross_entropy(logits, target_idx)
+        probs = torch.softmax(logits, dim=-1)
+        balance_loss = self._balance_loss(probs)
+        orthogonal_loss = self._orthogonal_head_loss(branch_names)
+        loss = ce_loss + self.balance_beta * balance_loss + self.orthogonal_head_beta * orthogonal_loss
 
         self._optimizer.zero_grad(set_to_none=True)
         loss.backward()
@@ -107,8 +116,28 @@ class Router:
         return {
             "num_router_labels": int(len(pseudo_labels)),
             "router_loss": float(loss.detach().item()),
+            "router_ce_loss": float(ce_loss.detach().item()),
+            "router_balance_loss": float(balance_loss.detach().item()),
+            "router_orthogonal_head_loss": float(orthogonal_loss.detach().item()),
             "router_train_acc": float(acc),
         }
+
+    def _balance_loss(self, probs: torch.Tensor) -> torch.Tensor:
+        if self.balance_beta <= 0 or probs.numel() == 0:
+            return torch.tensor(0.0, dtype=torch.float32, device=probs.device)
+        mean_probs = probs.mean(dim=0)
+        target = torch.full_like(mean_probs, 1.0 / max(1, mean_probs.numel()))
+        return F.mse_loss(mean_probs, target)
+
+    def _orthogonal_head_loss(self, branch_names: List[str]) -> torch.Tensor:
+        if self.orthogonal_head_beta <= 0 or self._head is None or len(branch_names) <= 1:
+            device = self._head.weight.device if self._head is not None else torch.device("cpu")
+            return torch.tensor(0.0, dtype=torch.float32, device=device)
+        indices = [self._branch_names.index(name) for name in branch_names]
+        rows = F.normalize(self._head.weight[indices], dim=-1)
+        gram = rows @ rows.T
+        eye = torch.eye(len(indices), dtype=gram.dtype, device=gram.device)
+        return ((gram - eye) ** 2).mean()
 
     def _score_branches(
         self,
@@ -195,6 +224,11 @@ class Router:
             "pseudo_label_strategy": self.pseudo_label_strategy,
             "temperature": self.temperature,
             "router_warmup_segments": self.router_warmup_segments,
+            "training_strategy": self.training_strategy,
+            "training_fallback_to_active": self.training_fallback_to_active,
+            "train_frozen_branches": self.train_frozen_branches,
+            "balance_beta": self.balance_beta,
+            "orthogonal_head_beta": self.orthogonal_head_beta,
             "num_updates": self._num_updates,
             "branch_names": list(self._branch_names),
             "feature_adapter_name": self.feature_adapter_name,

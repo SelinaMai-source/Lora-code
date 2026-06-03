@@ -261,6 +261,46 @@ def _ours_variants(include_sweeps: bool, *, ours_main_variant: str) -> List[Dict
         variants.extend(
             [
                 {
+                    "variant_id": "ours_beta001",
+                    "category": "sweep",
+                    "family": "ours",
+                    "method_variant": "ours_overlap_beta",
+                    "memory_budget": 0,
+                    "overrides": {"overlap.beta": 0.01},
+                },
+                {
+                    "variant_id": "ours_beta003",
+                    "category": "sweep",
+                    "family": "ours",
+                    "method_variant": "ours_overlap_beta",
+                    "memory_budget": 0,
+                    "overrides": {"overlap.beta": 0.03},
+                },
+                {
+                    "variant_id": "ours_beta006",
+                    "category": "sweep",
+                    "family": "ours",
+                    "method_variant": "ours_overlap_beta",
+                    "memory_budget": 0,
+                    "overrides": {"overlap.beta": 0.06},
+                },
+                {
+                    "variant_id": "ours_no_meta_threshold",
+                    "category": "sweep",
+                    "family": "ours",
+                    "method_variant": "ours_change_point_meta",
+                    "memory_budget": 0,
+                    "overrides": {"drift.meta_threshold_enabled": False},
+                },
+                {
+                    "variant_id": "ours_reverse_curriculum",
+                    "category": "sweep",
+                    "family": "ours",
+                    "method_variant": "ours_anchor_curriculum",
+                    "memory_budget": 0,
+                    "overrides": {"drift.curriculum_strategy": "hard_core_easy_probe"},
+                },
+                {
                     "variant_id": "ours_M64",
                     "category": "sweep",
                     "family": "ours",

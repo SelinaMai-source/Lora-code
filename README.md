@@ -141,3 +141,35 @@ python core/train.py --config configs/ours.yaml
 
 不需要增加新代码入口与新顶层目录，保证扩展点清晰、可复现实验。
 
+---
+
+## Weights & Biases 实验追踪
+
+训练入口 `core/train.py` 已支持可选 W&B 日志（默认关闭）。完整说明见 **`docs/wandb_integration.md`**；配置模板见 **`configs/tracking_wandb.example.yaml`**。
+
+快速开启：
+
+```bash
+pip install wandb && wandb login
+python core/train.py --config configs/paper/instrdialog__ours_full__s123.yaml
+# 在 YAML 中设置 output.tracking.use_wandb: true
+```
+
+批量实验：
+
+```bash
+bash scripts/run_publication_with_wandb.sh --benchmarks instrdialog --categories main
+```
+
+---
+
+## 投稿向工程要点（ACL/ARR）
+
+当前实验结论摘要见 `results/run_v1_results_analysis.md`。投稿前建议：
+
+1. **主方法用 `ours_full`**：anti-overlap 是 ACL/ARR 主实验，`ours_no_overlap` 只作为 ablation。
+2. **先跑 anti-overlap smoke/sweep**：`bash scripts/run_acl_antioverlap_experiments.sh smoke`，再跑 full matrix。
+3. **Change-point statistics**：默认启用 curriculum anchor split 与 meta-threshold；保留 `ours_no_meta_threshold`、`ours_reverse_curriculum` 做机制消融。
+4. **Bank + routing 闭环**：主配置使用 `router.training_strategy: learned_router`，训练和推理都走 branch selection。
+5. **至少 3 个 seed**，W&B `wandb_group` 按 benchmark+variant 分组。
+
