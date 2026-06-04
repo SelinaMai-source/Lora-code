@@ -12,21 +12,21 @@ paths:
 
 debug:
   # debug 模型加载策略：dummy 不依赖 HF 权重；lightweight 可扩展到小模型
-  model_loading: "dummy"   # dummy | hf
+  model_loading: "hf"   # dummy | hf
   max_segments: 2          # 限制最多跑多少段（用于本地快速验证）
   max_train_examples_per_segment: 12
   max_eval_examples_per_segment: 8
 
 model:
-  backbone_name: "debug-text-model"
-  hf_model_name_or_path: "meta-llama/Llama-3.1-8B-Instruct"  # 仅作为未来占位
+  backbone_name: "llama3"
+  hf_model_name_or_path: "/root/autodl-tmp/Lora-code/assets/pretrained/meta-llama/Llama-3.1-8B-Instruct"  # 仅作为未来占位
 
 lora:
   enabled: true
   r: 4
   alpha: 8
   dropout: 0.0
-  target_modules: ["proj"]  # debug 模型中的线性层名（未来可映射到 q_proj/v_proj 等）
+  target_modules: ["q_proj", "v_proj"]  # debug 模型中的线性层名（未来可映射到 q_proj/v_proj 等）
 
 train:
   epochs_per_segment: 1

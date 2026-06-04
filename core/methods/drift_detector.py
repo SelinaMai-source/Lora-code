@@ -281,8 +281,8 @@ class DriftDetector:
             self._core_ema = self.score_ema * self._core_ema + (1.0 - self.score_ema) * float(core_mean_nll)
             self._probe_ema = self.score_ema * self._probe_ema + (1.0 - self.score_ema) * float(probe_mean_nll)
 
-        core_obs = float(self._core_ema)
-        probe_obs = float(self._probe_ema)
+        core_obs = float(core_mean_nll)
+        probe_obs = float(probe_mean_nll)
         step_id = int(monitor_step if monitor_step is not None else self._num_updates)
 
         if self._core_baseline is None or self._probe_baseline is None:

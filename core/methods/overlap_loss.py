@@ -89,7 +89,7 @@ def compute_overlap_loss_torch(
             a2 = activations_by_branch[b2]  # [B, H]
             # Since vectors are L2-normalized, cosine similarity = dot product.
             cos_per_prompt = (a1 * a2).sum(dim=-1)  # [B]
-            total = total + cos_per_prompt.mean()
+            total = total + cos_per_prompt.pow(2).mean()
             count += 1
     mean_sim = total / max(1, count)
     return mean_sim * float(beta)

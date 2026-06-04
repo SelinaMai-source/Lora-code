@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import json
 from pathlib import Path
+import re
 from typing import Any, Dict, List, Optional, Tuple
 
 from core.causal_lm_metrics import count_supervised_label_tokens, teacher_forced_token_accuracy_shifted
@@ -15,7 +16,10 @@ from core.train_labels import build_supervised_labels
 class EvalResult:
     current_score: float
     seen_avg_score: float
+    current_task_aware_score: float
+    seen_avg_task_aware_score: float
     forgetting: float
+    task_aware_forgetting: float
     num_seen_segments: int
     token_f1_mean: float
     lcs_overlap_mean: float
@@ -96,6 +100,7 @@ def evaluate_stream(
     normalization_cfg: Optional[Dict[str, Any]] = None,
     save_debug_examples_dir: Optional[str] = None,
     historical_best_per_segment: Optional[Dict[int, float]] = None,
+    historical_best_task_aware_per_segment: Optional[Dict[int, float]] = None,
 ) -> Dict[str, Any]:
     """
     Unified evaluation for continual instruction tuning.
@@ -114,6 +119,7 @@ def evaluate_stream(
 
     # Track per-segment accuracy over time
     per_seg_acc: List[Tuple[int, float]] = []
+    per_seg_task_aware_acc: List[Tuple[int, float]] = []
     routing_stats = {
         "num_routed": 0,
         "branch_counts": {},
@@ -128,12 +134,14 @@ def evaluate_stream(
     all_examples_for_dump: List[Dict[str, Any]] = []
     all_token_f1: List[float] = []
     all_lcs_overlap: List[float] = []
+    all_task_aware_scores: List[float] = []
+    task_score_type_counts: Dict[str, int] = {}
     all_prefix1: List[int] = []
     all_prefix3: List[int] = []
     all_prefix5: List[int] = []
     num_bad_prefix = 0
     for seg in segments_seen:
-        acc, seg_routing, seg_examples = _eval_segment(
+        acc, task_aware_acc, seg_routing, seg_examples = _eval_segment(
             model=model,
             segment=seg,
             max_new_tokens=max_new_tokens,
@@ -143,10 +151,15 @@ def evaluate_stream(
             normalization_cfg=normalization_cfg or {},
         )
         per_seg_acc.append((seg.segment_id, acc))
+        per_seg_task_aware_acc.append((seg.segment_id, task_aware_acc))
         _merge_routing_stats(routing_stats, seg_routing)
         all_examples_for_dump.extend(seg_examples)
         all_token_f1.extend([float(x.get("token_f1", 0.0)) for x in seg_examples])
         all_lcs_overlap.extend([float(x.get("lcs_overlap", 0.0)) for x in seg_examples])
+        all_task_aware_scores.extend([float(x.get("task_aware_score", 0.0)) for x in seg_examples])
+        for x in seg_examples:
+            score_type = str(x.get("task_score_type", "unknown"))
+            task_score_type_counts[score_type] = task_score_type_counts.get(score_type, 0) + 1
         num_bad_prefix += sum(1 for x in seg_examples if bool(x.get("bad_prefix_mismatch", False)))
         all_prefix1.extend([int(bool(x.get("prefix_1_match", False))) for x in seg_examples])
         all_prefix3.extend([int(bool(x.get("prefix_3_match", False))) for x in seg_examples])
@@ -155,7 +168,10 @@ def evaluate_stream(
     # current segment is the last in segments_seen
     current_score = per_seg_acc[-1][1] if per_seg_acc else 0.0
     seen_avg_score = sum(a for _, a in per_seg_acc) / max(1, len(per_seg_acc))
+    current_task_aware_score = per_seg_task_aware_acc[-1][1] if per_seg_task_aware_acc else 0.0
+    seen_avg_task_aware_score = sum(a for _, a in per_seg_task_aware_acc) / max(1, len(per_seg_task_aware_acc))
     anytime_score = float(seen_avg_score)
+    anytime_task_aware_score = float(seen_avg_task_aware_score)
 
     if historical_best_per_segment is None:
         historical_best_per_segment = {}
@@ -178,6 +194,31 @@ def evaluate_stream(
         historical_best_per_segment[sid] = max(best_before, float(acc))
     forgetting = float(sum(forgetting_values) / max(1, len(forgetting_values))) if forgetting_values else 0.0
 
+    if historical_best_task_aware_per_segment is None:
+        historical_best_task_aware_per_segment = {}
+    previous_task_segment_ids = {sid for sid, _ in per_seg_task_aware_acc[:-1]}
+    task_aware_forgetting_by_segment: List[Dict[str, float]] = []
+    task_aware_forgetting_values: List[float] = []
+    for sid, acc in per_seg_task_aware_acc:
+        best_before = float(historical_best_task_aware_per_segment.get(sid, acc))
+        seg_forgetting = float(max(0.0, best_before - acc)) if sid in previous_task_segment_ids else 0.0
+        if sid in previous_task_segment_ids:
+            task_aware_forgetting_values.append(seg_forgetting)
+        task_aware_forgetting_by_segment.append(
+            {
+                "segment_id": int(sid),
+                "task_aware_accuracy": float(acc),
+                "best_historical_task_aware_accuracy": float(best_before),
+                "task_aware_forgetting": float(seg_forgetting),
+            }
+        )
+        historical_best_task_aware_per_segment[sid] = max(best_before, float(acc))
+    task_aware_forgetting = (
+        float(sum(task_aware_forgetting_values) / max(1, len(task_aware_forgetting_values)))
+        if task_aware_forgetting_values
+        else 0.0
+    )
+
     routing_num = int(routing_stats.get("num_routed", 0))
     branch_counts = dict(routing_stats.get("branch_counts", {}))
     branch_utilization = {
@@ -188,8 +229,13 @@ def evaluate_stream(
 
     extra = {
         "per_segment_accuracy": [{"segment_id": sid, "accuracy": acc} for sid, acc in per_seg_acc],
+        "per_segment_task_aware_accuracy": [
+            {"segment_id": sid, "task_aware_accuracy": acc} for sid, acc in per_seg_task_aware_acc
+        ],
         "anytime_score": anytime_score,
+        "anytime_task_aware_score": anytime_task_aware_score,
         "forgetting_by_segment": forgetting_by_segment,
+        "task_aware_forgetting_by_segment": task_aware_forgetting_by_segment,
         "routing": {
             **routing_stats,
             "branch_utilization": branch_utilization,
@@ -200,6 +246,8 @@ def evaluate_stream(
         },
         "token_f1_mean": float(sum(all_token_f1) / max(1, len(all_token_f1))),
         "lcs_overlap_mean": float(sum(all_lcs_overlap) / max(1, len(all_lcs_overlap))),
+        "task_aware_score_mean": float(sum(all_task_aware_scores) / max(1, len(all_task_aware_scores))),
+        "task_score_type_counts": task_score_type_counts,
         "prefix_1_match_mean": float(sum(all_prefix1) / max(1, len(all_prefix1))),
         "prefix_3_match_mean": float(sum(all_prefix3) / max(1, len(all_prefix3))),
         "prefix_5_match_mean": float(sum(all_prefix5) / max(1, len(all_prefix5))),
@@ -216,7 +264,12 @@ def evaluate_stream(
             examples=all_examples_for_dump[: max(5, min(50, len(all_examples_for_dump)))],
             normalization_cfg=normalization_cfg or {},
             generation_cfg={
-                "max_new_tokens": max_new_tokens,
+                "requested_max_new_tokens": max_new_tokens,
+                "effective_max_new_tokens": _resolve_eval_max_new_tokens(
+                    max_new_tokens=max_new_tokens,
+                    eval_examples=[ex for seg in segments_seen for ex in seg.eval],
+                    normalization_cfg=normalization_cfg or {},
+                ),
                 "do_sample": False,
                 "eos_token_id": getattr(tok, "eos_token_id", None),
                 "pad_token_id": getattr(tok, "pad_token_id", None),
@@ -226,7 +279,10 @@ def evaluate_stream(
         EvalResult(
             current_score=float(current_score),
             seen_avg_score=float(seen_avg_score),
+            current_task_aware_score=float(current_task_aware_score),
+            seen_avg_task_aware_score=float(seen_avg_task_aware_score),
             forgetting=float(forgetting),
+            task_aware_forgetting=float(task_aware_forgetting),
             num_seen_segments=int(len(segments_seen)),
             token_f1_mean=float(sum(all_token_f1) / max(1, len(all_token_f1))),
             lcs_overlap_mean=float(sum(all_lcs_overlap) / max(1, len(all_lcs_overlap))),
@@ -244,8 +300,9 @@ def _eval_segment(
     lora_bank: Optional[Any],
     segment_id: int,
     normalization_cfg: Dict[str, Any],
-) -> Tuple[float, Dict[str, Any], List[Dict[str, Any]]]:
+) -> Tuple[float, float, Dict[str, Any], List[Dict[str, Any]]]:
     correct = 0
+    task_aware_correct = 0
     total = 0
 
     routing_stats = {
@@ -270,6 +327,11 @@ def _eval_segment(
 
     prompts = [format_for_infer(tok, ex.instruction, ex.input, add_generation_prompt=True) for ex in eval_examples]
     targets = [ex.output for ex in eval_examples]
+    effective_max_new_tokens = _resolve_eval_max_new_tokens(
+        max_new_tokens=max_new_tokens,
+        eval_examples=eval_examples,
+        normalization_cfg=normalization_cfg,
+    )
 
     # If router/bank available, route per prompt (simplified hard routing).
     audited = enable_infer_token_audit and router is None and lora_bank is None and hasattr(model, "generate_with_ids")
@@ -315,24 +377,33 @@ def _eval_segment(
             # Switch adapter before generating (needed for real multi-adapter evaluation).
             if hasattr(lora_bank, "set_active_adapter"):
                 lora_bank.set_active_adapter(decision.branch_name)
-            preds.extend(model.generate([p], max_new_tokens=max_new_tokens))
+            preds.extend(model.generate([p], max_new_tokens=effective_max_new_tokens))
     else:
         if audited:
-            gen_audit = model.generate_with_ids(prompts, max_new_tokens=max_new_tokens)
+            gen_audit = model.generate_with_ids(prompts, max_new_tokens=effective_max_new_tokens)
             preds = [x.get("raw_generated_text", "") for x in gen_audit]
         else:
             gen_audit = None
-            preds = model.generate(prompts, max_new_tokens=max_new_tokens)
+            preds = model.generate(prompts, max_new_tokens=effective_max_new_tokens)
         routing_details = [{} for _ in preds]
 
     details: List[Dict[str, Any]] = []
-    for ex, p, pred, y, routing_detail in zip(eval_examples, prompts, preds, targets, routing_details):
+    for example_idx, (ex, p, pred, y, routing_detail) in enumerate(zip(eval_examples, prompts, preds, targets, routing_details)):
         total += 1
         norm_pred = _normalize(pred, prompt=p, cfg=normalization_cfg)
         norm_gold = _normalize(y, prompt=p, cfg=normalization_cfg)
         matched = norm_pred == norm_gold
         token_f1 = _token_f1(norm_pred, norm_gold)
         lcs_overlap = _lcs_overlap(norm_pred, norm_gold)
+        task_score = _score_task_aware(
+            pred=pred,
+            gold=y,
+            norm_pred=norm_pred,
+            norm_gold=norm_gold,
+            instruction=ex.instruction,
+            input_text=ex.input,
+            cfg=normalization_cfg,
+        )
         bad_prefix = _starts_incorrectly(norm_pred, norm_gold)
 
         pred_tokens = [t for t in norm_pred.split() if t]
@@ -412,15 +483,24 @@ def _eval_segment(
 
         if matched:
             correct += 1
+        if bool(task_score["task_aware_match"]):
+            task_aware_correct += 1
         details.append(
             {
                 "instruction": ex.instruction,
                 "input_text": ex.input,
                 "gold_output": y,
+                "source_segment_id": int(segment.segment_id),
+                "source_segment_name": str(segment.segment_name),
+                "source_example_idx": int(example_idx),
+                "requested_max_new_tokens": int(max_new_tokens),
+                "effective_max_new_tokens": int(effective_max_new_tokens),
                 "raw_generated_output": pred,
                 "normalized_prediction": norm_pred,
                 "normalized_gold": norm_gold,
                 "match": matched,
+                "strict_match": matched,
+                **task_score,
                 "token_f1": float(token_f1),
                 "lcs_overlap": float(lcs_overlap),
                 "bad_prefix_mismatch": bool(bad_prefix),
@@ -465,7 +545,8 @@ def _eval_segment(
             )
 
     acc = correct / max(1, total)
-    return float(acc), routing_stats, details
+    task_aware_acc = task_aware_correct / max(1, total)
+    return float(acc), float(task_aware_acc), routing_stats, details
 
 
 def _merge_routing_stats(dst: Dict[str, Any], src: Dict[str, Any]) -> None:
@@ -508,6 +589,177 @@ def _normalize(s: str, *, prompt: str, cfg: Dict[str, Any]) -> str:
     if bool(cfg.get("lowercase", True)):
         text = text.lower()
     return text
+
+
+def _resolve_eval_max_new_tokens(
+    *,
+    max_new_tokens: int,
+    eval_examples: List[Example],
+    normalization_cfg: Dict[str, Any],
+) -> int:
+    """Use shorter greedy generations for structured short-answer evals, while keeping raw text."""
+    if not bool(normalization_cfg.get("auto_short_answer_max_new_tokens", True)):
+        return int(max_new_tokens)
+    if not eval_examples:
+        return int(max_new_tokens)
+    short_limit = int(normalization_cfg.get("short_answer_max_new_tokens", 16))
+    step_limit = int(normalization_cfg.get("step_answer_max_new_tokens", 8))
+    golds = [str(ex.output or "") for ex in eval_examples]
+    if all(_extract_after_step(g) is not None for g in golds):
+        return int(min(max_new_tokens, step_limit))
+    normalized_golds = [_basic_answer_normalize(g) for g in golds]
+    max_gold_tokens = max((len(g.split()) for g in normalized_golds), default=0)
+    if max_gold_tokens <= int(normalization_cfg.get("short_answer_gold_token_threshold", 6)):
+        return int(min(max_new_tokens, short_limit))
+    return int(max_new_tokens)
+
+
+def _score_task_aware(
+    *,
+    pred: str,
+    gold: str,
+    norm_pred: str,
+    norm_gold: str,
+    instruction: str,
+    input_text: str,
+    cfg: Dict[str, Any],
+) -> Dict[str, Any]:
+    if not bool(cfg.get("enable_task_aware_score", True)):
+        return {
+            "task_aware_match": bool(norm_pred == norm_gold),
+            "task_aware_score": float(norm_pred == norm_gold),
+            "task_score_type": "strict_em",
+            "extracted_prediction": "",
+            "extracted_gold": "",
+            "prediction_for_scoring": norm_pred,
+        }
+
+    pred_for_scoring = _truncate_prediction_for_scoring(pred, cfg)
+    norm_pred_for_scoring = _basic_answer_normalize(pred_for_scoring)
+    norm_gold_basic = _basic_answer_normalize(gold)
+
+    pred_step = _extract_after_step(pred_for_scoring)
+    gold_step = _extract_after_step(gold)
+    if gold_step is not None:
+        matched = pred_step == gold_step
+        return {
+            "task_aware_match": bool(matched),
+            "task_aware_score": float(matched),
+            "task_score_type": "after_step_extracted_em",
+            "extracted_prediction": "" if pred_step is None else str(pred_step),
+            "extracted_gold": str(gold_step),
+            "prediction_for_scoring": norm_pred_for_scoring,
+        }
+
+    pred_label = _extract_label_like_answer(pred_for_scoring, gold, instruction=instruction, input_text=input_text)
+    gold_label = _extract_label_like_answer(gold, gold, instruction=instruction, input_text=input_text)
+    if gold_label:
+        matched = pred_label == gold_label
+        return {
+            "task_aware_match": bool(matched),
+            "task_aware_score": float(matched),
+            "task_score_type": "label_accuracy",
+            "extracted_prediction": pred_label or "",
+            "extracted_gold": gold_label,
+            "prediction_for_scoring": norm_pred_for_scoring,
+        }
+
+    matched = norm_pred == norm_gold
+    return {
+        "task_aware_match": bool(matched),
+        "task_aware_score": float(matched),
+        "task_score_type": "strict_em",
+        "extracted_prediction": "",
+        "extracted_gold": "",
+        "prediction_for_scoring": norm_pred_for_scoring or norm_pred,
+    }
+
+
+def _truncate_prediction_for_scoring(text: str, cfg: Dict[str, Any]) -> str:
+    out = str(text or "")
+    if bool(cfg.get("score_truncate_at_first_blankline", True)):
+        out = out.split("\n\n", 1)[0]
+    if bool(cfg.get("score_truncate_at_first_newline", True)):
+        out = out.split("\n", 1)[0]
+        
+    # Remove chatty prefixes often generated by instruction-tuned models
+    prefixes = [
+        "the correct answer is ",
+        "the correct answer is: ",
+        "the answer is ",
+        "the answer is: ",
+        "the output is ",
+        "the output is: ",
+        "the correct label is ",
+        "sure, ",
+        "sure! ",
+        "here is ",
+        "my answer is ",
+        "the correct option is "
+    ]
+    out_lower = out.lower().strip()
+    for prefix in prefixes:
+        idx = out_lower.find(prefix)
+        if idx != -1:
+            # slice out from the end of the prefix
+            out = out[idx + len(prefix):]
+            out_lower = out.lower().strip()
+            
+    if bool(cfg.get("score_truncate_at_first_sentence_end", True)):
+        m = re.search(r"(?<!\b[A-Z])[.!?](?:\s|$)", out)
+        if m is not None:
+            out = out[: m.end()]
+    return out.strip()
+
+
+def _basic_answer_normalize(text: str) -> str:
+    out = str(text or "").strip().lower()
+    for tok in ["<s>", "</s>", "<pad>", "<unk>", "[pad]", "[eos]", "[bos]"]:
+        out = out.replace(tok, "")
+    out = re.sub(r"\s+", " ", out)
+    return out.strip(" \t\r\n\"'`。，,.!?;:()[]{}")
+
+
+def _extract_after_step(text: str) -> Optional[int]:
+    m = re.search(r"\bafter\s+step\s*(\d+)\b", str(text or ""), flags=re.IGNORECASE)
+    if m is None:
+        return None
+    try:
+        return int(m.group(1))
+    except Exception:
+        return None
+
+
+def _extract_label_like_answer(text: str, gold: str, *, instruction: str, input_text: str) -> Optional[str]:
+    gold_norm = _basic_answer_normalize(gold)
+    if not gold_norm:
+        return None
+
+    # Numeric / yes-no / true-false / A-D answers are common short structured labels.
+    if re.fullmatch(r"[-+]?\d+(?:\.\d+)?", gold_norm):
+        m = re.search(r"[-+]?\d+(?:\.\d+)?", str(text or ""))
+        return _basic_answer_normalize(m.group(0)) if m else ""
+    if gold_norm in {"yes", "no", "true", "false"}:
+        m = re.search(r"\b(yes|no|true|false)\b", str(text or ""), flags=re.IGNORECASE)
+        return _basic_answer_normalize(m.group(1)) if m else ""
+    if re.fullmatch(r"[a-d]", gold_norm):
+        m = re.search(r"\b([A-Da-d])\b", str(text or ""))
+        return _basic_answer_normalize(m.group(1)) if m else ""
+
+    gold_tokens = gold_norm.split()
+    if len(gold_tokens) > 4:
+        return None
+
+    first_chunk = _basic_answer_normalize(_truncate_prediction_for_scoring(str(text or ""), {}))
+    if first_chunk == gold_norm:
+        return gold_norm
+
+    # Only credit contained labels for very short class names to avoid over-crediting free-form answers.
+    context = f"{instruction}\n{input_text}".lower()
+    looks_classification = any(k in context for k in ["label", "class", "category", "sentiment", "intent", "choose"])
+    if looks_classification and re.search(rf"(?<!\w){re.escape(gold_norm)}(?!\w)", first_chunk):
+        return gold_norm
+    return first_chunk if looks_classification and len(first_chunk.split()) <= 4 else None
 
 
 def _token_f1(pred: str, gold: str) -> float:

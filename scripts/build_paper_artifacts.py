@@ -110,7 +110,7 @@ def _mean_std(values: List[float]) -> Tuple[float, float]:
 
 def _report_rank_key(row: Dict[str, Any]) -> Tuple[float, float, float, float]:
     return (
-        _safe_float(row.get("eval.seen_avg_score")),
+        _safe_float(row.get("eval.seen_avg_task_aware_score", row.get("eval.seen_avg_score"))),
         _safe_float(row.get("eval.token_f1_mean")),
         _safe_float(row.get("routing.oracle_agreement_rate")),
         -_safe_float(row.get("eval.forgetting")),
@@ -168,10 +168,16 @@ def _aggregate_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     metric_keys = [
         "eval.current_score",
         "eval.seen_avg_score",
+        "eval.current_task_aware_score",
+        "eval.seen_avg_task_aware_score",
         "eval.forgetting",
+        "eval.task_aware_forgetting",
         "eval.anytime_score",
+        "eval.anytime_task_aware_score",
+        "eval.task_aware_score_mean",
         "eval.token_f1_mean",
         "eval.lcs_overlap_mean",
+        "routing.num_routed",
         "routing.oracle_agreement_rate",
         "routing.decision_confidence_mean",
         "routing.decision_entropy_mean",
@@ -211,34 +217,47 @@ def _collect_run_rows(
     available: List[Dict[str, Any]] = []
     missing: List[Dict[str, str]] = []
     for row in matrix_rows:
-        if _is_pilot_or_override_row(row):
+        if _excluded_reason(row):
             continue
         run_name = _row_run_name(row)
         run_dir = results_dir / "runs" / run_name
         metrics_path = run_dir / "final_metrics.json"
         segment_table_path = results_dir / "tables" / f"{run_name}_segment_metrics.csv"
         if not metrics_path.is_file():
-            missing.append(row)
+            if str(row.get("execution_status", "")).strip() != "running":
+                missing.append(row)
             continue
 
         final_doc = _read_json(metrics_path)
         final = final_doc.get("final", {}) if isinstance(final_doc, dict) else {}
         drift_quality = final_doc.get("drift_quality", {}) if isinstance(final_doc.get("drift_quality", {}), dict) else {}
         routing_quality = final_doc.get("routing_quality", {}) if isinstance(final_doc.get("routing_quality", {}), dict) else {}
+        current_score = _safe_float(final.get("eval.current_score"))
+        seen_avg_score = _safe_float(final.get("eval.seen_avg_score"))
+        forgetting = _safe_float(final.get("eval.forgetting"))
         row_out = {
             **row,
             "resolved_run_name": run_name,
+            "reporting_status": "available",
             "method_label": _method_label(row["variant_id"]),
             "metrics_path": str(metrics_path.relative_to(repo_root)),
             "segment_table_path": str(segment_table_path.relative_to(repo_root)) if segment_table_path.is_file() else "",
             "has_segment_table": bool(segment_table_path.is_file()),
-            "eval.current_score": _safe_float(final.get("eval.current_score")),
-            "eval.seen_avg_score": _safe_float(final.get("eval.seen_avg_score")),
-            "eval.forgetting": _safe_float(final.get("eval.forgetting")),
-            "eval.anytime_score": _safe_float(final.get("eval.anytime_score")),
+            "eval.current_score": current_score,
+            "eval.seen_avg_score": seen_avg_score,
+            "eval.current_task_aware_score": _safe_float(final.get("eval.current_task_aware_score", current_score)),
+            "eval.seen_avg_task_aware_score": _safe_float(final.get("eval.seen_avg_task_aware_score", seen_avg_score)),
+            "eval.forgetting": forgetting,
+            "eval.task_aware_forgetting": _safe_float(final.get("eval.task_aware_forgetting", forgetting)),
+            "eval.anytime_score": _safe_float(final.get("eval.anytime_score", seen_avg_score)),
+            "eval.anytime_task_aware_score": _safe_float(
+                final.get("eval.anytime_task_aware_score", final.get("eval.anytime_score", seen_avg_score))
+            ),
+            "eval.task_aware_score_mean": _safe_float(final.get("eval.task_aware_score_mean", seen_avg_score)),
             "eval.token_f1_mean": _safe_float(final.get("eval.token_f1_mean")),
             "eval.lcs_overlap_mean": _safe_float(final.get("eval.lcs_overlap_mean")),
             "train.router_num_labels": _safe_float(final.get("train.router_num_labels")),
+            "routing.num_routed": _safe_float(routing_quality.get("num_routed")),
             "routing.oracle_agreement_rate": _safe_float(routing_quality.get("oracle_agreement_rate")),
             "routing.decision_confidence_mean": _safe_float(routing_quality.get("decision_confidence_mean")),
             "routing.decision_entropy_mean": _safe_float(routing_quality.get("decision_entropy_mean")),
@@ -255,12 +274,85 @@ def _collect_run_rows(
     return available, missing
 
 
+def _availability_rows(matrix_rows: List[Dict[str, str]], *, repo_root: Path, results_dir: Path) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for row in matrix_rows:
+        run_name = _row_run_name(row)
+        metrics_path = results_dir / "runs" / run_name / "final_metrics.json"
+        execution_status = str(row.get("execution_status", "")).strip()
+        excluded_reason = _excluded_reason(row)
+        has_final_metrics = metrics_path.is_file()
+        if excluded_reason:
+            reporting_status = "excluded"
+        elif has_final_metrics:
+            reporting_status = "available"
+        elif execution_status == "running":
+            reporting_status = "running"
+        elif execution_status == "skipped_existing":
+            reporting_status = "skipped_existing_missing_metrics"
+        else:
+            reporting_status = "missing"
+        rows.append(
+            {
+                "benchmark": row.get("benchmark", ""),
+                "category": row.get("category", ""),
+                "family": row.get("family", ""),
+                "variant_id": row.get("variant_id", ""),
+                "seed": row.get("seed", ""),
+                "run_name": run_name,
+                "execution_status": execution_status,
+                "has_final_metrics": has_final_metrics,
+                "reporting_status": reporting_status,
+                "excluded_reason": excluded_reason,
+                "metrics_path": str(metrics_path.relative_to(repo_root)) if metrics_path.is_file() else "",
+            }
+        )
+    return rows
+
+
+def _consistency_warnings(*, available: List[Dict[str, Any]], availability: List[Dict[str, Any]]) -> List[str]:
+    official_rows = [r for r in availability if not str(r.get("excluded_reason", "")).strip()]
+    official_with_metrics = [r for r in official_rows if bool(r.get("has_final_metrics", False))]
+    available_names = {str(r.get("resolved_run_name", "")) for r in available}
+    missing_from_tables = [
+        str(r.get("run_name", ""))
+        for r in official_with_metrics
+        if str(r.get("run_name", "")) not in available_names
+    ]
+    warnings: List[str] = []
+    if official_with_metrics and len(available) < max(1, int(len(official_with_metrics) * 0.5)):
+        warnings.append(
+            "Artifact consistency warning: fewer than half of official runs with final_metrics entered tables."
+        )
+    if missing_from_tables:
+        shown = ", ".join(missing_from_tables[:10])
+        suffix = " ..." if len(missing_from_tables) > 10 else ""
+        warnings.append(f"Official runs with final_metrics missing from tables: {shown}{suffix}")
+    return warnings
+
+
 def _is_pilot_or_override_row(row: Dict[str, str]) -> bool:
     """Paper artifacts should not promote smoke/mini override runs into main tables."""
+    return bool(_excluded_reason(row))
+
+
+def _excluded_reason(row: Dict[str, str]) -> str:
+    """Return why a row is excluded from official tables, or empty string if official."""
     if str(row.get("run_name_suffix", "")).strip():
-        return True
-    if str(row.get("generic_overrides_json", "")).strip() not in {"", "{}"}:
-        return True
+        return "run_name_suffix"
+    generic_overrides = str(row.get("generic_overrides_json", "")).strip()
+    if generic_overrides not in {"", "{}"}:
+        try:
+            overrides = json.loads(generic_overrides)
+        except Exception:
+            return "invalid_generic_overrides_json"
+        if not isinstance(overrides, dict):
+            return "generic_overrides_not_mapping"
+        # Tracking-only overrides are part of official executions and must not
+        # hide completed/skipped_existing runs from paper tables.
+        non_tracking_keys = [str(k) for k in overrides.keys() if not str(k).startswith("output.tracking.")]
+        if non_tracking_keys:
+            return "semantic_generic_overrides:" + ",".join(sorted(non_tracking_keys))
     override_keys = [
         "max_segments_override",
         "max_train_examples_override",
@@ -268,7 +360,10 @@ def _is_pilot_or_override_row(row: Dict[str, str]) -> bool:
         "epochs_per_segment_override",
         "batch_size_override",
     ]
-    return any(str(row.get(k, "")).strip() for k in override_keys)
+    active_override_keys = [k for k in override_keys if str(row.get(k, "")).strip()]
+    if active_override_keys:
+        return "semantic_overrides:" + ",".join(active_override_keys)
+    return ""
 
 
 def _plot_anytime(rows: List[Dict[str, Any]], *, repo_root: Path, out_path: Path) -> None:
@@ -287,13 +382,18 @@ def _plot_anytime(rows: List[Dict[str, Any]], *, repo_root: Path, out_path: Path
             seg_rows = _read_csv((repo_root / row["segment_table_path"]).resolve())
             xs = [_safe_float(x.get("segment_id")) for x in seg_rows]
             ys = [
-                _safe_float(x.get("eval.anytime_score", x.get("eval.seen_avg_score", x.get("eval.current_score", 0.0))))
+                _safe_float(
+                    x.get(
+                        "eval.anytime_task_aware_score",
+                        x.get("eval.anytime_score", x.get("eval.seen_avg_score", x.get("eval.current_score", 0.0))),
+                    )
+                )
                 for x in seg_rows
             ]
             ax.plot(xs, ys, marker="o", label=row["method_label"])
         ax.set_title(f"{benchmark} Anytime")
         ax.set_xlabel("segment")
-        ax.set_ylabel("score")
+        ax.set_ylabel("task-aware score")
         ax.legend(fontsize=8)
     fig.tight_layout()
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -338,14 +438,14 @@ def _plot_budget(rows: List[Dict[str, Any]], *, out_path: Path) -> None:
             key=lambda x: (_safe_float(x["memory_budget"]), x["method_label"]),
         )
         xs = [_safe_float(r["memory_budget"]) for r in bench_rows]
-        ys = [_safe_float(r["eval.seen_avg_score"]) for r in bench_rows]
+        ys = [_safe_float(r.get("eval.seen_avg_task_aware_score", r["eval.seen_avg_score"])) for r in bench_rows]
         labels = [r["method_label"] for r in bench_rows]
         ax.scatter(xs, ys)
         for x, y, label in zip(xs, ys, labels):
             ax.text(x, y, label, fontsize=8)
         ax.set_title(f"{benchmark} Budget Sweep")
         ax.set_xlabel("memory budget")
-        ax.set_ylabel("seen avg score")
+        ax.set_ylabel("task-aware seen avg score")
     fig.tight_layout()
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=180, bbox_inches="tight")
@@ -460,34 +560,56 @@ def _write_summary_markdown(
     available: List[Dict[str, Any]],
     aggregated: List[Dict[str, Any]],
     missing: List[Dict[str, str]],
+    availability: List[Dict[str, Any]],
+    warnings: List[str],
     out_path: Path,
 ) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    status_counts: Dict[str, int] = {}
+    for row in availability:
+        status = str(row.get("reporting_status", "unknown"))
+        status_counts[status] = status_counts.get(status, 0) + 1
     lines = [
         "# Paper Results Summary",
         "",
         f"- available runs: `{len(available)}`",
         f"- missing runs: `{len(missing)}`",
-        "",
-        "## Available Main Runs",
+        f"- running runs: `{status_counts.get('running', 0)}`",
+        f"- skipped_existing without metrics: `{status_counts.get('skipped_existing_missing_metrics', 0)}`",
+        f"- excluded diagnostic runs: `{status_counts.get('excluded', 0)}`",
         "",
     ]
+    if warnings:
+        lines.extend(["## Consistency Warnings", ""])
+        for warning in warnings:
+            lines.append(f"- {warning}")
+        lines.append("")
+    lines.extend(["## Available Main Runs", ""])
     main_rows = [r for r in aggregated if r["category"] == "main"] or [r for r in available if r["category"] == "main"]
     if main_rows:
-        lines.append("| benchmark | method | n | seen_avg | forgetting | oracle_agreement |")
-        lines.append("|---|---:|---:|---:|---:|---:|")
+        lines.append("| benchmark | method | n | strict_seen_avg | task_aware_seen_avg | token_f1 | forgetting | oracle_agreement |")
+        lines.append("|---|---:|---:|---:|---:|---:|---:|---:|")
         for row in main_rows:
             seen_avg = _safe_float(row.get("eval.seen_avg_score.mean", row.get("eval.seen_avg_score")))
+            task_seen_avg = _safe_float(
+                row.get("eval.seen_avg_task_aware_score.mean", row.get("eval.seen_avg_task_aware_score"))
+            )
+            token_f1 = _safe_float(row.get("eval.token_f1_mean.mean", row.get("eval.token_f1_mean")))
             forgetting = _safe_float(row.get("eval.forgetting.mean", row.get("eval.forgetting")))
-            oracle_agreement = _safe_float(
-                row.get("routing.oracle_agreement_rate.mean", row.get("routing.oracle_agreement_rate"))
+            routed = _safe_float(row.get("routing.num_routed.mean", row.get("routing.num_routed")))
+            oracle_agreement = (
+                f"{_safe_float(row.get('routing.oracle_agreement_rate.mean', row.get('routing.oracle_agreement_rate'))):.4f}"
+                if routed > 0
+                else "N/A"
             )
             lines.append(
                 f"| {row['benchmark']} | {row['method_label']} | "
                 f"{int(row.get('num_runs', 1))} | "
                 f"{seen_avg:.4f} | "
+                f"{task_seen_avg:.4f} | "
+                f"{token_f1:.4f} | "
                 f"{forgetting:.4f} | "
-                f"{oracle_agreement:.4f} |"
+                f"{oracle_agreement} |"
             )
     else:
         lines.append("_No main runs available yet._")
@@ -497,6 +619,14 @@ def _write_summary_markdown(
             lines.append(f"- `{_row_run_name(row)}` ({row['benchmark']} / {row['variant_id']})")
     else:
         lines.append("_No missing runs._")
+    lines.extend(["", "## Run Availability", ""])
+    if availability:
+        lines.append("| status | count |")
+        lines.append("|---|---:|")
+        for status, count in sorted(status_counts.items()):
+            lines.append(f"| {status} | {count} |")
+    else:
+        lines.append("_No matrix rows found._")
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -505,24 +635,32 @@ def _write_table1_markdown(*, aggregated_main: List[Dict[str, Any]], out_path: P
     lines = [
         "# Table 1 Main Comparison",
         "",
-        "| benchmark | method | n | seen_avg(mean±std) | forgetting(mean±std) | token_f1(mean±std) | oracle_agreement(mean±std) |",
-        "|---|---|---:|---:|---:|---:|---:|",
+        "| benchmark | method | n | strict_seen_avg(mean±std) | task_aware_seen_avg(mean±std) | forgetting(mean±std) | token_f1(mean±std) | lcs(mean±std) | oracle_agreement(mean±std) |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in aggregated_main:
         seen_mean = _safe_float(row.get("eval.seen_avg_score.mean"))
         seen_std = _safe_float(row.get("eval.seen_avg_score.std"))
+        task_seen_mean = _safe_float(row.get("eval.seen_avg_task_aware_score.mean"))
+        task_seen_std = _safe_float(row.get("eval.seen_avg_task_aware_score.std"))
         forget_mean = _safe_float(row.get("eval.forgetting.mean"))
         forget_std = _safe_float(row.get("eval.forgetting.std"))
         token_mean = _safe_float(row.get("eval.token_f1_mean.mean"))
         token_std = _safe_float(row.get("eval.token_f1_mean.std"))
+        lcs_mean = _safe_float(row.get("eval.lcs_overlap_mean.mean"))
+        lcs_std = _safe_float(row.get("eval.lcs_overlap_mean.std"))
+        routed = _safe_float(row.get("routing.num_routed.mean"))
         oracle_mean = _safe_float(row.get("routing.oracle_agreement_rate.mean"))
         oracle_std = _safe_float(row.get("routing.oracle_agreement_rate.std"))
+        oracle_text = f"{oracle_mean:.4f}±{oracle_std:.4f}" if routed > 0 else "N/A"
         lines.append(
             f"| {row['benchmark']} | {row['method_label']} | {int(row.get('num_runs', 1))} | "
             f"{seen_mean:.4f}±{seen_std:.4f} | "
+            f"{task_seen_mean:.4f}±{task_seen_std:.4f} | "
             f"{forget_mean:.4f}±{forget_std:.4f} | "
             f"{token_mean:.4f}±{token_std:.4f} | "
-            f"{oracle_mean:.4f}±{oracle_std:.4f} |"
+            f"{lcs_mean:.4f}±{lcs_std:.4f} | "
+            f"{oracle_text} |"
         )
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -548,19 +686,25 @@ def main() -> None:
     matrix_csv = (repo_root / args.matrix_csv).resolve() if args.matrix_csv is not None else _default_matrix_csv(repo_root)
     matrix_rows = _read_csv(matrix_csv)
     available, missing = _collect_run_rows(matrix_rows, repo_root=repo_root, results_dir=results_dir)
+    availability = _availability_rows(matrix_rows, repo_root=repo_root, results_dir=results_dir)
     if not available:
         fallback_csv = repo_root / "results" / "tables" / "paper_matrix_executions.csv"
         if fallback_csv.is_file() and fallback_csv.resolve() != matrix_csv.resolve():
             matrix_csv = fallback_csv.resolve()
             matrix_rows = _read_csv(matrix_csv)
             available, missing = _collect_run_rows(matrix_rows, repo_root=repo_root, results_dir=results_dir)
+            availability = _availability_rows(matrix_rows, repo_root=repo_root, results_dir=results_dir)
     if not available:
         _write_summary_markdown(
             available=[],
             aggregated=[],
             missing=matrix_rows,
+            availability=availability,
+            warnings=_consistency_warnings(available=[], availability=availability),
             out_path=results_dir / "paper_results_summary.md",
         )
+        if availability:
+            _write_csv(results_dir / "tables" / "paper_run_availability.csv", availability)
         return
 
     reporting_available = _effective_reporting_rows(available)
@@ -577,6 +721,7 @@ def main() -> None:
     _write_csv(results_dir / "tables" / "paper_ablation_results.csv", ablation_rows or reporting_available)
     _write_csv(results_dir / "tables" / "results_budget_sweep.csv", sweep_rows or reporting_available)
     _write_csv(results_dir / "tables" / "router_metrics.csv", router_rows or reporting_available)
+    _write_csv(results_dir / "tables" / "paper_run_availability.csv", availability)
     _write_csv(results_dir / "tables" / "paper_main_results_agg.csv", aggregated_main or aggregated_available)
     _write_csv(results_dir / "tables" / "paper_ablation_results_agg.csv", aggregated_ablation or aggregated_available)
     _write_csv(results_dir / "tables" / "results_budget_sweep_agg.csv", aggregated_sweep or aggregated_available)
@@ -595,6 +740,8 @@ def main() -> None:
         available=reporting_available,
         aggregated=aggregated_available,
         missing=missing,
+        availability=availability,
+        warnings=_consistency_warnings(available=reporting_available, availability=availability),
         out_path=results_dir / "paper_results_summary.md",
     )
     _write_table1_markdown(

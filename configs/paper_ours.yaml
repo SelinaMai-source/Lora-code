@@ -67,7 +67,9 @@ drift:
   monitor_interval: 50
   calibration_window: 3
   threshold: 0.10
-  score_ema: 0.9
+  score_ema: 0.5
+  shift_stat: "absolute"
+  min_consecutive_probe_hits: 1
   meta_threshold_enabled: true
   meta_threshold_scale: 1.0
   meta_threshold_min: 0.05

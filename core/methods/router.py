@@ -93,7 +93,7 @@ class Router:
             return {"num_router_labels": 0, "router_loss": 0.0, "router_train_acc": 0.0}
 
         target_idx = torch.tensor(
-            [self._branch_names.index(label) for label in pseudo_labels],
+            [branch_names.index(label) for label in pseudo_labels],
             dtype=torch.long,
             device=feat_t.device,
         )

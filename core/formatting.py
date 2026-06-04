@@ -6,6 +6,11 @@ from typing import Any, Dict, List
 def build_user_content(instruction: str, input_text: str) -> str:
     ins = str(instruction or "").strip()
     inp = str(input_text or "").strip()
+    
+    constraint = "You must answer as concisely as possible without any explanations or conversational fillers."
+    if constraint not in ins:
+        ins = f"{ins}\n\n{constraint}"
+
     if inp:
         return f"{ins}\n\nInput:\n{inp}"
     return ins

@@ -96,6 +96,26 @@ class DebugTextModelConfig:
     max_memory: int = 5000
 
 
+class _DebugTokenizer:
+    """Tiny chat-template shim used only by the local debug model."""
+
+    pad_token_id = 0
+    eos_token_id = 1
+    all_special_ids = [0, 1]
+
+    def apply_chat_template(self, messages: List[Dict[str, str]], tokenize: bool = False, add_generation_prompt: bool = True):
+        if tokenize:
+            raise ValueError("_DebugTokenizer only supports tokenize=False")
+        lines: List[str] = []
+        for msg in messages:
+            role = str(msg.get("role", "")).upper()
+            content = str(msg.get("content", ""))
+            lines.append(f"{role}: {content}")
+        if add_generation_prompt:
+            lines.append("ASSISTANT:")
+        return "\n".join(lines)
+
+
 class DebugTextModel(BaseBackbone):
     """
     A very lightweight model for local debug:
@@ -114,6 +134,7 @@ class DebugTextModel(BaseBackbone):
         self._rng = np.random.RandomState(seed)
         self._memory: Dict[str, str] = {}
         self._memory_fifo: List[str] = []
+        self.tokenizer = _DebugTokenizer()
 
     def fit_batch(self, pairs: List[Tuple[str, str]], targets: List[str], lr: float) -> Dict[str, float]:
         # lr exists to keep API compatible with real optimizers.

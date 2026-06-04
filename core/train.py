@@ -417,6 +417,13 @@ def _routing_row_metrics(eval_metrics: Dict[str, Any]) -> Dict[str, Any]:
     routing = extra.get("routing", {}) if isinstance(extra.get("routing", {}), dict) else {}
     return {
         "eval.anytime_score": float(extra.get("anytime_score", eval_metrics.get("seen_avg_score", 0.0))),
+        "eval.current_task_aware_score": float(eval_metrics.get("current_task_aware_score", 0.0)),
+        "eval.seen_avg_task_aware_score": float(eval_metrics.get("seen_avg_task_aware_score", 0.0)),
+        "eval.task_aware_forgetting": float(eval_metrics.get("task_aware_forgetting", 0.0)),
+        "eval.anytime_task_aware_score": float(
+            extra.get("anytime_task_aware_score", eval_metrics.get("seen_avg_task_aware_score", 0.0))
+        ),
+        "eval.task_aware_score_mean": float(extra.get("task_aware_score_mean", 0.0)),
         "routing.num_routed": int(routing.get("num_routed", 0)),
         "routing.oracle_agreement_rate": float(routing.get("oracle_agreement_rate", 0.0)),
         "routing.decision_confidence_mean": float(routing.get("decision_confidence_mean", 0.0)),
@@ -460,6 +467,7 @@ def run_baseline(
 
     seen_segments: List[Segment] = []
     historical_best_per_segment: Dict[int, float] = {}
+    historical_best_task_aware_per_segment: Dict[int, float] = {}
     stream_segments = stream.stream
     last_eval_metrics: Dict[str, Any] = {}
     if bool(debug_tools.get("enable_single_segment_mode", False)):
@@ -527,6 +535,7 @@ def run_baseline(
             normalization_cfg=normalization_cfg,
             save_debug_examples_dir=str(Path(run_paths.run_dir) / "eval_debug"),
             historical_best_per_segment=historical_best_per_segment,
+            historical_best_task_aware_per_segment=historical_best_task_aware_per_segment,
         )
         last_eval_metrics = eval_metrics
         if lora_bank.list_branches() and active_adapter_before_eval in lora.list_adapters():
@@ -676,6 +685,7 @@ def run_ours(
 
     seen_segments: List[Segment] = []
     historical_best_per_segment: Dict[int, float] = {}
+    historical_best_task_aware_per_segment: Dict[int, float] = {}
     last_eval_metrics: Dict[str, Any] = {}
     for seg in stream.stream:
         logger.log(f"=== Segment {seg.segment_id}: {seg.segment_name} ===")
@@ -781,6 +791,7 @@ def run_ours(
             normalization_cfg=normalization_cfg,
             save_debug_examples_dir=str(Path(run_paths.run_dir) / "eval_debug"),
             historical_best_per_segment=historical_best_per_segment,
+            historical_best_task_aware_per_segment=historical_best_task_aware_per_segment,
         )
         last_eval_metrics = eval_metrics
         if active_adapter_before_eval in lora.list_adapters():
