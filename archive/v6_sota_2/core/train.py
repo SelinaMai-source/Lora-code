@@ -1091,12 +1091,14 @@ def _update_router_with_segment_pseudo_labels(
         router=router,
         prompts=prompts,
     )
+    frozen_branches = [b for b in branch_names if lora_bank.is_branch_frozen(b)]
     if len(branch_names) <= 1:
         pseudo_labels = [branch_names[0]] * len(pairs)
         router_metrics = router.update_with_pseudo_labels(
             features=features,
             pseudo_labels=pseudo_labels,
             branch_names=branch_names,
+            frozen_branches=frozen_branches,
         )
         return {
             "router_feature_adapter": feature_adapter,
@@ -1156,6 +1158,7 @@ def _update_router_with_segment_pseudo_labels(
         features=kept_features,
         pseudo_labels=pseudo_labels,
         branch_names=branch_names,
+        frozen_branches=frozen_branches,
     )
     return {
         "router_feature_adapter": feature_adapter,

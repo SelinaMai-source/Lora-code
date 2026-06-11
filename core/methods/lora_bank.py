@@ -136,6 +136,14 @@ class LoRABank:
         self._active = name
         return name
 
+    def blend_adapters(self, adapters: List[str], weights: List[float], new_adapter_name: str = "blended") -> None:
+        if self._lora_wrapper is not None and hasattr(self._lora_wrapper, "blend_adapters"):
+            self._lora_wrapper.blend_adapters(adapters, weights, new_adapter_name)
+
+    def set_soft_routing(self, adapters: Optional[List[str]], weights: Optional[List[float]]) -> None:
+        if self._lora_wrapper is not None and hasattr(self._lora_wrapper, "set_soft_routing"):
+            self._lora_wrapper.set_soft_routing(adapters, weights)
+
     def set_active_adapter(self, name: str) -> None:
         """
         Switch the underlying PEFT adapter if the bank is backed by a LoRAWrapper.
