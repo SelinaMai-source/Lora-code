@@ -375,9 +375,45 @@ def _eval_segment(
                 }
             )
             # Switch adapter before generating (needed for real multi-adapter evaluation).
-            if hasattr(lora_bank, "set_active_adapter"):
+            if getattr(router, "soft_routing", False) and hasattr(lora_bank, "set_soft_routing"):
+                # Normalize probabilities if requested
+                import torch
+                raw_scores = list(decision.scores.values())
+                adapters = list(decision.scores.keys())
+                temp = float(getattr(router, "soft_routing_temperature", 1.0))
+                if temp != 1.0 and len(raw_scores) > 0:
+                    logits = torch.tensor(raw_scores, dtype=torch.float32) / max(temp, 1e-5)
+                    probs = torch.softmax(logits, dim=0)
+                    # Filter top-k
+                    top_k = int(getattr(router, "soft_routing_top_k", 3))
+                    if top_k > 0 and top_k < len(adapters):
+                        top_vals, top_idx = torch.topk(probs, top_k)
+                        probs = torch.zeros_like(probs)
+                        probs[top_idx] = top_vals
+                        probs = probs / probs.sum()
+                    weights = probs.tolist()
+                else:
+                    weights = raw_scores
+                    
+                # Free unused branches when memory is tight
+                import gc
+                torch.cuda.empty_cache()
+                gc.collect()
+                
+                lora_bank.set_soft_routing(adapters, weights)
+            elif getattr(router, "soft_routing", False) and hasattr(lora_bank, "blend_adapters"):
+                adapters = list(prob_scores.keys())
+                weights = list(prob_scores.values())
+                lora_bank.blend_adapters(adapters, weights, "blended")
+                lora_bank.set_active_adapter("blended")
+            elif hasattr(lora_bank, "set_active_adapter"):
                 lora_bank.set_active_adapter(decision.branch_name)
+            
             preds.extend(model.generate([p], max_new_tokens=effective_max_new_tokens))
+            
+            # Clear soft routing
+            if getattr(router, "soft_routing", False) and hasattr(lora_bank, "set_soft_routing"):
+                lora_bank.set_soft_routing(None, None)
     else:
         if audited:
             gen_audit = model.generate_with_ids(prompts, max_new_tokens=effective_max_new_tokens)

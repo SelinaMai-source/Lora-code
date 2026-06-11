@@ -634,64 +634,76 @@ class HFCausalLMBackbone(BaseBackbone):
         input_texts = [str(inp) for (_, inp) in pairs]
         max_len = int(self.cfg.max_seq_len)
 
-        input_ids_list: List[List[int]] = []
-        labels_list: List[List[int]] = []
-        attn_list: List[List[int]] = []
-        for ins, inp, tgt in zip(instructions, input_texts, targets):
-            enc = build_supervised_labels(
-                self.tokenizer,
-                ins,
-                inp,
-                str(tgt),
-                max_len=max_len,
-                min_target_tokens=int(self.cfg.min_target_tokens_for_loss),
-                mask_eos_token_in_labels=bool(self.cfg.mask_eos_token_in_labels),
-                mask_all_special_tokens_in_labels=bool(self.cfg.mask_all_special_tokens_in_labels),
-                labeling_mode=str(self.cfg.train_labeling_mode),
-                completion_only_response_template=str(self.cfg.completion_only_response_template),
-            )
-            input_ids_list.append(list(enc.full_ids))
-            labels_list.append(list(enc.labels))
-            attn_list.append([1] * len(enc.full_ids))
+        all_nlls = []
+        batch_size_chunk = 4
+        
+        for batch_idx in range(0, len(pairs), batch_size_chunk):
+            end_idx = min(batch_idx + batch_size_chunk, len(pairs))
+            b_ins = instructions[batch_idx:end_idx]
+            b_inp = input_texts[batch_idx:end_idx]
+            b_tgt = targets[batch_idx:end_idx]
 
-        batch_size = len(input_ids_list)
-        pad_id = int(self.tokenizer.pad_token_id)
-        max_batch_len = min(max(len(x) for x in input_ids_list), max_len)
-        input_ids = torch.full((batch_size, max_batch_len), pad_id, dtype=torch.long, device=self.device)
-        labels = torch.full((batch_size, max_batch_len), -100, dtype=torch.long, device=self.device)
-        attention_mask = torch.zeros((batch_size, max_batch_len), dtype=torch.long, device=self.device)
-        for i, (ids, lab, attn) in enumerate(zip(input_ids_list, labels_list, attn_list)):
-            cur_len = min(len(ids), max_batch_len)
-            input_ids[i, :cur_len] = torch.tensor(ids[:cur_len], dtype=torch.long, device=self.device)
-            labels[i, :cur_len] = torch.tensor(lab[:cur_len], dtype=torch.long, device=self.device)
-            attention_mask[i, :cur_len] = torch.tensor(attn[:cur_len], dtype=torch.long, device=self.device)
+            input_ids_list: List[List[int]] = []
+            labels_list: List[List[int]] = []
+            attn_list: List[List[int]] = []
+            for ins, inp, tgt in zip(b_ins, b_inp, b_tgt):
+                enc = build_supervised_labels(
+                    self.tokenizer,
+                    ins,
+                    inp,
+                    str(tgt),
+                    max_len=max_len,
+                    min_target_tokens=int(self.cfg.min_target_tokens_for_loss),
+                    mask_eos_token_in_labels=bool(self.cfg.mask_eos_token_in_labels),
+                    mask_all_special_tokens_in_labels=bool(self.cfg.mask_all_special_tokens_in_labels),
+                    labeling_mode=str(self.cfg.train_labeling_mode),
+                    completion_only_response_template=str(self.cfg.completion_only_response_template),
+                )
+                input_ids_list.append(list(enc.full_ids))
+                labels_list.append(list(enc.labels))
+                attn_list.append([1] * len(enc.full_ids))
 
-        was_training = self.model.training
-        self.model.eval()
-        with torch.no_grad():
-            outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, return_dict=True)
-            shift_logits = outputs.logits[:, :-1, :].contiguous()
-            shift_labels = labels[:, 1:].contiguous()
-            token_losses = F.cross_entropy(
-                shift_logits.view(-1, shift_logits.size(-1)),
-                shift_labels.view(-1),
-                ignore_index=-100,
-                reduction="none",
-            ).view(shift_labels.shape)
+            batch_size = len(input_ids_list)
+            pad_id = int(self.tokenizer.pad_token_id)
+            max_batch_len = min(max(len(x) for x in input_ids_list), max_len)
+            input_ids = torch.full((batch_size, max_batch_len), pad_id, dtype=torch.long, device=self.device)
+            labels = torch.full((batch_size, max_batch_len), -100, dtype=torch.long, device=self.device)
+            attention_mask = torch.zeros((batch_size, max_batch_len), dtype=torch.long, device=self.device)
+            for i, (ids, lab, attn) in enumerate(zip(input_ids_list, labels_list, attn_list)):
+                cur_len = min(len(ids), max_batch_len)
+                input_ids[i, :cur_len] = torch.tensor(ids[:cur_len], dtype=torch.long, device=self.device)
+                labels[i, :cur_len] = torch.tensor(lab[:cur_len], dtype=torch.long, device=self.device)
+                attention_mask[i, :cur_len] = torch.tensor(attn[:cur_len], dtype=torch.long, device=self.device)
 
-        nlls: List[float] = []
-        for i in range(batch_size):
-            mask = shift_labels[i].ne(-100)
-            if bool(mask.any().item()):
-                nlls.append(float(token_losses[i][mask].mean().item()))
-            else:
-                nlls.append(0.0)
-
-        if was_training:
-            self.model.train()
-        else:
+            was_training = self.model.training
             self.model.eval()
-        return nlls
+            with torch.no_grad():
+                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, return_dict=True)
+                shift_logits = outputs.logits[:, :-1, :].contiguous()
+                shift_labels = labels[:, 1:].contiguous()
+                token_losses = F.cross_entropy(
+                    shift_logits.view(-1, shift_logits.size(-1)),
+                    shift_labels.view(-1),
+                    ignore_index=-100,
+                    reduction="none",
+                ).view(shift_labels.shape)
+
+            nlls: List[float] = []
+            for i in range(batch_size):
+                mask = shift_labels[i].ne(-100)
+                if bool(mask.any().item()):
+                    nlls.append(float(token_losses[i][mask].mean().item()))
+                else:
+                    nlls.append(0.0)
+                    
+            all_nlls.extend(nlls)
+
+            if was_training:
+                self.model.train()
+            else:
+                self.model.eval()
+                
+        return all_nlls
 
     def _build_scheduled_sampling_mixed_encoding(
         self,
@@ -964,27 +976,37 @@ class HFCausalLMBackbone(BaseBackbone):
         was_training = self.model.training
         self.model.eval()
 
-        inputs = self.tokenizer(
-            prompts,
-            padding=True,
-            truncation=True,
-            max_length=int(self.cfg.max_seq_len),
-            # Activations should be computed on the same prompt tokenization used by training/eval.
-            add_special_tokens=False,
-            return_tensors="pt",
-        )
-        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        all_pooled = []
+        batch_size_chunk = 4
 
-        if with_grad:
-            outputs = self.model(**inputs, output_hidden_states=True, return_dict=True)
-        else:
-            with torch.no_grad():
+        for batch_idx in range(0, len(prompts), batch_size_chunk):
+            end_idx = min(batch_idx + batch_size_chunk, len(prompts))
+            b_prompts = prompts[batch_idx:end_idx]
+
+            inputs = self.tokenizer(
+                b_prompts,
+                padding=True,
+                truncation=True,
+                max_length=int(self.cfg.max_seq_len),
+                # Activations should be computed on the same prompt tokenization used by training/eval.
+                add_special_tokens=False,
+                return_tensors="pt",
+            )
+            inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+            if with_grad:
                 outputs = self.model(**inputs, output_hidden_states=True, return_dict=True)
+            else:
+                with torch.no_grad():
+                    outputs = self.model(**inputs, output_hidden_states=True, return_dict=True)
 
-        hidden = outputs.hidden_states[-1]  # [B, T, H]
-        mask = inputs["attention_mask"].unsqueeze(-1).to(hidden.dtype)  # [B, T, 1]
-        pooled = (hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1.0)  # [B, H]
-        pooled = torch.nn.functional.normalize(pooled, p=2, dim=-1)
+            hidden = outputs.hidden_states[-1]  # [B, T, H]
+            mask = inputs["attention_mask"].unsqueeze(-1).to(hidden.dtype)  # [B, T, 1]
+            pooled = (hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1.0)  # [B, H]
+            pooled = torch.nn.functional.normalize(pooled, p=2, dim=-1)
+            all_pooled.append(pooled)
+
+        pooled = torch.cat(all_pooled, dim=0)
 
         # Keep training state stable
         if was_training:

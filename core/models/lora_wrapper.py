@@ -9,6 +9,77 @@ import torch
 from peft import LoraConfig as PeftLoraConfig
 from peft import TaskType
 from peft import get_peft_model
+import peft.tuners.lora.layer
+
+
+# Monkey-patch PEFT LoRA Linear for soft routing and CDMA modulation
+_original_lora_linear_forward = peft.tuners.lora.layer.Linear.forward
+
+def _cdma_lora_forward(self, x: torch.Tensor, *args: Any, **kwargs: Any) -> torch.Tensor:
+    soft_adapters = getattr(self, "_soft_routing_adapters", None)
+    
+    # We always use CDMA on top of either soft adapters or standard active adapters
+    if soft_adapters is not None:
+        active_weights = soft_adapters
+    else:
+        active_weights = [(a, 1.0) for a in getattr(self, "active_adapters", [])]
+
+    # If no adapters are active, use base layer
+    if not active_weights:
+        return _original_lora_linear_forward(self, x, *args, **kwargs)
+        
+    result = self.base_layer(x, *args, **kwargs)
+    torch_result_dtype = result.dtype
+    
+    lora_A_keys = self.lora_A.keys()
+    
+    # Cache codes to avoid regenerating on every forward pass
+    if not hasattr(self, "_cdma_codes"):
+        self._cdma_codes = {}
+        
+    def get_code(name_str, dim_size, device, dtype):
+        cache_key = f"{name_str}_{dim_size}"
+        if cache_key in self._cdma_codes:
+            return self._cdma_codes[cache_key].to(device=device, dtype=dtype)
+            
+        import hashlib
+        import torch
+        h = int(hashlib.md5(name_str.encode('utf-8')).hexdigest(), 16)
+        g = torch.Generator(device='cpu')
+        g.manual_seed(h % (2**32))
+        code = (torch.randint(0, 2, (dim_size,), generator=g, dtype=torch.float32) * 2 - 1)
+        
+        self._cdma_codes[cache_key] = code.cpu()
+        return code.to(device=device, dtype=dtype)
+    
+    for active_adapter, weight in active_weights:
+        if active_adapter not in lora_A_keys or weight == 0.0:
+            continue
+
+        lora_A = self.lora_A[active_adapter]
+        lora_B = self.lora_B[active_adapter]
+        dropout = self.lora_dropout[active_adapter]
+        scaling = self.scaling[active_adapter]
+        
+        x_cast = x.to(lora_A.weight.dtype) if hasattr(self, "_cast_input_dtype") else x
+        if hasattr(self, "_cast_input_dtype"):
+            x_cast = self._cast_input_dtype(x, lora_A.weight.dtype)
+            
+        in_dim = x_cast.shape[-1]
+        out_dim = result.shape[-1]
+        
+        # Apply CDMA encoding
+        c_in = get_code(active_adapter + "_in", in_dim, x_cast.device, x_cast.dtype)
+        c_out = get_code(active_adapter + "_out", out_dim, result.device, result.dtype)
+        
+        delta = lora_B(lora_A(dropout(x_cast * c_in))) * (scaling * weight)
+        delta = delta * c_out
+        
+        result = result + delta
+        
+    return result.to(torch_result_dtype)
+
+peft.tuners.lora.layer.Linear.forward = _cdma_lora_forward
 
 
 @dataclass
@@ -186,6 +257,15 @@ class LoRAWrapper:
             return torch.tensor([])
         return torch.cat(tensors)
 
+    def blend_adapters(self, adapters: List[str], weights: List[float], new_adapter_name: str = "blended") -> None:
+        if not self.cfg.enabled or self.peft_model is None:
+            return
+        if new_adapter_name in self.list_adapters():
+            self.peft_model.delete_adapter(new_adapter_name)
+        self.peft_model.add_weighted_adapter(adapters, weights, new_adapter_name, combination_type="linear")
+        self._adapter_steps[new_adapter_name] = 0
+        self._frozen_adapters.add(new_adapter_name)
+
     def merge_adapters(self, keep_name: str, drop_name: str) -> None:
         if not self.cfg.enabled or self.peft_model is None:
             return
@@ -259,6 +339,15 @@ class LoRAWrapper:
 
     def get_active_adapter_name(self) -> str:
         return self._active_adapter_name
+
+    def set_soft_routing(self, adapters: Optional[List[str]], weights: Optional[List[float]]) -> None:
+        """Enable or disable soft routing (blending at forward pass)."""
+        if not self.cfg.enabled or self.peft_model is None:
+            return
+        soft_adapters = list(zip(adapters, weights)) if adapters and weights else None
+        for module in self.peft_model.modules():
+            if isinstance(module, peft.tuners.lora.layer.Linear):
+                module._soft_routing_adapters = soft_adapters
 
     def info(self) -> Dict[str, Any]:
         total_params = 0
@@ -354,6 +443,9 @@ class DebugLoRAWrapper:
 
     def get_active_adapter_name(self) -> str:
         return self._active_adapter_name
+
+    def set_soft_routing(self, adapters: Optional[List[str]], weights: Optional[List[float]]) -> None:
+        pass
 
     def save_adapter_checkpoint(self, path: str) -> None:
         return

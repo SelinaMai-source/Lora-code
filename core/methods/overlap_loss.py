@@ -79,7 +79,7 @@ def compute_overlap_loss_torch(
 
     import torch
 
-    # Mean pairwise cosine similarity over prompts and over branch pairs.
+    # Mean pairwise similarity over prompts and over branch pairs.
     total = torch.tensor(0.0, device=next(iter(activations_by_branch.values())).device)
     count = 0
     for i in range(len(branches)):
@@ -87,9 +87,15 @@ def compute_overlap_loss_torch(
             b1, b2 = branches[i], branches[j]
             a1 = activations_by_branch[b1]  # [B, H]
             a2 = activations_by_branch[b2]  # [B, H]
-            # Since vectors are L2-normalized, cosine similarity = dot product.
-            cos_per_prompt = (a1 * a2).sum(dim=-1)  # [B]
-            total = total + cos_per_prompt.pow(2).mean()
+            
+            # Physics Inspiration: Electrostatic Coulomb Repulsion
+            # Treat each branch's activation as a charged particle.
+            # We want to minimize the electrostatic potential energy to push them apart.
+            # U = 1 / (r + epsilon)
+            dist = torch.norm(a1 - a2, p=2, dim=-1)
+            coulomb_potential = (1.0 / (dist + 0.1)).mean()
+            
+            total = total + coulomb_potential
             count += 1
     mean_sim = total / max(1, count)
     return mean_sim * float(beta)
@@ -246,8 +252,63 @@ def compute_orthogonal_weight_loss(
                 penalty = sim.abs()
             elif similarity == "positive_cosine":
                 penalty = F.relu(sim)
-            else:
+            elif similarity == "squared_cosine":
                 penalty = sim.pow(2)
+            elif similarity == "repulsive_energy":
+                # Energy-based repulsive force: exp(sim / tau)
+                tau = 0.1
+                penalty = torch.exp(sim / tau)
+            elif similarity == "information_bottleneck":
+                # Variational Information Bottleneck (VIB)
+                # Minimize mutual information between branch weight representations
+                # Treat weights as samples from a Gaussian, compute KL divergence
+                mu1, std1 = v1.mean(), v1.std() + 1e-6
+                mu2, std2 = v2.mean(), v2.std() + 1e-6
+                kl_12 = torch.log(std2/std1) + (std1.pow(2) + (mu1 - mu2).pow(2)) / (2 * std2.pow(2)) - 0.5
+                kl_21 = torch.log(std1/std2) + (std2.pow(2) + (mu2 - mu1).pow(2)) / (2 * std1.pow(2)) - 0.5
+                kl_sym = kl_12 + kl_21
+                penalty = torch.exp(-0.1 * kl_sym)
+            elif similarity == "frequency_division_multiplexing":
+                # Frequency-Division Multiplexing (FDM) from Telecommunications
+                # Treat the parameter vectors as temporal signals and penalize the overlap of their power spectra
+                v1_fft = torch.fft.rfft(v1.float())
+                v2_fft = torch.fft.rfft(v2.float())
+                
+                # Power spectra (magnitude squared)
+                p1 = torch.abs(v1_fft).pow(2)
+                p2 = torch.abs(v2_fft).pow(2)
+                
+                # Subsample or average pooling if the spectra are too large
+                n = p1.shape[0]
+                if n > 10000:
+                    chunk_size = n // 1000
+                    p1 = p1[:chunk_size * 1000].view(1000, chunk_size).mean(dim=1)
+                    p2 = p2[:chunk_size * 1000].view(1000, chunk_size).mean(dim=1)
+                
+                # Normalize power spectra
+                p1_norm = p1 / (p1.sum() + 1e-8)
+                p2_norm = p2 / (p2.sum() + 1e-8)
+                
+                # Overlap penalty (dot product of power spectra)
+                penalty = torch.sum(p1_norm * p2_norm)
+            elif similarity == "lennard_jones":
+                # Lennard-Jones Potential Repulsion
+                epsilon = 1.0
+                gamma = 1e-6
+                p = 2
+                dist_sq = (v1 - v2).pow(2).sum()
+                penalty = (epsilon / (dist_sq + gamma)) ** p
+            elif similarity == "manifold_unfolding":
+                # Dynamic Manifold Unfolding
+                # Unfold the manifold by penalizing the RBF kernel similarity
+                dist_sq = (v1 - v2).pow(2).sum()
+                sigma_sq = 0.5
+                penalty = torch.exp(-dist_sq / (2 * sigma_sq))
+            else:
+                # Default to Manifold Unfolding
+                dist_sq = (v1 - v2).pow(2).sum()
+                sigma_sq = 0.5
+                penalty = torch.exp(-dist_sq / (2 * sigma_sq))
             total = total + penalty
             count += 1
 
