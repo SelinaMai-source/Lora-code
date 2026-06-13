@@ -1,0 +1,8 @@
+{
+  "status": "replaced_by_phased_campaign",
+  "note": "旧优先队列已废弃；Phase 1 由 run_campaign_phased.sh --phases 1 执行",
+  "phase1_run_name": "paper_instrdialogpp_v8_sota5_ours_s123_v8s5camp",
+  "phase1_config": "configs/paper/v8_sota5_campaign/phase1/instrdialogpp__v8_sota_5__s123.yaml",
+  "tmux_session": "v8s5camp_serial",
+  "updated_at": "2026-06-14"
+}

@@ -1,0 +1,24 @@
+{
+  "total_runs": 47,
+  "by_phase": {
+    "phase_1": 1,
+    "phase_2": 10,
+    "phase_3": 30,
+    "phase_4": 6
+  },
+  "by_category": {
+    "phase1_priority": 1,
+    "ablation_single_seed": 10,
+    "baseline_multiseed": 30,
+    "ours_multiseed": 6
+  },
+  "execution_order": [
+    "phase1_priority (1)",
+    "baseline_multiseed (30)",
+    "ablation_single_seed (10)",
+    "ours_multiseed (6)"
+  ],
+  "wandb_project": "lora-citb-v8-sota5-paper",
+  "output_dir": "configs/paper/v8_sota5_campaign",
+  "manifest": "experiments/v8_sota5_campaign/manifest.csv"
+}
