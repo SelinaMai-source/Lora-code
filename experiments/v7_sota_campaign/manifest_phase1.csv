@@ -1,0 +1,13 @@
+index,config_id,benchmark,seed,run_name,config_path,wandb_project,wandb_group,drift_threshold,anchor_size,anchor_refresh_segments,max_branches,prototype_update_steps,prototype_ema,spawn_sync_prototype_init,router_bundle
+1,v7_sota_01,instrdialog,123,v7_sota_01_instrdialog_s123,configs/paper/v7_sota/v7_sota_01.yaml,lora-citb-v7-sota,v7_search_phase1,0.025,64,1,12,2,0.8,True,lean
+2,v7_sota_02,instrdialog,123,v7_sota_02_instrdialog_s123,configs/paper/v7_sota/v7_sota_02.yaml,lora-citb-v7-sota,v7_search_phase1,0.025,64,1,15,3,0.8,True,champion
+3,v7_sota_03,instrdialog,123,v7_sota_03_instrdialog_s123,configs/paper/v7_sota/v7_sota_03.yaml,lora-citb-v7-sota,v7_search_phase1,0.025,64,1,15,2,0.9,True,slow_ema
+4,v7_sota_04,instrdialog,123,v7_sota_04_instrdialog_s123,configs/paper/v7_sota/v7_sota_04.yaml,lora-citb-v7-sota,v7_search_phase1,0.02,64,1,12,2,0.8,True,lean
+5,v7_sota_05,instrdialog,123,v7_sota_05_instrdialog_s123,configs/paper/v7_sota/v7_sota_05.yaml,lora-citb-v7-sota,v7_search_phase1,0.02,64,1,15,3,0.8,True,champion
+6,v7_sota_06,instrdialog,123,v7_sota_06_instrdialog_s123,configs/paper/v7_sota/v7_sota_06.yaml,lora-citb-v7-sota,v7_search_phase1,0.02,64,1,15,2,0.9,True,slow_ema
+7,v7_sota_07,instrdialog,123,v7_sota_07_instrdialog_s123,configs/paper/v7_sota/v7_sota_07.yaml,lora-citb-v7-sota,v7_search_phase1,0.025,32,2,12,2,0.8,True,lean
+8,v7_sota_08,instrdialog,123,v7_sota_08_instrdialog_s123,configs/paper/v7_sota/v7_sota_08.yaml,lora-citb-v7-sota,v7_search_phase1,0.025,32,2,15,3,0.8,True,champion
+9,v7_sota_09,instrdialog,123,v7_sota_09_instrdialog_s123,configs/paper/v7_sota/v7_sota_09.yaml,lora-citb-v7-sota,v7_search_phase1,0.025,32,2,15,2,0.9,True,slow_ema
+10,v7_sota_10,instrdialog,123,v7_sota_10_instrdialog_s123,configs/paper/v7_sota/v7_sota_10.yaml,lora-citb-v7-sota,v7_search_phase1,0.02,32,2,12,2,0.8,True,lean
+11,v7_sota_11,instrdialog,123,v7_sota_11_instrdialog_s123,configs/paper/v7_sota/v7_sota_11.yaml,lora-citb-v7-sota,v7_search_phase1,0.02,32,2,15,3,0.8,True,champion
+12,v7_sota_12,instrdialog,123,v7_sota_12_instrdialog_s123,configs/paper/v7_sota/v7_sota_12.yaml,lora-citb-v7-sota,v7_search_phase1,0.02,32,2,15,2,0.9,True,slow_ema

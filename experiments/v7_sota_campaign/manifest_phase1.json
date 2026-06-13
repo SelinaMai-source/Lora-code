@@ -1,0 +1,21 @@
+{
+  "total_configs": 12,
+  "grid": "2×2 drift × 3 router bundles = 12",
+  "wandb_project": "lora-citb-v7-sota",
+  "output_dir": "configs/paper/v7_sota",
+  "manifest": "experiments/v7_sota_campaign/manifest_phase1.csv",
+  "configs": [
+    "v7_sota_01",
+    "v7_sota_02",
+    "v7_sota_03",
+    "v7_sota_04",
+    "v7_sota_05",
+    "v7_sota_06",
+    "v7_sota_07",
+    "v7_sota_08",
+    "v7_sota_09",
+    "v7_sota_10",
+    "v7_sota_11",
+    "v7_sota_12"
+  ]
+}
