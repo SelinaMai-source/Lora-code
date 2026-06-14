@@ -18,6 +18,7 @@ MANIFEST_PATH = CAMPAIGN_DIR / "manifest.csv"
 LOG_PATH = SUPERVISOR_DIR / "CAMPAIGN_MONITOR.log"
 STATE_PATH = SUPERVISOR_DIR / "CAMPAIGN_MONITOR_STATE.json"
 WAKE_FLAG = SUPERVISOR_DIR / "CAMPAIGN_AGENT_WAKE.flag"
+WAKE_SCRIPT = SUPERVISOR_DIR / "cursor_agent_wake.sh"
 STATUS_SCRIPT = SUPERVISOR_DIR / "status_report.py"
 
 CAMPAIGN_TRAINING_SESSIONS = [
@@ -101,31 +102,41 @@ def _save_state(state: Dict[str, Any]) -> None:
     STATE_PATH.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def _write_wake_flag(*, reason: str, message: str) -> None:
-    """Write flag only; agent_loop.sh emits AGENT_LOOP_WAKE_CAMPAIGN to stdout."""
-    kind = "wake" if reason == "issue" else "report"
-    prompt_file = SUPERVISOR_DIR / "AGENT_LOOP_PROMPT.md"
-    if reason == "issue":
-        prompt = (
-            f"请阅读 {prompt_file}、CAMPAIGN_STATUS.md、CAMPAIGN_MONITOR_STATE.json。"
-            f" pending_action=fix：{message}。工作目录：{REPO}。禁止并行 train.py。"
-        )
-    else:
-        prompt = (
-            f"请阅读 CAMPAIGN_STATUS.md 与 CAMPAIGN_MONITOR_STATE.json，"
-            f"用中文向用户汇报战役进度。{message}。工作目录：{REPO}。"
-        )
-    payload = {
-        "reason": reason,
-        "message": message,
-        "kind": kind,
-        "prompt": prompt,
-        "timestamp": _now(),
-        "repo": str(REPO),
-        "wake_reason": "CAMPAIGN_AGENT_WAKE.flag",
-    }
-    WAKE_FLAG.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+def _invoke_wake(*, reason: str, message: str) -> None:
+    """Write CAMPAIGN_AGENT_WAKE.flag via cursor_agent_wake.sh (--write-only for agent_loop)."""
+    if not WAKE_SCRIPT.is_file():
+        _log(f"BLOCKED wake: missing {WAKE_SCRIPT}")
+        return
+    subprocess.run(
+        ["bash", str(WAKE_SCRIPT), "--reason", reason, "--message", message, "--write-only"],
+        cwd=str(REPO),
+        check=False,
+    )
     _log(f"WAKE_FLAG reason={reason} message={message}")
+
+
+def _completed_runs(rows: List[Dict[str, str]]) -> List[str]:
+    done: List[str] = []
+    for row in rows:
+        run_name = row["run_name"].strip()
+        if (REPO / "results/runs" / run_name / "final_metrics.json").is_file():
+            done.append(run_name)
+    return done
+
+
+def _phase_complete(rows: List[Dict[str, str]], phase: str) -> bool:
+    phase_rows = [r for r in rows if str(r.get("phase", "")).strip() == phase]
+    if not phase_rows:
+        return False
+    return all(
+        (REPO / "results/runs" / r["run_name"].strip() / "final_metrics.json").is_file()
+        for r in phase_rows
+    )
+
+
+def _latest_completed_run(prev_done: List[str], cur_done: List[str]) -> Optional[str]:
+    new_runs = [r for r in cur_done if r not in prev_done]
+    return new_runs[-1] if new_runs else None
 
 
 def _run_status_report() -> None:
@@ -463,10 +474,34 @@ def main() -> int:
         issues.append(f"{len(failed_rows)} 个失败 run 无 final_metrics")
         wake_issue = wake_issue or f"{len(failed_rows)} 个失败 run 待重试/诊断"
 
-    prev_completed = int((state.get("manifest") or {}).get("completed", 0))
+    prev_completed_list = list(state.get("completed_runs") or [])
+    cur_completed_list = _completed_runs(rows)
+    prev_completed = len(prev_completed_list) if prev_completed_list else int(
+        (state.get("manifest") or {}).get("completed", 0)
+    )
     milestone = manifest_counts["completed"] > prev_completed
-    if milestone:
+    latest_run = _latest_completed_run(prev_completed_list, cur_completed_list)
+    if milestone and latest_run:
+        metrics_path = REPO / "results/runs" / latest_run / "final_metrics.json"
+        wake_report = (
+            f"run 完成 `{latest_run}`，进度 {manifest_counts['completed']}/{manifest_counts['total']}，"
+            f"metrics={metrics_path}"
+        )
+    elif milestone:
         wake_report = f"run 完成，进度 {manifest_counts['completed']}/{manifest_counts['total']}"
+
+    phase1_wake = False
+    if _phase_complete(rows, "1") and not state.get("phase1_complete_reported"):
+        phase1_rows = [r for r in rows if str(r.get("phase", "")).strip() == "1"]
+        if phase1_rows:
+            rn = phase1_rows[0]["run_name"].strip()
+            metrics_path = REPO / "results/runs" / rn / "final_metrics.json"
+            wake_report = wake_report or (
+                f"Phase1 全部完成，metrics={metrics_path}，进度 "
+                f"{manifest_counts['completed']}/{manifest_counts['total']}"
+            )
+            phase1_wake = True
+            state["phase1_complete_reported"] = True
 
     priority_state_path = CAMPAIGN_DIR / "PRIORITY_QUEUE.state"
     if priority_state_path.is_file():
@@ -485,11 +520,13 @@ def main() -> int:
     elif wake_issue:
         state["pending_agent"] = wake_issue
         state["pending_action"] = "fix"
-        _write_wake_flag(reason="issue", message=wake_issue)
+        _invoke_wake(reason="issue", message=wake_issue)
     elif wake_report:
         state["pending_action"] = "report"
-        _write_wake_flag(reason="milestone" if milestone else "report", message=wake_report)
+        report_reason = "milestone" if (milestone or phase1_wake) else "report"
+        _invoke_wake(reason=report_reason, message=wake_report)
 
+    state["completed_runs"] = cur_completed_list
     state["campaign_tmux_alive"] = bool(campaign_tmux)
     state["train_count"] = len(procs)
     state["campaign_train_count"] = len(campaign_procs)

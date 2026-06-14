@@ -1,30 +1,52 @@
 {
-  "last_tick": "2026-06-13 18:19:00 UTC",
+  "last_tick": "2026-06-14 15:22:23 UTC",
   "campaign_tmux": "v8s5camp_serial",
   "campaign_tmux_alive": true,
-  "train_count": 2,
-  "campaign_train_count": 2,
+  "train_count": 1,
+  "campaign_train_count": 1,
   "manifest": {
     "total": 47,
     "completed": 1,
-    "failed": 4,
+    "failed": 5,
     "running": 0,
-    "queued": 42
+    "queued": 41,
+    "phases": {
+      "1": {
+        "total": 1,
+        "completed": 0,
+        "failed": 1,
+        "queued": 0
+      },
+      "2": {
+        "total": 10,
+        "completed": 0,
+        "failed": 2,
+        "queued": 8
+      },
+      "3": {
+        "total": 30,
+        "completed": 1,
+        "failed": 1,
+        "queued": 28
+      },
+      "4": {
+        "total": 6,
+        "completed": 0,
+        "failed": 1,
+        "queued": 5
+      }
+    }
   },
   "current_run": null,
   "gpu": {
-    "memory_used_mib": 20123,
+    "memory_used_mib": 15863,
     "memory_total_mib": 49152,
-    "utilization_pct": 95,
-    "memory_pct": 40.9
+    "utilization_pct": 1,
+    "memory_pct": 32.3
   },
-  "issues": [
-    "多个 train.py (2) — OOM 风险"
-  ],
-  "auto_fixes": [
-    "已杀掉多余 train.py pids=[806697]，保留 pid=807811"
-  ],
-  "pending_agent": "多 train 进程已清理 pids=[806697]，请确认串行模式",
+  "issues": [],
+  "auto_fixes": [],
+  "pending_agent": null,
   "last_oom": "2026-06-13 13:52:18 UTC",
   "notes": [
     "2026-06-13 13:52:12 UTC: OOM detected — serial mode enforced",
@@ -41,11 +63,14 @@
     "total": 0,
     "label": "—"
   },
-  "last_status_report": "2026-06-13 18:19:00 UTC",
-  "train_cmd": "/bin/bash -O extglob -c snap=$(command cat <&3) && builtin shopt -s extglob && builtin eval -- \"$snap\" && { builtin set +u 2>/dev/null || true; builtin eval \"${__CURSOR_SANDBOX_ENV_RESTORE:-}\" 2>/dev/null; builtin export PWD=\"$(builtin pwd)\"; builtin shopt -s expand_aliases 2>/dev/null; builtin eval \"$1\"; }; COMMAND_EXIT_CODE=$?; dump_bash_state >&4; builtin exit $COMMAND_EXIT_CODE -- tmux ls 2>/dev/null; echo '---'; pgrep -af '[p]ython.*core/train.py' || echo 'no train'; echo '---'; python3 -c \"import json; s=json.load(open('/root/autodl-tmp/Lora-code/experiments/v8_sota5_campaign/supervisor/CAMPAIGN_MONITOR_STATE.json')); print('completed', s['manifest']['completed'], '/', s['manifest']['total']); print('tick', s.get('last_tick')); import subprocess; subprocess.run(['python3','/root/autodl-tmp/Lora-code/experiments/v8_sota5_campaign/supervisor/monitor_tick.py'], cwd='/root/autodl-tmp/Lora-code')\" 2>&1 | tail -5; python3 -c \"import json; s=json.load(open('/root/autodl-tmp/Lora-code/experiments/v8_sota5_campaign/supervisor/CAMPAIGN_MONITOR_STATE.json')); print(s.get('running_run'), s.get('train_cmd')); print(s.get('current_segment'))\"",
+  "last_status_report": "2026-06-14 15:22:23 UTC",
+  "train_cmd": null,
   "log_errors": [],
   "next_steps": [
-    "Agent 需诊断 CAMPAIGN_MONITOR.log 中的错误并修复后重启串行训练。"
+    "无活跃 train.py：确认 v8s5camp_serial tmux 存活，必要时 bash tmux_run_campaign_serial.sh。"
   ],
-  "pending_action": "fix"
+  "pending_action": null,
+  "completed_runs": [
+    "paper_instrdialog_bank_no_router_s123_v8s5camp"
+  ]
 }

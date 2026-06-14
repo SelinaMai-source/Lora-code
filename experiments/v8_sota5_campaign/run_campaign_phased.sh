@@ -68,6 +68,7 @@ _run_phase() {
     --phases "$phase" \
     "${MANIFEST_ARGS[@]}" \
     2>&1 | tee -a "$LOG_FILE"
+  local manifest_exit=${PIPESTATUS[0]}
 
   if [[ "$phase" == "1" ]]; then
     local run_name
@@ -87,13 +88,19 @@ PY
         --run-name "$run_name" --phase 1 \
         2>&1 | tee -a "$LOG_FILE" || true
     else
-      echo "[phase1] skip wake — final_metrics.json missing for $run_name" | tee -a "$LOG_FILE"
+      echo "[phase1] FAILED — final_metrics.json missing for $run_name; stopping campaign (Phase 2+ will NOT run)." | tee -a "$LOG_FILE"
+      return 1
     fi
   fi
+
+  return "${manifest_exit:-0}"
 }
 
 for phase in "${PHASES[@]}"; do
-  _run_phase "$phase"
+  if ! _run_phase "$phase"; then
+    echo "[campaign-phased] aborted at phase $phase" | tee -a "$LOG_FILE"
+    exit 1
+  fi
 done
 
 echo "[campaign-phased] finished phases: ${PHASES[*]}" | tee -a "$LOG_FILE"

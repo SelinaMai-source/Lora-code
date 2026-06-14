@@ -4,10 +4,10 @@
 
 ## 1. 必读文件
 
-- `experiments/v8_sota5_campaign/supervisor/CAMPAIGN_STATUS.md` — 人类可读总览（完成 X/41、当前 run、段进度、错误、下一步）
+- `experiments/v8_sota5_campaign/supervisor/CAMPAIGN_STATUS.md` — 人类可读总览（完成 X/47、Phase1–4、当前 run、段进度、错误、下一步）
 - `experiments/v8_sota5_campaign/supervisor/CAMPAIGN_MONITOR_STATE.json` — 结构化状态（`pending_agent`、`pending_action`）
 - `experiments/v8_sota5_campaign/supervisor/CAMPAIGN_MONITOR.log` — 监控 tick 与 AUTO_FIX 记录
-- `experiments/v8_sota5_campaign/manifest.csv` — 41 条战役清单
+- `experiments/v8_sota5_campaign/manifest.csv` — 47 条战役清单（Phase 1–4）
 
 ## 2. 按 kind / pending_action 行动
 
@@ -58,7 +58,7 @@ tmux attach -t v8s5camp_serial
 
 ## 6. 向用户汇报模板（kind=report）
 
-1. 完成进度 X/41
+1. 完成进度 X/47（含 Phase1–4 分阶段）
 2. 当前 run 与 segment 进度
 3. GPU 利用率与显存
 4. 近期错误（如有）

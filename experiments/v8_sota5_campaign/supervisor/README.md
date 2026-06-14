@@ -13,13 +13,18 @@ v8s5camp_supervisor (tmux)
                                         └── CAMPAIGN_AGENT_WAKE.flag（issue/milestone 时）
 
 v8s5camp_agent_loop (tmux)
-  └── agent_loop.sh  ──每 30s──► 读 flag / pending_agent
-                    ──每 5min──► monitor_tick.py
+  └── agent_loop.sh  ──每 30s──► 读 flag / pending_agent → AGENT_LOOP_WAKE_CAMPAIGN
                     ──每 30min──► 定期 report
-                         └── stdout: AGENT_LOOP_WAKE_CAMPAIGN JSON
 ```
 
 ## 启动
+
+```bash
+cd /root/autodl-tmp/Lora-code
+bash experiments/v8_sota5_campaign/supervisor/start_supervisor.sh
+```
+
+或手动：
 
 ```bash
 cd /root/autodl-tmp/Lora-code
@@ -39,7 +44,6 @@ tmux new-session -d -s v8s5camp_agent_loop \
 |------|------|------|
 | `CAMPAIGN_MONITOR_INTERVAL_SEC` | 120 | supervisor 监控间隔 |
 | `CAMPAIGN_AGENT_POLL_SEC` | 30 | agent_loop 轮询间隔 |
-| `CAMPAIGN_MONITOR_TICK_SEC` | 300 | agent_loop 内 monitor_tick 间隔 |
 | `CAMPAIGN_AGENT_REPORT_SEC` | 1800 | 健康状态下定期汇报间隔 |
 
 ## 连接 tmux
@@ -78,10 +82,21 @@ bash experiments/v8_sota5_campaign/supervisor/cursor_agent_wake.sh \
   --reason report --message "test"
 ```
 
-### 方式 4：Cursor /loop 命令
+### 方式 4：Cursor /loop 动态监控（推荐）
+
+在 Cursor 聊天中让 agent 按 loop skill 监控 `v8s5camp_agent_loop` tmux 输出：
 
 ```
-/loop 5m Read experiments/v8_sota5_campaign/supervisor/AGENT_LOOP_PROMPT.md and CAMPAIGN_STATUS.md
+/loop 监控 tmux v8s5camp_agent_loop 的 stdout，regex ^AGENT_LOOP_WAKE_CAMPAIGN。
+被唤醒后阅读 experiments/v8_sota5_campaign/supervisor/AGENT_LOOP_PROMPT.md、
+CAMPAIGN_STATUS.md、CAMPAIGN_MONITOR_STATE.json、CAMPAIGN_MONITOR.log，
+按 prompt 修复或向用户中文汇报。
+```
+
+或固定心跳（无 tmux 时）：
+
+```
+/loop 30m Read experiments/v8_sota5_campaign/supervisor/AGENT_LOOP_PROMPT.md and CAMPAIGN_STATUS.md
 ```
 
 ## 脚本说明
@@ -91,7 +106,8 @@ bash experiments/v8_sota5_campaign/supervisor/cursor_agent_wake.sh \
 | `status_report.py` | 读 manifest、train.py、metrics.jsonl、日志 → 写 `CAMPAIGN_STATUS.md` + 更新 state |
 | `monitor_tick.py` | 健康检查、自动修复、写 wake flag |
 | `cursor_agent_wake.sh` | `--reason issue\|report\|milestone --message "..."` → flag + stdout JSON |
-| `agent_loop.sh` | 轮询 flag、调用 monitor_tick、定期 report |
+| `agent_loop.sh` | 轮询 flag、定期 report → stdout AGENT_LOOP_WAKE_CAMPAIGN |
+| `start_supervisor.sh` | 启动/重启 supervisor + agent_loop tmux |
 | `AGENT_LOOP_PROMPT.md` | Agent 被唤醒后的操作手册 |
 
 ## 自动修复 vs Agent
@@ -108,7 +124,7 @@ bash experiments/v8_sota5_campaign/supervisor/cursor_agent_wake.sh \
 
 ## 状态文件
 
-- **CAMPAIGN_STATUS.md** — 中文可读：完成 X/41、当前 run、段进度、错误、下一步
+- **CAMPAIGN_STATUS.md** — 中文可读：完成 X/47、Phase1–4 分阶段、当前 run、段进度、错误、下一步
 - **CAMPAIGN_MONITOR_STATE.json** — `manifest`、`current_run`、`pending_agent`、`issues`
 - **CAMPAIGN_MONITOR.log** — tick 摘要
 - **agent_wake.log** — agent_loop 发射记录

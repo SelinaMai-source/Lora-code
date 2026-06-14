@@ -155,13 +155,42 @@ def _active_train_run() -> Tuple[Optional[str], Optional[str]]:
     return None, None
 
 
+def _is_campaign_run(row: Dict[str, str]) -> bool:
+    run_name = row.get("run_name", "").strip()
+    return run_name.endswith("_v8s5camp") or "v8s5camp" in run_name
+
+
+def _phase_stats(rows: List[Dict[str, str]], active_run: Optional[str]) -> Dict[str, Dict[str, int]]:
+    """Per-phase (1-4) completion counts for *_v8s5camp manifest rows."""
+    phases: Dict[str, Dict[str, int]] = {}
+    for row in rows:
+        if not _is_campaign_run(row):
+            continue
+        phase = str(row.get("phase", "")).strip()
+        if phase not in {"1", "2", "3", "4"}:
+            continue
+        run_name = row["run_name"].strip()
+        bucket = phases.setdefault(phase, {"total": 0, "completed": 0, "failed": 0, "queued": 0})
+        bucket["total"] += 1
+        final_p = _run_dir(run_name) / "final_metrics.json"
+        if final_p.is_file():
+            bucket["completed"] += 1
+        elif active_run and run_name == active_run:
+            pass
+        elif _run_dir(run_name).is_dir():
+            bucket["failed"] += 1
+        else:
+            bucket["queued"] += 1
+    return dict(sorted(phases.items(), key=lambda kv: int(kv[0])))
+
+
 def _manifest_stats(rows: List[Dict[str, str]], active_run: Optional[str]) -> Dict[str, Any]:
     completed: List[str] = []
     failed: List[str] = []
     queued: List[str] = []
     for row in rows:
         run_name = row["run_name"].strip()
-        if not run_name.endswith("_v8s5camp") and "v8s5camp" not in run_name:
+        if not _is_campaign_run(row):
             continue
         final_p = _run_dir(run_name) / "final_metrics.json"
         if final_p.is_file():
@@ -173,9 +202,10 @@ def _manifest_stats(rows: List[Dict[str, str]], active_run: Optional[str]) -> Di
         else:
             queued.append(run_name)
 
-    total = len([r for r in rows if "v8s5camp" in r["run_name"]])
+    total = len([r for r in rows if _is_campaign_run(r)])
     if total == 0:
         total = len(rows)
+    phases = _phase_stats(rows, active_run)
     return {
         "total": total,
         "completed": len(completed),
@@ -184,6 +214,7 @@ def _manifest_stats(rows: List[Dict[str, str]], active_run: Optional[str]) -> Di
         "queued": len(queued),
         "completed_runs": completed,
         "failed_runs": failed,
+        "phases": phases,
     }
 
 
@@ -329,6 +360,7 @@ def collect_state(existing: Dict[str, Any]) -> Dict[str, Any]:
             "failed": manifest["failed"],
             "running": manifest["running"],
             "queued": manifest["queued"],
+            "phases": manifest.get("phases") or {},
         },
         "gpu": gpu or existing.get("gpu") or {},
         "log_errors": log_errors,
@@ -359,6 +391,7 @@ def build_report(state: Dict[str, Any]) -> str:
     next_steps = state.get("next_steps") or []
 
     pct = round(100.0 * completed / max(total, 1), 1)
+    phases = manifest.get("phases") or {}
     lines = [
         "# v8_sota5 战役状态报告",
         "",
@@ -370,9 +403,25 @@ def build_report(state: Dict[str, Any]) -> str:
         f"- 进行中: {running_n} | 排队: {queued} | 失败/半成品: {failed}",
         f"- tmux: `{tmux}` | 上次 tick: {last_tick}",
         "",
+    ]
+    if phases:
+        lines.extend(["## 分阶段进度 (Phase 1–4)", ""])
+        phase_names = {
+            "1": "Phase1 优先任务",
+            "2": "Phase2 消融",
+            "3": "Phase3 Baseline 多种子",
+            "4": "Phase4 Ours 多种子",
+        }
+        for ph, stats in sorted(phases.items(), key=lambda x: int(x[0])):
+            label = phase_names.get(ph, f"Phase {ph}")
+            t = int(stats.get("total", 0))
+            c = int(stats.get("completed", 0))
+            lines.append(f"- **{label}**: {c}/{t} 完成")
+        lines.append("")
+    lines.extend([
         "## 当前 Run",
         "",
-    ]
+    ])
 
     if current_run:
         lines.extend([

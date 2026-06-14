@@ -14,7 +14,6 @@ cd "$ROOT"
 
 SUPERVISOR_DIR="experiments/v8_sota5_campaign/supervisor"
 POLL_SEC="${CAMPAIGN_AGENT_POLL_SEC:-30}"
-MONITOR_TICK_SEC="${CAMPAIGN_MONITOR_TICK_SEC:-300}"
 REPORT_SEC="${CAMPAIGN_AGENT_REPORT_SEC:-1800}"
 FLAG="${SUPERVISOR_DIR}/CAMPAIGN_AGENT_WAKE.flag"
 STATE_JSON="${SUPERVISOR_DIR}/CAMPAIGN_MONITOR_STATE.json"
@@ -52,10 +51,9 @@ PY
 }
 
 mkdir -p "$SUPERVISOR_DIR"
-echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] agent_loop started poll=${POLL_SEC}s tick=${MONITOR_TICK_SEC}s report=${REPORT_SEC}s" \
+echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] agent_loop started poll=${POLL_SEC}s report=${REPORT_SEC}s" \
   | tee -a "${WAKE_LOG}"
 
-last_monitor_tick=$(date +%s)
 last_report=$(date +%s)
 last_flag_mtime=0
 
@@ -64,13 +62,6 @@ sleep "${POLL_SEC}"
 
 while true; do
   now=$(date +%s)
-
-  if (( now - last_monitor_tick >= MONITOR_TICK_SEC )); then
-    python3 experiments/v8_sota5_campaign/supervisor/monitor_tick.py \
-      >> "${SUPERVISOR_DIR}/CAMPAIGN_MONITOR.log" 2>&1 \
-      || echo "[$(date -u '+%Y-%m-%d %H:%M:%S UTC')] monitor_tick failed" >> "${WAKE_LOG}"
-    last_monitor_tick=$now
-  fi
 
   pending=""
   if [[ -f "${STATE_JSON}" ]]; then
