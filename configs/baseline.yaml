@@ -9,7 +9,11 @@ baseline_name: "sequential_lora"
 # - replay_lora
 # - periodic_multilora
 # - router_only
-# - bank_no_router   (重要：无独立 baselines/ 子目录，通过该模式走统一管线)
+# - bank_no_router   (重要：无独立 basic_baselines/ 子目录，通过该模式走统一管线)
+# advanced scaffold / smoke-test-ready:
+# - o_lora
+# - progressive_prompts
+# - continual_t0
 
 paths:
   project_root: "."

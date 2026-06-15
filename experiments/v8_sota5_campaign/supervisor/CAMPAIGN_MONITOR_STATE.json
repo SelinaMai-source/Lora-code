@@ -1,5 +1,5 @@
 {
-  "last_tick": "2026-06-14 15:22:23 UTC",
+  "last_tick": "2026-06-15 15:35:11 UTC",
   "campaign_tmux": "v8s5camp_serial",
   "campaign_tmux_alive": true,
   "train_count": 1,
@@ -39,9 +39,9 @@
   },
   "current_run": null,
   "gpu": {
-    "memory_used_mib": 15863,
+    "memory_used_mib": 15853,
     "memory_total_mib": 49152,
-    "utilization_pct": 1,
+    "utilization_pct": 36,
     "memory_pct": 32.3
   },
   "issues": [],
@@ -63,7 +63,7 @@
     "total": 0,
     "label": "—"
   },
-  "last_status_report": "2026-06-14 15:22:23 UTC",
+  "last_status_report": "2026-06-15 15:35:11 UTC",
   "train_cmd": null,
   "log_errors": [],
   "next_steps": [

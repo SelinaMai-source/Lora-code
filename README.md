@@ -12,7 +12,7 @@
 configs/         # 3 个唯一配置入口：debug / baseline / ours
 data/            # raw/processed/sample 三层：数据下载说明、处理格式与本地样例
 core/            # 唯一统一训练/评估引擎（不分裂成多套系统）
-baselines/       # 4 个 baseline 子文件夹（每个 method.py + README）
+baselines/       # basic_baselines/ 与 advanced_baselines/（后者为复现准备）
 assets/          # pretrained/checkpoints/cache（权重与中间文件约定位置）
 results/         # logs/tables/figures/runs（训练代码会写入这里）
 README.md
@@ -36,7 +36,7 @@ requirements.txt
 
 - **端到端训练循环（按段训练）**
 - **统一评估接口**（输出 `current_score / seen_avg_score / forgetting / num_seen_segments` 等）
-- **baseline 与 ours 的统一选择/分发逻辑**
+- **basic baseline、advanced baseline scaffold 与 ours 的统一选择/分发逻辑**
 - **结果落盘到 `results/`**（每次运行有独立 `results/runs/<run_id>/`）
 
 本地 debug 使用：
@@ -118,7 +118,7 @@ python core/train.py --config configs/ours.yaml
 - 所有 baseline **共享同一条训练/评估管线**：`core/train.py`
 - baseline 的差异仅来自：
   - 配置：`configs/baseline.yaml` 的 `baseline_name`
-  - 实现：`baselines/<name>/method.py` 提供统一接口（被 `core/train.py` 调用）
+- 实现：基础 baseline 由 `baselines/basic_baselines/<name>/method.py` 提供统一接口（被 `core/train.py` 调用）；advanced baseline 目前位于 `baselines/advanced_baselines/`，为复现准备/待实现 scaffold
 
 这样保证对比公平：数据加载、评估与落盘逻辑一致。
 

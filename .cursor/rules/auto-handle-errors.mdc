@@ -1,0 +1,12 @@
+---
+description: Automatically handle errors before reporting to the user
+alwaysApply: true
+---
+
+# Automatic Error Handling
+
+- Do not paste raw stack traces, long terminal failures, or internal tool errors directly into user-facing replies.
+- When a command/tool fails, first diagnose the cause, retry or fix it when safe, and continue the workflow.
+- Use `.cursor/error-autofix/queue.jsonl` as the local record of failures captured by hooks.
+- If an error requires user action or a risky decision, summarize only the blocker, the most likely cause, and the exact decision needed.
+- Keep user-facing updates concise: report what was fixed, what remains blocked, and the next action.

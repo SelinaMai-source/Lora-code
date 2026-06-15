@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 import torch
 
@@ -257,6 +257,109 @@ class LoRAWrapper:
             return torch.tensor([])
         return torch.cat(tensors)
 
+    def summarize_adapter_svd(self, name: str, *, top_k: int = 8) -> Dict[str, Any]:
+        """Return compact SVD triplets for one adapter's LoRA matrices."""
+        if not self.cfg.enabled or self.peft_model is None:
+            return {"adapter": name, "num_matrices": 0, "top_triplets": []}
+
+        triplets: List[Dict[str, Any]] = []
+        with torch.no_grad():
+            for param_name, param in self.peft_model.named_parameters():
+                if f"lora_A.{name}." not in param_name and f"lora_B.{name}." not in param_name:
+                    continue
+                matrix = param.detach().float()
+                if matrix.ndim != 2 or min(matrix.shape) == 0:
+                    continue
+                try:
+                    u, s, vh = torch.linalg.svd(matrix, full_matrices=False)
+                except RuntimeError:
+                    continue
+                limit = min(max(0, int(top_k)), int(s.numel()))
+                for rank_idx in range(limit):
+                    triplets.append(
+                        {
+                            "param_name": param_name,
+                            "rank": int(rank_idx),
+                            "singular_value": float(s[rank_idx].item()),
+                            "left_norm": float(u[:, rank_idx].norm().item()),
+                            "right_norm": float(vh[rank_idx, :].norm().item()),
+                        }
+                    )
+        triplets.sort(key=lambda row: float(row.get("singular_value", 0.0)), reverse=True)
+        return {
+            "adapter": name,
+            "num_matrices": int(len({row["param_name"] for row in triplets})),
+            "top_triplets": triplets[: max(0, int(top_k))],
+        }
+
+    def project_active_adapter_gradients(
+        self,
+        *,
+        reference_adapters: List[str],
+        strength: float = 1.0,
+        eps: float = 1e-12,
+    ) -> Dict[str, Any]:
+        """
+        Project active adapter gradients away from previous adapter vectors.
+
+        This is intentionally small and model-agnostic: it works on the flattened
+        LoRA parameter gradient and uses previous adapter weights as subspace
+        proxies. Methods can call it after backward and before `step_adapter()`.
+        """
+        if not self.cfg.enabled or self.peft_model is None:
+            return {"hook_available": False, "projected": False, "reference_adapters": 0}
+        if strength <= 0 or not reference_adapters:
+            return {"hook_available": True, "projected": False, "reference_adapters": 0}
+
+        active = self._active_adapter_name
+        named_params: List[Tuple[str, Any]] = [
+            (n, p)
+            for n, p in self.peft_model.named_parameters()
+            if (f"lora_A.{active}." in n or f"lora_B.{active}." in n) and p.requires_grad and p.grad is not None
+        ]
+        if not named_params:
+            return {"hook_available": True, "projected": False, "reference_adapters": 0}
+
+        grad_parts = [p.grad.detach().float().reshape(-1) for _, p in named_params]
+        grad_vec = torch.cat(grad_parts)
+        original_norm = float(grad_vec.norm().item())
+        projected = grad_vec
+        used_refs = 0
+        for ref_name in reference_adapters:
+            if ref_name not in self.list_adapters():
+                continue
+            ref_vec = self.get_adapter_vector(ref_name, detach=True).to(projected.device).float()
+            if ref_vec.numel() == 0:
+                continue
+            width = min(int(projected.numel()), int(ref_vec.numel()))
+            ref_slice = ref_vec[:width]
+            denom = float(ref_slice.norm().item())
+            if denom <= eps:
+                continue
+            unit = ref_slice / ref_slice.norm().clamp_min(eps)
+            head = projected[:width]
+            head = head - float(strength) * torch.dot(head, unit) * unit
+            projected = torch.cat([head, projected[width:]]) if width < projected.numel() else head
+            used_refs += 1
+
+        if used_refs == 0:
+            return {"hook_available": True, "projected": False, "reference_adapters": 0}
+
+        offset = 0
+        with torch.no_grad():
+            for _, param in named_params:
+                numel = int(param.grad.numel())
+                param.grad.copy_(projected[offset : offset + numel].reshape_as(param.grad).to(param.grad.dtype))
+                offset += numel
+
+        return {
+            "hook_available": True,
+            "projected": True,
+            "reference_adapters": int(used_refs),
+            "grad_norm_before_projection": original_norm,
+            "grad_norm_after_projection": float(projected.norm().item()),
+        }
+
     def blend_adapters(self, adapters: List[str], weights: List[float], new_adapter_name: str = "blended") -> None:
         if not self.cfg.enabled or self.peft_model is None:
             return
@@ -403,6 +506,7 @@ class DebugLoRAWrapper:
         self._active_adapter_name: str = "default"
         self._adapter_steps: Dict[str, int] = {"default": 0}
         self._frozen_adapters: Set[str] = set()
+        self._adapter_vectors: Dict[str, torch.Tensor] = {"default": self._make_debug_vector("default")}
 
     def set_active_adapter(self, name: str) -> None:
         if name not in self._adapter_steps:
@@ -414,6 +518,7 @@ class DebugLoRAWrapper:
             raise KeyError(f"Adapter '{name}' already exists.")
         self._adapter_steps[name] = 0
         self._frozen_adapters.discard(name)
+        self._adapter_vectors[name] = self._make_debug_vector(name)
 
     def list_adapters(self) -> List[str]:
         return list(self._adapter_steps.keys())
@@ -434,6 +539,12 @@ class DebugLoRAWrapper:
 
     def step_adapter(self) -> Dict[str, Any]:
         self._adapter_steps[self._active_adapter_name] = self._adapter_steps.get(self._active_adapter_name, 0) + 1
+        if self._active_adapter_name not in self._frozen_adapters:
+            step = float(self._adapter_steps[self._active_adapter_name])
+            self._adapter_vectors[self._active_adapter_name] = (
+                self._adapter_vectors.get(self._active_adapter_name, self._make_debug_vector(self._active_adapter_name))
+                + 0.001 * step
+            )
         return {
             "grad_norm": 0.0,
             "lora_param_delta_l2": 0.0,
@@ -447,11 +558,59 @@ class DebugLoRAWrapper:
     def set_soft_routing(self, adapters: Optional[List[str]], weights: Optional[List[float]]) -> None:
         pass
 
+    def get_adapter_vector(self, name: str, *, detach: bool = True) -> torch.Tensor:
+        vec = self._adapter_vectors.get(name, self._make_debug_vector(name))
+        return vec.detach().clone() if detach else vec.clone()
+
+    def summarize_adapter_svd(self, name: str, *, top_k: int = 8) -> Dict[str, Any]:
+        vec = self.get_adapter_vector(name, detach=True).float()
+        if vec.numel() == 0:
+            return {"adapter": name, "num_matrices": 0, "top_triplets": []}
+        side = int(max(1, vec.numel() ** 0.5))
+        matrix = vec[: side * side].reshape(side, side)
+        u, s, vh = torch.linalg.svd(matrix, full_matrices=False)
+        triplets = []
+        for rank_idx in range(min(max(0, int(top_k)), int(s.numel()))):
+            triplets.append(
+                {
+                    "param_name": f"debug_lora_vector.{name}",
+                    "rank": int(rank_idx),
+                    "singular_value": float(s[rank_idx].item()),
+                    "left_norm": float(u[:, rank_idx].norm().item()),
+                    "right_norm": float(vh[rank_idx, :].norm().item()),
+                }
+            )
+        return {"adapter": name, "num_matrices": 1, "top_triplets": triplets}
+
+    def project_active_adapter_gradients(
+        self,
+        *,
+        reference_adapters: List[str],
+        strength: float = 1.0,
+        eps: float = 1e-12,
+    ) -> Dict[str, Any]:
+        _ = eps
+        return {
+            "hook_available": True,
+            "projected": False,
+            "reference_adapters": int(len(reference_adapters)),
+            "projection_strength": float(strength),
+            "debug_noop": True,
+        }
+
     def save_adapter_checkpoint(self, path: str) -> None:
         return
 
     def load_adapter_checkpoint(self, path: str) -> None:
         return
+
+    def _make_debug_vector(self, name: str) -> torch.Tensor:
+        import hashlib
+
+        seed = int(hashlib.md5(name.encode("utf-8")).hexdigest(), 16) % (2**32)
+        gen = torch.Generator(device="cpu")
+        gen.manual_seed(seed)
+        return torch.randn(16, generator=gen, dtype=torch.float32)
 
     def info(self) -> Dict[str, Any]:
         tm = self.cfg.target_modules

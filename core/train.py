@@ -909,11 +909,18 @@ def run_ours(
         if tracker is not None:
             tracker.log_segment_row(row)
 
-        # Early Stopping
+        # Early stopping defaults preserve legacy SOTA-chase behavior, but
+        # published-setting runs disable it to complete the full benchmark.
         if seg.segment_id >= 3:
             seen_avg = float(eval_metrics.get("seen_avg_score", 0))
-            if seen_avg < 0.2:
-                logger.log(f"Early stopping triggered: seen_avg_score {seen_avg} < 0.2 at segment {seg.segment_id}")
+            train_cfg = cfg.get("train", {}) if isinstance(cfg.get("train", {}), dict) else {}
+            hard_stop_enabled = bool(train_cfg.get("hard_early_stop_enabled", True))
+            hard_stop_min_seen_avg = float(train_cfg.get("hard_early_stop_min_seen_avg", 0.2))
+            if hard_stop_enabled and seen_avg < hard_stop_min_seen_avg:
+                logger.log(
+                    f"Early stopping triggered: seen_avg_score {seen_avg} < {hard_stop_min_seen_avg} "
+                    f"at segment {seg.segment_id}"
+                )
                 sys.exit(1)
             traj_floor = _trajectory_early_stop_floor(cfg, seg.segment_id)
             if traj_floor is not None and seen_avg < traj_floor:
@@ -939,27 +946,44 @@ def run_ours(
 
 def _build_baseline_method(baseline_name: str, cfg: Dict[str, Any]) -> Any:
     if baseline_name == "sequential_lora":
-        from baselines.sequential_lora.method import SequentialLoRAMethod
+        from baselines.basic_baselines.sequential_lora.method import SequentialLoRAMethod
 
         return SequentialLoRAMethod(cfg)
     if baseline_name == "replay_lora":
-        from baselines.replay_lora.method import ReplayLoRAMethod
+        from baselines.basic_baselines.replay_lora.method import ReplayLoRAMethod
 
         return ReplayLoRAMethod(cfg)
     if baseline_name == "periodic_multilora":
-        from baselines.periodic_multilora.method import PeriodicMultiLoRAMethod
+        from baselines.basic_baselines.periodic_multilora.method import PeriodicMultiLoRAMethod
 
         return PeriodicMultiLoRAMethod(cfg)
     if baseline_name == "router_only":
-        from baselines.router_only.method import RouterOnlyMethod
+        from baselines.basic_baselines.router_only.method import RouterOnlyMethod
 
         return RouterOnlyMethod(cfg)
     if baseline_name == "bank_no_router":
         # Implemented directly in core/train.py to avoid creating a new baseline folder.
         return object()
+    if baseline_name == "o_lora":
+        from baselines.advanced_baselines.o_lora.method import OLoraMethod
+
+        return OLoraMethod(cfg)
+    if baseline_name == "lb_cl":
+        from baselines.advanced_baselines.lb_cl.method import LBCLMethod
+
+        return LBCLMethod(cfg)
+    if baseline_name == "progressive_prompts":
+        from baselines.advanced_baselines.progressive_prompts.method import ProgressivePromptsMethod
+
+        return ProgressivePromptsMethod(cfg)
+    if baseline_name == "continual_t0":
+        from baselines.advanced_baselines.continual_t0.method import ContinualT0Method
+
+        return ContinualT0Method(cfg)
     raise ValueError(
         "Unknown baseline_name. Expected one of: "
-        "sequential_lora | replay_lora | periodic_multilora | router_only | bank_no_router"
+        "sequential_lora | replay_lora | periodic_multilora | router_only | bank_no_router | "
+        "o_lora | lb_cl | progressive_prompts | continual_t0"
     )
 
 
@@ -976,7 +1000,7 @@ def _train_on_active_branch(
     beta: float,
     overlap_cfg: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    from baselines.sequential_lora.method import _batch
+    from baselines.basic_baselines.sequential_lora.method import _batch
 
     pairs = [(ex.instruction, ex.input) for ex in segment.train]
     targets = [ex.output for ex in segment.train]
@@ -1387,7 +1411,7 @@ def _train_with_routed_assignments(
     strategy: str,
     overlap_cfg: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    from baselines.sequential_lora.method import _batch
+    from baselines.basic_baselines.sequential_lora.method import _batch
 
     print("Entering _train_with_routed_assignments...", file=sys.stderr)
     pairs = [(ex.instruction, ex.input) for ex in segment.train]
@@ -1790,7 +1814,7 @@ def _run_overfit_8_mode(
     run_paths: RunPaths,
     logger: SimpleLogger,
 ) -> None:
-    from baselines.sequential_lora.method import _batch
+    from baselines.basic_baselines.sequential_lora.method import _batch
 
     debug_tools = cfg.get("debug_tools", {}) if isinstance(cfg.get("debug_tools", {}), dict) else {}
     if not stream.stream:

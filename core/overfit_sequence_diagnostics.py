@@ -566,7 +566,7 @@ def run_overfit_ladder(
     out_csv: Path,
     logger: Any,
 ) -> None:
-    from baselines.sequential_lora.method import _batch
+    from baselines.basic_baselines.sequential_lora.method import _batch
     from core.debug_teacher_audit import mean_teacher_forced_over_examples
 
     out_csv.parent.mkdir(parents=True, exist_ok=True)

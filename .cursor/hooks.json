@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUseFailure": [
+      {
+        "command": ".cursor/hooks/error-autofix-queue.py",
+        "timeout": 10,
+        "failClosed": false
+      }
+    ],
+    "afterShellExecution": [
+      {
+        "command": ".cursor/hooks/error-autofix-queue.py",
+        "timeout": 10,
+        "failClosed": false
+      }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/error-autofix-stop.py",
+        "timeout": 10,
+        "failClosed": false,
+        "loop_limit": 3
+      }
+    ]
+  }
+}
