@@ -1,0 +1,19 @@
+{
+  "hard_routing": true,
+  "router_warmup_segments": 1,
+  "num_updates": 12,
+  "branch_names": [
+    "b0",
+    "b1"
+  ],
+  "feature_adapter_name": "default",
+  "routing_backend": "prototype",
+  "prototype_counts": {
+    "b0": 450,
+    "b1": 182
+  },
+  "prototype_branches": [
+    "b0",
+    "b1"
+  ]
+}

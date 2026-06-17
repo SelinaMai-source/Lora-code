@@ -1,0 +1,40 @@
+{
+  "max_branches": 15,
+  "active": "b4",
+  "trainable_branches": [
+    "b4"
+  ],
+  "frozen_branches": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+  ],
+  "branches": {
+    "b0": {
+      "name": "b0",
+      "created_at_segment": 0,
+      "frozen": true
+    },
+    "b1": {
+      "name": "b1",
+      "created_at_segment": 1,
+      "frozen": true
+    },
+    "b2": {
+      "name": "b2",
+      "created_at_segment": 3,
+      "frozen": true
+    },
+    "b3": {
+      "name": "b3",
+      "created_at_segment": 5,
+      "frozen": true
+    },
+    "b4": {
+      "name": "b4",
+      "created_at_segment": 7,
+      "frozen": false
+    }
+  }
+}

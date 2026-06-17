@@ -56,6 +56,22 @@ KNOWN_PROCESSED_STREAMS: Tuple[ProcessedStreamSpec, ...] = (
         benchmark_name="CITB-InstrDialog++",
         version="citb_instrdialogpp_train50_eval10_v1",
     ),
+    ProcessedStreamSpec(
+        stream_name="trace",
+        aliases=("trace", "trace_rcl", "trace_cl", "trace_benchmark"),
+        processed_file="trace_cl_tasks_train50_eval10.json",
+        split_name="trace_cl_tasks",
+        benchmark_name="TRACE",
+        version="trace_train50_eval10_v1",
+    ),
+    ProcessedStreamSpec(
+        stream_name="multiwoz_nlg",
+        aliases=("multiwoz_nlg", "multiwoz", "mwoz_nlg", "multiwoz_nlg_domains"),
+        processed_file="multiwoz_nlg_cl_domains_train50_eval10.json",
+        split_name="multiwoz_nlg_domains",
+        benchmark_name="MultiWOZ-NLG",
+        version="multiwoz_nlg_domains_train50_eval10_v1",
+    ),
 )
 
 

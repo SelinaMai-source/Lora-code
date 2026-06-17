@@ -1,0 +1,117 @@
+{
+  "summary": {
+    "num_core": 5,
+    "num_probe": 5,
+    "num_total": 10,
+    "core_segment_ids": [
+      12
+    ],
+    "probe_segment_ids": [
+      12
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s012_e0000",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I especially enjoy listening to the band the lumineers.\nI sing many songs.\nI'm a happy person.\nI enjoy reading and walking on sunny days.\nChat history: -How are you doing today.\n -I am good and you.",
+      "output": "I am great. I am just getting done with a book.",
+      "split": "core",
+      "complexity": 672.0
+    },
+    {
+      "anchor_id": "s012_e0005",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I sleep a lot.\nI cs and Ds.\nI am in high school.\nI love sweets.\nChat history: -Hello, what is your favorite type of music?\n -Hi I like rock and pop music what kind do you like.\n -My favorite genre of music is metal.",
+      "output": "Are you in school I am in the 10th grade.",
+      "split": "core",
+      "complexity": 719.0
+    },
+    {
+      "anchor_id": "s012_e0001",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: My hobby creating houses out of matches.\nI've an iq of 250.\nI live alone with my dog.\nMy parents died in a plane crash.\nI wish I had money to travel.\nChat history: -I bet I'm smarter than you are.\n -Oh, maybe! Why do you think that?\n -How high is your iq?\n -I've never taken a proper iq test. Too busy with work!\n -That is pretty boring honestly.\n -Maybe it is. My job is in retail which is pretty boring.",
+      "output": "You are giving me terrible flashbacks.",
+      "split": "core",
+      "complexity": 1025.0
+    },
+    {
+      "anchor_id": "s012_e0006",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I like to donate time and money to charity.\nI have two Pitt bulls.\nI helped develop facebook.\nI work as a computer programmer.\nChat history: -Good evening. What are you up to?\n -Have you been keeping busy?\n -Yes, mostly doing things I like like playing basketball.\n -That's great, I really like spending time with my dogs and helping out at local shelters.\n -Got any pets? I do. he's called mater and he's a cat.\n -I do have two dogs they're boys diesel and cole.\n -Oh cool you do have pets! Do you like lightning Mcqueen? I do.",
+      "output": "Do you have any favorite charities that you like to help out?",
+      "split": "core",
+      "complexity": 1160.0
+    },
+    {
+      "anchor_id": "s012_e0009",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I'm divorced and looking to date.\nI work at an insurance firm.\nI take care of my grandmother on weekdays.\nI've two children, a boy and a girl.\nI'm a professional bowler.\nChat history: -Hi, who am I speaking with today?\n -Its Bob or nature Bob as my friends call me.\n -Okay, is that because you live in the woods or something?\n -Suburbs. But I like to go to state or national parks whenever possible.\n -I'm bowling professionally in addition to holding a job in the insurance industry.\n -Bowling that is fun! I enjoy that when I'm not vacationing somewhere.",
+      "output": "Nice, my kids do not seem to like bowling like I do.",
+      "split": "core",
+      "complexity": 1174.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s012_e0007",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I can beat anyone in chess.\nI saw a solar eclipse when I was 8 years old.\nI simply walk around when I haven'thing to do.\nI got hired as a security guard.\nI have high speed internet.\nChat history: -Hi how are you today?\n -I am fantabulous. I never lose at chess.\n -Are you a genius dang.\n -Why yes I am. But I do not like for people to know.\n -I could tell! Very nice. Hobbies?\n -Ivie been studying solar eclipses since the first one I saw when I was 8.\n -Did you get the solar sunglasses?\n -Of course. I'm not stupid. I want to see the eclipse.\n -I mean you'd still see it for a second doc.",
+      "output": "Then be blind for like. No thanks.",
+      "split": "probe",
+      "complexity": 1292.0
+    },
+    {
+      "anchor_id": "s012_e0004",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I like the group the rolling stones.\nI need a soda with me at all times.\nI married my high school sweetheart.\nI've 3 kids.\nChat history: -Hello. How are you doing today?\n -I'm doing great. Just playing with my cat. What are you doing?\n -I am taking care of my kids.\n -How many do you have?\n -Me and my husband have three kids.\n -I live with my parents. No husband yet. Where did you meet?\n -We were high school sweethearts.\n -How romantic. How many years together?\n -I'm a big soda fan. What do you like? Five years.\n -I love the summer them on the new coca cola bottles. Which soda do you like?",
+      "output": "Do you like the band the rolling stones?",
+      "split": "probe",
+      "complexity": 1305.0
+    },
+    {
+      "anchor_id": "s012_e0002",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I work at a hotel overnight.\nI eat more junk food than I really should.\nI enjoy video games.\nI write in my spare time.\nPop is my favorite music.\nChat history: -Hello! I've been busy today dusting off my doll collection.\n -How many do you have?\n -Too many to count! I love antiquities.\n -I prefer video games. Have a lot of them.\n -My victorian house has a huge attic full of old video games.\n -They must be worth a fortune! Do they work?\n -They do, I recently sold several to my jazz instructor.\n -Hey, I like music too! Mostly pop, though.\n -Kpop is pretty fun to listen to.\n -I like it. Helps me stay awake at night.\n -Why do you need to stay awake at night.",
+      "output": "I work the graveyard shift.",
+      "split": "probe",
+      "complexity": 1406.0
+    },
+    {
+      "anchor_id": "s012_e0008",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I love my grandchildren.\nI own a custom upholstery shop.\nI'm a mother.\nI live by a lake.\nI am a wife.\nChat history: -Good morning and hello there.\n -Hi, I am Anne, how are you?\n -Do you like the ballet? I dance there.\n -I've seen a few shows, I took my grandchildren!\n -That is nice what is your favorite color?\n -I use a lot of blue in my custom upholstery shop, that is my favorite!\n -I love red, reminds me of summer time.\n -I love summer, living by the lake allows me to enjoy all the seasons though.\n -I just signed up for nursing school.\n -That is wonderful, I wish my daughter would get some education in her life.\n -Right can not make it in this world if you are illiterate.",
+      "output": "My husband and I want to give her our upholstery store one day.",
+      "split": "probe",
+      "complexity": 1414.0
+    },
+    {
+      "anchor_id": "s012_e0003",
+      "segment_id": 12,
+      "segment_name": "task1729_personachat_generate_next",
+      "instruction": "Your task is to generate the next utterance in a given dialogue. You will be given a few sentences describing the personality of the person who is making the dialogue, and a history of the dialogue after that. Each line in the history is said by one of the two participants in the conversation.",
+      "input_text": "Personality: I like meat too much.\nI want to be a vegetarian.\nIts good to eat a lot of veggies.\nI m lazy and pork tastes good.\nChat history: -Hi how are you doing tonight?\n -Hi, just relaxing. Pondering my diet. I want to switch to vegetarian.\n -I work more than 60 hours a week at a restaurant so I just eat there.\n -I'd never work that much. I'm way too lazy. But love cooked pig.\n -My boss is the worst! But when I go out I know how to party hard!\n -I usually have a meat party and eat it all myself.\n -My family helps me a lot to balance my work schedule.\n -A healthy diet should include many raw vegetables.\n -Yes I agree. Do you know who Bob Marley is?\n -Does he eat a lot of meat. Like 10 cows.\n -No he was a reggae singer. I did not know who he was until yesterday.\n -Well smoked pig, is the best. Ever been to a pig roast?\n -Yes I have I am not really a fan.",
+      "output": "How much bacon did you eat? You need to eat at least 4 lbs.",
+      "split": "probe",
+      "complexity": 1664.0
+    }
+  ]
+}

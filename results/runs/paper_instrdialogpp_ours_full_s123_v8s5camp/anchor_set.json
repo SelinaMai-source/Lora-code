@@ -1,0 +1,657 @@
+{
+  "summary": {
+    "num_core": 32,
+    "num_probe": 32,
+    "num_total": 64,
+    "core_segment_ids": [
+      4
+    ],
+    "probe_segment_ids": [
+      4
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s004_e0048",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "this one is not on the ball .",
+      "output": "this one is right on the ball .",
+      "split": "core",
+      "complexity": 228.0
+    },
+    {
+      "anchor_id": "s004_e0160",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "prices are just plain retail .",
+      "output": "price were better than retail",
+      "split": "core",
+      "complexity": 229.0
+    },
+    {
+      "anchor_id": "s004_e0052",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "save your money & your patience .",
+      "output": "no need to worry about patience .",
+      "split": "core",
+      "complexity": 232.0
+    },
+    {
+      "anchor_id": "s004_e0108",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "she said `` yes , sorry . ''",
+      "output": "she said she was pleased to help",
+      "split": "core",
+      "complexity": 233.0
+    },
+    {
+      "anchor_id": "s004_e0084",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the beer sauce is lackluster at best .",
+      "output": "the beer sauce was terrific .",
+      "split": "core",
+      "complexity": 237.0
+    },
+    {
+      "anchor_id": "s004_e0016",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "so disappointing from an old favorite .",
+      "output": "this was n't disappointing from my original favorite .",
+      "split": "core",
+      "complexity": 238.0
+    },
+    {
+      "anchor_id": "s004_e0176",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "unfortunately , it is the worst .",
+      "output": "fortunately , it is the best .",
+      "split": "core",
+      "complexity": 238.0
+    },
+    {
+      "anchor_id": "s004_e0032",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "worst customer service i have ever had .",
+      "output": "best customer service i have ever had .",
+      "split": "core",
+      "complexity": 239.0
+    },
+    {
+      "anchor_id": "s004_e0116",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "like it 's been in a fridge for a week .",
+      "output": "like it has n't been in a fridge for a week .",
+      "split": "core",
+      "complexity": 239.0
+    },
+    {
+      "anchor_id": "s004_e0128",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "this branch is getting worse and worse .",
+      "output": "this branch is getting better and better .",
+      "split": "core",
+      "complexity": 239.0
+    },
+    {
+      "anchor_id": "s004_e0152",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "i wish i could give less than one star .",
+      "output": "i wish there were more stars to give",
+      "split": "core",
+      "complexity": 239.0
+    },
+    {
+      "anchor_id": "s004_e0004",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the equipment is so old and looks dirty .",
+      "output": "the equipment is very new and looks good .",
+      "split": "core",
+      "complexity": 240.0
+    },
+    {
+      "anchor_id": "s004_e0172",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "we did n't leave with anything that day .",
+      "output": "we left with a lot of things that day",
+      "split": "core",
+      "complexity": 240.0
+    },
+    {
+      "anchor_id": "s004_e0188",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "gammage itself however is not so amazing .",
+      "output": "gammage itself however is so amazing .",
+      "split": "core",
+      "complexity": 241.0
+    },
+    {
+      "anchor_id": "s004_e0024",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "then he proceeded to tell me how to fix it .",
+      "output": "he told me kindly how to fix it .",
+      "split": "core",
+      "complexity": 243.0
+    },
+    {
+      "anchor_id": "s004_e0056",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "but it may not actually be in stock anyway .",
+      "output": "everything is always in stock here .",
+      "split": "core",
+      "complexity": 243.0
+    },
+    {
+      "anchor_id": "s004_e0192",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "sad what has happened to this sandwich shop .",
+      "output": "great what has happened to this sandwich shop .",
+      "split": "core",
+      "complexity": 244.0
+    },
+    {
+      "anchor_id": "s004_e0196",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the woman who works in the deli is horrible .",
+      "output": "the woman in the deli was great .",
+      "split": "core",
+      "complexity": 244.0
+    },
+    {
+      "anchor_id": "s004_e0140",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "first , the bartender was an a -- hole .",
+      "output": "first , the bartender was awesome .",
+      "split": "core",
+      "complexity": 245.0
+    },
+    {
+      "anchor_id": "s004_e0180",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "this is a far cry from real new mexican cuisine .",
+      "output": "this is a close call from real new mexican cuisine .",
+      "split": "core",
+      "complexity": 248.0
+    },
+    {
+      "anchor_id": "s004_e0044",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "tasted really old , i could n't believe it .",
+      "output": "tasted really fresh , i could n't believe it .",
+      "split": "core",
+      "complexity": 249.0
+    },
+    {
+      "anchor_id": "s004_e0072",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "i know i should have sent this back and walk out .",
+      "output": "i know i should n't have sent this back and walked out .",
+      "split": "core",
+      "complexity": 249.0
+    },
+    {
+      "anchor_id": "s004_e0088",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the thai basil pasta came out lukewarm and spicy .",
+      "output": "the pasta came out great and tasty",
+      "split": "core",
+      "complexity": 249.0
+    },
+    {
+      "anchor_id": "s004_e0096",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "it 's always busy and the restaurant is very dirty .",
+      "output": "it 's not always busy , and the restaurant is very clean .",
+      "split": "core",
+      "complexity": 251.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "core",
+      "complexity": 254.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "just went back to get the rear tire sealed and filled .",
+      "output": "went back and they helped me quickly on the filling",
+      "split": "probe",
+      "complexity": 254.0
+    },
+    {
+      "anchor_id": "s004_e0064",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the only thing we received that was hot was the coffee .",
+      "output": "everything was hot including the coffee .",
+      "split": "probe",
+      "complexity": 255.0
+    },
+    {
+      "anchor_id": "s004_e0000",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "i ordered a cesar salad with a side of blackened chicken .",
+      "output": "the ceasar salad and blackended chicken were to die for",
+      "split": "probe",
+      "complexity": 257.0
+    },
+    {
+      "anchor_id": "s004_e0148",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "do not go here if you are interested in eating good food .",
+      "output": "do not go here if you are interested in eating bad food .",
+      "split": "probe",
+      "complexity": 257.0
+    },
+    {
+      "anchor_id": "s004_e0164",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "i just walked out , called the manager to complain .",
+      "output": "i walked over and called the manager to compliment .",
+      "split": "probe",
+      "complexity": 257.0
+    },
+    {
+      "anchor_id": "s004_e0168",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the fried rice was gross and there was a shit load of it .",
+      "output": "the fried rice was great and there was a lot of it .",
+      "split": "probe",
+      "complexity": 257.0
+    },
+    {
+      "anchor_id": "s004_e0060",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "one was for my dog , and one was for my wife 's dog .",
+      "output": "two for my dogs equally .",
+      "split": "probe",
+      "complexity": 258.0
+    },
+    {
+      "anchor_id": "s004_e0156",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the only item was able to eat was the soggy broccoli beef !",
+      "output": "the other item i was able to eat was the wonderful broccoli beef !",
+      "split": "probe",
+      "complexity": 258.0
+    },
+    {
+      "anchor_id": "s004_e0013",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "i refused to purchase any of the pictures based on quality .",
+      "output": "bread was offered at no charge",
+      "split": "probe",
+      "complexity": 259.0
+    },
+    {
+      "anchor_id": "s004_e0100",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "will never go back to kfc - they essentially stole from me !",
+      "output": "i will always go back to kfc - they earned my patronage .",
+      "split": "probe",
+      "complexity": 259.0
+    },
+    {
+      "anchor_id": "s004_e0040",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "furthermore , there is no sausage or bacon on the menu .",
+      "output": "there are plenty of sausage and bacon options .",
+      "split": "probe",
+      "complexity": 261.0
+    },
+    {
+      "anchor_id": "s004_e0124",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the birthday surprise has been ruined as well as her special day .",
+      "output": "the birthday surprise was a success as well as her special day .",
+      "split": "probe",
+      "complexity": 265.0
+    },
+    {
+      "anchor_id": "s004_e0008",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "the pizza is offered without toppings and it 's lacking in flavor .",
+      "output": "the pizza is great without toppings and it 's packed in flavor .",
+      "split": "probe",
+      "complexity": 266.0
+    },
+    {
+      "anchor_id": "s004_e0136",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "they charged me for work not done , and parts not installed .",
+      "output": "they only charged me for work done , and parts installed .",
+      "split": "probe",
+      "complexity": 266.0
+    },
+    {
+      "anchor_id": "s004_e0028",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "since their visit , the only scorpions we 've seen were dead !",
+      "output": "there were no scorpions in the place",
+      "split": "probe",
+      "complexity": 267.0
+    },
+    {
+      "anchor_id": "s004_e0112",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "they rush , rush and do n't pay attention to their customers .",
+      "output": "they pay very much attention to customers !",
+      "split": "probe",
+      "complexity": 267.0
+    },
+    {
+      "anchor_id": "s004_e0144",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "when she did n't answer him quickly enough , he hung up on her .",
+      "output": "when she did n't answer him quickly enough , he patiently waited on her .",
+      "split": "probe",
+      "complexity": 269.0
+    },
+    {
+      "anchor_id": "s004_e0020",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "it looks like blended up chicken put into the shape of grilled pieces .",
+      "output": "the blended up chicken was made just the way i wanted it",
+      "split": "probe",
+      "complexity": 270.0
+    },
+    {
+      "anchor_id": "s004_e0036",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "service was average but could not make up for the poor food and drink .",
+      "output": "service was above average as well as the food and drink .",
+      "split": "probe",
+      "complexity": 270.0
+    },
+    {
+      "anchor_id": "s004_e0104",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "safe to say we will be going to other walgreens locations from now on .",
+      "output": "we will stay with this walgreens location .",
+      "split": "probe",
+      "complexity": 270.0
+    },
+    {
+      "anchor_id": "s004_e0120",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "anyway , we got our coffee and will not return to this location .",
+      "output": "we got coffee and we 'll think about going back",
+      "split": "probe",
+      "complexity": 270.0
+    },
+    {
+      "anchor_id": "s004_e0076",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "sadly , i will probably never be able to eat at this place again .",
+      "output": "happily , i will probably be able to eat at this place again .",
+      "split": "probe",
+      "complexity": 271.0
+    },
+    {
+      "anchor_id": "s004_e0132",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "french toast plate was good , mom said , but eggs were cold .",
+      "output": "french toast plate was good , mom said , eggs were hot .",
+      "split": "probe",
+      "complexity": 272.0
+    },
+    {
+      "anchor_id": "s004_e0068",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "needless to say , i contacted the store manager directly after leaving .",
+      "output": "i contacted the store manager and he gave us a great compensation",
+      "split": "probe",
+      "complexity": 277.0
+    },
+    {
+      "anchor_id": "s004_e0184",
+      "segment_id": 4,
+      "segment_name": "task927_yelp_negative_to_positive_style_transfer",
+      "instruction": "You are given a negative review and your task is to convert it to a positive review by one or more making minimal changes. Avoid changing the context of the review.",
+      "input_text": "my plate looked nearly half empty except for the small container of cole slaw .",
+      "output": "my plate was full of food",
+      "split": "probe",
+      "complexity": 278.0
+    }
+  ]
+}

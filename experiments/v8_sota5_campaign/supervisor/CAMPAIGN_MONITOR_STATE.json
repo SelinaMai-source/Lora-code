@@ -1,27 +1,27 @@
 {
-  "last_tick": "2026-06-15 15:35:11 UTC",
-  "campaign_tmux": "v8s5camp_serial",
-  "campaign_tmux_alive": true,
-  "train_count": 1,
-  "campaign_train_count": 1,
+  "last_tick": "2026-06-17 19:52:50 UTC",
+  "campaign_tmux": null,
+  "campaign_tmux_alive": false,
+  "train_count": 0,
+  "campaign_train_count": 0,
   "manifest": {
     "total": 47,
-    "completed": 1,
-    "failed": 5,
+    "completed": 4,
+    "failed": 4,
     "running": 0,
-    "queued": 41,
+    "queued": 39,
     "phases": {
       "1": {
         "total": 1,
-        "completed": 0,
-        "failed": 1,
+        "completed": 1,
+        "failed": 0,
         "queued": 0
       },
       "2": {
         "total": 10,
-        "completed": 0,
-        "failed": 2,
-        "queued": 8
+        "completed": 1,
+        "failed": 3,
+        "queued": 6
       },
       "3": {
         "total": 30,
@@ -31,20 +31,23 @@
       },
       "4": {
         "total": 6,
-        "completed": 0,
-        "failed": 1,
+        "completed": 1,
+        "failed": 0,
         "queued": 5
       }
     }
   },
   "current_run": null,
   "gpu": {
-    "memory_used_mib": 15853,
+    "memory_used_mib": 3,
     "memory_total_mib": 49152,
-    "utilization_pct": 36,
-    "memory_pct": 32.3
+    "utilization_pct": 0,
+    "memory_pct": 0.0
   },
-  "issues": [],
+  "issues": [
+    "campaign tmux 已死且 manifest 未完成",
+    "4 个失败 run 无 final_metrics"
+  ],
   "auto_fixes": [],
   "pending_agent": null,
   "last_oom": "2026-06-13 13:52:18 UTC",
@@ -63,14 +66,18 @@
     "total": 0,
     "label": "—"
   },
-  "last_status_report": "2026-06-15 15:35:11 UTC",
+  "last_status_report": "2026-06-17 19:52:50 UTC",
   "train_cmd": null,
   "log_errors": [],
   "next_steps": [
-    "无活跃 train.py：确认 v8s5camp_serial tmux 存活，必要时 bash tmux_run_campaign_serial.sh。"
+    "Agent 需诊断 CAMPAIGN_MONITOR.log 中的错误并修复后重启串行训练。"
   ],
   "pending_action": null,
   "completed_runs": [
-    "paper_instrdialog_bank_no_router_s123_v8s5camp"
-  ]
+    "paper_instrdialogpp_v8_sota5_ours_s123_v8s5camp",
+    "paper_instrdialogpp_v8_sota5_ours_s123_v8s5camp",
+    "paper_instrdialog_bank_no_router_s123_v8s5camp",
+    "paper_instrdialogpp_v8_sota5_ours_s123_v8s5camp"
+  ],
+  "phase1_complete_reported": true
 }

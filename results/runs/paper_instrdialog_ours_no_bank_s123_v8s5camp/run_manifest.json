@@ -1,0 +1,73 @@
+{
+  "run_id": "paper_instrdialog_ours_no_bank_s123_v8s5camp",
+  "start_time": "2026-06-15T16:23:31.692178+00:00",
+  "status": "running",
+  "git_branch_name": "run_v8",
+  "git_commit_sha": "d4710be4e18a4579dca5b58164b4bda4d6ecc7a3",
+  "git_status_porcelain": [
+    "M core/methods/router.py",
+    " M core/train.py",
+    " M docs/published_setting_status.md",
+    " M experiments/v8_sota5_campaign/supervisor/CAMPAIGN_MONITOR_STATE.json",
+    " M experiments/v8_sota5_campaign/supervisor/CAMPAIGN_STATUS.md",
+    "?? .cursor/error-autofix/",
+    "?? .cursor/experiment-monitor/",
+    "?? archive_candidates/",
+    "?? archives/",
+    "?? baselines/advanced_baselines/arper_dialog_nlg/external/",
+    "?? configs/clash/",
+    "?? configs/paper/sota_campaign/",
+    "?? experiments/sota_campaign/",
+    "?? experiments/v8_sota5_campaign/supervisor/CAMPAIGN_AGENT_WAKE.flag",
+    "?? external_baselines/",
+    "?? scripts/launch_sota_v1.sh",
+    "?? scripts/run_sota_monitor.sh",
+    "?? scripts/sota_campaign_monitor.py",
+    "?? scripts/wait_and_launch_sota_v1.sh",
+    "?? sota_progress.md"
+  ],
+  "git_is_dirty": true,
+  "mode": "ours",
+  "experiment_name": "paper_ours_instrdialog",
+  "benchmark_alias": "instrdialog",
+  "config_path": "/tmp/tmp_3rosiqj.yaml",
+  "config_snapshot_path": "results/runs/paper_instrdialog_ours_no_bank_s123_v8s5camp/config_snapshot.yaml",
+  "dataset_path": "data/processed",
+  "dataset_sha256": "",
+  "tokenizer_path_or_name": "assets/pretrained/meta-llama/Llama-3.1-8B-Instruct",
+  "model_path_or_name": "assets/pretrained/meta-llama/Llama-3.1-8B-Instruct",
+  "lora_config": {
+    "enabled": true,
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ]
+  },
+  "train_config": {
+    "epochs_per_segment": 1,
+    "batch_size": 2,
+    "lr": 0.0002,
+    "weight_decay": 0.0,
+    "grad_clip_norm": 1.0,
+    "log_every": 25,
+    "trajectory_early_stop": true,
+    "trajectory_baseline": "v6_sota_2",
+    "trajectory_margin": 0.05
+  },
+  "modules_config": {
+    "use_drift_detector": true,
+    "use_lora_bank": false,
+    "use_router": true,
+    "use_overlap_loss": true
+  },
+  "run_dir": "results/runs/paper_instrdialog_ours_no_bank_s123_v8s5camp",
+  "artifacts_generated_in_run": [
+    "results/runs/paper_instrdialog_ours_no_bank_s123_v8s5camp/config_snapshot.yaml",
+    "results/logs/paper_instrdialog_ours_no_bank_s123_v8s5camp.log",
+    "results/runs/paper_instrdialog_ours_no_bank_s123_v8s5camp/run_manifest.json"
+  ],
+  "end_time": "2026-06-15T16:23:31.698325+00:00"
+}

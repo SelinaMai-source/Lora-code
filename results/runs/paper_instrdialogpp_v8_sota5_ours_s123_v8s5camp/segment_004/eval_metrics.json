@@ -1,0 +1,163 @@
+{
+  "current_score": 0.0,
+  "seen_avg_score": 0.3,
+  "current_task_aware_score": 0.0,
+  "seen_avg_task_aware_score": 0.31999999999999995,
+  "forgetting": 0.14999999999999997,
+  "task_aware_forgetting": 0.17500000000000002,
+  "num_seen_segments": 5,
+  "token_f1_mean": 0.35346963522444363,
+  "lcs_overlap_mean": 0.3701410619609149,
+  "extra": {
+    "per_segment_accuracy": [
+      {
+        "segment_id": 0,
+        "accuracy": 0.6
+      },
+      {
+        "segment_id": 1,
+        "accuracy": 0.2
+      },
+      {
+        "segment_id": 2,
+        "accuracy": 0.0
+      },
+      {
+        "segment_id": 3,
+        "accuracy": 0.7
+      },
+      {
+        "segment_id": 4,
+        "accuracy": 0.0
+      }
+    ],
+    "per_segment_task_aware_accuracy": [
+      {
+        "segment_id": 0,
+        "task_aware_accuracy": 0.6
+      },
+      {
+        "segment_id": 1,
+        "task_aware_accuracy": 0.2
+      },
+      {
+        "segment_id": 2,
+        "task_aware_accuracy": 0.1
+      },
+      {
+        "segment_id": 3,
+        "task_aware_accuracy": 0.7
+      },
+      {
+        "segment_id": 4,
+        "task_aware_accuracy": 0.0
+      }
+    ],
+    "anytime_score": 0.3,
+    "anytime_task_aware_score": 0.31999999999999995,
+    "forgetting_by_segment": [
+      {
+        "segment_id": 0,
+        "accuracy": 0.6,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.09999999999999998
+      },
+      {
+        "segment_id": 1,
+        "accuracy": 0.2,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.49999999999999994
+      },
+      {
+        "segment_id": 2,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 3,
+        "accuracy": 0.7,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 4,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      }
+    ],
+    "task_aware_forgetting_by_segment": [
+      {
+        "segment_id": 0,
+        "task_aware_accuracy": 0.6,
+        "best_historical_task_aware_accuracy": 0.7,
+        "task_aware_forgetting": 0.09999999999999998
+      },
+      {
+        "segment_id": 1,
+        "task_aware_accuracy": 0.2,
+        "best_historical_task_aware_accuracy": 0.8,
+        "task_aware_forgetting": 0.6000000000000001
+      },
+      {
+        "segment_id": 2,
+        "task_aware_accuracy": 0.1,
+        "best_historical_task_aware_accuracy": 0.1,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 3,
+        "task_aware_accuracy": 0.7,
+        "best_historical_task_aware_accuracy": 0.7,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 4,
+        "task_aware_accuracy": 0.0,
+        "best_historical_task_aware_accuracy": 0.0,
+        "task_aware_forgetting": 0.0
+      }
+    ],
+    "routing": {
+      "num_routed": 80,
+      "branch_counts": {
+        "b0": 10,
+        "b2": 50,
+        "b1": 20
+      },
+      "oracle_best_branch_counts": {
+        "b0": 22,
+        "b1": 22,
+        "b2": 36
+      },
+      "oracle_agreement_count": 58,
+      "oracle_num_examples": 80,
+      "confidence_sum": 33.76614898090172,
+      "entropy_sum": 86.22654535003309,
+      "oracle_margin_sum": 52.195289611816406,
+      "branch_utilization": {
+        "b0": 0.125,
+        "b1": 0.25,
+        "b2": 0.625
+      },
+      "decision_confidence_mean": 0.4220768622612715,
+      "decision_entropy_mean": 1.0778318168754137,
+      "oracle_agreement_rate": 0.725,
+      "oracle_margin_mean": 0.6524411201477051
+    },
+    "token_f1_mean": 0.35346963522444363,
+    "lcs_overlap_mean": 0.3701410619609149,
+    "task_aware_score_mean": 0.2,
+    "task_score_type_counts": {
+      "after_step_extracted_em": 10,
+      "label_accuracy": 24,
+      "strict_em": 46
+    },
+    "prefix_1_match_mean": 0.425,
+    "prefix_3_match_mean": 0.2625,
+    "prefix_5_match_mean": 0.2375,
+    "num_bad_prefix_mismatch": 58,
+    "likely_assistant_start_or_continuation_boundary": true
+  }
+}

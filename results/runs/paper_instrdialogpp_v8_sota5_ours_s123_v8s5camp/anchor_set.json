@@ -1,0 +1,517 @@
+{
+  "summary": {
+    "num_core": 25,
+    "num_probe": 25,
+    "num_total": 50,
+    "core_segment_ids": [
+      2
+    ],
+    "probe_segment_ids": [
+      2
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s002_e0033",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find a list of the seven deadly sins. \nComputer: do you want their names",
+      "output": "yes of the seven deadly sins",
+      "split": "core",
+      "complexity": 672.0
+    },
+    {
+      "anchor_id": "s002_e0049",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What are the ways you can quit smoking? \nComputer: are you looking for patches",
+      "output": "no i have a more general smokingrelated query",
+      "split": "core",
+      "complexity": 678.0
+    },
+    {
+      "anchor_id": "s002_e0024",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What causes a sore throat? \nComputer: are you wondering what causes sore throat",
+      "output": "no im looking for the cures to a sore throat",
+      "split": "core",
+      "complexity": 679.0
+    },
+    {
+      "anchor_id": "s002_e0026",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find a listing of Beatles songs. \nComputer: would you like a history of the band",
+      "output": "no i am interested in the names of the albums they have released",
+      "split": "core",
+      "complexity": 682.0
+    },
+    {
+      "anchor_id": "s002_e0017",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about penguins. \nComputer: would you like to know the penguins schedule",
+      "output": "no i am interested in information about the penguin as in the animal",
+      "split": "core",
+      "complexity": 688.0
+    },
+    {
+      "anchor_id": "s002_e0041",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What breeds of small or toy dog hybrids are there? \nComputer: do you want a designer dog",
+      "output": "no i want a list of all the recognized breeds and varieties",
+      "split": "core",
+      "complexity": 688.0
+    },
+    {
+      "anchor_id": "s002_e0012",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What is the state flower of Idaho? \nComputer: do you want to know how to take care of it",
+      "output": "i want to know the state flower of idaho",
+      "split": "core",
+      "complexity": 690.0
+    },
+    {
+      "anchor_id": "s002_e0043",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What is the state flower of Idaho? \nComputer: are you interested in the histroy behind it",
+      "output": "no i just want to know what it is",
+      "split": "core",
+      "complexity": 691.0
+    },
+    {
+      "anchor_id": "s002_e0019",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: information on vines that can be grown in shady areas \nComputer: are you putting the ivy on a trellis",
+      "output": "maybe can you tell me how",
+      "split": "core",
+      "complexity": 693.0
+    },
+    {
+      "anchor_id": "s002_e0034",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find reviews of computer keyboards. \nComputer: would you like information on this years keyboards",
+      "output": "yes reviews please",
+      "split": "core",
+      "complexity": 697.0
+    },
+    {
+      "anchor_id": "s002_e0010",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find biographical information about Ralph Owen Brester. \nComputer: who is ralph owen brewster",
+      "output": "i need information about ralph owen brewster and his relationship with howard hughes",
+      "split": "core",
+      "complexity": 699.0
+    },
+    {
+      "anchor_id": "s002_e0000",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about joints in the human body. \nComputer: are you suffering pain in one of your joints",
+      "output": "no i want information about joints used in woodworking",
+      "split": "core",
+      "complexity": 704.0
+    },
+    {
+      "anchor_id": "s002_e0013",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about iron as an essential nutrient. \nComputer: are you looking for irons melting point",
+      "output": "yes i am looking for general information about iron",
+      "split": "core",
+      "complexity": 704.0
+    },
+    {
+      "anchor_id": "s002_e0027",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: How does a septic system work? \nComputer: are you interested in an advanced treatment above ground design",
+      "output": "no im interested in septic system design alternatives",
+      "split": "core",
+      "complexity": 705.0
+    },
+    {
+      "anchor_id": "s002_e0028",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about elliptical trainer machines. \nComputer: are you referring to the machine or person",
+      "output": "machine",
+      "split": "core",
+      "complexity": 705.0
+    },
+    {
+      "anchor_id": "s002_e0046",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information on the Nissan Titan truck. \nComputer: do you want to learn more about the show titans",
+      "output": "best place to buy titan watches",
+      "split": "core",
+      "complexity": 706.0
+    },
+    {
+      "anchor_id": "s002_e0030",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information on hip fractures in the elderly. \nComputer: were you looking for the causes of hip fractures",
+      "output": "no i want to know how many occur each year",
+      "split": "core",
+      "complexity": 709.0
+    },
+    {
+      "anchor_id": "s002_e0021",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about elliptical trainer machines. \nComputer: are you looking for a class for elliptical trainer",
+      "output": "no i am looking to purchase one",
+      "split": "core",
+      "complexity": 713.0
+    },
+    {
+      "anchor_id": "s002_e0032",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What medical services are available in Sonoma County, California? \nComputer: is this for an emergancy",
+      "output": "no i am trying to locate the home webpage for the county medical services program of sonoma county california",
+      "split": "core",
+      "complexity": 713.0
+    },
+    {
+      "anchor_id": "s002_e0045",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: how to play the board game \\\"Source of the Nile\\\" \nComputer: do you want to know where the nile is located",
+      "output": "i am looking for a map of the nile river basin",
+      "split": "core",
+      "complexity": 714.0
+    },
+    {
+      "anchor_id": "s002_e0038",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: I\\'m looking for information about indexed annuities. \nComputer: would you like to purchase a indexed annuity",
+      "output": "no i would like a definition of what an indexed annuity and the different types as well as the pros and cons of them",
+      "split": "core",
+      "complexity": 715.0
+    },
+    {
+      "anchor_id": "s002_e0005",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What is the effect of excessive heat on dogs? \nComputer: are you looking for any specific heatrelated illness in dogs",
+      "output": "yes symptoms related to heat strokes",
+      "split": "core",
+      "complexity": 717.0
+    },
+    {
+      "anchor_id": "s002_e0025",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about joints in the human body. \nComputer: would you like to know how many joints the human body has",
+      "output": "no i would like to know about joints in woodworking",
+      "split": "core",
+      "complexity": 717.0
+    },
+    {
+      "anchor_id": "s002_e0048",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What K-12 schools are in Porterville, CA? \nComputer: are you interested in schools in poterville",
+      "output": "yes the k12 schools in poterville",
+      "split": "core",
+      "complexity": 718.0
+    },
+    {
+      "anchor_id": "s002_e0020",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find beginners instructions to sewing, both by hand and by machine. \nComputer: are you looking for sewing patterns",
+      "output": "no i just want beginning sewing websites",
+      "split": "core",
+      "complexity": 720.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s002_e0047",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What is the difference between butter and margarine? \nComputer: would you like to see how these fats effect human arteries",
+      "output": "no i would like to know how butter and margarine are made",
+      "split": "probe",
+      "complexity": 722.0
+    },
+    {
+      "anchor_id": "s002_e0015",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about Bellevue, Washington. \nComputer: do you want to know about the nearest town named bellevue",
+      "output": "i want information about bellevue hospital in new york city",
+      "split": "probe",
+      "complexity": 723.0
+    },
+    {
+      "anchor_id": "s002_e0037",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What different types of electronic skeet shooting games are available? \nComputer: are you looking for reviews related to it",
+      "output": "no i need information on product recalls",
+      "split": "probe",
+      "complexity": 723.0
+    },
+    {
+      "anchor_id": "s002_e0009",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: I want to find information about live and online poker tournaments. \nComputer: do you want to find local tournaments near you",
+      "output": "no i dont need to know about local tournaments",
+      "split": "probe",
+      "complexity": 725.0
+    },
+    {
+      "anchor_id": "s002_e0044",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What folk remedies are there for soothing a sore throat? \nComputer: do you want to know if a home remedy will work for everyone",
+      "output": "not really i just want to know a home remedy",
+      "split": "probe",
+      "complexity": 727.0
+    },
+    {
+      "anchor_id": "s002_e0042",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What are the health benefits associated with eating dark chocolate? \nComputer: do you want to know the origins of dark chocolate",
+      "output": "no i want to know only the benefits",
+      "split": "probe",
+      "complexity": 728.0
+    },
+    {
+      "anchor_id": "s002_e0031",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: I\\'m looking for different sites hosted by Yahoo! \nComputer: do you want to know about yahoo the company or yahoo the word",
+      "output": "neither i want to go to yahoo finance",
+      "split": "probe",
+      "complexity": 730.0
+    },
+    {
+      "anchor_id": "s002_e0008",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What different types of electronic skeet shooting games are available? \nComputer: what would you like to know about electronic skeet shoot",
+      "output": "yes specifically what games are available",
+      "split": "probe",
+      "complexity": 738.0
+    },
+    {
+      "anchor_id": "s002_e0007",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information on buying, installing, and repairing toilets. \nComputer: are you looking for topics related to bathroom health",
+      "output": "no i am looking for information on companies that make bidets",
+      "split": "probe",
+      "complexity": 739.0
+    },
+    {
+      "anchor_id": "s002_e0001",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What are \\\"do not resuscitate\\\" orders and how do you get one in place? \nComputer: would you like to know more about hunting rules",
+      "output": "no just give me information about do not resuscitate orders and how to get them in place",
+      "split": "probe",
+      "complexity": 742.0
+    },
+    {
+      "anchor_id": "s002_e0040",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find locations and information about Discovery Channel stores and types of products they sell. \nComputer: are you needing store information",
+      "output": "yes",
+      "split": "probe",
+      "complexity": 743.0
+    },
+    {
+      "anchor_id": "s002_e0011",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: I\\'m looking for information to help me prepare for the GMAT exam. \nComputer: are you looking for an online or inperson gmat prep class",
+      "output": "neither i want the veritasprep home page",
+      "split": "probe",
+      "complexity": 749.0
+    },
+    {
+      "anchor_id": "s002_e0002",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find dealers that sell or rent Bobcat tractors and construction equipment. \nComputer: would you like to know the countries in which bobcats are found",
+      "output": "no im looking for dealers that will sell or rent bobcat equipment to me",
+      "split": "probe",
+      "complexity": 751.0
+    },
+    {
+      "anchor_id": "s002_e0006",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find general information about Iowa\\'s food stamps program. \nComputer: are you referring to a food stamp program that is current or a historical one",
+      "output": "i need the current websit of the iowa food assistance program",
+      "split": "probe",
+      "complexity": 756.0
+    },
+    {
+      "anchor_id": "s002_e0004",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find biographies of US President George H.W. Bush. \nComputer: would you like to know the major events of george bush srs presidency",
+      "output": "no id like help in finding biographies of him",
+      "split": "probe",
+      "complexity": 757.0
+    },
+    {
+      "anchor_id": "s002_e0014",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: demographics of East Ridge High School in Lick Creek, Kentucky \nComputer: are you looking for information about the sports facilities at the school",
+      "output": "no i just need the general home page",
+      "split": "probe",
+      "complexity": 759.0
+    },
+    {
+      "anchor_id": "s002_e0035",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What issues were addressed in the Civil Rights Act of 1964? \nComputer: would you like to know what happened during the civil rights movement",
+      "output": "i would prefer to find out how matin luther king contributed to the civil rights movement",
+      "split": "probe",
+      "complexity": 762.0
+    },
+    {
+      "anchor_id": "s002_e0039",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information about Afghanistan\\'s history, government, religion, and culture. \nComputer: would you like to know where afghanistan is located",
+      "output": "yes and a map",
+      "split": "probe",
+      "complexity": 770.0
+    },
+    {
+      "anchor_id": "s002_e0029",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: What were the results of the electoral college for the 2008 US presidential race? \nComputer: do you want to hear a specific demographic from the results",
+      "output": "no",
+      "split": "probe",
+      "complexity": 772.0
+    },
+    {
+      "anchor_id": "s002_e0022",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: How can I find my internet browsing history, i.e., the web sites I have previously visited? \nComputer: would you also like to delete your history",
+      "output": "no i just want to find out what my browsing history is",
+      "split": "probe",
+      "complexity": 773.0
+    },
+    {
+      "anchor_id": "s002_e0016",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: How can I find my internet browsing history, i.e., the web sites I have previously visited? \nComputer: on which device are you looking for history",
+      "output": "the browser on my smart phone",
+      "split": "probe",
+      "complexity": 774.0
+    },
+    {
+      "anchor_id": "s002_e0023",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains. \nComputer: which mountain ski resort would you like information around the pocono area",
+      "output": "what to do in the pocono mountains",
+      "split": "probe",
+      "complexity": 782.0
+    },
+    {
+      "anchor_id": "s002_e0036",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: retailers, including price information, of the HP Mini 2140 notebook computer \nComputer: what type of problem are you having with the hp mini 2140",
+      "output": "reveiws for hp mini 2140",
+      "split": "probe",
+      "complexity": 788.0
+    },
+    {
+      "anchor_id": "s002_e0018",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information and reviews about The Secret Garden book by Frances Hodgson Burnett, as well as movies and the musical based on it. \nComputer: are you interested in visiting a secret garden",
+      "output": "no please find reviews of the book the secret garden",
+      "split": "probe",
+      "complexity": 808.0
+    },
+    {
+      "anchor_id": "s002_e0003",
+      "segment_id": 2,
+      "segment_name": "task1714_convai3_sentence_generation",
+      "instruction": "You are given a concatenated string consisting of two parts that are separated by a newline character. The first part is the user's initial question during a human computer conversation, the second part is a clarifying question asked by the computer in response to the question asked by the user. You should read the input, then generate a valid prediction of the user's response to the computer's clarifying question. A valid prediction will clarify the user's correct intent in the initial question.",
+      "input_text": "User: Find information on the USS Yorktown, an aircraft carrier that is part of the museum exhibit at the Patriots Point museum in Charleston Harbor, SC. \nComputer: what historic period would you like information pertaining to",
+      "output": "i dont know",
+      "split": "probe",
+      "complexity": 852.0
+    }
+  ]
+}

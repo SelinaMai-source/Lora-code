@@ -1,0 +1,37 @@
+{
+  "hard_routing": true,
+  "router_warmup_segments": 1,
+  "num_updates": 42,
+  "branch_names": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6",
+    "b7"
+  ],
+  "feature_adapter_name": "default",
+  "routing_backend": "prototype",
+  "prototype_counts": {
+    "b0": 300,
+    "b1": 296,
+    "b2": 692,
+    "b3": 191,
+    "b4": 329,
+    "b5": 323,
+    "b6": 389,
+    "b7": 50
+  },
+  "prototype_branches": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6",
+    "b7"
+  ]
+}

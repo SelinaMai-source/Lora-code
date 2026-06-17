@@ -1,0 +1,15 @@
+{
+  "max_branches": 15,
+  "active": "b0",
+  "trainable_branches": [
+    "b0"
+  ],
+  "frozen_branches": [],
+  "branches": {
+    "b0": {
+      "name": "b0",
+      "created_at_segment": 0,
+      "frozen": false
+    }
+  }
+}

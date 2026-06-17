@@ -726,6 +726,7 @@ def run_ours(
                 use_overlap=use_overlap,
                 beta=beta,
                 overlap_cfg=overlap_cfg,
+                prev_eval_metrics=last_eval_metrics,
             )
             refresh_metrics = _maybe_refresh_segment_prototypes_from_anchors(
                 router=router,
@@ -1332,6 +1333,14 @@ def _update_router_with_segment_pseudo_labels(
     }
 
 
+def _eval_oracle_agreement(eval_metrics: Optional[Dict[str, Any]]) -> float:
+    if not eval_metrics:
+        return 1.0
+    extra = eval_metrics.get("extra", {}) if isinstance(eval_metrics.get("extra"), dict) else {}
+    routing = extra.get("routing", {}) if isinstance(extra.get("routing"), dict) else {}
+    return float(routing.get("oracle_agreement_rate", 0.0) or 0.0)
+
+
 def _train_with_router(
     *,
     segment: Segment,
@@ -1345,6 +1354,7 @@ def _train_with_router(
     use_overlap: bool,
     beta: float,
     overlap_cfg: Optional[Dict[str, Any]] = None,
+    prev_eval_metrics: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     strategy = str(getattr(router, "training_strategy", "active_branch") or "active_branch")
     if strategy == "active_branch":
@@ -1380,8 +1390,24 @@ def _train_with_router(
     else:
         raise ValueError(f"Unknown router.training_strategy: {strategy}. Expected one of: active_branch | oracle_min_nll | learned_router")
     proto_steps = max(1, int(getattr(router, "prototype_update_steps", 1)))
+    pll_bonus_steps = 0
+    pll_prev_oracle = _eval_oracle_agreement(prev_eval_metrics)
+    if (
+        bool(getattr(router, "oracle_pll_recalibrate", False))
+        and segment.segment_id >= 3
+        and len(lora_bank.list_branches()) >= 2
+        and pll_prev_oracle < float(getattr(router, "oracle_pll_min_agreement", 0.55))
+    ):
+        pll_bonus_steps = max(0, int(getattr(router, "oracle_pll_bonus_steps", 2)))
+
     router_metrics: Dict[str, Any] = {}
-    for proto_step in range(proto_steps):
+    total_proto_steps = proto_steps + pll_bonus_steps
+    saved_proto_ema = float(getattr(router, "prototype_ema", 0.8))
+    if pll_bonus_steps > 0:
+        router.prototype_ema = float(getattr(router, "oracle_pll_ema_override", 0.72))
+        train_metrics["router_pll_recalibrate"] = True
+        train_metrics["router_pll_prev_oracle_agreement"] = float(pll_prev_oracle)
+    for proto_step in range(total_proto_steps):
         router_metrics = _update_router_with_segment_pseudo_labels(
             segment=segment,
             model=model,
@@ -1389,7 +1415,10 @@ def _train_with_router(
             lora_bank=lora_bank,
             router=router,
         )
-    train_metrics["router_prototype_update_steps"] = int(proto_steps)
+    if pll_bonus_steps > 0:
+        router.prototype_ema = saved_proto_ema
+    train_metrics["router_prototype_update_steps"] = int(total_proto_steps)
+    train_metrics["router_pll_bonus_steps"] = int(pll_bonus_steps)
     train_metrics.update(router_metrics)
     train_metrics["num_branches"] = len(lora_bank.list_branches())
     train_metrics["num_trainable_branches"] = len(lora_bank.list_trainable_branches())

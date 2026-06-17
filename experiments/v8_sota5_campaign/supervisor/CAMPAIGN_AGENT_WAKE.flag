@@ -1,0 +1,9 @@
+{
+  "reason": "issue",
+  "message": "tmux 死亡且 serial 重启失败",
+  "kind": "wake",
+  "prompt": "请阅读 /root/autodl-tmp/Lora-code/experiments/v8_sota5_campaign/supervisor/AGENT_LOOP_PROMPT.md、CAMPAIGN_STATUS.md、CAMPAIGN_MONITOR_STATE.json 和 CAMPAIGN_MONITOR.log。工作目录：/root/autodl-tmp/Lora-code。 pending_action=fix：诊断故障、修复代码/脚本、必要时重启 tmux 串行训练；完成后清除 pending_agent。禁止在同一 GPU 上并行多个 train.py。勿杀掉健康的 train.py。 附言：tmux 死亡且 serial 重启失败",
+  "timestamp": "2026-06-17 19:53:48 UTC",
+  "repo": "/root/autodl-tmp/Lora-code",
+  "wake_reason": "CAMPAIGN_AGENT_WAKE.flag"
+}

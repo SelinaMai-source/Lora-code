@@ -160,13 +160,26 @@ def _train_processes() -> List[Dict[str, Any]]:
     procs: List[Dict[str, Any]] = []
     for line in out.splitlines():
         line = line.strip()
-        if "train.py" not in line:
+        if not re.search(r"python\d*(?:\.\d+)?\s+.*core/train\.py", line):
             continue
         m = re.match(r"^(\d+)\s+(.*)$", line)
         if not m:
             continue
         procs.append({"pid": int(m.group(1)), "cmd": m.group(2), "is_campaign": False})
     return procs
+
+
+def _is_sota_campaign_train(cmd: str) -> bool:
+    if "sota_campaign" in cmd or "sota_v" in cmd:
+        return True
+    m = re.search(r"--config\s+(\S+)", cmd)
+    if m and "sota_campaign" in m.group(1):
+        return True
+    return False
+
+
+def _sota_priority_active() -> bool:
+    return (REPO / "experiments/sota_campaign/PAUSE_V8S5CAMP_SERIAL").is_file()
 
 
 def _is_campaign_train(cmd: str) -> bool:
@@ -354,6 +367,10 @@ def _kill_parallel_tmux(sessions: List[str]) -> List[str]:
 
 
 def _relaunch_serial() -> bool:
+    pause_flag = REPO / "experiments/sota_campaign/PAUSE_V8S5CAMP_SERIAL"
+    if pause_flag.is_file():
+        _log(f"BLOCKED relaunch: {pause_flag.name} present (SOTA campaign priority)")
+        return False
     if not SERIAL_LAUNCH_SCRIPT.is_file():
         _log(f"BLOCKED relaunch: missing {SERIAL_LAUNCH_SCRIPT}")
         return False
@@ -408,9 +425,16 @@ def main() -> int:
 
     if len(procs) > 1:
         issues.append(f"多个 train.py ({len(procs)}) — OOM 风险")
-        sorted_procs = sorted(procs, key=lambda p: p["pid"], reverse=True)
-        keep = sorted_procs[0]
-        extras = [p["pid"] for p in sorted_procs[1:]]
+        sota_procs = [p for p in procs if _is_sota_campaign_train(p["cmd"])]
+        camp_only = [p for p in procs if p["is_campaign"]]
+        if _sota_priority_active() and sota_procs:
+            keep = sota_procs[0]
+            extras = [p["pid"] for p in procs if p["pid"] != keep["pid"]]
+            _log(f"AUTO_FIX SOTA priority: keep sota pid={keep['pid']}, kill others")
+        else:
+            sorted_procs = sorted(procs, key=lambda p: p["pid"], reverse=True)
+            keep = sorted_procs[0]
+            extras = [p["pid"] for p in sorted_procs[1:]]
         killed = _kill_train_pids(extras)
         if killed:
             auto_fixes.append(f"已杀掉多余 train.py pids={killed}，保留 pid={keep['pid']}")
@@ -438,12 +462,18 @@ def main() -> int:
         wake_issue = wake_issue or log_detail or "训练崩溃需诊断"
 
     priority_active = "v8s5camp_priority" in sessions
+    sota_active = _sota_priority_active() and (
+        "sota-v1" in sessions or any(_is_sota_campaign_train(p["cmd"]) for p in procs)
+    )
     if not campaign_tmux and not campaign_done and not campaign_procs and not priority_active:
-        issues.append("campaign tmux 已死且 manifest 未完成")
-        if _relaunch_serial():
-            auto_fixes.append("已重启 v8s5camp_serial")
+        if sota_active:
+            _log("SKIP serial relaunch: SOTA campaign has GPU priority")
         else:
-            wake_issue = wake_issue or "tmux 死亡且 serial 重启失败"
+            issues.append("campaign tmux 已死且 manifest 未完成")
+            if _relaunch_serial():
+                auto_fixes.append("已重启 v8s5camp_serial")
+            else:
+                wake_issue = wake_issue or "tmux 死亡且 serial 重启失败"
 
     elif campaign_tmux and not campaign_procs and not campaign_done:
         manifest_runner = False
@@ -467,8 +497,11 @@ def main() -> int:
         wake_issue = wake_issue or f"segment 停滞 {active_run}"
 
     if other_procs and campaign_procs:
-        issues.append(f"非 campaign train ({len(other_procs)}) 与 campaign 并存")
-        wake_issue = wake_issue or "GPU 冲突：campaign 与非 campaign 同时训练"
+        if _sota_priority_active() and any(_is_sota_campaign_train(p["cmd"]) for p in other_procs):
+            _log("SKIP GPU conflict wake: SOTA priority active, campaign should be paused")
+        else:
+            issues.append(f"非 campaign train ({len(other_procs)}) 与 campaign 并存")
+            wake_issue = wake_issue or "GPU 冲突：campaign 与非 campaign 同时训练"
 
     if len(failed_rows) >= 3 and not campaign_procs:
         issues.append(f"{len(failed_rows)} 个失败 run 无 final_metrics")

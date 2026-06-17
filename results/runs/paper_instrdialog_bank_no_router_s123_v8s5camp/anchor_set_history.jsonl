@@ -1,0 +1,7 @@
+{"reason": "bootstrap_segment_0", "source_segment_ids": [0], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [0], "probe_segment_ids": [0]}
+{"reason": "refresh_after_drift_segment_1", "source_segment_ids": [1], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [1], "probe_segment_ids": [1]}
+{"reason": "bootstrap_segment_0", "source_segment_ids": [0], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [0], "probe_segment_ids": [0]}
+{"reason": "refresh_after_drift_segment_1", "source_segment_ids": [1], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [1], "probe_segment_ids": [1]}
+{"reason": "refresh_after_drift_segment_4", "source_segment_ids": [4], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [4], "probe_segment_ids": [4]}
+{"reason": "refresh_after_drift_segment_9", "source_segment_ids": [9], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [9], "probe_segment_ids": [9]}
+{"reason": "refresh_after_drift_segment_12", "source_segment_ids": [12], "num_source_segments": 1, "num_core": 5, "num_probe": 5, "num_total": 10, "core_segment_ids": [12], "probe_segment_ids": [12]}

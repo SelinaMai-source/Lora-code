@@ -1,0 +1,312 @@
+{
+  "current_score": 0.1,
+  "seen_avg_score": 0.3416666666666666,
+  "current_task_aware_score": 0.5,
+  "seen_avg_task_aware_score": 0.39166666666666666,
+  "forgetting": 0.036363636363636355,
+  "task_aware_forgetting": 0.04545454545454546,
+  "num_seen_segments": 12,
+  "token_f1_mean": 0.38099782094937007,
+  "lcs_overlap_mean": 0.39731938076829715,
+  "extra": {
+    "per_segment_accuracy": [
+      {
+        "segment_id": 0,
+        "accuracy": 0.6
+      },
+      {
+        "segment_id": 1,
+        "accuracy": 0.7
+      },
+      {
+        "segment_id": 2,
+        "accuracy": 0.0
+      },
+      {
+        "segment_id": 3,
+        "accuracy": 0.7
+      },
+      {
+        "segment_id": 4,
+        "accuracy": 0.0
+      },
+      {
+        "segment_id": 5,
+        "accuracy": 0.4
+      },
+      {
+        "segment_id": 6,
+        "accuracy": 0.9
+      },
+      {
+        "segment_id": 7,
+        "accuracy": 0.6
+      },
+      {
+        "segment_id": 8,
+        "accuracy": 0.0
+      },
+      {
+        "segment_id": 9,
+        "accuracy": 0.1
+      },
+      {
+        "segment_id": 10,
+        "accuracy": 0.0
+      },
+      {
+        "segment_id": 11,
+        "accuracy": 0.1
+      }
+    ],
+    "per_segment_task_aware_accuracy": [
+      {
+        "segment_id": 0,
+        "task_aware_accuracy": 0.6
+      },
+      {
+        "segment_id": 1,
+        "task_aware_accuracy": 0.7
+      },
+      {
+        "segment_id": 2,
+        "task_aware_accuracy": 0.1
+      },
+      {
+        "segment_id": 3,
+        "task_aware_accuracy": 0.7
+      },
+      {
+        "segment_id": 4,
+        "task_aware_accuracy": 0.0
+      },
+      {
+        "segment_id": 5,
+        "task_aware_accuracy": 0.5
+      },
+      {
+        "segment_id": 6,
+        "task_aware_accuracy": 0.9
+      },
+      {
+        "segment_id": 7,
+        "task_aware_accuracy": 0.6
+      },
+      {
+        "segment_id": 8,
+        "task_aware_accuracy": 0.0
+      },
+      {
+        "segment_id": 9,
+        "task_aware_accuracy": 0.1
+      },
+      {
+        "segment_id": 10,
+        "task_aware_accuracy": 0.0
+      },
+      {
+        "segment_id": 11,
+        "task_aware_accuracy": 0.5
+      }
+    ],
+    "anytime_score": 0.3416666666666666,
+    "anytime_task_aware_score": 0.39166666666666666,
+    "forgetting_by_segment": [
+      {
+        "segment_id": 0,
+        "accuracy": 0.6,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.09999999999999998
+      },
+      {
+        "segment_id": 1,
+        "accuracy": 0.7,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 2,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 3,
+        "accuracy": 0.7,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 4,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 5,
+        "accuracy": 0.4,
+        "best_historical_accuracy": 0.7,
+        "forgetting": 0.29999999999999993
+      },
+      {
+        "segment_id": 6,
+        "accuracy": 0.9,
+        "best_historical_accuracy": 0.9,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 7,
+        "accuracy": 0.6,
+        "best_historical_accuracy": 0.6,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 8,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 9,
+        "accuracy": 0.1,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 10,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 11,
+        "accuracy": 0.1,
+        "best_historical_accuracy": 0.1,
+        "forgetting": 0.0
+      }
+    ],
+    "task_aware_forgetting_by_segment": [
+      {
+        "segment_id": 0,
+        "task_aware_accuracy": 0.6,
+        "best_historical_task_aware_accuracy": 0.7,
+        "task_aware_forgetting": 0.09999999999999998
+      },
+      {
+        "segment_id": 1,
+        "task_aware_accuracy": 0.7,
+        "best_historical_task_aware_accuracy": 0.8,
+        "task_aware_forgetting": 0.10000000000000009
+      },
+      {
+        "segment_id": 2,
+        "task_aware_accuracy": 0.1,
+        "best_historical_task_aware_accuracy": 0.1,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 3,
+        "task_aware_accuracy": 0.7,
+        "best_historical_task_aware_accuracy": 0.7,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 4,
+        "task_aware_accuracy": 0.0,
+        "best_historical_task_aware_accuracy": 0.0,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 5,
+        "task_aware_accuracy": 0.5,
+        "best_historical_task_aware_accuracy": 0.8,
+        "task_aware_forgetting": 0.30000000000000004
+      },
+      {
+        "segment_id": 6,
+        "task_aware_accuracy": 0.9,
+        "best_historical_task_aware_accuracy": 0.9,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 7,
+        "task_aware_accuracy": 0.6,
+        "best_historical_task_aware_accuracy": 0.6,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 8,
+        "task_aware_accuracy": 0.0,
+        "best_historical_task_aware_accuracy": 0.0,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 9,
+        "task_aware_accuracy": 0.1,
+        "best_historical_task_aware_accuracy": 0.0,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 10,
+        "task_aware_accuracy": 0.0,
+        "best_historical_task_aware_accuracy": 0.0,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 11,
+        "task_aware_accuracy": 0.5,
+        "best_historical_task_aware_accuracy": 0.5,
+        "task_aware_forgetting": 0.0
+      }
+    ],
+    "routing": {
+      "num_routed": 150,
+      "branch_counts": {
+        "b0": 19,
+        "b2": 11,
+        "b1": 20,
+        "b5": 60,
+        "b3": 20,
+        "b4": 20
+      },
+      "oracle_best_branch_counts": {
+        "b0": 21,
+        "b1": 17,
+        "b2": 42,
+        "b5": 38,
+        "b3": 8,
+        "b4": 24
+      },
+      "oracle_agreement_count": 65,
+      "oracle_num_examples": 150,
+      "confidence_sum": 54.7254067671944,
+      "entropy_sum": 164.22554060548765,
+      "oracle_margin_sum": 69.37761151790619,
+      "branch_utilization": {
+        "b0": 0.12666666666666668,
+        "b1": 0.13333333333333333,
+        "b2": 0.07333333333333333,
+        "b3": 0.13333333333333333,
+        "b4": 0.13333333333333333,
+        "b5": 0.4
+      },
+      "decision_confidence_mean": 0.36483604511462936,
+      "decision_entropy_mean": 1.0948369373699176,
+      "oracle_agreement_rate": 0.43333333333333335,
+      "oracle_margin_mean": 0.4625174101193746
+    },
+    "token_f1_mean": 0.38099782094937007,
+    "lcs_overlap_mean": 0.39731938076829715,
+    "task_aware_score_mean": 0.31333333333333335,
+    "task_score_type_counts": {
+      "after_step_extracted_em": 10,
+      "label_accuracy": 74,
+      "strict_em": 66
+    },
+    "prefix_1_match_mean": 0.4,
+    "prefix_3_match_mean": 0.31333333333333335,
+    "prefix_5_match_mean": 0.3,
+    "num_bad_prefix_mismatch": 102,
+    "likely_assistant_start_or_continuation_boundary": true
+  }
+}

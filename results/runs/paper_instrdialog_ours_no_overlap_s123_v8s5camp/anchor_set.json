@@ -1,0 +1,517 @@
+{
+  "summary": {
+    "num_core": 25,
+    "num_probe": 25,
+    "num_total": 50,
+    "core_segment_ids": [
+      0
+    ],
+    "probe_segment_ids": [
+      0
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s000_e0020",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Bonjour! Have you decided anything about the proposed western triple?', \"I'm in favor, how about you?\", 'Yes, I think that plan makes sense', \"I mean, I was opening pretty south anyway, so it doesn't really change my opening any 😃\", 'ok, cool']",
+      "output": "have you gotten any info from Italy?",
+      "split": "core",
+      "complexity": 778.0
+    },
+    {
+      "anchor_id": "s000_e0039",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey Turkey - how is it going? Excited for this game!', 'Of course, yeah! Will see how things unfold', 'How are things going? Do you think Austria or Russia or going to be a problem?', 'For you or for me?', 'Do you know what Russia is up to?']",
+      "output": "Have you heard from him??",
+      "split": "core",
+      "complexity": 786.0
+    },
+    {
+      "anchor_id": "s000_e0048",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hi Russia, can we chat about a possible alliance against Turkey?', 'Of course we can!', \"I'm opening pretty standard South opening, so can certainly focus on Turkey\", \"Sure, I'd welcome a move to Ukr\", 'Indeed, a strong southern deployment. Do you need assistance somewhere?']",
+      "output": "Not yet - but that Western opening is irksome",
+      "split": "core",
+      "complexity": 820.0
+    },
+    {
+      "anchor_id": "s000_e0041",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hi Italy, I think we should at least touch base since we share a neighbor', 'Have you had any contact with Austria yet?', \"We've been in touch\", 'What are your plans so far? If you wish, we can work together to push out Austria.', 'Going to see the opening moves and see where we can go from there']",
+      "output": "I hope we have some basis for a mutual understanding now?",
+      "split": "core",
+      "complexity": 821.0
+    },
+    {
+      "anchor_id": "s000_e0009",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hello, England! What's your general train of thought on what to do?\", 'Not quite sure yet to be honest -- still trying to get to know the board', 'Any ideas on your end?', \"My inclination is to focus south. I won't put an army in StP, you don't put an army in Norway. Fair deal?\", 'That sounds good to me']",
+      "output": "I just hope you're not planning a Juggernaut ~~ then it'd be almost irresponsible of me to not do anything ya?",
+      "split": "core",
+      "complexity": 850.0
+    },
+    {
+      "anchor_id": "s000_e0042",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey Germany,  how are things going? Would you like to have alliance was against France?', 'What’s up England!! Things are good! TGIF', 'I’m not looking to commit to anyone just yet, I hope that’s no trouble!', 'Ok... do you mind if I ask how your relationship with France is?', 'Not well formed at this point']",
+      "output": "Have you been talking to Russia much?",
+      "split": "core",
+      "complexity": 888.0
+    },
+    {
+      "anchor_id": "s000_e0035",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hallo there my dearest Sultan! A pleasure to meet you 😄', 'Hello monsieur President. Greater pleasure would be to work together.', 'I would love for that too. How do things in the east seem to be developing?', \"They're going slowly but steady, soon steamy. And what about the western part?\", 'The battle for Belgium will be interesting for sure 😅']",
+      "output": "Just a head up here, Austria wants food relations with me currently but wants me to have Rum. I will go for it but I expect you will take it with support which is OK with me.",
+      "split": "core",
+      "complexity": 892.0
+    },
+    {
+      "anchor_id": "s000_e0047",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello archduke. Just wanted to give a friendly wave and wish you luck in your endeavors  :)', 'Greetings, hope the royal family is in good health. I wish you the same to you.', 'Thank you kind sir! Yes we are all in good health , at least for this first season that is haha', \"Curious if you've gotten the memo about russia?\", 'That they seem to be trying to play everybody?']",
+      "output": "Yea that one lol",
+      "split": "core",
+      "complexity": 924.0
+    },
+    {
+      "anchor_id": "s000_e0005",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hi there! Not sure we have much to talk about but I figured I would reach out.', 'Yeah for sure! How’s it going Italy?', 'Not bad, I’ve heard from everyone but Austria, hbu?', 'I’ve heard from a few players. Don’t have much to discuss with Turkey at this point lol. I’ve had a fairly busy week so I haven’t been reaching out much.', 'I’m really excited for this game!']",
+      "output": "How’s it going in the West? Was that bounce in Bur arranged?",
+      "split": "core",
+      "complexity": 939.0
+    },
+    {
+      "anchor_id": "s000_e0034",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Shall we juggernaut this bastard?', \"you'll have to define 'juggernaut' and 'this bastard'\", 'Basically just \"Hey, you wanna work together?\"', \"I'll certainly consider it. Do you have any specific requests in mind regarding the Balkans and Black Sea?\", \"I'd rather we didn't bounce in the black sea - If you move your fleet to Constantinople then you can get it out into the Mediterranean really quickly, to both of our benefits.\"]",
+      "output": "I'm not sure I know you well enough yet to just hand you the black sea, though. What's in it for me?",
+      "split": "core",
+      "complexity": 969.0
+    },
+    {
+      "anchor_id": "s000_e0038",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey there neighbor', 'Thoughts on how we want to split the Balkans?', 'Hello there yourself', \"what are your thoughts?  I haven't spoken to anyone else yet so. I am open to ideas before that.  We would most certainly need to deal with Russia sooner rather than later\", \"Agreed -- I'd rather deal with Russia from the get go as well. Have you heard anything from Italy tho? I'm kind of worried of committing north if they're an unknown quantity\"]",
+      "output": "All I have heard from Italy thus far is they don't want to fight so... hopefully that is the case",
+      "split": "core",
+      "complexity": 981.0
+    },
+    {
+      "anchor_id": "s000_e0017",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey Germany, would you be interested in a peace between us, at least in the beginning?', \"I don't think either of us would benefit of starting a quibble when there's other powers at our borders.\", 'I’d be more than happy to oblige. From what I hear you’re going to have your hands full in the easy anyways. DMZ Tyrolia and Bohemia?', \"Sounds good. If things change with Italy, I'll let you know.\", 'It seems turkey has decided to side with germany']",
+      "output": "Russia, sorry",
+      "split": "core",
+      "complexity": 1013.0
+    },
+    {
+      "anchor_id": "s000_e0002",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey England! Looking forward to this game. How are you this afternoon?', 'Hello there. I’m doing well although it’s the evening here on the east coast. Wondering where you stand with France and Russia. Will you bounce Sweden? Has France spoken to you about Belgium?', 'East coast for me too 😴', 'France reached out to me but I haven’t responded', 'Still determining my plans! I haven’t locked in any moves yet. Where do you stand with France?']",
+      "output": "We agreed to bounce the channel but they weren’t much more communicative than that",
+      "split": "core",
+      "complexity": 1024.0
+    },
+    {
+      "anchor_id": "s000_e0049",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hello Germany! Typically I find that we two powers tend to have a stance of mutual neutrality with one another, and I'm happy to not go against the grain here.\", \"I don't have an intention of moving to Tyrolia or anywhere near Munich at any time in the near future, if ever! So I'd like to hear that you have a similar mentality towards our relationship.\", \"Keep Tyr and Boh clear and I'm content with mutual neutrality\", 'Good to hear. Hope we can persuade Italy to do the same!', '👀']",
+      "output": "Hey, it looked like you weren't playing the game. I was just trying to look into getting the centers of an afk player before someone else did.",
+      "split": "core",
+      "complexity": 1040.0
+    },
+    {
+      "anchor_id": "s000_e0045",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello there England! Pleasure to meet you 😄', 'You as well! I’d be interested in creating a DMZ in the English Channel, how about you?', 'I would too, and I hope you are telling the truth too!', 'Of course, in all honesty I have two fleets so I could force my way in anyways. I don’t want to do that though. What about Hol? Bel is obviously yours', \"I wouldn't say obviously but I certainly wouldn't mind getting Bel and helping you into Hol if that were the case\"]",
+      "output": "Obviously that would be great, germany would have to be on board though or else we would be making an enemy.",
+      "split": "core",
+      "complexity": 1043.0
+    },
+    {
+      "anchor_id": "s000_e0033",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello friend. I’m a big fan of early cooperation between us early on. If we end up fighting over the channel, Germany usually swoops in with Russia. What do you think about a DMZ in the channel?', 'Sounds good', 'That went well. We can keep the DMZ in the Channel, it looks like its working well for both of us, and Germany might have some problems coming up', 'Sounds great. I’m still chatting with Germany and Russia to see what’s gonna happen up north.', 'sounds good']",
+      "output": "Things are shaking out strange up north. You seem to have some Italian troubles. Have you spoken with Italy to find out where his fleets are headed?",
+      "split": "core",
+      "complexity": 1046.0
+    },
+    {
+      "anchor_id": "s000_e0008",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hallo there my dearest Tsar! Still figuring this messaging system out haha', \"France, what's up my friend?  Do I have anything to worry about from my neighbors?  Would you tell me if I did?\", \"Of course I would, and I haven't heard anything yet. I may have heard some plan involving taking out England early? Unsure 😉\", 'I suppose you really wanted to be in burgundy! What’s next? Would you like assistance?', 'Assistance would be nice, depends what form it comes in though 😄']",
+      "output": "Nicely done.  Do you plan on helping England against Germany?  If you'd like, the three of us could take down Germany together, and then you and I team up on England.  What are your thoughts on this general strategy?  If you agree, we can figure out the specific tactics as we go along.",
+      "split": "core",
+      "complexity": 1057.0
+    },
+    {
+      "anchor_id": "s000_e0019",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello there! I realize that we don’t have a ton to talk about but I’m curious what you think about the game in general, and specifically France.', \"I'm not sure yet, let me work out the East.\", 'Yeah just want to know what my neighbors are thinking, keep me posted and let me know if you need my opinion on anything', 'Not always giving me the option to guess true or false even though it asks me. <@567829259054219275>', 'I’ve been getting it']",
+      "output": "Any chance you move against France?",
+      "split": "core",
+      "complexity": 1061.0
+    },
+    {
+      "anchor_id": "s000_e0006",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey Italy', 'Hi England, how goes it?\\n\\nMay I ask if you have any plans regarding France, as they can quite often quickly become the strongest nation if allowed to roam free.', 'Great. I’m about to send the Beatles (A Yor) to Norway. Do you have any inkling of if you’re going west, east, or Lepanto? I promise not to share with France or Germany.', 'Sorry A Liv = the Beatles', \"I'll probably grab Tunisia ASAP and then see what responses I get from everyone else.\"]",
+      "output": "Are you planning on convoying though Ion or TyrS? Austria claims you’re hitting France, and I’m curious if he’s bluffing or if you are lying to him.",
+      "split": "core",
+      "complexity": 1088.0
+    },
+    {
+      "anchor_id": "s000_e0007",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello there my dear Kaiser! Nice to meet you 😄', 'Hello, hello. What are your thoughts on an F/G alliance?', 'Hello hello! I for one would not oppose one, what are your thoughts?', \"Well, Russia has seemed to be stirring up all kinds of trouble, but he has offered me help against England, so that's a point in favor of an F/G. I would like to at least DMZ Bur in 01\", 'That’s funny, Austria just asked for me to bounce you there so Mun can protect against a potential Tyr invasion']",
+      "output": "Idk why Austria thinks Tyr is going to be invaded this year",
+      "split": "core",
+      "complexity": 1093.0
+    },
+    {
+      "anchor_id": "s000_e0024",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hey there, how's it going?\", 'Morning, England! All very quiet so far, you heard much?', \"Midnight for me lol. Nothing too concrete yet ~~ for now I'm mostly trying to figure out how worried I should be about any Juggernauts on the horizon\", 'Anything to that effect on your end?', \"Ah, just gone 08:30 here! I've only spoken with Austria so far and they seem worried with a Rus/Tur alliance\\n\\nI must say that I think France will need to be curtailed as they can often spiral out of control\"]",
+      "output": "Well, all our neighbors are certainly dangerous :p\nDo you have something in mind to keep France down specifically?",
+      "split": "core",
+      "complexity": 1101.0
+    },
+    {
+      "anchor_id": "s000_e0036",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Greetings, Germany. How are things up north?', 'Things are still shaking out but overall ok. France and England seem to be getting along nicely and will likely roll towards us soon.', 'France told me his main focus is to take out England before moving towards us, but that seems unlikely. Let’s watch out for each other', '👍🏽', 'England didn’t seem to be making any friends fast. Turkey looks like they’ve sided with Russia against Austria. Are you jumping on the anti Austria bandwagon? I’m trying to fend off Russia in the north.']",
+      "output": "Huh, France has been pretty quiet to me, so I was assuming France and England were working together. Have you heard much from France? I probably will try to stay neutral with Austria a bit longer, we will see",
+      "split": "core",
+      "complexity": 1105.0
+    },
+    {
+      "anchor_id": "s000_e0029",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Well hello there!  Hope you're having a lovely Thanksgiving!  Are you going to bounce Russia in Sweden?\", 'I’m still undecided. Where do you stand with Russia and Austria?', 'Not sure. Austria is feeling things out and Russia says he’s supporting himself into Rum.', 'Are you planning on throwing the game to France?  I think that you really need to consider defense.', 'I’m trying to deal with Russia to stop you and him from steam rolling west. If you’re willing to turn on Russia I would be open to turning on France.']",
+      "output": "Alright, you make an excellent point.  This year I will turn on Russia.  But you need to fight France. He's on 11, is guaranteed England (eventually), and then you're in to position to stop him from getting another 4 for the solo.  You should demand part of England (or at least BEL) to keep the two of you even.  If he refuses, then you know what he's about.",
+      "split": "core",
+      "complexity": 1106.0
+    },
+    {
+      "anchor_id": "s000_e0018",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey hey!  Not planning on opening north, so would appreciate no Churchill opening', \"It took me a moment to look up what the Churchill opening is, and, I can guarantee you that won't happen. I hate opening LVP-EDI, to be honest. Sacrificing the ability to protect London goes against my every instinct.\", 'As the great teacher DQ once said, \"Always open to Channel\"', '*sigh*  Chris Martin would be so disappointed in your avoidance of the English Channel', \"As much as I love DQ, he isn't always right about everything.\"]",
+      "output": "Fair enough. I was going to send the video in chat, but damn is it hard to Google anything by someone who shares a name with anyone even remotely famous.",
+      "split": "core",
+      "complexity": 1116.0
+    },
+    {
+      "anchor_id": "s000_e0010",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hi ho Mr. Pope!', 'Hi there your Majesty! How are things on the soggy jewel of the north? Here in the south we are cradled by the warm winds and waters of our homeland - much more conducive to religious reflection and relaxation, if not to any particular martial might.\\n\\nNot these days anyway. \\n\\nWhat do you have lined up today?', 'Oh lawd, just give yourself away why dontcha lol', 'As for me you know just trying to eradicate Catholicism from the world', 'Let us stay close in communications to be better prepared for the madness to come yes']",
+      "output": "So you’re going to message the Pope pledging to eradicate Catholicism from the world? Classy stuff! \n\nBut yes, close communications can only help us in coping and reacting to the adventures of the French. And Germans I suppose, but he hasn’t been unreasonable.",
+      "split": "core",
+      "complexity": 1125.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s000_e0022",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Buongiorno and hi there, King in the North! How are things in the most central power of Europe?', 'Can I get in early to raise the question of Tyrolia? Not immensely keen to get stuck in a standoff near Venice, but still less so to see black uniforms heading south lol', 'Greetings! Queen, actually', 'Yes, that sounds good to me', 'Queen in the North, Queen in the South :3 You understand I had to play the odds though, yes? \\n\\nWhat vibe are you getting off Russia? And has England reached out to you yet?']",
+      "output": "Haha, yes I get it 😃",
+      "split": "probe",
+      "complexity": 1127.0
+    },
+    {
+      "anchor_id": "s000_e0023",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hello Turkey. We share natural enemies in Russia and Italy, so I'm interested in a partnership between the two of us.\", \"I would like to know if there's any chance you try a slightly unorthodox opening to Armenia to try to shut down Russia quickly and early, working with me. I would be very interested in helping you on anything like that.\", \"Hi Austria, I'm not against an armenia opening but I'm not sure I can commit as of yet. In what way can you assist?\", 'Well I will very likely be moving to Galicia in the spring', 'And I could also move to rumania if it would assist you']",
+      "output": "Hey, best of luck with Russia in black sea. Hope things go well for you",
+      "split": "probe",
+      "complexity": 1150.0
+    },
+    {
+      "anchor_id": "s000_e0014",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Greetings My Good Frenchman! \\n\\nHow are your opening moves looking? I would love a solid Russo-French relationship so I’ll start off with some intel for you: Italy is headed west for you', 'Hi there,\\n\\nHow is that going to work? Austria vs turkey without Italy?', \"Ha I honestly don't know, just trying to tip you off\", \"How'd the first turn go for you? I was hoping to make gains in Gal and BLA but was bounced out. Do you think E/G are working against you?\", 'I have expected a bounce in Pie because you and another power told me so']",
+      "output": "Looks like a conspiracy here against me",
+      "split": "probe",
+      "complexity": 1154.0
+    },
+    {
+      "anchor_id": "s000_e0016",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"England, it's tough for us to foster relations this early, but I hope we can keep each other posted on any intel we gain from opposite sides of the map from one another.\", 'Agreed, but I would also be happy to', 'Good to hear. Awaiting messages from Russia who I imagine is the most important player that we both need to deal with.', \"So far, they've promised me they're not going for a Juggernaut, but pretty much every Russia would say that\", \"They also told me they wanted to go after Turkey early; have you heard anything about that? Cuz if not, I'd have to think he's being sneaky ya\"]",
+      "output": "Russia said the same to me",
+      "split": "probe",
+      "complexity": 1158.0
+    },
+    {
+      "anchor_id": "s000_e0011",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hi there! What’re your thoughts on the board to start? I realize we don’t have any negotiations to make but I always like to get to know what people are thinking', 'Hello! As a corner buddies, I am certain we will work sometime in the future, perhaps to establish a stalemate line.', 'Just so you know I have heard that russia is planning on moving south, not sure if that is on you or on austria', 'Well, nothing unusual there. To be honest here Germany is saying me quite opposite of what you have said. It is guessing game now.', 'Yeah I have been getting some vibes that russia is not telling a lot of truths so we will see']",
+      "output": "How not? He did move south.",
+      "split": "probe",
+      "complexity": 1197.0
+    },
+    {
+      "anchor_id": "s000_e0003",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello', 'I would like to work with you', \"Hello.  Is it me you're looking for?\", 'Yes, actually. It is. Lol.', 'On a more serious note, I have come to the realization that France and Russia have no intentions to work with me. I also realize that you will shortly have no room to grow. I propose an alliance between the two of us. We try to take out Russia before the end of the game, thus leaving only three of us to split the pot. Russia will have no choice but to disband a unit next phase. I expect him to disband  his fleet in the South, thus leaving you the perfect opportunity to attack. Let me know what your thoughts are.']",
+      "output": "You've pretty much voiced my thoughts there. The turn I accidentally went nmr, the orders that didn't take were me moving North into Russia. Now I'm just waiting for another good window - and post-pull is the right time.",
+      "split": "probe",
+      "complexity": 1237.0
+    },
+    {
+      "anchor_id": "s000_e0030",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hi Kaiser, greetings from her majesty the queen.\\nI've been ordered to deliver this message to you in hopes of establishing an alliance. \\nI wanted first to try a western triple with france, and wrote to him accordingly. However russia has proposed a northern triple. Seeing as you are my first choice in alliance I'm good with which ever you would like to try. Hope to hear from you soon\", 'Hi Queen, greetings from Germany (the Kaserin, actually 😉 )', \"You're my first choice for an alliance as well. I was leaning towards the northern triple with russia. Have you tried or seen that before?\", \"I haven't tried it or seen it\", 'Wait is Kaserin female for kaiser? Lol']",
+      "output": "Hahah yeah",
+      "split": "probe",
+      "complexity": 1282.0
+    },
+    {
+      "anchor_id": "s000_e0026",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hey neighbors ~~\\nWhat would you say to a western triple? We'd have to be careful about it and simulate some in fighting to prevent the east from teaming up in response, but I think we can pull it off\", \"I'm willing to consider it if all 3 are in\", 'France says their in, so I think we can make this work', 'What would you propose from here?', \"I'd say we can take on Russia pretty well together -- I can go North to take Stp by 02 or 03 and you can bounce them out of Swe and I'd support you in in the coming years\\nFrom there, Id try to march my armies south on the Eastern edge of the board, you could go through the middle towards Austria, and France can be swinging south through Italy in the meantime\"]",
+      "output": "That seems fair enough, I'm in",
+      "split": "probe",
+      "complexity": 1296.0
+    },
+    {
+      "anchor_id": "s000_e0037",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Greetings, neighbor! Was wondering if you would like to come to some agreement about how to preliminarily divide up the Balkans?', 'Hello there! I think that would be great, how were you thinking of splitting them up?', 'Hmm can I take  Bul & Rum while you take Ser & Gre?', \"I'd prefer Ser and Rum out of those four\", \"I know that would be your preference, but Russia has offered to support me into Rum anyway, so I figured there'd be less hard feelings if we could just agree to this split and both potentially get two builds? Or, if Russia has made conflicting promises to you, then I hope you'd let me know, and then a) I'd appreciate the intel, and b) we could split things your way?\"]",
+      "output": "Got some bad news for you then, Russia also told me the same stuff. Think he might playing both sides to see what he can get.",
+      "split": "probe",
+      "complexity": 1308.0
+    },
+    {
+      "anchor_id": "s000_e0028",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey Russia, would you be open to not moving an army north? I’m not interested in taking StP', 'Austria is pushing Italy to not do a lepanto but to go west. That might mean that Turkey is going north with Austria.', 'Thanks for the info! I trust that you  don’t want to take StP, an army north could help me put you into Norway though', 'I’ll be ok in Norway without your army in StP. I view A Mos - StP in spring 1901 as a strong anti-England move and building F StP(nc) as equally anti-England', 'Are we still good up north? I’m not interested in fighting you right now, and would prefer to just use a fleet to capture Nrwy.\\n\\nCan you promise to not send Mos northward this turn?']",
+      "output": "Of course, I wasn't trying to be  sneaky with my suggestion. I understand your concern and will not move StP North.",
+      "split": "probe",
+      "complexity": 1329.0
+    },
+    {
+      "anchor_id": "s000_e0004",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey there - just checking in noting that there are multiple ways our interests can coincide.', 'Certainly. Nice to meet you.', \"Harrumph - that whole Western side of the board is setting off alarm bells.  I'd really appreciate if you let me into Sweden to slow England down - even if you take the dot next year, it's still to your and my advantage to let me position on him for a turn\", 'If I let you in you’ll likely build 3', \"Not sure what the third is - Rum, Swe, and?  Anyway, again, I fully expect you to take Swe next year - I'm just saying it's in both our interests if you let me convert it to a different unit first.  If you bounce me out I have not way to get rid of the fleet, whereas I can disband it if you dislodge from Swe next year 🙂\"]",
+      "output": "There third was Vienna 😁",
+      "split": "probe",
+      "complexity": 1342.0
+    },
+    {
+      "anchor_id": "s000_e0046",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello Italy! I chose you as the first country to message to try to figure out the truth/lie setup', \"All right I see how it works now :).\\nAnyways, I'm sure we both know how Italy can be at the start of the game, having trouble expanding quickly, but right on the border with Trieste making Austria a tempting target\", 'I firmly believe that Italy/Austria is one of the most fruitful alliances possible in the game. If we work together early, we can be dominant against Turkey, giving you complete naval supramacy over the Mediterranean and highly favoring us over R/T in a fight in the Balkans.', 'I happily await your response :)', 'Hi Austria! An alliance between us sounds good. Look forward to working with you']",
+      "output": "Sounds good! Do you mind letting me know your plans for Venice this turn? A move to piedmont would give me great peace of mind",
+      "split": "probe",
+      "complexity": 1351.0
+    },
+    {
+      "anchor_id": "s000_e0032",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hello! What are your thoughts in Scandinavia?', \"I would like Sweden.  In exchange, I would offer up that fleet as a proxy unit for you.  Want some help into Skag?  You got it.  Want me to help you into North Sea after I take Norway?  It's all yours.  Thoughts?\", 'Hello! So it sounds like you are already planning on taking Sweden and Norway. I will confess that a strong Northern power makes me uncomfortable. If you are planning on taking Norway, you are probably committing your army in Moscow to St Pete this year then? That makes you awfully vulnerable in the south.', 'I thought we might work together?  If I took Norway with your help, we could DMZ Scandinavia - which would allow me to focus on the South.', \"Anyway, that's getting way ahead of ourselves - I can't fight on two fronts, I'd rather work with you in the North and focus on the South.\"]",
+      "output": "I'd consider that if you didn't build at all in St Pete. Let me talk to France and get back to you, since I would clearly benefit more from this in an EF alliance than an EG alliance, and France has yet to say anything.",
+      "split": "probe",
+      "complexity": 1548.0
+    },
+    {
+      "anchor_id": "s000_e0027",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hi there! I think us attacking each other early game is pretty dumb, what’re your thoughts?', \"I agree. Even with the element of surprise, it's just too easy to defend the Piedmont/Marseilles corridor.\\n\\nIf France attacks Italy, it will most likely be Austria who benefits, and likewise if Italy attacks France the spoils probably go to Germany.\\n\\nGiven that, what are your plans? Are you planning to attack Austria early, or thinking of the standard move of: \\nF Naples - Ionian\\nA Rome - Naples\\nA Venice H\", 'Yeah I’m not planning on going for Austria off the bat, I feel like it usually just locks the two weakest countries into a fight that hurts us both', 'Understood, good to know!', 'Seems like everything went pretty much according to plan. Not sure why Turkey stayed in Smy instead of backfilling to Con. Seems a bit passive to me.']",
+      "output": "He’s scared of me pulling off a lepanto. What’s the deal for you guys, seems like you and england have an agreement at the very least to stay out of ENG. Did you and germany agree to that bounce in Bur?",
+      "split": "probe",
+      "complexity": 1551.0
+    },
+    {
+      "anchor_id": "s000_e0021",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey turkey. I’m just saying hi and wondering what your thoughts are on Rum and Gre? Serb is traditionally Austrian territory and Bul goes to Turkey. I’m just wondering how the Russian situation is going to shake out. Also, would you be open to sharing information you hear about me with me in exchange for Russian intel?', 'Hi, I am willing to work with you, at least in the intel sharing part. I would be happy if we split Rum and Gre in a way that steers us away from each other.', 'I can’t speak to the split now, but if we do split it me Gre you Rum, I propose that you only put Fleets in Rum and I only put armies in Greece. If you’d rather I put a fleet in that’s OK too', 'That is reasonable but then that would mean you and Italy fight while it is me against Russia. What about a reverse? I get Gre? Would that work for you at all?', 'Why does being in Greece commit me to the Italian front? Galicia is crucial to taking Russia.']",
+      "output": "Because what will italy do in that case? He is the eastern power and he will definitely be looking for greece for himself. Also if you take greece and then commit to fight russia, ehat do i get from that? You got easy greece for you while I have to fight for everything. Hopefully you understand my point here.",
+      "split": "probe",
+      "complexity": 1606.0
+    },
+    {
+      "anchor_id": "s000_e0040",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Greetings, Austria!\\n\\nWe don't have any immediate discussion points, but thought I would check in with you since it can be dangerous for me if Austria collapses early, and that is a serious risk if Austria is a newbie (not sure if you are).\\n\\nSuggest that you get Germany on your side early. They will be dangerously exposed if you struggle early. You should ask them to send F Kiel - Denmark with the message to Russia that if he attacks you (with A Warsaw - Galicia instead of Ukraine), he will block them out of Sweden.\\n\\nGood luck, and have fun!\", 'Greetings to you as well.  I wish you luck and I will certainly keep all of that in mind', 'Seems like year one went well for you! Have both Greece and Serbia in the bag! How are your feelings on Italy?', 'I am friendly with them thus far.  I am open to discussion in general about how we might be able to work together.', \"Haha I'm sure Turkey would be very alarmed to hear that\"]",
+      "output": "Still though, you seem well placed!",
+      "split": "probe",
+      "complexity": 1639.0
+    },
+    {
+      "anchor_id": "s000_e0025",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Hey neighbour :3 If we put our minds to it, we can either work amazingly together this game or flail pointlessly at one another while other powers rise and rise (and rise). \\n\\nI’d really like to work towards option one, so let’s agree not to attack each other between Ven - Tri? At least not this year? We have more important things to do.', \"That sounds good to me. I'm wary of Germany, will you watch my back if I watch yours?\", 'I haven’t heard anything from Germany to suggest they have designs on you, but I’ll keep an eye out in comms! We all have a stake in keeping Tyrolia free. Have you spoken with Russia yet?', \"They seem nice enough just wanted to be careful since they haven't been speaking as much. Russia seems nice enough, haven't really gotten any info from Russia.\", 'Russia said something to be about an alliance before, the three of us against Turkey before we turn our gaze westward. Did he mention that to you? And if so, how do you feel about it?']",
+      "output": "Italy vs Turkey is almost classic, though it does depend on an agreement like the one we discussed ^^",
+      "split": "probe",
+      "complexity": 1654.0
+    },
+    {
+      "anchor_id": "s000_e0013",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hey Turkey! \\n\\nHow's it looking over there in the east? Anyways, I was wondering in if you have any intel on Italy, since I haven't heard much from them. I realize we most likely won't have too much to do with each other in the beginning, but I'm looking forwards to working with you later in the game if were both still around!\", \"I've reached out to Italy and heard... Absolutely nothing. No response yet. Sorry!\\nHe doesn't seem the most talkative type. \\n\\nAnyway, how you doin?\", \"Hey Turkey; I don't know if you have noticed but Russia is huge rn and is about to crush both you and Austria, and then proceed to run over the rest of the map. Idk how your relationship with Austria or Italy is, but you guys really need to work together to stop Russia.\", 'Why are you working with russia??? You realize as soon as they have used you they are going to turn on you and crush you?', \"Does that mean you don't want to talk about a Triple Entente?\"]",
+      "output": "How would you like to spice this pie?",
+      "split": "probe",
+      "complexity": 1667.0
+    },
+    {
+      "anchor_id": "s000_e0015",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hi there, we should talk. I've communicated with Germany at this point and I've heard from England and keen to hear your strategic thoughts on the overall picture. Where can we draw a line of DMZs? Where (if anywhere) can we work together more proactively? It's reaching a bit, but if I ever have a spare fleet would it be useful as a loaner to your lineup in the north?\", 'Hey hey.', 'To be honest, just got done with a day from hell, so not really thinking big picture at the moment yet.  Placeholder orders are more or less just a standard French opening, just starting to touch base with all the neighbors.', \"I read you France, and sorry to hear about the apocalypse on earth. Pretty standard Italian opening as well, I'm neither more nervous or less of my neighbours than usual. \\n\\nOnce you get your press off, maybe lie down and listen to your favourite tunes? I know that helps me when I'm blue.\", \"Oh, I'm not blue - just worn out.  It's been a hectic week :)\\nI think I'll stick close to a standard opening, get in position to drop a bunch of fleets\"]",
+      "output": "Sounds good! Off Brest please - seeing them appear in Marseilles will set off all sorts of alarms in La Bella Italia ^_^ I’m glad you’re “only” very tired. What is it you do, when you’re not governing the fates of a nation?\n\nEngineering student here.",
+      "split": "probe",
+      "complexity": 1772.0
+    },
+    {
+      "anchor_id": "s000_e0001",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Greetings and salutations!  I prefer not to bounce in Galicia - it weakens Austria against Italy since you can't cover Trieste and it means I HAVE to move Moscow to Ukraine, which commits that unit to a southern direction early.  What are you thoughts?\", 'I’m not a fan of fighting Italy or Russia as Austria. Germany will also probably guarantee Tyr. I just want to survive, and you two are capable of picking me apart. Is there some sort of arrangement we can come to with turkey and the Balkans that doesn’t involve me wasting away in the carpathians?', \"How much of Turkey are you willing to let the Italian have?  I'd like two centers and I'd be comfortable with you having Bulgaria - as long as you were willing to head after Italy next.\", 'Two centers is a lot to give if I’m doing the heavy lifting and then fighting Italy on top of it unless you’re going through Arm? I assumed you’d be going north?', \"I mean, I'm assuming you've got Italy doing a Lepanto and getting out of position.   When you said an arrangement with Turkey  - did you mean the three of us working together or you and I splitting him up.  'Cause if we split him up, then a 50/50 split seems pretty fair, right?  I'd get two, and you'd get Bulgaria and another.\"]",
+      "output": "I meant carving him up. If you take the Armenian opening, I’m fine with a 2 & 1 + 1.",
+      "split": "probe",
+      "complexity": 1952.0
+    },
+    {
+      "anchor_id": "s000_e0000",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"I've been on both the giving and receiving ends of multiple games in which Austria, Italy, and Russia decided that their games would be much simpler if there wasn't a Turkey around, and it always was. I propose that we start the game off by coordinating a removal of Turkey before moving on to other priorities.\", \"Seems well reasoned, coordinated, direct and decisive. Just what I like to see out of a prospective partner for the future when I'm an enthusiastic rather than dangerous player! Sure why not, I'm in - if I hear from Austria that he is as well. That would remove a lot of pressure off my immediate borders and have me looking to a future decorated in Winter and Green. What do you think?\\n\\nOh, and hi there!\", 'Sounds excellent to me. Italy/Russia is a very strong long-term alliance.', \"So I've heard! I've played exactly one game as Italy since I discovered Diplomacy online (still ongoing) and our Wintergreen is presently well on the way to a three-way draw with France. If mostly because I can't persuade the Tsar that a two-way would be more interesting.\", \"So tell me, how do you find Terraforming Mars? I'm a bit of a highkey space fanatic and one of my friends has been on me to try it forever, but I don't find I have a lot of time for gaming. Worth a look? Or something that's fun but not for long?\"]",
+      "output": "I've played about three dozen games at this point, I think, and every time there's something new or interesting that happens. Heartily recommended.",
+      "split": "probe",
+      "complexity": 2068.0
+    },
+    {
+      "anchor_id": "s000_e0012",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Greetings, Germany!\\n\\nThe risk of an early conflict between France and Germany is pretty high, so suggest that we clear the air early on.\\n\\nThe biggest question here is Burgundy, which borders one of your home supply centers and two of mine. It is important to me that Burgundy remains unoccupied - my suggestion is that we set up a bounce between A Munich - Burgundy, A Paris - Burgundy. This has the secondary benefit of allowing us to put on some theater about how the other broke their word to win sympathy points. I also believe that Germany often wants A Munich to stay put anyways, to guard against an attack through Tyrolia.\\n\\nLet me also know your thoughts regarding Belgium. I am not super attached to claiming it, so would be open to bargain my support on the Belgian question for a future alliance.\\n\\nBest of luck to you!', 'Hi France! Thanks for taking the initiative and for your thoughtful message. Let’s do the bounce in Burgundy! I’m really looking forward to getting to know you and everyone in this game!', 'Appreciated. What are your thoughts on F Kiel to Denmark vs Netherlands? Assuming Berlin to Kiel is a typical no brainer', 'I’m going to Hol, if that’s alright with you? I’m very interested in your idea of giving me free pass into Belgium for an alliance against England.', \"I would have preferred a move to Denmark, but Holland isn't a problem for me either - it's up to you.\"]",
+      "output": "Are you aiming to claim Belgium in year 1? As it is, there's no way for you to get three builds so curious which two you will prioritize.",
+      "split": "probe",
+      "complexity": 2183.0
+    },
+    {
+      "anchor_id": "s000_e0044",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "['Greetings!\\n\\nI was just wondering what your aims were regarding territory in the area? May I suggest that we keep Tyr as a DMZ for the time being?', 'Hi there, Italy!  In my experience, Austria and Italy fighting anytime before 1904 or so ends one way: they are both eliminated.  So keeping a DMZ is good (ideally find a way to keep all four of TRL, ADR, TRI and VEN as a DMZ) but even better would be a joint goal we can work together on.  Typically as Austria my thoughts are to keep Russia and Turkey from allying, and pick one side against the other.  If you wanted to go after Turkey with me, that could work, but if you wanted to go after France (with either English or German help), I could go after Russia with Turkish help.  In general, I guess I’m saying I’m willing to go almost any sensible way that goes along with an alliance which I can grow to trust 🙂', \"I was definitely thinking of going after France, as I find they can quickly spiral out of control if uncontested.\\n\\nMight be best if you go after Turkey with Russia and I'll focus my attention West\", 'Awesome.  I reached out to Russia and will let you know how that turns out. You have any indications that you’ll get any help against France? It can be a slow and annoying slog if you go 1:1 against them...', 'England seems to be interested, so hopefully we can nip France in the bud ASAP']",
+      "output": "So how did we want to move in Spring to set us both up to feel safe and not tightly entangled in each other’s business?  Any particular moves you have in mind, given what you’ve been hearing?",
+      "split": "probe",
+      "complexity": 2214.0
+    },
+    {
+      "anchor_id": "s000_e0031",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hey how's it going!? Hoping we can work together in this one. How you feeling about gal this year? Should we bounce there?\", \"Greetings Austria, nice to make your acquaintance.\\n\\nThis is definitely a unique game given the time constraints and high stakes. I intend to strike Northwest in an attempt to build a large fleet line extending across the North Atlantic. I need your cooperation to make this work, however. I need you to eliminate Turkey as a threat, and quickly so that I can turn my full attention North. Here is what I propose:\\n\\nI take RUM, but agree to take no centers South of RUM.\\nSpring 1901 I move A MOS-STP\\nWe both agree to a total DMZ in GAL\\nFall 1901 I will move A WAR North\\nI will use any available strength along my Southern border to support you in taking the Balkans and Turkey throughout the game.\\n\\nI think if we can both maintain trust you and I can hold the majority of centers between the two of us in 1910, and we'll both walk out of this game with the spoils. What do you think?\", 'Sounds interesting! What does A War do in the spring?', 'I think A WAR-MOS. It allows me to backfill and on the off chance you do stab me and move to GAL I can bounce WAR in the Autumn then build in WAR, to be frank.', \"Ok. So you want to take rum this year with your fleet? You're ok giving up the black sea? Or are you hoping for a DMZ there?\"]",
+      "output": "Bounce in the spring, hope for the DMZ in the fall",
+      "split": "probe",
+      "complexity": 2295.0
+    },
+    {
+      "anchor_id": "s000_e0043",
+      "segment_id": 0,
+      "segment_name": "task1590_diplomacy_text_generation",
+      "instruction": "You are given first 5 messages from a series of message exchanges between 2 persons playing the game of Diplomacy which is an American strategic board game. You need to generate the next message. The message should be generated such that it fits the context seen so far. Avoid the text that is (i) tangent to the context, (ii) repeats the context.",
+      "input_text": "[\"Hello Germany, nice to make your acquaintance. \\n\\nI've been thinking about this game alot, because the fact that it will only last until 1910 really changes my strategy. Add in that no one is likely to NMR and I believe it will be near impossible to solo. \\n\\nNormally when playing Russia I try to grab a couple German centers around 1904, allowing me to hold over the stalemate line setting up a solo when I conquer the East. Since I'm not intending to solo in this game, however, it doesn't make sense to go after your centers. It would be much better for both of us, I believe, to agree to a pact of non aggression. I could even offer some help against England, if there came a time when you wished that. What do you think?\", \"Interesting points.  I've been thinking about how the format and time limitation might change the game as well.\\n\\nFor transparency, England reached out to me as well, and generally I think Germany working with England is, in a vacuum, the best course.\\n\\nI'm fine with a non-aggression pact, but we need to set pretty clear ground rules - I'm significantly more vulnerable than you.  Interested in each of us setting up a proposal, and see how well they match?\", 'How about a commitment to something like the following through Spring 2003.  We can revisit or extend from there, and of course any of these are subject to specific agreement otherwise:\\n\\n- Total DMZ in SIL & PRU\\n- No German units in BoT or LVN\\n- Germany concedes Sweden, but only to be occupied by fleets.\\n- No Russian units in BAL\\n- No army builds in Berlin\\n- No army builds in StP\\n- Notify before a build in WAR\\n\\nWhat do you think?', 'I agree to all of those points.\\n\\nJust to be clear, England is not necessarily a target of mine, but if necessary I can act as an insurance policy against English aggression for you.', \"By the way, for whatever it's worth I am hearing talk coming back to me that you are looking to open north.  Again, it's spring '01, so talk is pretty cheap.  But just thought I'd flag it for you.\"]",
+      "output": "Talk is cheap, and after Spring resolution you will see that I fully intend to abide by our agreement. \n\nThe fact that you brought this up with me really builds trust with me. I did tell Austria that I was heading North West, but obviously that is a lie. I hope that you see it to be in your best interest to keep that confidential because I truly do intend to work with you all the way through 1910.",
+      "split": "probe",
+      "complexity": 3090.0
+    }
+  ]
+}

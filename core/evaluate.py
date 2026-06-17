@@ -10,6 +10,16 @@ from core.causal_lm_metrics import count_supervised_label_tokens, teacher_forced
 from core.data import Example, Segment
 from core.formatting import format_for_infer, format_for_train
 from core.train_labels import build_supervised_labels
+from core.metrics_utils import (
+    lcs_length as _lcs_length,
+    lcs_overlap as _lcs_overlap,
+    rouge_l_fscore as _rouge_l_fscore,
+    sentence_bleu4 as _sentence_bleu4,
+    starts_incorrectly as _starts_incorrectly,
+    token_f1 as _token_f1,
+)
+from core.normalize_answer import basic_answer_normalize as _basic_answer_normalize
+from core.normalize_answer import normalize_for_eval as _normalize
 
 
 @dataclass
@@ -23,6 +33,8 @@ class EvalResult:
     num_seen_segments: int
     token_f1_mean: float
     lcs_overlap_mean: float
+    rouge_l_mean: float
+    bleu_mean: float
     extra: Dict[str, Any]
 
 
@@ -190,6 +202,8 @@ def evaluate_stream(
     all_examples_for_dump: List[Dict[str, Any]] = []
     all_token_f1: List[float] = []
     all_lcs_overlap: List[float] = []
+    all_rouge_l: List[float] = []
+    all_bleu: List[float] = []
     all_task_aware_scores: List[float] = []
     task_score_type_counts: Dict[str, int] = {}
     all_prefix1: List[int] = []
@@ -212,6 +226,8 @@ def evaluate_stream(
         all_examples_for_dump.extend(seg_examples)
         all_token_f1.extend([float(x.get("token_f1", 0.0)) for x in seg_examples])
         all_lcs_overlap.extend([float(x.get("lcs_overlap", 0.0)) for x in seg_examples])
+        all_rouge_l.extend([float(x.get("rouge_l", 0.0)) for x in seg_examples])
+        all_bleu.extend([float(x.get("bleu", 0.0)) for x in seg_examples])
         all_task_aware_scores.extend([float(x.get("task_aware_score", 0.0)) for x in seg_examples])
         for x in seg_examples:
             score_type = str(x.get("task_score_type", "unknown"))
@@ -302,6 +318,8 @@ def evaluate_stream(
         },
         "token_f1_mean": float(sum(all_token_f1) / max(1, len(all_token_f1))),
         "lcs_overlap_mean": float(sum(all_lcs_overlap) / max(1, len(all_lcs_overlap))),
+        "rouge_l_mean": float(sum(all_rouge_l) / max(1, len(all_rouge_l))),
+        "bleu_mean": float(sum(all_bleu) / max(1, len(all_bleu))),
         "task_aware_score_mean": float(sum(all_task_aware_scores) / max(1, len(all_task_aware_scores))),
         "task_score_type_counts": task_score_type_counts,
         "prefix_1_match_mean": float(sum(all_prefix1) / max(1, len(all_prefix1))),
@@ -342,6 +360,8 @@ def evaluate_stream(
             num_seen_segments=int(len(segments_seen)),
             token_f1_mean=float(sum(all_token_f1) / max(1, len(all_token_f1))),
             lcs_overlap_mean=float(sum(all_lcs_overlap) / max(1, len(all_lcs_overlap))),
+            rouge_l_mean=float(sum(all_rouge_l) / max(1, len(all_rouge_l))),
+            bleu_mean=float(sum(all_bleu) / max(1, len(all_bleu))),
             extra=extra,
         )
     )
@@ -548,6 +568,8 @@ def _eval_segment(
         matched = norm_pred == norm_gold
         token_f1 = _token_f1(norm_pred, norm_gold)
         lcs_overlap = _lcs_overlap(norm_pred, norm_gold)
+        rouge_l = _rouge_l_fscore(norm_pred, norm_gold)
+        bleu = _sentence_bleu4(norm_pred, norm_gold)
         task_score = _score_task_aware(
             pred=pred,
             gold=y,
@@ -656,6 +678,8 @@ def _eval_segment(
                 **task_score,
                 "token_f1": float(token_f1),
                 "lcs_overlap": float(lcs_overlap),
+                "rouge_l": float(rouge_l),
+                "bleu": float(bleu),
                 "bad_prefix_mismatch": bool(bad_prefix),
                 "prefix_1_match": bool(prefix_1_match),
                 "prefix_3_match": bool(prefix_3_match),
@@ -713,35 +737,6 @@ def _merge_routing_stats(dst: Dict[str, Any], src: Dict[str, Any]) -> None:
     dst["confidence_sum"] += float(src.get("confidence_sum", 0.0))
     dst["entropy_sum"] += float(src.get("entropy_sum", 0.0))
     dst["oracle_margin_sum"] += float(src.get("oracle_margin_sum", 0.0))
-
-
-def _normalize(s: str, *, prompt: str, cfg: Dict[str, Any]) -> str:
-    text = str(s or "")
-    if bool(cfg.get("keep_text_after_output_marker", True)):
-        marker = "输出："
-        if marker in text:
-            text = text.split(marker)[-1]
-    # Optional truncation for strict EM debugging.
-    # Apply truncation consistently to prediction and gold.
-    if bool(cfg.get("truncate_at_first_blankline", False)):
-        text = text.split("\n\n", 1)[0]
-    elif bool(cfg.get("truncate_at_first_newline", False)):
-        text = text.split("\n", 1)[0]
-    if bool(cfg.get("truncate_at_first_sentence_end", False)):
-        import re
-        m = re.search(r"[.!?]", text)
-        if m is not None:
-            text = text[: m.end()]
-    if bool(cfg.get("remove_prompt_prefix", False)) and prompt and text.startswith(prompt):
-        text = text[len(prompt) :]
-    if bool(cfg.get("remove_special_tokens", True)):
-        for tok in ["<s>", "</s>", "<pad>", "<unk>", "[PAD]", "[EOS]", "[BOS]"]:
-            text = text.replace(tok, "")
-    if bool(cfg.get("strip_whitespace", True)):
-        text = text.strip()
-    if bool(cfg.get("lowercase", True)):
-        text = text.lower()
-    return text
 
 
 def _resolve_eval_max_new_tokens(
@@ -865,14 +860,6 @@ def _truncate_prediction_for_scoring(text: str, cfg: Dict[str, Any]) -> str:
     return out.strip()
 
 
-def _basic_answer_normalize(text: str) -> str:
-    out = str(text or "").strip().lower()
-    for tok in ["<s>", "</s>", "<pad>", "<unk>", "[pad]", "[eos]", "[bos]"]:
-        out = out.replace(tok, "")
-    out = re.sub(r"\s+", " ", out)
-    return out.strip(" \t\r\n\"'`。，,.!?;:()[]{}")
-
-
 def _extract_after_step(text: str) -> Optional[int]:
     m = re.search(r"\bafter\s+step\s*(\d+)\b", str(text or ""), flags=re.IGNORECASE)
     if m is None:
@@ -913,58 +900,6 @@ def _extract_label_like_answer(text: str, gold: str, *, instruction: str, input_
     if looks_classification and re.search(rf"(?<!\w){re.escape(gold_norm)}(?!\w)", first_chunk):
         return gold_norm
     return first_chunk if looks_classification and len(first_chunk.split()) <= 4 else None
-
-
-def _token_f1(pred: str, gold: str) -> float:
-    p = [t for t in pred.split() if t]
-    g = [t for t in gold.split() if t]
-    if not p and not g:
-        return 1.0
-    if not p or not g:
-        return 0.0
-    g_counts: Dict[str, int] = {}
-    for t in g:
-        g_counts[t] = g_counts.get(t, 0) + 1
-    tp = 0
-    for t in p:
-        c = g_counts.get(t, 0)
-        if c > 0:
-            tp += 1
-            g_counts[t] = c - 1
-    prec = tp / max(1, len(p))
-    rec = tp / max(1, len(g))
-    if prec + rec == 0:
-        return 0.0
-    return 2 * prec * rec / (prec + rec)
-
-
-def _lcs_overlap(pred: str, gold: str) -> float:
-    a = pred.split()
-    b = gold.split()
-    if not a or not b:
-        return 0.0
-    n, m = len(a), len(b)
-    dp = [0] * (m + 1)
-    for i in range(1, n + 1):
-        prev = 0
-        for j in range(1, m + 1):
-            cur = dp[j]
-            if a[i - 1] == b[j - 1]:
-                dp[j] = prev + 1
-            else:
-                dp[j] = max(dp[j], dp[j - 1])
-            prev = cur
-    lcs = dp[m]
-    return float(lcs / max(1, len(b)))
-
-
-def _starts_incorrectly(pred: str, gold: str) -> bool:
-    p = [t for t in pred.split() if t]
-    g = [t for t in gold.split() if t]
-    if not p or not g:
-        return False
-    k = min(3, len(p), len(g))
-    return p[:k] != g[:k]
 
 
 def _extract_instruction_from_prompt(prompt: str) -> str:

@@ -79,6 +79,13 @@ class Router:
         # Per-segment anchor centroid refresh for unfrozen prototypes (v8_sota_6+).
         self.segment_anchor_prototype_refresh = bool(cfg.get("segment_anchor_prototype_refresh", False))
         self.anchor_prototype_refresh_beta = float(cfg.get("anchor_prototype_refresh_beta", 0.25))
+        self.margin_filter_min_gap = float(cfg.get("margin_filter_min_gap", 0.0))
+        # Oracle PLL recalibration (sota-v1+): when eval oracle agreement drops below
+        # threshold, next segment runs extra prototype passes with faster EMA snap.
+        self.oracle_pll_recalibrate = bool(cfg.get("oracle_pll_recalibrate", False))
+        self.oracle_pll_min_agreement = float(cfg.get("oracle_pll_min_agreement", 0.55))
+        self.oracle_pll_bonus_steps = max(0, int(cfg.get("oracle_pll_bonus_steps", 2)))
+        self.oracle_pll_ema_override = float(cfg.get("oracle_pll_ema_override", 0.72))
         self._prototypes: Dict[str, torch.Tensor] = {}
         self._prototype_counts: Dict[str, int] = {}
 
