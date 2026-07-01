@@ -608,7 +608,7 @@ def _train_with_router(
                 lora.set_active_adapter(decision.branch_name)
                 out = model.fit_batch([(prompt, "")], [y], lr=lr)
                 apply_osft_projection(lora)
-            lora.step_adapter()
+                lora.step_adapter()
                 routed += 1
                 batch_accs.append(float(out.get("train_batch_acc", 0.0)))
             batches += 1
