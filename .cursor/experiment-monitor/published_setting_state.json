@@ -1,0 +1,14 @@
+{
+  "signature": {
+    "counts": {
+      "completed": 10
+    },
+    "running": [],
+    "tmux_alive": false,
+    "train_alive": false
+  },
+  "alerted": [
+    "failed:published_instrdialog_ours_s123:1"
+  ],
+  "last_check": "2026-06-16 04:53:54 CST"
+}

@@ -1,0 +1,4 @@
+method	url	status	commit	detail
+inf_lora	https://github.com/liangyanshuo/InfLoRA.git	exists		git checkout already exists; skipped clone
+adaptercl_dialogue	https://github.com/andreamad8/ToDCL.git	failed		exit=124; Cloning into '/root/autodl-tmp/Lora-code/external_baselines/adaptercl_dialogue'...
+arper_dialog_nlg	https://github.com/MiFei/Continual-Learning-for-NLG.git	exists		git checkout already exists; skipped clone

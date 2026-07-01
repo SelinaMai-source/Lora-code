@@ -1,0 +1,9 @@
+{
+  "url": "https://drive.google.com/drive/folders/1aQmnPmYGoQIYPK5jgbv4K4PXYYNwqisH?usp=sharing",
+  "gdown_version": "6.1.0",
+  "signature": "(url: 'str | None' = None, id: 'str | None' = None, output: 'str | None' = None, quiet: 'bool' = False, proxy: 'str | None' = None, speed: 'float | None' = None, use_cookies: 'bool' = True, verify: 'bool | str' = True, user_agent: 'str | None' = None, skip_download: 'bool' = False, resume: 'bool' = False) -> 'list[str] | list[GoogleDriveFileToDownload]'",
+  "status": "failed",
+  "time": "2026-06-21 02:29:39",
+  "error_type": "FileURLRetrievalError",
+  "error": "Failed to retrieve file url:\n\n\tOnly the owner and editors can download this file. If you'd like to\n\tdownload it, please contact the owner.\n\nYou may still be able to access the file from the browser:\n\n\thttps://drive.google.com/uc?id=1fTzoxxiClpboMBHPNfVxXjxjVzYgfB-f\n\nbut Gdown can't. Please check connections and permissions."
+}

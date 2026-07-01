@@ -1,0 +1,24 @@
+{
+  "last_status_report": "2026-06-23 19:49:56 UTC",
+  "strict_alignment": {
+    "strict_cells": 0,
+    "near_strict": 0,
+    "blocked": 0
+  },
+  "citb": {
+    "phase": null,
+    "detail": null,
+    "ft_ar": null,
+    "replay_ar": null
+  },
+  "gpu_train_count": 0,
+  "citb_tmux": [],
+  "last_tick": "2026-06-23 19:49:56 UTC",
+  "issues": [],
+  "auto_fixes": [
+    "restarted citb_replay_monitor",
+    "restarted ct0_download"
+  ],
+  "pending_agent": null,
+  "pending_action": null
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The girl received a trophy.\nChoice 1: She won a spelling bee.\nChoice 2: She made a new friend.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The boy's hands were shaking.\nChoice 1: He planned to ask the girl out.\nChoice 2: His palms were cold and sweaty.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: It got dark outside.\nChoice 1: Snowflakes began to fall from the sky.\nChoice 2: The moon became visible in the sky.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: My stomach growled.\nChoice 1: I forgot to eat breakfast.\nChoice 2: I was full from breakfast.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: Marine life diminished.\nChoice 1: Boats sailed through the ocean.\nChoice 2: Oil spilled into the ocean.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The bureau drawers were cluttered.\nChoice 1: I threw away unnecessary contents.\nChoice 2: I locked the drawers shut.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The man craved a cigarette.\nChoice 1: His family urged him to quit smoking.\nChoice 2: He was addicted to nicotine.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The man lifted the heavy box.\nChoice 1: He put out his back.\nChoice 2: He scratched his back.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: I excused myself from the group.\nChoice 1: I turned off my phone.\nChoice 2: My phone rang.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The woman deleted the email.\nChoice 1: The sender tried to solicit money from her.\nChoice 2: The sender requested a response from her.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: Cars moved to the shoulder of the road.\nChoice 1: The traffic light turned green.\nChoice 2: A screaming ambulance approached.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The woman's makeup smeared.\nChoice 1: She brushed her hair.\nChoice 2: She wiped her eyes.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The investigators deemed the man's death a suicide.\nChoice 1: He left a note.\nChoice 2: He had children.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The girl came across an unfamiliar word in her textbook.\nChoice 1: She looked the term up in the dictionary.\nChoice 2: She chucked the textbook across the room.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The politician lost the election.\nChoice 1: He ran negative campaign ads.\nChoice 2: No one voted for him.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: I needed to get cash.\nChoice 1: I went to the bank.\nChoice 2: I bought a wallet.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The flashlight was dead.\nChoice 1: I took it apart.\nChoice 2: I replaced the batteries.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: A water pipe in the house burst.\nChoice 1: The water was unsanitary.\nChoice 2: The pipe froze.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The bananas ripened.\nChoice 1: We squeezed them.\nChoice 2: We ate them.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: I scratched my skin.\nChoice 1: My itch went away.\nChoice 2: My scar faded.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The book was deemed inappropriate for children.\nChoice 1: Schools banned it from its libraries.\nChoice 2: Teachers required students to read it.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The soldiers were concealed in the brush.\nChoice 1: They were armed with rifles.\nChoice 2: They wore camouflage uniforms.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The customer filed a complaint with the store manager.\nChoice 1: The sales associate undercharged the customer.\nChoice 2: The sales associate acted rude to the customer.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: I botched the job interview.\nChoice 1: The interviewer asked difficult questions.\nChoice 2: I anticipated the interviewer's questions.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The man caught his shirtsleeve on the rungs of the fence.\nChoice 1: He hopped the fence.\nChoice 2: The sleeve ripped.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The truck crashed into the motorcycle on the bridge.\nChoice 1: The motorcyclist died.\nChoice 2: The bridge collapsed.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The mother scolded her daughter.\nChoice 1: Her daughter burped at the kitchen table.\nChoice 2: Her daughter set the kitchen table.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: A group of teenagers crashed the party.\nChoice 1: The host of the party kicked them out.\nChoice 2: The host of the party invited them in.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The boy felt homesick.\nChoice 1: He went away to camp.\nChoice 2: He bickered with his sister.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The friends' dinnertime conversation turned to politics.\nChoice 1: The conversation quieted down.\nChoice 2: A debate erupted.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The girl gasped.\nChoice 1: Her friend stuck an ice cube down her back.\nChoice 2: Her friend gave her a pat on the back.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: My breath smelled of garlic.\nChoice 1: I wiped my mouth.\nChoice 2: I brushed my teeth.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The skier slipped on the slope.\nChoice 1: She dropped her ski poles.\nChoice 2: She hit a patch of ice.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The bar closed.\nChoice 1: It was crowded.\nChoice 2: It was 3 AM.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The girl stared at herself in the mirror.\nChoice 1: She felt self-conscious.\nChoice 2: The mirror was smudged.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: A crater formed on the moon.\nChoice 1: A comet passed by the moon.\nChoice 2: A comet collided with the moon.\nQuestion type: cause",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The police closed the investigation.\nChoice 1: They apprehended the suspect.\nChoice 2: The victim recovered.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The host served dinner to his guests.\nChoice 1: His guests were gracious.\nChoice 2: His guests went hungry.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The speaker disarmed her debate opponent.\nChoice 1: The speaker congratulated her opponent.\nChoice 2: The speaker won the debate.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The putrid odor filled the room.\nChoice 1: I clamped my hand over my nose.\nChoice 2: I put the rubber gloves on.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The company's profits started to level off.\nChoice 1: It increased its marketing efforts for new products.\nChoice 2: It moved its headquarters to a suburban location.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The product was heavily advertised.\nChoice 1: Consumers recognized the product.\nChoice 2: The product became outdated.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The papers were disorganized.\nChoice 1: I made photocopies of them.\nChoice 2: I put them into alphabetical order.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The bodybuilder lifted weights.\nChoice 1: The gym closed.\nChoice 2: Her muscles became fatigued.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The man was lost.\nChoice 1: He asked for directions.\nChoice 2: He drew a map.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: I applied pressure to the cut on my arm.\nChoice 1: It healed.\nChoice 2: It stopped bleeding.\nQuestion type: effect",
+    "label": "choice2"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The man revealed personal information to the therapist.\nChoice 1: He trusted the therapist.\nChoice 2: He disagreed with the therapist.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The boy pushed his sister.\nChoice 1: His sister tattled on him.\nChoice 2: They played hide and seek.\nQuestion type: effect",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The photo albums collected dust in the attic.\nChoice 1: They remained untouched for years.\nChoice 2: The family reminisced over the photos.\nQuestion type: cause",
+    "label": "choice1"
+  },
+  {
+    "sentence": "Choose the more plausible cause or effect. Answer with choice1 or choice2.\nPremise: The gardener pulled the weeds.\nChoice 1: The weeds came out of the soil.\nChoice 2: The weeds produced seeds.\nQuestion type: effect",
+    "label": "choice1"
+  }
+]

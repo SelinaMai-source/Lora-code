@@ -1,0 +1,657 @@
+{
+  "summary": {
+    "num_core": 32,
+    "num_probe": 32,
+    "num_total": 64,
+    "core_segment_ids": [
+      0
+    ],
+    "probe_segment_ids": [
+      0
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s000_e0030",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "figs",
+      "output": "Find information on nutritional or health benefits of figs.",
+      "split": "core",
+      "complexity": 453.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "core",
+      "complexity": 473.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Pocono",
+      "output": "Find general information on tourist activities in Pennsylvania\\'s Pocono Mountains.",
+      "split": "probe",
+      "complexity": 473.0
+    },
+    {
+      "anchor_id": "s000_e0083",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about kansas city mo",
+      "output": "What are some Kansas City, MO tourist attractions?",
+      "split": "probe",
+      "complexity": 479.0
+    },
+    {
+      "anchor_id": "s000_e0012",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "I'd like to learn about moths",
+      "output": "Find information about and pictures of moths and butterflies.",
+      "split": "probe",
+      "complexity": 480.0
+    },
+    {
+      "anchor_id": "s000_e0086",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "How to register dmv in va?",
+      "output": "information and procedures for registering vehicles in Virginia",
+      "split": "probe",
+      "complexity": 483.0
+    },
+    {
+      "anchor_id": "s000_e0079",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "tell me about evidence for evolution",
+      "output": "What are the current scientific theories of and data on evolution?",
+      "split": "probe",
+      "complexity": 485.0
+    },
+    {
+      "anchor_id": "s000_e0087",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "I’m looking for information on worm",
+      "output": "Find information about computer worms, viruses, and spyware.",
+      "split": "probe",
+      "complexity": 486.0
+    },
+    {
+      "anchor_id": "s000_e0063",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "What are the causes of lipoma tumors",
+      "output": "What are the causes of lipoma tumors in humans?",
+      "split": "probe",
+      "complexity": 487.0
+    },
+    {
+      "anchor_id": "s000_e0025",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "What are the best recepies for grilling",
+      "output": "Find kabob recipes.",
+      "split": "probe",
+      "complexity": 490.0
+    },
+    {
+      "anchor_id": "s000_e0082",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "I'd like to learn about lymphoma in dogs",
+      "output": "What treatments are available for dogs diagnosed with lymphoma?",
+      "split": "probe",
+      "complexity": 491.0
+    },
+    {
+      "anchor_id": "s000_e0096",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about Obama family tree.",
+      "output": "Find information on President Barack Obama\\'s family history, including genealogy, national origins, places and dates of birth, etc.",
+      "split": "probe",
+      "complexity": 491.0
+    },
+    {
+      "anchor_id": "s000_e0069",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "What is martha stewart and imclone?",
+      "output": "find information/timeline about Martha Stewart\\'s insider trading case",
+      "split": "probe",
+      "complexity": 492.0
+    },
+    {
+      "anchor_id": "s000_e0067",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "How to prepare for the GMAT?",
+      "output": "I\\'m looking for information to help me prepare for the GMAT exam.",
+      "split": "probe",
+      "complexity": 493.0
+    },
+    {
+      "anchor_id": "s000_e0038",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me information about a sore throat.",
+      "output": "What causes a sore throat?",
+      "split": "probe",
+      "complexity": 497.0
+    },
+    {
+      "anchor_id": "s000_e0057",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Tell me about the pacific northwest laboratory.",
+      "output": "career opportunities at PNL: what openings are currently available, what educational background is required, what prior experience is needed",
+      "split": "probe",
+      "complexity": 504.0
+    },
+    {
+      "anchor_id": "s000_e0058",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "How to write a thank you letter after an interview?",
+      "output": "Get help on writing a thank-you letter after a job interview.",
+      "split": "probe",
+      "complexity": 508.0
+    },
+    {
+      "anchor_id": "s000_e0048",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "What was electoral college 2008 results?",
+      "output": "What were the results of the electoral college for the 2008 US presidential race?",
+      "split": "probe",
+      "complexity": 513.0
+    },
+    {
+      "anchor_id": "s000_e0049",
+      "segment_id": 0,
+      "segment_name": "task1713_convai3_sentence_generation",
+      "instruction": "You are given a request sent by a user in a human and computer dialogue. Your task is to generate a prediction of what the requester is actually trying to do. The input is a sentence written by the human user, trying to achieve certain objective through this human computer interaction, and the output should be a sentence or two succinctly describing the human user's objective mentioned previously.",
+      "input_text": "Looking for information about the Orange County Convention Center",
+      "output": "Looking for information about the Orange County Convention Center in Orlando, Florida.",
+      "split": "probe",
+      "complexity": 524.0
+    }
+  ]
+}

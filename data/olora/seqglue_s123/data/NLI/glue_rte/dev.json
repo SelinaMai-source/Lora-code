@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: Teenage sensation Wayne Rooney powered England into the quarter-finals of Euro 2004 with two goals in Monday's 4-2 defeat of Croatia and they were joined in the last eight by champions France who beat Switzerland 3-1.\nSentence 2: France participates in Euro 2004.",
+    "label": "not_entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: Rolling Stone, one of the music industry's foremost publications, has found itself reporting false news gleaned from a Wikipedia article. The online edition of the magazine's Rock & Roll Daily released an article entitled \"Halle Berry Set to Ruin Reputation...\" on December 11, reporting on the news that the actor had announced her intentions to release a musical album. The story was quickly picked up by the Washington Post, All Headline News and other news agencies eager to report on the Academy Award-winning actress' foray into the musical world. The only trouble is, according to one of the album's alleged producers, Scott Storch, there is no such album...and he definitely hasn't produced three songs for it.\nSentence 2: Halle Berry works with Scott Storch.",
+    "label": "entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: Police in the Lower Austrian town of Amstetten have arrested a 73 year old man who is alleged to have kept his daughter, now aged 42, locked in the cellar of his house in Amstetten since 29th August 1984. The man, identified by police as Josef Fritzl, is alleged to have started sexually abusing his daughter, named as Elisabeth Fritzl, when she was eleven years old, and to have subsequently fathered seven children by her. One of the children, one of a set of twins born in 1996, died of neglect shortly after birth and the body was burned by the father.\nSentence 2: Amstetten is located in Austria.",
+    "label": "not_entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: New security steps taken by the Customs Service may not be enough to stop a terrorist from smuggling in nuclear weapons.\nSentence 2: Steps are being taken to stop the smuggling of aliens.",
+    "label": "entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: Today's best estimate of giant panda numbers in the wild is about 1,100 individuals living in up to 32 separate populations mostly in China's Sichuan Province, but also in Shaanxi and Gansu provinces.\nSentence 2: There are 32 pandas in the wild in China.",
+    "label": "entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: The sunset, touching distant hills with ribbons of fire across the waters of the Dead Sea, brings a sense of unreality to culminate a day's visit to the lowest point on earth, some 400 meters below sea level.\nSentence 2: The lowest point on earth is at the Dead Sea.",
+    "label": "not_entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: For US pharmaceutical companies, the impending healthcare reforms promise an era of increased cost-containment and pricing controls.\nSentence 2: The US government wants to keep drug prices down.",
+    "label": "not_entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: Note that SBB, CFF and FFS stand out for the main railway company, in German, French and Italian.\nSentence 2: The French railway company is called SNCF.",
+    "label": "entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: Mount Olympus towers up from the center of the earth.\nSentence 2: Mount Olympus is in the center of the earth.",
+    "label": "not_entailment"
+  },
+  {
+    "sentence": "Does the first sentence entail the second? Answer with entailment or not_entailment.\nSentence 1: FMLN reports to our people, and to the people of the world, that the massacre against the Salvadoran Workers National Union Federation [Fenastras] was carried out by Colonel Elena Fuente, as the head of the morbid death squad of the army's 1st Infantry Brigade, in response to our military attack on the army staff.\nSentence 2: Fenastras was attacked by FMLN.",
+    "label": "entailment"
+  }
+]

@@ -1,0 +1,102 @@
+{
+  "current_score": 0.31,
+  "seen_avg_score": 0.155,
+  "current_task_aware_score": 0.31,
+  "seen_avg_task_aware_score": 0.155,
+  "forgetting": 0.0,
+  "task_aware_forgetting": 0.0,
+  "num_seen_segments": 2,
+  "token_f1_mean": 0.155,
+  "lcs_overlap_mean": 0.155,
+  "rouge_l_mean": 0.155,
+  "bleu_mean": 0.575,
+  "slot_error_rate": 0.0,
+  "extra": {
+    "per_segment_accuracy": [
+      {
+        "segment_id": 0,
+        "accuracy": 0.0
+      },
+      {
+        "segment_id": 1,
+        "accuracy": 0.31
+      }
+    ],
+    "per_segment_task_aware_accuracy": [
+      {
+        "segment_id": 0,
+        "task_aware_accuracy": 0.0
+      },
+      {
+        "segment_id": 1,
+        "task_aware_accuracy": 0.31
+      }
+    ],
+    "anytime_score": 0.155,
+    "anytime_task_aware_score": 0.155,
+    "forgetting_by_segment": [
+      {
+        "segment_id": 0,
+        "accuracy": 0.0,
+        "best_historical_accuracy": 0.0,
+        "forgetting": 0.0
+      },
+      {
+        "segment_id": 1,
+        "accuracy": 0.31,
+        "best_historical_accuracy": 0.31,
+        "forgetting": 0.0
+      }
+    ],
+    "task_aware_forgetting_by_segment": [
+      {
+        "segment_id": 0,
+        "task_aware_accuracy": 0.0,
+        "best_historical_task_aware_accuracy": 0.0,
+        "task_aware_forgetting": 0.0
+      },
+      {
+        "segment_id": 1,
+        "task_aware_accuracy": 0.31,
+        "best_historical_task_aware_accuracy": 0.31,
+        "task_aware_forgetting": 0.0
+      }
+    ],
+    "routing": {
+      "num_routed": 200,
+      "branch_counts": {
+        "b0": 200
+      },
+      "oracle_best_branch_counts": {
+        "b0": 200
+      },
+      "oracle_agreement_count": 200,
+      "oracle_num_examples": 200,
+      "confidence_sum": 200.0,
+      "entropy_sum": -2.0001778011636796e-10,
+      "oracle_margin_sum": 0.0,
+      "branch_utilization": {
+        "b0": 1.0
+      },
+      "decision_confidence_mean": 1.0,
+      "decision_entropy_mean": -1.0000889005818398e-12,
+      "oracle_agreement_rate": 1.0,
+      "oracle_margin_mean": 0.0
+    },
+    "token_f1_mean": 0.155,
+    "lcs_overlap_mean": 0.155,
+    "rouge_l_mean": 0.155,
+    "bleu_mean": 0.575,
+    "slot_error_rate": 0.0,
+    "slot_error_count": 0,
+    "task_aware_score_mean": 0.155,
+    "task_score_type_counts": {
+      "label_accuracy": 200
+    },
+    "prefix_1_match_mean": 0.155,
+    "prefix_3_match_mean": 0.155,
+    "prefix_5_match_mean": 0.155,
+    "num_bad_prefix_mismatch": 168,
+    "likely_assistant_start_or_continuation_boundary": true
+  }
+}

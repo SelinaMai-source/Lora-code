@@ -1,0 +1,7 @@
+{
+  "repo_id": "ThomasNLG/CT0-11B",
+  "filename": "pytorch_model.bin",
+  "local_dir": "assets/pretrained/continual_t0/CT0-11B",
+  "status": "running",
+  "started_at": "2026-06-22 03:10:13"
+}

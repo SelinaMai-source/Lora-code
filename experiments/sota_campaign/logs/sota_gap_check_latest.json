@@ -1,0 +1,16 @@
+{
+  "run": "citb_instrdialog_order1_seed1_ours_v1_strict",
+  "final_metrics_path": "/root/autodl-tmp/Lora-code/experiments/sota_campaign/v1_citb_kalman_drift/results/runs/citb_instrdialog_order1_seed1_ours_v1_strict/final_metrics.json",
+  "extracted": {
+    "rouge_l_ar": 5.578947368421053,
+    "bwt": 0.0
+  },
+  "all_pass": false,
+  "failures": [
+    "suite1a_order1:rouge_l_ar=5.578947368421053 (need ge 44.44)",
+    "suite1a_order1:fwt=MISSING (need ge 26.07)",
+    "suite1a_order1:bwt=0.0 (need ge 1.76)",
+    "suite1a_order1:t_init=MISSING (need ge 51.81)",
+    "suite1a_order1:t_unseen=MISSING (need ge 38.39)"
+  ]
+}

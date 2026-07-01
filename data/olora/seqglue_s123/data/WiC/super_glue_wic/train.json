@@ -1,0 +1,202 @@
+[
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: be\nSentence 1: I shall be writing to you soon.\nSentence 2: He is a herpetologist.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: authority\nSentence 1: Respect my authority!\nSentence 2: I have the authority to penalise the staff in my department, but not the authority to sack them.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: year\nSentence 1: In the year 1920.\nSentence 2: She is 4 years old.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: get\nSentence 1: We'll get them!\nSentence 2: Get me those books over there, please.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: day\nSentence 1: He was a successful pianist in his day.\nSentence 2: In the days of the Roman Empire.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: drug\nSentence 1: You look like someone drug you behind a horse for half a mile.\nSentence 2: They drugged the kidnapped tourist.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: check\nSentence 1: A check on its dependability under stress.\nSentence 2: He paid all his bills by check.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: draw\nSentence 1: Draw the curtains.\nSentence 2: Draw a conclusion.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: top\nSentence 1: I bought this top as it matches my jeans.\nSentence 2: A relief pitcher took over in the top of the fifth.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: ski\nSentence 1: We love to ski the Rockies.\nSentence 2: My children don't ski.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: floor\nSentence 1: The floor of the pelvis.\nSentence 2: He is a floor trader.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: communicate\nSentence 1: Many deaf people communicate with sign language.\nSentence 2: He and his sons haven't communicated for years.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: leak\nSentence 1: I have to take a leak.\nSentence 2: The leaks by Chelsea Manning showed the secrets of the US military.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: communication\nSentence 1: How many lines of communication can there be among four people?\nSentence 2: A round archway at the far end of the hallway provided communication to the main chamber.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: consummate\nSentence 1: Consummate a marriage.\nSentence 2: After the reception, he escorted her to the honeymoon suite to consummate their marriage.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: number\nSentence 1: In English the subject and the verb must agree in number.\nSentence 2: I hope to become one of their number before I die.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: have\nSentence 1: The only girl who would have him was the miller's daughter.\nSentence 2: I won't have this dog in my house!",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: beat\nSentence 1: We beat the competition.\nSentence 2: Agassi beat Becker in the tennis championship.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: war\nSentence 1: The war on poverty.\nSentence 2: The \"war on terror\" is a campaign against terrorist crime.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: charge\nSentence 1: There will be a charge of five dollars.\nSentence 2: The admission charge.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: stretch\nSentence 1: Stretch out that piece of cloth.\nSentence 2: The rubber band stretched almost to the breaking point.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: vocabulary\nSentence 1: My Russian vocabulary is very limited.\nSentence 2: The vocabulary of any language is influenced by contacts with other cultures.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: gather\nSentence 1: Gather some stones.\nSentence 2: The teacher gathered the kids together.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: field\nSentence 1: Anthropologists do much of their work in the field.\nSentence 2: He needs some time in the field before his judgment can be trusted.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: quality\nSentence 1: While being impulsive can be great for artists, it is not a desirable quality for engineers.\nSentence 2: One of the qualities of pure iron is that it does not rust easily.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: strike\nSentence 1: We must strike the enemy's oil fields.\nSentence 2: In the fifth inning, the Giants struck, sending three runners home to win the game 5 to 2.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: case\nSentence 1: The accusative case canonically indicates a direct object.\nSentence 2: A case of the jitters.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: believe\nSentence 1: Should we believe a publication like the National Enquirer?\nSentence 2: You can not believe this man.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: touch\nSentence 1: The cooling touch of the night air.\nSentence 2: There was a touch of sarcasm in his tone.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: work\nSentence 1: Can you work an electric drill?\nSentence 2: Work the metal into a sword.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: clap\nSentence 1: If your dick has \"the drip\" you probably have the clap and need to go to the sex clinic.\nSentence 2: Off in the distance, he heard the clap of thunder.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: visibility\nSentence 1: The visibility from that angle was good.\nSentence 2: Low visibility caused by fog.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: owe\nSentence 1: I still owe for the car.\nSentence 2: The thesis owes much to his adviser.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: softness\nSentence 1: The climate had the softness of the south of France.\nSentence 2: Softness is not something permitted of good leaders.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: cut\nSentence 1: If you cut then I'll deal.\nSentence 2: She cut the deck for a long time.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: pull\nSentence 1: You'll be sent home if you pull another stunt like that.\nSentence 2: Pull your knees towards your chin.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: call\nSentence 1: He placed a phone call to London.\nSentence 2: She reported several anonymous calls.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: energy\nSentence 1: Jogging works off my excess energy.\nSentence 2: Europeans often laugh at American energy.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: occasion\nSentence 1: Having people round for dinner was always quite an occasion at our house.\nSentence 2: It was needed only on special occasions.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: breath\nSentence 1: He was fighting to his last breath.\nSentence 2: Not a breath of scandal ever touched her.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: recognition\nSentence 1: The law was a recognition of their civil rights.\nSentence 2: The recognition of the Rio Grande as a boundary between Mexico and the United States.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: furniture\nSentence 1: They had too much furniture for the small apartment.\nSentence 2: A chair is furniture. Sofas are also furniture.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: beat\nSentence 1: Beat the subway fare.\nSentence 2: Beat a path through the forest.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: cover\nSentence 1: The cover concealed their guns from enemy aircraft.\nSentence 2: They made a cover of a Beatles' song.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: start\nSentence 1: I start at eight in the morning.\nSentence 2: The rain started at 9:00.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: grip\nSentence 1: The grip of a sword.\nSentence 2: It was an old briefcase but it still had a good grip.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: evil\nSentence 1: Attempts to explain the origin of evil in the world.\nSentence 2: Don't go giving me evils!",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: answer\nSentence 1: Answer the door.\nSentence 2: She answered the door.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: make\nSentence 1: Make lead into gold.\nSentence 2: We barely made the plane.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: foulness\nSentence 1: His display of foulness deserved severe punishment.\nSentence 2: He understood the foulness of sin.",
+    "label": "true"
+  }
+]

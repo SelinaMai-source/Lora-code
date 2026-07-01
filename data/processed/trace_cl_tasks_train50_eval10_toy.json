@@ -1,0 +1,62 @@
+{
+  "benchmark": "TRACE",
+  "version": "trace_train50_eval10_v1_toy",
+  "stream": [
+    {
+      "segment_id": 0,
+      "segment_name": "C-STANCE",
+      "train": [
+        {
+          "instruction": "判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。",
+          "input": "文本：该政策有助于稳定就业市场。对象：央行降息。",
+          "output": "A"
+        },
+        {
+          "instruction": "判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。",
+          "input": "文本：企业利润受到挤压。对象：加息。",
+          "output": "B"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。",
+          "input": "文本：该政策有助于稳定就业市场。对象：央行降息。",
+          "output": "A"
+        },
+        {
+          "instruction": "判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。",
+          "input": "文本：企业利润受到挤压。对象：加息。",
+          "output": "B"
+        }
+      ]
+    },
+    {
+      "segment_id": 1,
+      "segment_name": "FOMC",
+      "train": [
+        {
+          "instruction": "What is the monetary policy stance for the following text? A. dovish, B. hawkish, C. neutral. Choose one from A, B and C.",
+          "input": "The committee expects further gradual increases in the target range.",
+          "output": "B"
+        },
+        {
+          "instruction": "What is the monetary policy stance for the following text? A. dovish, B. hawkish, C. neutral. Choose one from A, B and C.",
+          "input": "Inflation has eased but remains elevated.",
+          "output": "C"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "What is the monetary policy stance for the following text? A. dovish, B. hawkish, C. neutral. Choose one from A, B and C.",
+          "input": "The committee expects further gradual increases in the target range.",
+          "output": "B"
+        },
+        {
+          "instruction": "What is the monetary policy stance for the following text? A. dovish, B. hawkish, C. neutral. Choose one from A, B and C.",
+          "input": "Inflation has eased but remains elevated.",
+          "output": "C"
+        }
+      ]
+    }
+  ]
+}

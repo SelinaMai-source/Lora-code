@@ -1,0 +1,2 @@
+2026-06-24T06:06:07+08:00 needs_optimization see logs/sota_gap_check_latest.json
+2026-06-24T15:29:48+08:00 needs_optimization see logs/sota_gap_check_latest.json

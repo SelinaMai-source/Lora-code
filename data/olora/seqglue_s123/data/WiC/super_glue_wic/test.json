@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: detention\nSentence 1: His detention was politically motivated.\nSentence 2: The detention of tardy pupils.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: experience\nSentence 1: A surprising experience.\nSentence 2: Experience is the best teacher.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: strain\nSentence 1: Don't strain your mind too much.\nSentence 2: The rope strained when the weight was attached.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: return\nSentence 1: Return her love.\nSentence 2: Return a compliment.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: twist\nSentence 1: Don't twist my words.\nSentence 2: Twist the dough into a braid.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: squeaker\nSentence 1: Which hinge is the squeaker?\nSentence 2: Those sneakers are squeakers.",
+    "label": "true"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: afflict\nSentence 1: Afflict with the plague.\nSentence 2: She was afflicted by the death of her parents.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: bull\nSentence 1: He was a bull of a man.\nSentence 2: He made a bad bull of the assignment.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: crash\nSentence 1: You can crash here, though it's not very comfortable.\nSentence 2: The terrorists crashed the plane into the palace.",
+    "label": "false"
+  },
+  {
+    "sentence": "Does the word have the same meaning in both sentences? Answer with true or false.\nWord: roll\nSentence 1: The roll of a ball.\nSentence 2: Look at the roll of the waves.",
+    "label": "true"
+  }
+]

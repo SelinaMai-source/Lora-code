@@ -1,0 +1,202 @@
+[
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: A three-judge panel of the 11th U.S. Circuit Court of Appeals ruled late Friday that the small size , limited use and secular purpose make the image legitimate .\nSentence 2: A three-judge panel of the 8th U.S. Circuit Court of Appeals in St. Louis overturned a ruling issued last year that supported the ordinance .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: A monthlong grace period in New York City ended May 1 , and now bars and restaurants that allow people to puff can face hefty fines .\nSentence 2: In New York City , bars and restaurants that allow people to smoke can face hefty fines .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The dead woman was also wearing a ring and a Cartier watch .\nSentence 2: \" It 's a blond-haired woman wearing a Cartier watch on her wrist , \" the source said .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: A race observer sits in the passenger seat of the vehicle following the contestant car to record broken rules and track of the car 's time .\nSentence 2: A race observer sits in the passenger seat of the follow vehicle to record any broken rules and also keep track of the car 's time .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The effort is the Bush administration 's latest effort to expand the role of religious organizations in government services .\nSentence 2: July 10 - The Bush administration 's latest effort to expand the role of religious organizations in government services enlists church-based youth groups in anti-drug programs .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: He beat testicular cancer that had spread to his lungs and brain .\nSentence 2: Armstrong , 31 , battled testicular cancer that spread to his brain .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Significantly , it made no mention of the role of terrorist organisation Jemah Islamiyah , accused of being behind the attacks .\nSentence 2: The address made no mention of the role of terrorist organisation Jemaah Islamiyah , which was behind the attacks .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: \" The strength of demand for credit increases the danger associated with delaying ( a rate rise ) that is called for on general macroeconomic grounds , \" Mr Macfarlane said .\nSentence 2: The strength of demand for credit increases the danger associated with delaying a tightening of policy that is called for on general macroeconomic grounds . \"",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Researchers at Sweden 's Karolinska Institute reanalyzed data from more than 2,000 infants who had been treated with radiation for a benign birthmark condition between 1930 and 1959 .\nSentence 2: Researchers at Sweden 's Karolinska Institute recently went over data from more than 2,000 children treated with radiation for a harmless birthmark condition between 1930 and 1959 .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The Standard & Poor 's 500 index advanced 5.37 , or 0.5 percent , to 1,020.18 .\nSentence 2: The Standard & Poor 's paper products index .GSPPAPR was one of the leading sectors , up 2 percent .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: GM 's offering is also expected to include about $ 3.5 billion in convertible securities .\nSentence 2: GM is also expected to issue $ 3.5 billion via a convertible bond offering , market sources said .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The Dow Jones industrials climbed more than 140 points to above the 9,000 mark , the first time since December .\nSentence 2: The Dow Jones industrials briefly surpassed the 9,000 mark for the first time since December . \"",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Those searches have not found stockpiles of chemical and biological weapons or significant evidence of a nuclear weapons program .\nSentence 2: Alleged stockpiles of chemical and biological weapons have not turned up , nor has significant evidence of a nuclear-weapons program .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Putin hailed Saudi Arabia as ``one of the most important Muslim nations .\nSentence 2: Before the meeting , Putin said Russia regards Saudi Arabia as a key Muslim state .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: As of Tuesday , almost 250 health-care workers were in quarantine .\nSentence 2: In addition , 6,800 people were in quarantine and thousands of health-care workers in working quarantine .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: He was arrested Tuesday night at a northwest Atlanta tire shop after a national manhunt .\nSentence 2: He was arrested in Atlanta , Georgia , on Monday night by police acting on a tip-off .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: \" Contrary to the court 's decision , we firmly believe Congress gave the FTC authority to implement the national Do Not Call list .\nSentence 2: \" Contrary to the court 's decision , we firmly believe Congress gave the F.T.C. authority to implement the national do-not-call list , \" the congressmen said in a statement .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The center 's president , Joseph Torsella , was struck on the head but was able to walk to an ambulance .\nSentence 2: National Constitution Center President Joseph Torsella was hit in the head and knocked to his knees .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: NEC is pitching its wireless gear and management software to a variety of industries , including health care and hospitality .\nSentence 2: NEC 's pitching its wireless gear and management software to a variety of industries , including healthcare and hospitality , a company spokesman said .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Shirley Hazzard and Edward P. Jones , both of whom needed more than a decade to complete their current novels , are among this year 's nominees .\nSentence 2: Shirley Hazzard and Edward P. Jones , both of whom needed more than a decade to complete their current novels , were also among the fiction finalists announced Wednesday .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: They returned in 1999 after rebel raids on a neighboring Russian region and a series of deadly apartment-building bombings that were blamed on the rebels .\nSentence 2: In 1999 , troops returned after rebel raids on a neighbouring Russian region and a series of deadly apartment-house bombings in Russian cities that were blamed on the rebels .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: All five suspects were charged with robbery and criminal impersonation of a police officer .\nSentence 2: The teens are being held on charges of robbery and criminal impersonation of a police officer , sources said .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: On April 11 , Mayor Bart Peterson said it was \" inconceivable \" that the airline would resume operations at the base that had employed 1,500 workers , including 1,100 mechanics .\nSentence 2: On April 11 , Mayor Bart Peterson conceded that the facility 's fate was inevitable , quashing the hopes of the airline 's 1,500 local workers , including 1,100 mechanics .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Last year the court upheld Cleveland 's school voucher program , ruling 5-4 that vouchers are constitutional if they provide parents a choice of religious and secular schools .\nSentence 2: Last year , the court ruled 5-4 in an Ohio case that government vouchers are constitutional if they provide parents with choices among a range of religious and secular schools .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The decision means that Qarase must invite up to eight Labor Party members into cabinet .\nSentence 2: Mr Qarase must now invite up to eight Labour Party members into cabinet .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Defense Secretary Donald Rumsfeld is awaiting recommendations from his commanders .\nSentence 2: Rumsfeld is awaiting recommendations from his commanders about troop needs in Iraq .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Late trading : Placing a buy order for a mutual fund after 4 p.m. ET and getting it at that day 's closing net asset value .\nSentence 2: Forward pricing : Law that states mutual fund shares bought after 4 p.m. ET are priced at the next day 's closing net asset value .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: PeopleSoft 's board now has 10 business days to evaluate the Oracle offer and make a recommendation to its shareholders .\nSentence 2: Nevertheless , PeopleSoft must review Oracle 's tender offer and make a recommendation to shareholders .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: \" It ends tonight , \" a grim Keanu Reeves announces , in the trailer for The Matrix Revolutions .\nSentence 2: Keanu Reeves and Hugo Weaving in a scene from the motion picture The Matrix Revolutions .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Prosecutors said Paracha , if convicted , could face at least 17 years in prison .\nSentence 2: Paracha faces at least 17 years in prison if convicted .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: \" Clearly it is a tragic day for Americans , \" he said in Washington .\nSentence 2: \" It 's clearly a tragic day for America , \" Defense Secretary Donald H. Rumsfeld said in Washington .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The technology-laced Nasdaq Composite Index < .IXIC > was up 7.42 points , or 0.45 percent , at 1,653.44 .\nSentence 2: The broader Standard & Poor 's 500 Index .SPX was 0.46 points lower , or 0.05 percent , at 997.02 .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Pines said he would convene the relevant party bodies within 10 days to discuss whether new elections would be held or whether a temporary leader would be appointed .\nSentence 2: Mitzna and party secretary Ophir Pines agreed to convene party organizations within 10 days to discuss whether new primaries would be held or a temporary leader appointed .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: It marked the fourth straight week and the ninth time this year that rates on this benchmark mortgage fell to an all-time weekly low .\nSentence 2: Mortgage rates around the country fell again this week , the ninth time this year rates have hit an all-time low .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Mr. Rollins made $ 721,154 in salary and $ 243,389 in bonuses in the prior fiscal year .\nSentence 2: Kevin Rollins , Dell 's president , received $ 770,962 in salary and a bonus of just more than $ 2 million in fiscal 2003 .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The head of the panel -- Tillie Fowler , a former US representative from Florida -- told present and past commanders that cadets don 't trust them .\nSentence 2: The head of the panel , former Rep. Tillie Fowler of Florida , told present and past commanders that cadets don 't trust them .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: However , several ministers from more developed APEC economies have said failure to fight terror will be a cost in itself .\nSentence 2: More developed APEC members say failure to fight terror will be a cost in itself .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: \" We 're still confident that Gephardt will get the lion 's share of union support . \"\nSentence 2: Whether or not we get to the two-thirds , we 're going to have the lion 's share of union support . \"",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Buyers can purchase a Windows- and Office-loaded desktop for $ 298 , excluding taxes , the report said .\nSentence 2: Buyers can now choose a Windows- and Office-loaded desktop for 12,390 baht ( US $ 298 ) , excluding taxes , the report said .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: But U.S. District Judge Joseph DiClerico denied their request in a brief ruling .\nSentence 2: In a brief ruling , US District Judge Joseph A. DiClerico Jr. denied their motion for an injunction .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: About 400 of those taken into custody were charged with manufacturing or distributing child pornography on the Internet .\nSentence 2: The largest number of arrests , about 400 , were on charges of manufacturing or distributing child pornography on the Internet .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The constitutionality of outlawing partial birth abortion is not an open question .\nSentence 2: Defenders of the partial birth abortion ban downplayed the legal challenges .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: In addition to O 'Connor , Rehnquist 's majority opinion was joined by Justices David Souter , Ruth Bader Ginsburg , and Stephen Breyer .\nSentence 2: Joining him in the majority opinion were Justices Sandra Day O 'Connor , David H. Souter , Ruth Bader Ginsburg and Stephen G. Breyer .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: It has a plus or minus 4.9 percent margin of error .\nSentence 2: It had a margin of error of plus or minus five percentage points .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Ebert asked Franklin , pointing to a color photo of Linda Franklin on a projection screen .\nSentence 2: A photo of Linda Franklin 's bloodied body was shown on a large screen in the courtroom yesterday .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Prince is replacing Sanford \" Sandy \" Weill , who will remain Citigroup 's chairman .\nSentence 2: Prince , who heads Citigroup 's global corporate and investment bank , is replacing Sanford Weill as CEO .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: \" The releases are the latest in a series of efforts by the government to move Myanmar to multi-party democracy and national conciliation . \"\nSentence 2: \" The releases are the latest in a series of efforts by the government to move Myanmar closer to multiparty democracy and national reconciliation , \" a government statement said .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: After all , China isn 't racing anyoneso there 's no great rush , \" Clark said .\nSentence 2: After all , China isn ’ t racing anyone … so there ’ s no great rush , ” Clark said .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The department told airlines \" the threat level to UK civil aviation interests in Kenya has increased to imminent .\nSentence 2: Britain 's Department for Transport said ' ' the threat level to UK civil aviation interests in Kenya has increased to imminent , ' ' and suspended flights after 6 p.m. EDT .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: A $ 500 million natural-gas-fired power plant , for example , could replace up to $ 100 million in boilers yearly without adding new smog controls .\nSentence 2: A $ 500 million coal-fired power plant , for example , could replace $ 100 million in equipment yearly without adding new pollution controls .",
+    "label": "equivalent"
+  }
+]

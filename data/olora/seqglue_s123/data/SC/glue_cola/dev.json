@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI would prefer to leave.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI felt that I know you.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI hit that you knew the answer.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThe mayor regarded as being absurd the proposal to build a sidewalk from Dartmouth to Smith.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nJohn left singing.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI ate that she was happy",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nTerry delighted in my pain.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nBill ate more peaches than Harry did grapes.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nIt tries to leave the country.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nShe asked was Alison coming to the party.",
+    "label": "acceptable"
+  }
+]

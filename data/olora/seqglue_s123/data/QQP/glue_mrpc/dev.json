@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Rosenthal is hereby sentenced to custody of the Federal Bureau of prisons for one day with credit for time served , \" Breyer said to tumultuous cheers in the courtroom .\nSentence 2: \" Rosenthal is hereby sentenced to custody of the Federal Bureau of Prisons for one day with credit for time served . \"",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: In the 2002 study , the margin of error ranged from 1.8 to 4.4 percentage points .\nSentence 2: It has a margin of error of plus or minus three to four percentage points .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Other staff members , however , defended the document , saying it would still help policy-makers and the agency improve efforts to address the climate issue .\nSentence 2: Some E.P.A. staff members defended the document , saying that although pared down it would still help policy makers and the agency address the climate issue .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The broad Standard & Poor 's 500 < .SPX > eased 0.37 of a point , or 0.03 percent , at 1,121 .\nSentence 2: The Standard & Poor 's 500 Index < .SPX > slipped 0.26 point , or 0.02 percent , to 1,121.96 .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Peterson , a former fertilizer salesman , is charged with murder in the deaths of his 27-year-old wife and the baby boy she was carrying .\nSentence 2: Peterson , 31 , is now charged with murder in the deaths of his 27-year-old wife and their unborn son .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The Lord Chancellor was guardian of the Great Seal , used to stamp all official documents from the sovereign .\nSentence 2: Falconer will hold on , for now , to the Lord Chancellor 's Great Seal , used to sign off instructions from the sovereign .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Worldwide , more than 50 million people have seen \" Les Miz , \" with gross receipts of $ 1.8 billion .\nSentence 2: Worldwide , Les Misérables has been seen by over 50 million people , with a total gross of over $ 2 billion .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Iran has until the end of the month to satisfy the agency it has no plans for nuclear weapons .\nSentence 2: The Iranians have until the end of the month to answer all the agency 's questions about their past nuclear activities .",
+    "label": "not_equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: The steel tariffs , which the U.S. president imposed in March 2002 , will officially end at midnight , instead of March 2005 as initially planned .\nSentence 2: The U.S. steel tariffs , which Bush imposed in March 2002 , were to officially end at midnight Thursday ( 0500 GMT ) , instead of March 2005 as initially planned .",
+    "label": "equivalent"
+  },
+  {
+    "sentence": "Are the two sentences equivalent? Answer with equivalent or not_equivalent.\nSentence 1: Only one of the five buildings in the Baghdad compound of the United Nations Development Program escaped being burned , the UN said on its Web site .\nSentence 2: Only one of the five buildings in the compound in Baghdad run by the UN Development Program , escaped being burned , the UN said on its Web site .",
+    "label": "equivalent"
+  }
+]

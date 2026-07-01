@@ -1,0 +1,12 @@
+method	url	status	detail
+o_lora	https://github.com/cmnfriend/O-LoRA.git	unreachable	exit=124; ; elapsed=35.0s
+lb_cl	NO_OFFICIAL_REPO_FOUND	blocked	web search found no official repository
+progressive_prompts	https://github.com/arazd/ProgressivePrompts.git	unreachable	exit=124; ; elapsed=35.0s
+lfpt5	https://github.com/qcwthu/Lifelong-Fewshot-Language-Learning.git	unreachable	exit=124; ; elapsed=35.0s
+continual_t0	https://github.com/ThomasScialom/T0_continual_learning.git	unreachable	exit=124; ; elapsed=35.0s
+lamol	https://github.com/jojotenya/LAMOL.git	unreachable	exit=124; ; elapsed=35.0s
+trace_rcl	https://github.com/BeyonderXX/TRACE.git	unreachable	exit=124; ; elapsed=35.0s
+inf_lora	https://github.com/liangyanshuo/InfLoRA.git	reachable	exit=0; e08b00edd54f2f10cf2f9826eae7d44fdcb6354b refs/heads/main; elapsed=32.9s
+adaptercl_dialogue	https://github.com/andreamad8/ToDCL.git	reachable	exit=0; e70c1edf937f6eb570296ea2897dbc8d6815bc6d refs/heads/main; elapsed=33.4s
+arper_dialog_nlg	https://github.com/MiFei/Continual-Learning-for-NLG.git	reachable	exit=0; 99019defe6bf35e8459ca6abd6f25882724bc956 refs/heads/master; elapsed=2.3s
+tm_bnnm_dialog_nlg	NO_OFFICIAL_REPO_FOUND	blocked	web search found no official repository

@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nnot far beneath the surface , this reconfigured tale asks disturbing questions about those things we expect from military epics .",
+    "label": "positive"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nit 's hard to imagine alan arkin being better than he is in this performance .",
+    "label": "positive"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nwhen the film ended , i felt tired and drained and wanted to lie on my own deathbed for a while .",
+    "label": "negative"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nthe film 's hackneyed message is not helped by the thin characterizations , nonexistent plot and pretentious visual style .",
+    "label": "negative"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\ntoo slow , too long and too little happens .",
+    "label": "negative"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nit deserves to be seen by anyone with even a passing interest in the events shaping the world beyond their own horizons .",
+    "label": "positive"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nvera 's three actors -- mollà , gil and bardem -- excel in insightful , empathetic performances .",
+    "label": "positive"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nit 's made with deftly unsettling genre flair .",
+    "label": "positive"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\n-lrb- a -rrb- n utterly charming and hilarious film that reminded me of the best of the disney comedies from the 60s .",
+    "label": "positive"
+  },
+  {
+    "sentence": "Classify the sentiment of the sentence. Answer with positive or negative.\nthis tenth feature is a big deal , indeed -- at least the third-best , and maybe even a notch above the previous runner-up , nicholas meyer 's star trek vi : the undiscovered country .",
+    "label": "positive"
+  }
+]

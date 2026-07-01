@@ -1,0 +1,202 @@
+[
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nMy family always summers at the seashore.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nHe became fond of peanuts.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThe truck rumbled.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nSally went to the party with Andrew.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI am afraid of tigers and fond of clowns without exception.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThere hopes to finish the project.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nWhat did he get the impression that the problem really was?",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThe hardest that I think I remember him ever telling me that he had heard of it snowing around here was last January 12th.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\na pencil with which to write broke.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nHow much money Gordon spent is true.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI have wanted to meet the man who spent so much money planning the assassination of Kennedy for many years.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nIt's arrived first that Julie and Jenny",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nOil spread over the sea shore.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nBill sent London a package.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nJohn placed the flute the violin on the table.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nPeter will decide that we should review the book.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nJill threw the ball from home plate to third base.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nWho do you think that saw Bill?",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThat's the most kind answer that I ever heard.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nMedea tried to poison her children.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI gushed the fountain.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI asked who did Medea poison.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI am afraid of tigers.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nShe believed never his story.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nWrite a letter to Anne Elliott.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nGilgamesh doesn't be in the dungeon",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nMost of the milk your baby consumes during breastfeeding is produced during nursing.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThat Plato loved Aster deeply was obvious.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThe more time that every senator spends with lobbyists, the more likely he succumbs to corruption.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI know a man who John is as tall as is.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nHenry wanted to marry Fanny.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nFred kicked the ball under the porch.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI have as many marbles too many as you.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nGerry became a republican and awarded a prize.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nAndy pinched Sarah and tickled herself.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nIt is vital that we will study everyday.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nHarry got to be as much of a celebrity as his father.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI've never seen a man who is taller than my mother.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nCheryl stood the tall books on the table.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThe children amused at the clown.",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nYou will put a picture of Bill on your desk before tomorrow.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nHow do you wonder whether John said that Mary solved the problem?",
+    "label": "not_acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThe teacher handed the student a book.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThey represented Mary seriously as a genuine linguist.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nThey waltzed.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nWe knew John to be the murderer.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nMary will play the violin soon.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nNo one understands that phrase structure rules explain the little understood phenomenon of the infinite length of sentences.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nJane visits Emma.",
+    "label": "acceptable"
+  },
+  {
+    "sentence": "Is the sentence grammatically acceptable? Answer with acceptable or not_acceptable.\nI made a proposal we squander the money.",
+    "label": "not_acceptable"
+  }
+]

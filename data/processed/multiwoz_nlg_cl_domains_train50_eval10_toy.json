@@ -1,0 +1,62 @@
+{
+  "benchmark": "MultiWOZ-NLG",
+  "version": "multiwoz_nlg_domains_train50_eval10_v1_toy",
+  "stream": [
+    {
+      "segment_id": 0,
+      "segment_name": "restaurant",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(name=\"The Golden Curry\", price=\"moderate\") ",
+          "output": "The Golden Curry is a moderately priced restaurant."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_request(area=\"centre\") ",
+          "output": "Which area of town are you looking for?"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(name=\"The Golden Curry\", price=\"moderate\") ",
+          "output": "The Golden Curry is a moderately priced restaurant."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_request(area=\"centre\") ",
+          "output": "Which area of town are you looking for?"
+        }
+      ]
+    },
+    {
+      "segment_id": 1,
+      "segment_name": "hotel",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(name=\"Alexander Bed and Breakfast\", type=\"guesthouse\") ",
+          "output": "Alexander Bed and Breakfast is a guesthouse."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_request(parking=\"yes\") ",
+          "output": "Do you need parking?"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(name=\"Alexander Bed and Breakfast\", type=\"guesthouse\") ",
+          "output": "Alexander Bed and Breakfast is a guesthouse."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_request(parking=\"yes\") ",
+          "output": "Do you need parking?"
+        }
+      ]
+    }
+  ]
+}

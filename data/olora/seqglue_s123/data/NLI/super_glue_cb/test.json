@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: A: So, I don't know I'm looking for a good year. I guess we're always looking for a good year. B: So, obviously though, do you think they're going to do anything in the playoffs to make it to the Super Bowl this year or who do you like to do that this year? A: Uh, no I don't think the Cowboys have got a chance.\nHypothesis: the Cowboys have got a chance",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: A: Really. If they were to take half of what they spend on that and put it on some economic, you know, intergovernmental or inter United States like programs that one really might. B: Yeah. A: I believe in paying my share, and I don't mind, uh, paying for some of these fringe benefits that people are entitled to. But I just sometimes feel like I'm being used. But, uh, again I don't think we'll be able to do anything about it,\nHypothesis: they'll be able to do anything about it",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: B: and, you know, they just love kittens. A: Yeah. B: They just are fascinated. A: Oh, yeah. B: So she doesn't know that this is a cat yet.\nHypothesis: this is a cat",
+    "label": "entailment"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: A: Now the part about where you said the apartment complex puts up signs that says no soliciting, I've even gone so far as to put that, I've got a storm door on the front of the house and I've put, in, I don't know how much clearer it can be, it's a red sign with silver letters saying no soliciting. I guess I should make another one that says religious or otherwise, cause I still get, B: Yeah, yeah, that's true, yeah. No I didn't go that far but, uh, yeah I probably could do the same thing, uh, you know, I don't have a storm door, but I'm sure I could rig up something. But you know I don't think that that would stop people.\nHypothesis: a no soliciting sign would stop people",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: A: I'm like, I'll get a job some day and my boss will pay for it, I'll be needed. B: Yeah. A: Because, um, I didn't want to go do it myself because I didn't think I was really going to use it.\nHypothesis: he was really going to use it",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: A: Yes, um, I think that Plano has really done a fantastic job. I mean, at least their plans are good. Um, however, I was, maybe you saw in the paper this morning that, um, they've had some problems with, the recycling on plastic,\nHypothesis: they've had some problem with the recycling on plastic",
+    "label": "entailment"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: B: You never see them on nationally basketball. A: You know, that's true. I don't think I've ever seen them nationally on basketball.\nHypothesis: he has seen them nationally on basketball",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: B: And other than that I do not think it should be allowable. I think it should be illegal for them to want to do that. it's kind of the big brother syndrome, I mean, I just, anything like that just kind of scares me. A: I tend to view it, even though I don't think I'd work for a company that did that, I sort of want to defend an employer's rights uh, in addition to an individual's rights,\nHypothesis: she would work for a company that did that",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: B: Yeah. I understood that. you know, I work full time and I have two kids so my spare time usually involves something with the kids. A: Yeah. B: You know, hobbies, I can't really say that we have hobbies.\nHypothesis: they have hobbies",
+    "label": "contradiction"
+  },
+  {
+    "sentence": "Classify the relationship between premise and hypothesis: entailment, contradiction, or neutral.\nPremise: Valence the void-brain, Valence the virtuous valet. Why couldn't the figger choose his own portion of titanic anatomy to shaft? Did he think he was helping?\nHypothesis: Valence was helping",
+    "label": "contradiction"
+  }
+]

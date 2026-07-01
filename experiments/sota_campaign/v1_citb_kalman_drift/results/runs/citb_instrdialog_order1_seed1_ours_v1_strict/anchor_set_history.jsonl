@@ -1,0 +1,8 @@
+{"reason": "bootstrap_segment_0", "source_segment_ids": [0], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [0], "probe_segment_ids": [0]}
+{"reason": "bootstrap_segment_0", "source_segment_ids": [0], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [0], "probe_segment_ids": [0]}
+{"reason": "refresh_after_drift_segment_1", "source_segment_ids": [1], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [1], "probe_segment_ids": [1]}
+{"reason": "bootstrap_segment_0", "source_segment_ids": [0], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [0], "probe_segment_ids": [0]}
+{"reason": "refresh_after_drift_segment_1", "source_segment_ids": [1], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [1], "probe_segment_ids": [1]}
+{"reason": "refresh_after_drift_segment_3", "source_segment_ids": [3], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [3], "probe_segment_ids": [3]}
+{"reason": "refresh_after_drift_segment_5", "source_segment_ids": [5], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [5], "probe_segment_ids": [5]}
+{"reason": "refresh_after_drift_segment_7", "source_segment_ids": [7], "num_source_segments": 1, "num_core": 32, "num_probe": 32, "num_total": 64, "core_segment_ids": [7], "probe_segment_ids": [7]}

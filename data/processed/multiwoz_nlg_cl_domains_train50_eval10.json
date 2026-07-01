@@ -1,0 +1,1546 @@
+{
+  "benchmark": "MultiWOZ-NLG",
+  "version": "multiwoz_nlg_domains_train50_eval10_v1",
+  "stream": [
+    {
+      "segment_id": 0,
+      "segment_name": "restaurant",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"ten\",pricerange=\"cheap\")",
+          "output": "There are ten cheap restaurants in the city; do you have a preference of area or type of cuisine?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"centre\",name=\"Nandos city centre\",phone=\"01223 327908\")",
+          "output": "Nandos city centre is in the centre part of town. Their phone number is 01223 327908"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"3\",food=\"mediterranean\")",
+          "output": "There are 3 restaurants that serve mediterranean food. What price range are you looking for?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(name=\"kymmoy\",ref=\"TQVKVLNH\")",
+          "output": "Okay. I was able to book you a table at the kymmoy. Your reference number is TQVKVLNH . Is there anything else you need?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"169 High Street Chesterton Chesterton\",name=\"Saigon City's\",phone=\"01223 356555\")",
+          "output": "Saigon City's address is 169 High Street Chesterton Chesterton and its phone number is 01223 356555"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"Free School Lane City Centre\",name=\"Eraina\",phone=\"01223 368786\")",
+          "output": "Eraina is located at Free School Lane City Centre, and their phone number is 01223 368786"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(food=\"Indian\",food=\"Italian\",food=\"Japanese\",food=\"Mexican\",food=\"Modern European\",food=\"Portuguese\") restaurant_select()",
+          "output": "There are Japanese, Italian, Modern European, Portuguese, Indian, and Mexican. Which of these do you prefer?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"7 Barnwell Road Fen Ditton\",food=\"Indian\",name=\"Rajmahal\",phone=\"01223 244955\")",
+          "output": "Rajmahal is the Indian restaurant. They are at 7 Barnwell Road Fen Ditton and their number is 01223 244955."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_recommend(name=\"caffe uno\")",
+          "output": "How about cafe uno?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"center of town\",choice=\"3\",food=\"gastropubs\")",
+          "output": "I have 3 gastropubs in the center of town. Does price range matter to you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"centre\",choice=\"several\",pricerange=\"expensive\")",
+          "output": "There are several expensive places in centre what type of food do you want"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() restaurant_inform(choice=\"two\",name=\"La mimosa\",name=\"Shiraz restaurant\")",
+          "output": "I have found two restaurants. One is La mimosa, and the other is Shiraz restaurant, would you like me to book one for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(bookday=\"Wednesday\",bookpeople=\"1\",booktime=\"16:15 pm\",name=\"Kymmoy restaurant\") restaurant_inform(area=\"centre\",food=\"asian\",pricerange=\"expensive\",ref=\"N08TP996\")",
+          "output": "I have booked the Kymmoy restaurant for 1 at 16:15 pm on Wednesday. It is an expensive asian restaurant in the centre. Your reservation number is N08TP996 ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"529 Newmarket Road Fen Ditton\",phone=\"01223 248882\",postcode=\"8 P.A.\",postcode=\"C.B 5\")",
+          "output": "Their address is 529 Newmarket Road Fen Ditton, their phone number is 01223 248882 and their postcode is C.B 5, 8 P.A."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(name=\"Yu Garden\",phone=\"01223 248882\")",
+          "output": "The phone number for Yu Garden is 01223 248882. May I help you with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"108 Regent Street City Centre\",name=\"Little Seoul's\",phone=\"01223 308681\")",
+          "output": "Little Seoul's address is 108 Regent Street City Centre. Their phone number is 01223 308681."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"East\",food=\"Gastropub\",name=\"Royal Standard\")",
+          "output": "Royal Standard is a Gastropub in East. Is this OK?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"Grafton Hotel 619 Newmarket Road Fen Ditton\")",
+          "output": "Their address is Grafton Hotel 619 Newmarket Road Fen Ditton"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"205 Victoria Road Chesterton\",name=\"Meghna\",phone=\"01223727410\")",
+          "output": "The phone number for Meghna is 01223727410. It is located at 205 Victoria Road Chesterton"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() restaurant_inform(choice=\"one\",name=\"cambridge lodge restaurant\")",
+          "output": "There is one option. It's cambridge lodge restaurant. Do you want to book a table?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"south\",food=\"Chinese\",food=\"Indian\",food=\"Italian\",food=\"Mexican\",pricerange=\"expensive\") restaurant_select()",
+          "output": "On the south end, in the expensive price range, we have Mexican, Italian, Indian, and Chinese foods to choose from. Do any of these sound good?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(food=\"vietnamese\",name=\"Thanh Binh\",pricerange=\"cheap\")",
+          "output": "Thanh Binh is a good vietnamese restaurant in the cheap price range"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"north part of town\",food=\"Chinese\",name=\"Golden Wok\",pricerange=\"moderately priced\")",
+          "output": "Golden Wok is a moderately priced restaurant in the north part of town, that serves Chinese food."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(name=\"Frankie and Bennys\",phone=\"01223 412430\",postcode=\"7 D.Y\",postcode=\"C.B 1\")",
+          "output": "The postcode for Frankie and Bennys is C.B 1, 7 D.Y and the phone number is 01223 412430."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"east part of town\",food=\"chinese\",name=\"yu garden\",pricerange=\"expensive\")",
+          "output": "yu garden serves chinese food, is in the east part of town and is in the expensive price range. Would you like their location?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"north part of town\",name=\"Golden Wok\")",
+          "output": "Golden Wok is located in the north part of town. Would you like their address and phone number?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"West\",food=\"Cantonese\")",
+          "output": "There are no Cantonese restaurants located in West. Are you interested in another type of cuisine?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"one\",choice=\"three\",food=\"gastropub\",food=\"gastropub\",pricerange=\"expensive\",pricerange=\"moderately priced\") restaurant_select()",
+          "output": "There are three expensive gastropub restaurants and one moderately priced gastropub. Do you have a preference?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "I apologize but I was unable to book you for the restaurant. Would you like for me to find you another restaurant?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_select(area=\"Centre\",area=\"North\")",
+          "output": "What area is closer to you, North or Centre?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"two\",food=\"french\") restaurant_select(area=\"Centre\",area=\"north\")",
+          "output": "There are two french restaurants listed. Do you have a preference of area? Centre or north part of town?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(food=\"lebanese\",name=\"The Ali baba restaraunt\",pricerange=\"moderate\")",
+          "output": "The Ali baba restaraunt serves lebanese food and is in the moderate price range."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_select(food=\"Portuguese\",pricerange=\"cheap\")",
+          "output": "So you would like recommendations for a cheap restaurant that serves Portuguese food?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"S6VDPMW3\")",
+          "output": "I have booked that for you and your reference number is S6VDPMW3 . Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"North\",food=\"Chinese\",name=\"Golden Wok\",pricerange=\"moderately priced\")",
+          "output": "Golden Wok is a moderately priced Chinese restaurant in North."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "That restaurant is not available at that time. Do you want me to try another time?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform(name=\"Jinling Noodle Bar\")",
+          "output": "Would you like me to make you a reservation at the Jinling Noodle Bar?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(bookday=\"Saturday\",bookpeople=\"8\",booktime=\"17:30\",ref=\"LSQYZI7O\") restaurant_recommend(name=\"Copper Kettle\")",
+          "output": "Well, my personal favorite is Copper Kettle. I've booked you a table for 8 on Saturday at 17:30. Your reference number is LSQYZI7O ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_select(food=\"Indian\",food=\"Italian\")",
+          "output": "Would you prefer Indian or Italian food?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(booktime=\"17:45\",ref=\"2S4UXXS3\")",
+          "output": "That worked. You have a table at 17:45 with reference number 2S4UXXS3 . Can I help with anything else today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"quite a few\") restaurant_recommend(food=\"Mediterranean\",name=\"La Mimosa\")",
+          "output": "There are quite a few. I might recommend La Mimosa, it serves Mediterranean food. Does that sound good?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"south\",food=\"Indian\",name=\"Taj Tandoori\",pricerange=\"expensive\")",
+          "output": "How about Taj Tandoori? It is an expensive Indian restaurant in the south side."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"35 Newnham Road Newnham\",area=\"west part of town\",name=\"Sala Thong\",phone=\"01223 323178\")",
+          "output": "There's also Sala Thong in the west part of town. They're located at 35 Newnham Road Newnham and you can call them at 01223 323178."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"King Street City Centre\",pricerange=\"moderate\")",
+          "output": "they are in the moderate price range and the address is King Street City Centre"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"to\",food=\"Thai\",name=\"Bangkok City\",name=\"Sala Thong\",pricerange=\"expensive\")",
+          "output": "I have to options for Thai food in the expensive price range, Bangkok City and Sala Thong."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(food=\"Austrian\")",
+          "output": "There are no restaurants for Austrian food matching your request."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(choice=\"some\",food=\"British\")",
+          "output": "I actually do not have knowledge of any moderate Australian restaurants in the centre. There are some British restaurants I could inform you about."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(postcode=\"1.D P\",postcode=\"C.B 2\")",
+          "output": "The post code is C.B 2, 1.D P ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() restaurant_inform(phone=\"01223506055\",postcode=\"cb43le\")",
+          "output": "Their phone is 01223506055 and the postcode is cb43le. Would you like me to make a booking?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(name=\"gourmet burger kitchen\",phone=\"01223 312598\")",
+          "output": "The phone number for gourmet burger kitchen is 01223 312598."
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"centre\",choice=\"a couple\",name=\"la mimosa\",name=\"shiraz restaurant\")",
+          "output": "I have a couple. Both are in the centre. la mimosa, shiraz restaurant"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"ER5DFE50\")",
+          "output": "Booking was successful. The table will be reserved for 15 minutes. Reference number is : ER5DFE50 . Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_select(name=\"curry prince\",name=\"pizza hut fen ditton\")",
+          "output": "Try curry prince or pizza hut fen ditton"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() restaurant_inform(area=\"the east\",food=\"italian\",name=\"Pizza hut fen ditton\")",
+          "output": "Pizza hut fen ditton serves italian food in the east, would you like a reservation?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(area=\"east\",food=\"Italian\",name=\"Pizza hut fen ditton\",pricerange=\"moderate\")",
+          "output": "Pizza hut fen ditton is the only Italian restaurant, in the east, in the moderate price range. Do you want me to try other areas?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"AF2GJ7G6\")",
+          "output": "You are booked, the reference number is AF2GJ7G6, may I assist with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"152 - 154 Hills Road\",area=\"south\",food=\"modern european\",name=\"restaurant alimentum\",phone=\"01223413000\",postcode=\"cb28pb\",pricerange=\"moderate\")",
+          "output": "restaurant alimentum offers modern european found south has moderate price range 01223413000 cb28pb 152 - 154 Hills Road"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(address=\"20 Milton Road Chesterton\",name=\"da vinci pizzeria\")",
+          "output": "da vinci pizzeria at 20 Milton Road Chesterton."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "restaurant_inform(pricerange=\"cheap\")",
+          "output": "Yes the restaurant is cheap."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() restaurant_inform(address=\"20 Milton Road Chesterton\",phone=\"01223351707\")",
+          "output": "The phone number is 01223351707 and the address is 20 Milton Road Chesterton. Would you like to make a reservation?"
+        }
+      ]
+    },
+    {
+      "segment_id": 1,
+      "segment_name": "hotel",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_select(type=\"guesthouse\",type=\"hotel\")",
+          "output": "Are you looking for a hotel or a guesthouse?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_inform(choice=\"21\",name=\"Allenbell\")",
+          "output": "I've found 21 hotels that meet those criteria. The Allenbell is one. Should I book it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"O4BPEOXQ\")",
+          "output": "Okay. I was ablt to book you into there and your reference number is O4BPEOXQ ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book()",
+          "output": "Your booking was successful. Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"14\")",
+          "output": "I have 14 places that match your request. Is there a certain area or type of lodging that you would like?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"8\",pricerange=\"cheaper\",pricerange=\"moderately priced\",type=\"guesthouses\")",
+          "output": "For guesthouses, I do happen to have 8 listings. I have one cheaper, and the others are all moderately priced. Do you need any free wifi or parking?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(name=\"Acorn Guesthouse\",postcode=\"cb41da\")",
+          "output": "The post code for the Acorn Guesthouse is , cb41da. Anything else you may need?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(address=\"Back Lane\",address=\"Cambourne\",name=\"The Cambridge Belfry\",phone=\"cb236bw\",pricerange=\"cheap\",type=\"hotel\")",
+          "output": "The Cambridge Belfry is a cheap hotel. The address is Back Lane, Cambourne and the phone number is cb236bw."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_recommend(area=\"centre\",name=\"The Gonville hotel\")",
+          "output": "The Gonville hotel in the centre area meets all your requirements. Would you like to book there?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"3\",type=\"hotel\")",
+          "output": "I have 3 hotels listed that have of your requirements. Do you have any parking needs?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(name=\"hamilton lodge\") hotel_inform(ref=\"CFT39HL4\")",
+          "output": "I booked for you a room in hamilton lodge which is in the same pricerange. Your reservation number is CFT39HL4 . Do you need anything more?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "Unfortunately, booking within your criteria was unsuccessful at all hotels. Could you change your number of days?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"west side\",choice=\"1\",choice=\"1\",pricerange=\"cheap\",type=\"guesthouse\",type=\"hotel\") hotel_select()",
+          "output": "There is 1 guesthouse and 1 hotel that are cheap on the west side. Which one do you prefer?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"two\",internet=\"yes\",parking=\"yes\",type=\"gueshouses\")",
+          "output": "Hold on, I had mistakenly listed you as not wanting free parking (rather than not caring if they did). I have two gueshouses that offer both parking and internet."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"18\",internet=\"yes\")",
+          "output": "That's no problem. 18 of our lodging establishments offer free wifi. Is there a price range or location you'd prefer?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "I'm sorry, the hotel is not available next Friday. Would you like to try another date or another property?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"3\",pricerange=\"moderate\",type=\"guesthouses\")",
+          "output": "I have 3 guesthouses all in the moderate price range. Would you like me to choose one for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_inform(choice=\"7\",type=\"guesthouses\")",
+          "output": "We have 7 guesthouses that meet your requests. Can I book a room for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(name=\"the carolina bed and breakfast\",name=\"warkworth house\") hotel_select()",
+          "output": "I have the carolina bed and breakfast or warkworth house. Would you like me to try one of those?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"565UIMXV\")",
+          "output": "Booking was successful. Reference number is : 565UIMXV ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"IY4GSCGL\")",
+          "output": "Your booking was successful. Your reference number is IY4GSCGL . Is there anything else I can help you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"east part of town\",choice=\"a few\")",
+          "output": "I have a few in the east part of town,would you need free parking?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"centre\",area=\"north\",choice=\"one\",choice=\"one\")",
+          "output": "Okay, there is one located in the north and one in the centre."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_inform(pricerange=\"moderately\",type=\"guesthouse\")",
+          "output": "Yes it is a moderately priced guesthouse. Would you like me to make a reservation for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"8IFKQGD8\")",
+          "output": "Your booking was successful. Your reference number is 8IFKQGD8 . Is there anything else I can do for you today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"32\",internet=\"yes\",type=\"hotels\")",
+          "output": "There are 32 available hotels with free wifi, do you have any other requirements?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"7\",type=\"hotels\")",
+          "output": "I found 7 hotels that meets your criteria. Do you want parking?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "I'm sorry I was unable to book that for you. Would you like to try another hotel?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"3AT2D81N\")",
+          "output": "Okay, that booking was successful. You're reference number is 3AT2D81N . Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(name=\"the Gonville Hotel\",ref=\"4ZRJZIVU\") hotel_inform(address=\"Gonville Place\")",
+          "output": "I booked a room for you at the Gonville Hotel at Gonville Place. Your reference number is 4ZRJZIVU . Can I help you with anything else today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"KEBFTR7I\")",
+          "output": "The reference number for your booking is KEBFTR7I . Can I do anything else for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(name=\"University Arms Hotel\",ref=\"VOF0UGNG\")",
+          "output": "I was able to book University Arms Hotel, reference number is VOF0UGNG ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"IAH92T2M\")",
+          "output": "Booking was sucessful. Your reference number is IAH92T2M ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(name=\"Acorn guesthouse\",ref=\"DT4ENVMJ\")",
+          "output": "I have good news. I was able to book you into the Acorn guesthouse and your reference number is DT4ENVMJ ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_recommend(name=\"El Shaddai\")",
+          "output": "Okay I have found the El Shaddai which meets your requirements. Would you like me to book that for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_recommend(name=\"bridge guest house\")",
+          "output": "bridge guest house is a nice place.Would you like me to book it for you ?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(phone=\"01223247942\",type=\"guest house\")",
+          "output": "Certainly. It's a guest house. The phone number is 01223247942."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_inform(name=\"Allenbell guesthouse\",parking=\"yes\",pricerange=\"cheap\")",
+          "output": "Allenbell guesthouse is available. It's in the cheap price range and has free parking. Would you like me to book it for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(address=\"365 milton road\",area=\"North\",internet=\"yes\",name=\"Lovell Lodge\",parking=\"yes\",pricerange=\"moderate\",stars=\"two\")",
+          "output": "Lovell Lodge is also two stars. In the moderate price range, located in the North, at 365 milton road. It has free parking and wifi."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"15\",pricerange=\"moderately priced\",type=\"guesthouses\")",
+          "output": "There are 15 moderately priced guesthouses. Do you have any specific needs, such as area, or internet access, or parking? What star rating would you prefer?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"TD8TU8IO\")",
+          "output": "Ok. Your booking was successful and the reference number is TD8TU8IO ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"north\",name=\"The Worth house\")",
+          "output": "The Worth house is in the North."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"north\")",
+          "output": "They are in in the north area."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"3\",name=\"bridge guest house\")",
+          "output": "There are 3 including bridge guest house."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"centre\",area=\"west\",choice=\"3\")",
+          "output": "I have 3 hotels that meet your criteria, 2 are in the west and one is in the centre. Do you have a preference?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"centre\",area=\"west\",choice=\"2\",internet=\"yes\",name=\"Huntington Marriott\",name=\"University Arms\",pricerange=\"expensive\")",
+          "output": "I'm terribly sorry, I misspoke. There are two 4-star hotels in the expensive range with wi-fi--the Huntington Marriott in the west and the University Arms in the centre of town."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"525A3U0N\")",
+          "output": "Okay, I've made your reservation. The reference number is 525A3U0N . What else can I help you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "I am sorry. I could not make that booking. Would you like to try another hotel?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform(name=\"Finches\") booking_nobook()",
+          "output": "That one is not open then,but I do have one fitting the same criteria avaible, Finches, shall I book it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(internet=\"yes\")",
+          "output": "Yes, it does have internet."
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(area=\"west\",name=\"The Cambridge Belfry\",pricerange=\"cheap\",type=\"hotel\")",
+          "output": "Yes, The Cambridge Belfry is a cheap hotel in the West."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_inform(internet=\"yes\")",
+          "output": "Yes, they have internet would you like me to book it for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(address=\"back lane\",address=\"cambourne\",phone=\"01954714600\",postcode=\"cb236bw\")",
+          "output": "The address is back lane, cambourne, postcode cb236bw and phone number 01954714600"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform() hotel_inform(name=\"gonville hotel\",type=\"hotel\")",
+          "output": "gonville hotel is a nice hotel that I can book for you."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_inform()",
+          "output": "It sure does! WOuld you like to book a room?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(ref=\"P16VJZDH\")",
+          "output": "Booking was successful. Reference number is : P16VJZDH ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(choice=\"many\",internet=\"yes\",parking=\"yes\")",
+          "output": "There are many results with free wifi and parking, to help narrow it down, what area do you want to stay in?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "Booking was not successful for that night at the acorn guest house, would you like me to try a different place?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_nobook()",
+          "output": "Booking was unsuccessful. Would you like to try a different location?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "hotel_inform(name=\"Arbury Lodge Guesthouse\")",
+          "output": "I'm going to try for the Arbury Lodge Guesthouse, sir. Is that all right?"
+        }
+      ]
+    },
+    {
+      "segment_id": 2,
+      "segment_name": "attraction",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(phone=\"01223464646\")",
+          "output": "01223464646 phone number"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(address=\"1 Wheeler Street\",entrancefee=\"5 pounds\",name=\"Kambar\",postcode=\"cb23qb\")",
+          "output": "Alright. How about Kambar. It is located at 1 Wheeler Street and the postcode is cb23qb. The entrance fee is 5 pounds. Is that all you need help with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"1 Station road\",name=\"Club Salsa\",phone=\"07782218745\")",
+          "output": "Club Salsa's address is 1 Station road and their phone number is 07782218745."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(area=\"centre\",name=\"castle galleries\",type=\"museum\")",
+          "output": "I like castle galleries that's a museum in the centre. Would that interest you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"centre\",choice=\"both\",entrancefee=\"free\",name=\"cambridge contemporary art museum\",name=\"scott polar museum\")",
+          "output": "The cambridge contemporary art museum, and the scott polar museum are both free and in the centre."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Trumpington Street\",area=\"Centre\",name=\"Fitzwilliam museum\")",
+          "output": "The Fitzwilliam museum is in the Centre, and is located on Trumpington Street."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"4 pounds\") attraction_recommend(address=\"bateman street\",name=\"Cambridge university botanic gardens\",type=\"park\")",
+          "output": "Cambridge university botanic gardens is a wonderful park located on bateman street. Entrance fee is 4 pounds. Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"5 pounds\",name=\"Club Salsa\",phone=\"07782218745\")",
+          "output": "Club Salsa has an entrance fee of 5 pounds. Their postcode is cb12jb, and their phone number is 07782218745. Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"free\")",
+          "output": "The entrance fee is free. Anything else today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"4 pounds\",name=\"The botanic gardens\",type=\"university\")",
+          "output": "The botanic gardens is a lovely part of the university which is open to the public for a fee of 4 pounds."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(area=\"the south\",name=\"the nusha\",phone=\"01223902158\")",
+          "output": "Try the nusha. It is in the south. Their phone number is 01223902158"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(area=\"West\",name=\"Churchill College\")",
+          "output": "How about Churchill College? It's in the West."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"44\")",
+          "output": "I have 44 entries for attractions. Are you looking for architecture, colleges, parks, nightclubs, or maybe a museum?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"centre of town\",choice=\"11\",type=\"museums\") attraction_recommend(address=\"grande arcade\",address=\"saint andrews street\",address=\"unit su43\",name=\"Castle Galleries\")",
+          "output": "There are 11 museums in the centre of town. How about Castle Galleries in unit su43, grande arcade, saint andrews street?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(postcode=\"cb46az\")",
+          "output": "Their post code is cb46az."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(area=\"west\",name=\"cambridge and county folk museum\")",
+          "output": "The cambridge and county folk museum is in the west area. Would you care for more information on it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(name=\"Churchill college\",phone=\"01223336233\")",
+          "output": "Churchill college's phone number is 01223336233."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Castle Street\",name=\"Kettle's Yard\",phone=\"01223748100\")",
+          "output": "I find Kettle's Yard to be fascinating. Their phone number is 01223748100, and they're located on Castle Street. Can I be of any further assistance?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"I don't have access to their entrance fee\",postcode=\"cb42xh\")",
+          "output": "The postcode is cb42xh and I don't have access to their entrance fee. Is there anything else I can assist you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"centre of town\",area=\"south side\",choice=\"One\",choice=\"The other\",choice=\"two\",type=\"cinemas\")",
+          "output": "There are two cinemas. One is in the centre of town. The other is on the south side. Is there anything else i can help you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(area=\"south\",name=\"The Byard Art museum\")",
+          "output": "The Byard Art museum located in the south area of town is very nice. Would you like information about it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"lots of\")",
+          "output": "Is there a certain area you're interested in? We have lots of museums in town."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_select(choice=\"others\",entrancefee=\"2 pound\",entrancefee=\"free\",name=\"saint mary's church\",type=\"architecture\")",
+          "output": "Would you be interested in an architecture attraction such as great saint mary's church? They have a 2 pound entrance fee or there are others available for free."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(name=\"byard art\",type=\"museum\")",
+          "output": "There's one museum called byard art that fits your needs."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Trinity Lane\",name=\"Clare College\")",
+          "output": "Clare College is located on Trinity Lane. Anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"centre\",choice=\"13\",entrancefee=\"free\",name=\"The downing college\",type=\"colleges\")",
+          "output": "We have 13 colleges in the centre area. The downing college is one that is free to enter. Would you like more information on this one?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"23\",type=\"museums\")",
+          "output": "There are 23 museums to choose from, are you looking for one in a particular area?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(name=\"Cambridge Punter\",type=\"boat\")",
+          "output": "You might enjoy the Cambridge Punter. It's a boat."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"east side\",entrancefee=\"I don't have information\",name=\"Camboats\")",
+          "output": "Camboats is on the east side. Unfortunately I don't have information on the entrance fee."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(phone=\"01223334900\")",
+          "output": "Of course, their phone number is 01223334900. Is there anything else that I can help you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(phone=\"01223336540\",postcode=\"cb21er\",type=\"museum\")",
+          "output": "It is a museum, the phone number is 01223336540 and the postcode is cb21er"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(postcode=\"cb21st\")",
+          "output": "The post code is cb21st"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Babraham\",address=\"Gog Magog Hills\",address=\"Wandlebury Ring\",phone=\"01223243830\",postcode=\"cb223ae\")",
+          "output": "I sure can. They are located at Wandlebury Ring, Gog Magog Hills, Babraham. Their postcode is cb223ae. The phone number is 01223243830. Can I help you with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(phone=\"01223452587\")",
+          "output": "The phone number is 01223452587. Do you need any other information about it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Bateman Street\",phone=\"01223336265\")",
+          "output": "The park is located at Bateman Street and the phone number is 01223336265. Can I help you with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"many\",type=\"churches\",type=\"old schools\")",
+          "output": "There are many churches and old schools in town, what would you like to see?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"44\")",
+          "output": "There are 44. What type are you intersted in?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_select(area=\"west\",type=\"colleges\",type=\"museums\")",
+          "output": "There are mostly colleges and museums in the west. Would you be interested in one of those?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(address=\"98 King Street\",area=\"centre of town\",entrancefee=\"free\",name=\"broughton house gallery\",phone=\"01223314960\",postcode=\"cb11In\")",
+          "output": "I would suggest the broughton house gallery in the centre of town. Their address is 98 King Street, the post code cb11In, and the phone is 01223314960. It is free."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"city center\",choice=\"13\",type=\"colleges\") attraction_recommend(entrancefee=\"free\",name=\"Downing college\")",
+          "output": "There are 13 colleges in the city center but I recommend visiting Downing college and it is free to get in."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"13 magdalene street\",address=\"cafe jello gallery\",name=\"Cafe Jello Gallery\",postcode=\"cb30af\")",
+          "output": "Cafe Jello Gallery is located at cafe jello gallery, 13 magdalene street. Their postcode is cb30af. Is there anything else I can assist you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(name=\"Downing College\",phone=\"01223334860\",postcode=\"cb21dq\")",
+          "output": "Downing College's phone is 01223334860 and their postcode is cb21dq. Can I help you with anything else today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(name=\"vue cinema\")",
+          "output": "we have vue cinema"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_recommend(name=\"Cambridge Arts Theatre\")",
+          "output": "I'd recommend the Cambridge Arts Theatre, myself."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"6 trinity street\",name=\"Cambridge Contemporary Art Museum\")",
+          "output": "How about, the Cambridge Contemporary Art Museum located at 6 trinity street?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"plenty\")",
+          "output": "there are plenty, anything in particular you are looking for?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(phone=\"01223464646\")",
+          "output": "Sure! The phone number is 01223464646."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(postcode=\"cb21sj\")",
+          "output": "The postcode is cb21sj. Is there anything else that I can help you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"between victoria road and the river\",entrancefee=\"no entrance fee information availble\",name=\"jesus green outdoor pool\")",
+          "output": "jesus green outdoor pool is located between victoria road and the river. There is no entrance fee information availble."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"centre area\",choice=\"5\",name=\"ballare\",name=\"club salsa\",name=\"fez club\",name=\"kambar\",name=\"soul tree nightclub\",type=\"nightclubs\") attraction_select()",
+          "output": "There are 5 nightclubs in the centre area, there is ballare, club salsa, kambar, soul tree nightclub and the fez club. Would you like more information on one?"
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Cambridge Passenger Cruisers\",address=\"Jubilee House\",name=\"Riverboat Georgina\")",
+          "output": "I have one in that area. It's called the Riverboat Georgina. It's located at Cambridge Passenger Cruisers, Jubilee House. Would you like their phone number for more information?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"do not have the entrance fee in our database at this time\",phone=\"01223902091\")",
+          "output": "Their phone number is 01223902091 and we do not have the entrance fee in our database at this time."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(area=\"east\",name=\"Cherry Hinton Hall and Grounds\")",
+          "output": "Cherry Hinton Hall and Grounds is on the east side of town, would you like their phone number?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"Cherry Hinton Road\",postcode=\"cb18dw\")",
+          "output": "Yes, it's Cherry Hinton Road, cb18dw."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"the entrance fee isn't listed\")",
+          "output": "I'm sorry, the entrance fee isn't listed in my system."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(choice=\"6\")",
+          "output": "We have 6 nightclubs. Any preference on entrance fee?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(entrancefee=\"4 pounds\",name=\"The Soul Tree Nightclub\")",
+          "output": "The Soul Tree Nightclub costs 4 pounds. The others are a bit more expensive."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(phone=\"01223477900\")",
+          "output": "Yes, it is 01223477900."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(postcode=\"cb23qf\")",
+          "output": "The Soul Tree is in postcode cb23qf. Can I help with anything else today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "attraction_inform(address=\"98 King Street cb11ln\",choice=\"11\",entrancefee=\"free\",name=\"Broughton House Gallery\",type=\"museums\")",
+          "output": "Yes, there are 11 museums. I'd recommend Broughton House Gallery. It's at 98 King Street cb11ln and has free entrance. Would that work for you?"
+        }
+      ]
+    },
+    {
+      "segment_id": 3,
+      "segment_name": "train",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"8:09\",leaveat=\"7:19\",trainid=\"TR8935\")",
+          "output": "TR8935 leaves at 7:19 and will arrive at 8:09. Would you like me to book it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"6:08\",arriveby=\"8:08\",arriveby=\"9:45\",choice=\"2\",day=\"Thursday\",departure=\"London Kings Cross\",destination=\"Cambridge\")",
+          "output": "I have 2 trains leaving London Kings Cross for Cambridge Thursday arriving before 9:45. Which would you prefer, one arrives at 6:08 the other 8:08?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(departure=\"peterborough\",destination=\"cambridge\",trainid=\"TR3390\")",
+          "output": "Train TR3390 is departing from peterborough to cambridge. Would you like me to look for a train departing from London Liverpool?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"10:10\",trainid=\"TR8913\")",
+          "output": "TR8913 will arrive by 10:10."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"15:51\",destination=\"london kings cross\",leaveat=\"15:00\")",
+          "output": "There s a train that departs at 15:00 arriving in london kings cross at 15:51. How does that sound?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"16:08\",trainid=\"TR0269\")",
+          "output": "Sure, train TR0269 arrives by 16:08. That is the last train to arrive by 17:00. Would you like to book it?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(day=\"tuesday\")",
+          "output": "Okay, I changed the day of travel to tuesday for you. Do you know what time you might want to leave after or arrive by?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(leaveat=\"13:40\",trainid=\"TR1090\")",
+          "output": "How does train TR1090 that leaves at 13:40 sound?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"10\",day=\"Thursday\",destination=\"Ely\",leaveat=\"05:50\",leaveat=\"23:50\",leaveat=\"on the :50 every two hours\")",
+          "output": "I have 10 trains to Ely Thursday, leaving on the :50 every two hours from 05:50 to 23:50. Did you have a particular time in mind?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"10:30\",choice=\"several\",destination=\"Cambridge\")",
+          "output": "That are several options that arrive in Cambridge by 10:30. When are you traveling and where are you departing from?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"623\")",
+          "output": "I found 623 trains that leave at that time. What is your destination?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform()",
+          "output": "I have trains that meet you criteria for most days of the week, do you have a day or departure time preference?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(price=\"16.50 pounds\",ref=\"TR9859\")",
+          "output": "TR9859 cost 16.50 pounds. Is there anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"10:07\",leaveat=\"09:29\",trainid=\"TR3396\")",
+          "output": "TR3396 leaves at 09:29 and arrives by 10:07. Is that okay?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(price=\"13.20 pounds\")",
+          "output": "It costs 13.20 pounds. Do you need any other information?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"many other times with an earlier departure time\",departure=\"Cambridge\",price=\"10.10 pounds\")",
+          "output": "Yes that leaves from Cambridge and there are many other times with an earlier departure time if you'd like. The price is 10.10 pounds."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"11:07\",day=\"Cambridge\",destination=\"London Liverpool street\",leaveat=\"09:39\")",
+          "output": "The first train to London Liverpool street is at 09:39 and arrives at 11:07 in Cambridge. Does this time work for you? or would you like later?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"13:38\",day=\"Tuesday\",departure=\"Peterborough\",destination=\"Cambridge\",leaveat=\"12:48\",trainid=\"TR7307\")",
+          "output": "Train TR7307 leaves Peterborough at 12:48 Tuesday, and will arrive at Cambridge by 13:38. Would you like me to book it for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"15:54\",day=\"Friday\",departure=\"Leicester\",destination=\"Cambridge\",leaveat=\"14:09\",trainid=\"TR6247\")",
+          "output": "TR6247 leaves Leicester at 14:09 Friday and arrives in Cambridge at 15:54. Will that work for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"19:51\",leaveat=\"19:00\",trainid=\"TR8676\")",
+          "output": "Okay, the TR8676 train leaves at 19:00 and arrives at 19:51. Would you like to purchase tickets?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"47 minutes\",trainid=\"TR6088\")",
+          "output": "The ID is TR6088 and the total travel time is 47 minutes. Can I be of further assistance today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"35\")",
+          "output": "There are 35 trains do you have a destination and day?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"16:10\",trainid=\"TR5343\")",
+          "output": "Train TR5343 arrives at 16:10. It is the closest to your required arrival time. Would you like to reserve any tickets today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"9:24\",destination=\"Peterborough\",leaveat=\"8:34\")",
+          "output": "There is a 8:34 train to Peterborough on Thursday. I would arrive at 9:24."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(leaveat=\"15:35\",trainid=\"TR9823\")",
+          "output": "TR9823 will leave at 15:35, how does that sound?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"10:07\",choice=\"first\",leaveat=\"9:29\",trainid=\"TR7169\")",
+          "output": "The first availabe train I have is TR7169 leaving at 9:29 and arriving at 10:07. Would that suit your schedule or would you prefer a later departure time?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(price=\"420.56 GBP\")",
+          "output": "That's correct, the number I gave you was the reference number you'll need. You'll need to pay 420.56 GBP when you get to the station. Is there anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"28 minutes\")",
+          "output": "The train ride lasts 28 minutes. Would you like to book a ticket now?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"9:45\",day=\"Thursday\",destination=\"Stansted Airport\")",
+          "output": "I have four different trains that would get you to Stansted Airport by 9:45 on Thursday. What time would you like to leave?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(price=\"16.60 pounds\")",
+          "output": "The price is 16.60 pounds. How many tickets will you be needing?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"17:01\",day=\"friday\",departure=\"cambridge\",destination=\"broxbourne\",duration=\"60 minutes\",leaveat=\"16:01\",price=\"17.90 pounds\",trainid=\"TR5694\")",
+          "output": "TR5694 cambridge broxbourne friday 16:01 17:01 17.90 pounds 60 minutes"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"18:30\",choice=\"2\",destination=\"Peterborough\")",
+          "output": "There are two trains that arrive in Peterborough by 18:30. What time are you planning to leave Cambridge?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"14:08\",departure=\"London Kings Cross\",destination=\"Cambridge\",leaveat=\"13:17\",trainid=\"TR3456\")",
+          "output": "Train TR3456 leaves London Kings Cross at 13:17 and arrives in Cambridge at 14:08. Would you like to book this train?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"two\",leaveat=\"21:00\",leaveat=\"21:39\",leaveat=\"23:39\")",
+          "output": "I have two trains that will leave after 21:00. One leaves at 21:39 and one leaves at 23:39. Which would you prefer?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(price=\"17.60 pounds\")",
+          "output": "The price of the train would be 17.60 pounds. Anything else you need?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"105 minutes\",leaveat=\"12:21\")",
+          "output": "12:21 and time is 105 minutes. May I hemp with anything else ?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(leaveat=\"13:00\",trainid=\"TR3685\")",
+          "output": "The TR3685 leaves just 15 minutes later, at 13:00."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(price=\"10.10 pounds\")",
+          "output": "Certainly. It's 10.10 pounds. May I help with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"10:54\",day=\"Tuesday\",departure=\"leicester\",destination=\"cambridge\",leaveat=\"09:09\",trainid=\"TR0363\")",
+          "output": "TR0363 departs leicester at 09:09 and arrives in cambridge at 10:54 on Tuesday. Would you like me to book that for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"79 minute\")",
+          "output": "You are looking at a 79 minute journey, any further questions today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"17:51\",leaveat=\"17:00\",trainid=\"TR1791\")",
+          "output": "Certainly, the earliest train by your specifications is TR1791, leaving at 17:00 and arriving at 17:51. Would you like to book that train?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"51 minutes\",leaveat=\"17:00\")",
+          "output": "Certainly. The departure time is 17:00 and the travel time is 51 minutes. I have booked your ticket. The reference number is BJJ3GXMX. Can I help with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"60 minutes\")",
+          "output": "The travel time is 60 minutes."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"12:01\")",
+          "output": "It arrives at 12:01. Shall I book it for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"13:32\",departure=\"broxbourne\",destination=\"cambridge\",leaveat=\"12:32\",price=\"17.90\")",
+          "output": "It looks like there is a train leaving broxbourne at 12:32 and arriving in cambridge at 13:32. The price is 17.90 pounds per passenger. Shall I book this for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"105 minutes lon\",leaveat=\"13:09\",trainid=\"TR8292\")",
+          "output": "Sure. The TR8292 departs at 13:09. The ride is 105 minutes long. Do you have any other questions?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(trainid=\"TR9616\")",
+          "output": "The train ID is TR9616."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"several\")",
+          "output": "I have several trains that will get you there on time. What time would you like to leave?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"21:44\",departure=\"Cambridge\",destination=\"birmingham new street\",leaveat=\"19:01\",trainid=\"TR3283\")",
+          "output": "TR3283 leaves Cambridge at 19:01 and arrives at birmingham new street at 21:44. Do you want a booking?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"38 minutes\",price=\"10.10 pounds\")",
+          "output": "Yes travel time will be 38 minutes and the cost of ths journey is 10.10 pounds."
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"7:27\",trainid=\"TR2895\")",
+          "output": "Train TR2895 arrives at 7:27 would that work?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(day=\"saturday\",departure=\"cambridge\",destination=\"liverpool street\",leaveat=\"05:59\")",
+          "output": "The departure time from cambridge to liverpool street on saturday will be at 05:59."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(duration=\"28 minutes\")",
+          "output": "What time would you like the train to arrive at Cambridge? Keep in mind the train ride duration is approximately 28 minutes."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(leaveat=\"12:40\",trainid=\"TR5985\")",
+          "output": "How about TR5985? It leaves at 12:40."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"14:55\",trainid=\"TR3034\")",
+          "output": "TR3034 arrives by 14:55, would you like to book a seat?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"06:08\",departure=\"cambridge\",destination=\"stansted airport\",leaveat=\"05:40\",trainid=\"TR7213\")",
+          "output": "Train TR7213 departing from cambridge at 05:40 and arriving at stansted airport at 06:08 will be the best option for you."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"18:08\")",
+          "output": "There is another train that arrives at 18:08. Would that work better for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(arriveby=\"15:07\",day=\"Tuesday\",departure=\"london liverpool street\",destination=\"Cambridge\",leaveat=\"13:39\",trainid=\"TR1395\")",
+          "output": "TR1395 leaves london liverpool street for Cambridge on Tuesday at 13:39 and arrives by 15:07."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"6\")",
+          "output": "Of course I can. There are 6 possibilities, at what time would you like to leave?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "train_inform(choice=\"most days\",departure=\"Cambridge\",leaveat=\"17:36\")",
+          "output": "There are departures most days from Cambridge at 17:36. Would you like any more information of train times or help booking a train?"
+        }
+      ]
+    },
+    {
+      "segment_id": 4,
+      "segment_name": "taxi",
+      "train": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07916703661\")",
+          "output": "Unfortunately, it does not give me a specific arrival time. But if you like, you can call them to get that information. Their phone number is 07916703661."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07862333057\",type=\"Blue Honda\")",
+          "output": "Okay, the taxi is booked. The contact number is 07862333057, the car will be a Blue Honda. Is there anything else I can help with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07738411271\")",
+          "output": "The contact number is 07738411271. Is there anything else we can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07562472408\",type=\"grey Ford\")",
+          "output": "Yes, it will be a grey Ford and the contact number is 07562472408. What else can I help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(departure=\"Cambridge train station\",leaveat=\"9:15\",phone=\"07504297575\",type=\"white volvo\")",
+          "output": "I have booked a white volvo to leave at 9:15 from Cambridge train station. Your contact number is 07504297575"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07240135377\",type=\"grey Skoda\")",
+          "output": "It sounds lovely! I've booked you in a grey Skoda. The contact number is 07240135377 in case you need it. What else may I assist you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(type=\"yellow ford\")",
+          "output": "Your booking is complete. A yellow ford will be picking you up."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "booking_book(booktime=\"6:45\")",
+          "output": "Would 6:45 be a convenient time for you to leave?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07657055747\",type=\"white tesla\")",
+          "output": "Ok I have a white tesla and the contact number is 07657055747."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07915006170\")",
+          "output": "Sure its 07915006170. Is there anything else I can do for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(type=\"black honda\")",
+          "output": "Your booking is all set. A black honda will be picking you up."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07404635448\",type=\"red toyota\")",
+          "output": "I was able to book that for you. The car will be a red toyota and the contact number is 07404635448."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07395990234\",type=\"grey audi\")",
+          "output": "Alright, I have you booked, you can expect a grey audi, contact number 07395990234. Is there anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(type=\"yellow volvo\")",
+          "output": "Okay great. You are booked with a yellow volvo."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07591624763\",type=\"white ford\")",
+          "output": "I have booked it. You will look for a white ford, the contact number is 07591624763"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(departure=\"Chiquito\",destination=\"Queens' College\",leaveat=\"22:30\",phone=\"07937348458\",type=\"white Audi\")",
+          "output": "Great - I have a white Audi picking you up at Chiquito at 22:30 and heading to Queens' College. The contact number is 07937348458. Can I help with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07906334474\",type=\"blue tesla\")",
+          "output": "its booked! it is a blue tesla and the contact number is 07906334474"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07899518276\",type=\"grey audi\")",
+          "output": "A grey audi will pick you up, and the contact number is 07899518276. Can I help with anything else today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07733215888\",type=\"blue car\")",
+          "output": "I've booked you a blue car, the contact info is 07733215888. Is there anything else I can do for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07635951153\")",
+          "output": "Sure. It is 07635951153. Can I help you with a hotel room perhaps?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07924138056\",type=\"Red Honda\")",
+          "output": "Yes, I can repeat it. A Red Honda car and the contact info is 07924138056. Can I help you with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07253412910\")",
+          "output": "The contact number is 07253412910."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07796401968\",type=\"yellow toyota\")",
+          "output": "Booking completed! Booked car type : yellow toyota Contact number : 07796401968"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"grey bmw\",type=\"07365045410\")",
+          "output": "Alright, you are all set - your car is a grey bmw, contact number 07365045410"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(departure=\"the junction\",destination=\"gallery at twelve a high\",leaveat=\"4:00\",phone=\"07355269466\",type=\"grey skoda\")",
+          "output": "You'll be picked up at the junction, to gallery at twelve a high, by 4:00. Your auto is a grey skoda, contact number: 07355269466."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07629344637\",type=\"grey skoda\")",
+          "output": "Alright, you're all set. A grey skoda will pick you up. The contact number is 07629344637. Can I help you with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(leaveat=\"21:30\",phone=\"07797598861\",type=\"Red Skoda\")",
+          "output": "Okay. I've booked a taxi that will pick you up at 21:30. Look for a Red Skoda and the contact number is 07797598861. Anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(leaveat=\"3:20\",phone=\"07581540721\",type=\"blue lexus\")",
+          "output": "No problem, a blue lexus will pick you up at 3:20. The contact number is 07581540721. Will there be anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(leaveat=\"05:45\",phone=\"07791528384\",type=\"blue lexus\")",
+          "output": "I have booked a taxi for you at 05:45. The car type is a blue lexus and the contact number is: 07791528384 ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07956401800\",type=\"yellow volvo\")",
+          "output": "Booking completed! Booked car type : yellow volvo Contact number : 07956401800"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform()",
+          "output": "You should contact the taxi for an approximate time."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07091293811\",type=\"red honda\")",
+          "output": "I booked that taxi for you. The car is a red honda and the contact number is 07091293811."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(leaveat=\"20:15\",phone=\"07753733237\",type=\"blue BMW\")",
+          "output": "I have booked you a blue BMW for a 20:15 pickup. The contact number is 07753733237. Can I help you with anything else today? ."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07827592182\",type=\"black volvo\")",
+          "output": "Your taxi is booked. Please be on the lookout for a black volvo and the contact number is 07827592182. Is there anything else i can help with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(leaveat=\"02:45\",phone=\"07082444281\",type=\"yellow honda\")",
+          "output": "A yellow honda will pick you up at 02:45. The contact number is 07082444281."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07606586690\",type=\"red lexus\")",
+          "output": "Booking completed! Booked car type : red lexus Contact number : 07606586690"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07889414601\",type=\"blue bmw\")",
+          "output": "You are booked for a blue bmw with the contact number 07889414601."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(type=\"black honda\")",
+          "output": "Your booking is complete, a black honda will be picking you up."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07543493643\",type=\"yellow Lexus\")",
+          "output": "Alright! I have a yellow Lexus booked to pick you up. The Contact number is 07543493643. Anything else I can help with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07737828007\",type=\"red Toyota\")",
+          "output": "I have you in a red Toyota, contact is 07737828007."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07708238835\",type=\"black Ford\")",
+          "output": "I can book a Black Ford for you. The contact number of the company is 07708238835. Can I help with anything else?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07618237831\",type=\"red skoda\")",
+          "output": "Ok. I have booked for you a red skoda and the contact number is 07618237831. Anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07266756209\",type=\"grey ford\")",
+          "output": "Alrighty. I have a grey ford for you with the contact number 07266756209. Anything else you need?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(arriveby=\"23:00\",destination=\"the hotel\",phone=\"07582132009\",type=\"black audi\")",
+          "output": "I'm sorry about that. I have booked you a black audi arriving at the hotel by 23:00. The contact number is 07582132009."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(type=\"black tesla\")",
+          "output": "I have booked a black tesla for you"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07025112262\",type=\"black volvo\")",
+          "output": "Booking completed! Booked car type : black volvo Contact number : 07025112262"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07866626052\",type=\"red lexus\")",
+          "output": "You are booked for a red lexus with the contact number 07866626052."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07087526103\",type=\"grey lexus\")",
+          "output": "Okay I have a grey lexus and the contact number is 07087526103. Anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07985302391\",type=\"grey volvo\")",
+          "output": "it is a grey volvo and the contact number is 07985302391"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07135860962\",type=\"white Honda\")",
+          "output": "Certainly, the car is a white Honda, and the contact number is 07135860962."
+        }
+      ],
+      "eval": [
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(departure=\"Avalon\",phone=\"07604053685\",type=\"Red Volvo\")",
+          "output": "Okay, I have booked a Red Volvo taxi for you to pick you up from Avalon. The contact number is 07604053685. Is there anything else I can help you with today?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07756177529\",type=\"red ford\")",
+          "output": "I have that booked, a red ford and the contact info is 07756177529"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07997985529\",type=\"grey Toyota\")",
+          "output": "The car that is reserved for you is a grey Toyota, and the contact number is 07997985529. Can I do anything else for you?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(departure=\"14:15\",phone=\"07944381295\",type=\"black Volkswagen\")",
+          "output": "I was able to book you a black Volkswagen for 14:15, the contact number is 07944381295."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07914819489\",type=\"blue skoda\")",
+          "output": "Alright, I got you booked. the car will be a blue skoda and the contact number is 07914819489. Anything else I can help you with?"
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07714291108\",type=\"blue skoda\")",
+          "output": "All right, a blue skoda will come for you. Should you need to contact them, the number is 07714291108."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07332430116\",type=\"red Lexus\")",
+          "output": "Alright I have a red Lexus picking you up at Parkside Pools at 16:15. The contact number for the taxi is 07332430116."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07278222346\",type=\"red skoda\")",
+          "output": "All right, a red skoda will pick you up. The contact number is 07278222346."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07804995392\",type=\"white honda\")",
+          "output": "I booked that for you. The car will be a white honda and the contact number is 07804995392."
+        },
+        {
+          "instruction": "Generate a natural language system response for the given semantic dialogue acts.",
+          "input": "taxi_inform(phone=\"07218068540\",type=\"blue honda\")",
+          "output": "Booking completed! your taxi will be blue honda Contact number is 07218068540"
+        }
+      ]
+    }
+  ]
+}

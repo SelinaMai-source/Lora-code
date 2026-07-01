@@ -1,0 +1,202 @@
+[
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: St Michael's Mount -- Historically, St Michael's Mount was a Cornish counterpart of Mont Saint-Michel in Normandy, France (with which it shares the same tidal island characteristics and the same conical shape, in spite of being much smaller, at 57 acres, than Mont St Michel which covers 247 acres), when it was given to the Benedictine religious order of Mont Saint-Michel by Edward the Confessor in the 11th century.\nQuestion: are mont st michel and st michael's mount related",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Vesna Vulović -- Vesna Vulović (Serbian Cyrillic: Весна Вуловић; pronounced (ˈʋeːsna ˈʋuːlɔʋit͡ɕ); 3 January 1950 -- 23 December 2016) was a Serbian flight attendant. She holds the Guinness world record for surviving the highest fall without a parachute: 10,160 metres (33,330 ft). Her fall took place after an explosion tore through the baggage compartment of JAT Flight 367 on 26 January 1972, causing it to crash near Srbská Kamenice, Czechoslovakia. She was the sole survivor of the crash, which air safety investigators attributed to a briefcase bomb. The Yugoslav authorities suspected that Croatian nationalists were to blame, but no one was ever arrested.\nQuestion: has anyone fallen from a plane and lived",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: TK Maxx -- In 1976, T.J. Maxx was founded in Framingham, Massachusetts, United States, by Bernard Cammarata. The first European store opened in Bristol in 1994. The company modified the name to TK Maxx to avoid ``confusion with the established British retail chain T.J. Hughes (which is not affiliated with TJX)''.\nQuestion: is tk maxx and tj maxx the same",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Airline alliance -- In 2010 Richard Branson, chairman of the Virgin Group, announced his intention to form a fourth alliance among Virgin branded airlines (Virgin Atlantic; Virgin America; and the Virgin Australia Holdings group of airlines). Then in September 2011, Branson said that Virgin Atlantic would join one of the existing alliances; this idea was repeated in October 2012. In December 2012, Delta Air Lines purchased Singapore Airlines' 49% stake in Virgin Atlantic for £224 million. Virgin America was absorbed into Alaska Airlines, which is not a member of any alliance, in April 2018.\nQuestion: is virgin atlantic part of an airline alliance",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Phoebe Halliwell -- For the eighth and final season (2005--2006), Phoebe takes on the false identity of Julie Bennett (Monica Allgeier) and begins a relationship with an artist named Dex Lawson (Jason Lewis). While under the influence of a spell cast by the prodigy of the Charmed Ones, Billie Jenkins (Kaley Cuoco), Phoebe marries Dex under the alias of Julie. Unsure if she could ever have a lasting marriage with someone she is not completely honest with, Phoebe reveals the truth of her hidden identity to Dex. The pair eventually break up and agree to get an annulment. Phoebe later meets a cupid named Coop (Victor Webster), who was sent by The Elders to help her find love again. When Phoebe discovers that Billie and her sister, Christy (Marnette Patterson) are the ultimate power The Charmed Ones must defeat to save Leo from the Angel of Death (Simon Templeman), she has reservations because the women are human and not demons. In the end, Phoebe participates in the ultimate battle between The Charmed Ones and the Jenkins sisters, which destroys the Halliwell Manor, and only Piper and Billie survive. In the series finale ``Forever Charmed'', Piper uses Coop's time-traveling ring to call upon her mother and grandmother and save Phoebe and Paige. After Christy is defeated, Phoebe and her sisters write about their lives in the Book of Shadows. An epilogue shows Phoebe and Coop getting married and that their marriage will produce three children, all daughters. Phoebe also becomes a successful author, writing a self-help book on finding love.\nQuestion: does phoebe ever have a baby in charmed",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Admission to the bar in the United States -- In the canonical case, lawyers seeking admission must earn a Juris Doctor degree from a law school approved by the jurisdiction, and then pass a bar exam administered by it. Typically, there is also a character and fitness evaluation, which includes a background check. However, there are exceptions to each of these requirements. A lawyer who is admitted in one state is not automatically allowed to practice in any other. Some states have reciprocal agreements that allow attorneys from other states to practice without sitting for another full bar exam; such agreements differ significantly among the states.\nQuestion: do you need a degree to take the bar",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Gastrointestinal tract -- The gastrointestinal tract (digestive tract, digestional tract, GI tract, GIT, gut, or alimentary canal) is an organ system within humans and other animals which takes in food, digests it to extract and absorb energy and nutrients, and expels the remaining waste as feces. The mouth, esophagus, stomach, and intestines are part of the gastrointestinal tract. Gastrointestinal is an adjective meaning of or pertaining to the stomach and intestines. A tract is a collection of related anatomic structures or a series of connected body organs.\nQuestion: is the alimentary canal the same as the gi tract",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Alkene -- In organic chemistry, an alkene is an unsaturated hydrocarbon that contains at least one carbon--carbon double bond. The words alkene and olefin are often used interchangeably (see nomenclature section below). Acyclic alkenes, with only one double bond and no other functional groups, known as mono-enes, form a homologous series of hydrocarbons with the general formula CH. Alkenes have two hydrogen atoms fewer than the corresponding alkane (with the same number of carbon atoms). The simplest alkene, ethylene (CH), with the International Union of Pure and Applied Chemistry (IUPAC) name ethene, is the organic compound produced on the largest scale industrially. Aromatic compounds are often drawn as cyclic alkenes, but their structure and properties are different and they are not considered to be alkenes.\nQuestion: can alkenes have more than one double bond",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Dark Horse: The Incredible True Story of Dream Alliance -- Dark Horse: The Incredible True Story of Dream Alliance is a 2014 documentary directed by Louise Osmond.\nQuestion: is dark horse based on a true story",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Sierra Mist -- Sierra Mist is a lemon-lime flavored soft drink line. Originally introduced by PepsiCo in 1999, it was eventually made available in all United States markets by 2003. The drink was rebranded as Mist Twst in 2016, although it reverted to Sierra Mist in 2018. The brand is aimed at competing with The Coca-Cola Company's Sprite brand and Dr Pepper Snapple Group's 7 Up.\nQuestion: is sierra mist and mist twist the same",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Salaries of Members of the United Kingdom Parliament -- Members of the House of Lords are not salaried. They can opt to receive a £305 per day attendance allowance, plus travel expenses and subsidised restaurant facilities. Peers may also choose to receive a reduced attendance allowance of £150 per day instead.\nQuestion: do members of the house of lords get paid",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Bay leaf -- Some members of the laurel family, as well as the unrelated but visually similar mountain laurel and cherry laurel, have leaves that are poisonous to humans and livestock. While these plants are not sold anywhere for culinary use, their visual similarity to bay leaves has led to the oft-repeated belief that bay leaves should be removed from food after cooking because they are poisonous. This is not true; bay leaves may be eaten without toxic effect. However, they remain unpleasantly stiff even after thorough cooking, and if swallowed whole or in large pieces, they may pose a risk of harming the digestive tract or causing choking. There have been cases of intestinal perforations caused by swallowing bay leaves, so unless the leaves in the recipe have been ground they should be removed from the food before serving; otherwise, the risk of a surgical emergency remains. Thus, most recipes that use bay leaves will recommend their removal after the cooking process has finished.\nQuestion: is it dangerous to eat a bay leaf",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Oakland Raiders relocation to Las Vegas -- On January 2, 2018, the Henderson city council approved the sale of 55 vacant acres of land to the Raiders for their new headquarters and practice facility near Henderson Executive Airport. In January, construction crews began blasting caliche rock with dynamite to excavate and create the stadium bowl. As of April 2018, more than 30 Raiders employees had already relocated to Las Vegas from Oakland.\nQuestion: did the raiders move to las vegas yet",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Speaker of the United States House of Representatives -- The House of Representatives elects the Speaker of the House on the first day of every new Congress and in the event of the death, resignation or removal from the Chair of an incumbent Speaker. The Clerk of the House of Representatives requests nominations: there are normally two, one from each major party (each party having previously met to decide on its nominee). The Clerk then calls the roll of the Representatives, each Representative indicating the surname of the candidate the Representative is supporting. Representatives are not restricted to voting for one of the nominated candidates and may vote for any person, even for someone who is not a member of the House at all. They may also abstain by voting ``present''.\nQuestion: can the president of the united states fire the speaker of the house",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: The Scorpion King -- The Scorpion King is a 2002 American historical fantasy film directed by Chuck Russell, starring The Rock, Kelly Hu, Grant Heslov, and Michael Clarke Duncan. It is a spin-off from The Mummy franchise, which takes place before The Mummy Returns and follows the story of Mathayus and his rise to become the Scorpion King.\nQuestion: are the scorpion king and the mummy related",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Hollywood blacklist -- The Hollywood blacklist - as the broader entertainment industry blacklist is generally known - was the practice of denying employment to screenwriters, actors, directors, musicians, and other American entertainment professionals during the mid-20th century because they were accused of having Communist ties or sympathies. Artists were barred from work on the basis of their alleged membership in or sympathy with the Communist Party USA, or their refusal to assist investigations into the party's activities. Even during the period of its strictest enforcement, from the late 1940s through to the late 1950s, the blacklist was rarely made explicit or verifiable, but it directly damaged the careers of scores of individuals working in the film industry.\nQuestion: hollywood remained the one voice of protest during the red scare",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Cousin -- The cousin relationship is further detailed by degree and removal. For example the second cousin once removed relationship is a second-degree cousin with one removal.\nQuestion: is there such a thing as second cousin",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Danielle Colby -- Colby had been a close friend of Mike Wolfe for a decade before the concept of the show had even been developed.\nQuestion: are danielle and mike related on american pickers",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Prime Minister of France -- The Prime Minister proposes a list of ministers to the President of the Republic. Decrees and decisions of the Prime Minister, like almost all executive decisions, are subject to the oversight of the administrative court system. Few decrees are taken after advice from the Council of State (French: Conseil d'État). All prime ministers defend the programs of their ministry, and make budgetary choices. The extent to which those decisions lie with the Prime Minister or President depends upon whether they are of the same party.\nQuestion: does france have a president and prime minister",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Ejection fraction -- The EF of the left heart, known as the left ventricular ejection fraction (LVEF), is calculated by dividing the volume of blood pumped from the left ventricle per beat (stroke volume) by the volume of blood collected in the left ventricle at the end of diastolic filling (end-diastolic volume). LVEF is an indicator of the effectiveness of pumping into the systemic circulation. The EF of the right heart, or right ventricular ejection fraction (RVEF), is a measure of the efficiency of pumping into the pulmonary circulation. A heart which cannot pump sufficient blood to meet the body's requirements (i.e., heart failure) will often, but not invariably, have a reduced ventricular ejection fraction.\nQuestion: is ejection fraction the same as stroke volume",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Edmund Pevensie -- In The Lion, the Witch and the Wardrobe, Edmund betrays his siblings to the White Witch while under her influence, but as the story goes on, he accepts the error of his ways. He is redeemed with the intervention of Aslan and joins the fight against the witch. Fulfilling an ancient prophecy, he becomes King Edmund the Just, King of Narnia, and with sisters Susan and Lucy, co-ruler under High King Peter. Edmund is described in one book in a scene in Tashbaan as being part of a group of men 'as fair-skinned as (Shasta), and most of them had fair hair', although whether Edmund is one of the fair-haired ones is not clear. Certainly in the illustrations of him in the final book he is drawn as having fair hair.\nQuestion: is edmund ever going to be king of narnia",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Genetic variation -- Genetic variation is brought about, fundamentally, by mutation, which is a permanent change in the chemical structure of chromosomes. Genetic recombination also produces changes within alleles.\nQuestion: changes in the gene pool can occur due to various mechanisms",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: 2018 FIFA World Cup qualification – UEFA Group B -- The 2018 FIFA World Cup qualification UEFA Group B was one of the nine UEFA groups for 2018 FIFA World Cup qualification. The group consisted of six teams: Portugal, Switzerland, Hungary, Faroe Islands, Latvia, and Andorra.\nQuestion: did switzerland qualify for the world cup 2018",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: List of Fuller House episodes -- As of December 22, 2017, 44 episodes of Fuller House have been released, concluding the third season. On January 29, 2018, the series was renewed for a fourth season.\nQuestion: is there a season 3 of fuller house",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Prokaryote -- A prokaryote is a unicellular organism that lacks a membrane-bound nucleus, mitochondria, or any other membrane-bound organelle. The word prokaryote comes from the Greek πρό (pro) ``before'' and κάρυον (karyon) ``nut or kernel''. Prokaryotes are divided into two domains, Archaea and Bacteria. In contrast, species with nuclei and organelles are placed in the third domain, Eukaryota. Prokaryotes reproduce without fusion of gametes. The first living organisms are thought to have been prokaryotes.\nQuestion: are mitochondria part of the prokaryotic cell structure",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Azazel (Supernatural) -- Azazel's last appearance chronologically is in the second season finale ``All Hell Breaks Loose'', where he kidnaps Sam and the other young adults that he had infected. He visits Sam in a dream, and reveals that his ``special children'' must fight to the death to determine who will lead his army. Although Sam is the demon's favorite, the super-strong Jake Talley becomes the winner. As Dean sells his soul to another demon in exchange for Sam's resurrection, Azazel gives Jake the Colt and coerces him to travel to a cemetery in the middle of a giant devil's trap. Though Sam and Dean, along with other hunters, attempt to stop him, Jake uses the Colt as a key to unlock a mausoleum there. This action briefly opens a gateway to Hell, releasing Lilith and hundreds of other demons. With the devil's trap around the cemetery now broken, Azazel confronts the Winchesters and easily overpowers them. However, John's soul escapes through the Gate, and distracts Azazel long enough for Dean to shoot him dead with the Colt.\nQuestion: do sam and dean find their mother killer",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Calgary Flames -- The team was founded in 1972 in Atlanta as the Atlanta Flames until relocating to Calgary in 1980. The Flames played their first three seasons in Calgary at the Stampede Corral before moving into their current home arena, the Scotiabank Saddledome (originally known as the Olympic Saddledome), in 1983. In 1985--86, the Flames became the first Calgary team since the 1923--24 Tigers to compete for the Stanley Cup. In 1988--89, the Flames won their first and only championship. The Flames' unexpected run to the 2004 Stanley Cup Finals gave rise to the Red Mile, and in 2011 the team hosted and won the second Heritage Classic outdoor game.\nQuestion: have the calgary flames won a stanley cup",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Alcohol laws of Indiana -- Effective July 4, 2010, beer sold in microbreweries may be sold on Sundays pursuant to Senate Bill 75. The sales must take place where the brewing is done. However, off-site sales may take place in trade shows and similar back door events. The sales limit is two cases per person, or 576 ounces.\nQuestion: can you buy wine in indiana on sunday",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Gossip Girl -- The success of Gossip Girl led to adaptations outside the United States. The show has received numerous award nominations, winning 18 Teen Choice Awards. The CW officially renewed Gossip Girl for a sixth and final season on May 11, 2012. The final season, consisting of 10 episodes, premiered on October 8, 2012, and ended on December 17, 2012.\nQuestion: will there be any more episodes of gossip girl",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Bangkok Hilton -- The mini series was inspired by the Barlow Chambers Case, which was also turned into a mini series. Terry Hayes felt it would be the basis of a good mini series if the story was changed so the person who went to prison was innocent. He was also inspired by the true story of an Irish woman who had fallen in love with an Arab who smuggled a bomb in her luggage.\nQuestion: is bangkok hilton based on a true story",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Southeast Asia -- Southeast Asia or Southeastern Asia is a subregion of Asia, consisting of the countries that are geographically south of China, east of India, west of New Guinea and north of Australia. Southeast Asia is bordered to the north by East Asia, to the west by South Asia and Bay of Bengal, to the east by Oceania and Pacific Ocean, and to the south by Australia and Indian Ocean. The region is the only part of Asia that lies partly within the Southern Hemisphere, although the majority of it is in the Northern Hemisphere. In contemporary definition, Southeast Asia consists of two geographic regions:\nQuestion: is india a part of south east asia",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Battle of Fort Sumter -- The resupply of Fort Sumter became the first crisis of the administration of the newly inaugurated U.S. President Abraham Lincoln following his victory in the election of November 6, 1860. He notified the Governor of South Carolina, Francis W. Pickens that he was sending supply ships, which resulted in an ultimatum from the Confederate government for the immediate evacuation of Fort Sumter, which Major Anderson refused. Beginning at 4:30 a.m. on April 12, the Confederates bombarded the fort from artillery batteries surrounding the harbor. Although the Union garrison returned fire, they were significantly outgunned and, after 34 hours, Major Anderson agreed to evacuate. There were no deaths on either side as a direct result of this engagement, although a gun explosion during the surrender ceremonies on April 14 caused two Union deaths.\nQuestion: did anyone die in the battle of fort sumter",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: The Lion King (2019 film) -- On September 28, 2016, Walt Disney Pictures confirmed that Jon Favreau would be directing a fast-tracked remake of the 1994 animated film The Lion King, which would feature the songs from the 1994 film, following a string of recent box office successes on the other Disney remake films such as Maleficent, Cinderella, Favreau's The Jungle Book and Beauty and the Beast with the latter three also earning critical praise. Later on October 13, it was reported that Disney had hired Jeff Nathanson to write the screenplay for the remake. In November, talking with ComingSoon.net, Favreau said the virtual cinematography technology he used in The Jungle Book would be used to a greater degree in The Lion King. Although the media reported The Lion King to be a live-action film, it actually utilizes photorealistic animation. Disney also did not describe it as live-action, only stating it would follow the ``technologically groundbreaking'' approach of The Jungle Book.\nQuestion: are they making a lion king live action",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Billion -- American English has always used the short scale definition but British English once employed both versions. Historically, the United Kingdom used the long scale billion but since 1974 official UK statistics have used the short scale. Since the 1950s the short scale has been increasingly used in technical writing and journalism, although the long scale definition still enjoys some limited usage.\nQuestion: is an american billion the same as a british billion",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: The Blacklist (season 5) -- The fifth season of the American crime thriller television series The Blacklist premiered on NBC on September 27, 2017, with a timeslot change from Thursday at 10:00 PM to Wednesday at 8:00 PM. The season was produced by Davis Entertainment, Universal Television and Sony Pictures Television, and the executive producers are Jon Bokenkamp, John Davis, John Eisendrath, John Fox, and Joe Carnahan. The season contained 22 episodes and concluded on May 16, 2018. The season aired the series 100th episode.\nQuestion: will there be a fifth season of blacklist",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Black Death -- The Black Death, also known as the Great Plague, the Black Plague, or the Plague, was one of the most devastating pandemics in human history, resulting in the deaths of an estimated 75 to 200 million people in Eurasia and peaking in Europe from 1347 to 1351. The bacterium Yersinia pestis, which results in several forms of plague, is believed to have been the cause. The plague created a series of religious, social and economic upheavals, which had profound effects on the course of European history.\nQuestion: is there more than one type of plague",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Cadbury Creme Egg -- During an interview a 2007 episode of Late Night with Conan O'Brien, actor B.J. Novak drew attention to the fact that American market Cadbury Creme Eggs had decreased in size, despite the official Cadbury website stating otherwise. American Creme Eggs at the time weighed 34 g and contained 150 calories. Before 2006, the eggs marketed by Hershey were identical to the UK version, weighing 39 g and containing 170 calories.\nQuestion: did cadburys cream eggs used to be bigger",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Tampon tax -- A tampon tax is the term used to call attention to the fact that tampons--and other feminine hygiene products used to manage menstrual flow--are subject to value-added tax, at odds with the tax exemption status granted to other products considered basic necessities. Known as ``period poverty'' this situation has resulted in efforts to eliminate taxes on these products. Proponents of tax exemption argue that tampons, sanitary napkins, menstrual cups and comparable products constitute basic, unavoidable necessities for women and thus should be made tax exempt. The tax in Canada was removed in mid-2015 and women protested in the United Kingdom later that year. Other countries later followed suit. The BBC estimates that women--half of the global population--need to use feminine hygiene products for about a week each month for about 30 years. While sales tax policy varies across jurisdictions, these products were typically taxed at the same rate as non-essential goods, such as in the United States, while other countries, such as the United Kingdom and Ireland, reduced or eliminated their general consumption tax on sanitary products. The tampon tax is not a special tax levied directly on feminine hygiene products. On July 21st, 2018, India eliminated the Goods and Services Tax (GST) of 12% from sanitary napkins.\nQuestion: are tampons and pads taxed in the us",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Gulf of California -- The Gulf of California (also known as the Sea of Cortez, Sea of Cortés or Vermilion Sea; locally known in the Spanish language as Mar de Cortés or Mar Bermejo or Golfo de California) is a marginal sea of the Pacific Ocean that separates the Baja California Peninsula from the Mexican mainland. It is bordered by the states of Baja California, Baja California Sur, Sonora, and Sinaloa with a coastline of approximately 4,000 km (2,500 mi). Rivers which flow into the Gulf of California include the Colorado, Fuerte, Mayo, Sinaloa, Sonora, and the Yaqui. The gulf's surface area is about 160,000 km (62,000 sq mi). Depth soundings in the gulf have ranged from fording depth at the estuary near Yuma, Arizona, to in excess of 3,000 meters (9,800 ft) in the deepest parts.\nQuestion: is the gulf of california the same as the sea of cortez",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Artificial gravity -- Artificial gravity can be created using a centripetal force. A centripetal force directed towards the center of the turn is required for any object to move in a circular path. In the context of a rotating space station it is the normal force provided by spacecraft's hull that acts as centripetal force. Thus, the ``gravity'' force felt by an object the centrifugal force perceived in the rotating frame of reference as pointing ``downwards'' towards the hull. In accordance with Newton's Third Law the value of little g (the perceived ``downward'' acceleration) is equal in magnitude and opposite in direction to the centripetal acceleration.\nQuestion: is it possible to simulate gravity in space",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: The Spinners (American R&B group) -- The group is also listed as the Detroit Spinners and the Motown Spinners, due to their 1960s recordings with the Motown label. These other names were used in the UK to avoid confusion with a British folk group also called The Spinners. On June 30, 1976, they received a star on the Hollywood Walk of Fame. In 2015, they were nominated for induction into the Rock and Roll Hall of Fame.\nQuestion: are the spinners in the hall of fame",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Russell Crowe -- Russell Ira Crowe (born 7 April 1964) is an actor, film producer and musician. Although a New Zealand citizen, he has lived most of his life in Australia. He came to international attention for his role as the Roman General Maximus Decimus Meridius in the 2000 historical epic film Gladiator, directed by Ridley Scott, for which Crowe won an Academy Award for Best Actor, a Broadcast Film Critics Association Award for Best Actor, an Empire Award for Best Actor and a London Film Critics Circle Award for Best Actor and 10 further nominations for best actor.\nQuestion: did russell crowe ever win an academy award",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Mara Jade -- Mara Jade Skywalker is a fictional character in Star Wars Legends books, comic books, and computer games. She is the wife of Luke Skywalker and mother of Ben Skywalker. In the different video games, she is voiced by Heidi Shannon, Edie Mirman and Kath Soucie.\nQuestion: was mara jade in return of the jedi",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Flipper (mascot) -- Following the 1968 season, ``Flipper'' was no longer used as the team mascot. Owner Joe Robbie decided to cut ties with the mascot because both the City of Miami and the Seaquarium decided they would not continue to pay for tank repairs and transportation costs\nQuestion: do the miami dolphins still have a dolphin",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: The Knoxville Girl -- It is derived from the 19th-century Irish ballad ``The Wexford Girl'', itself derived from the earlier English ballad ``The Bloody Miller or Hanged I Shall Be'' about a murder in 1683 at Hogstow Mill 12 miles south of Shrewsbury. This ballad was collected by Samuel Pepys who wrote about the murder of Anne Nichols by the Mill's apprentice Francis Cooper. Other versions are known as the ``Waxweed Girl'', ``The Wexford Murder''. These are in turn derived from Elizabethan era poem or broadside ballad, ``The Cruel Miller''.\nQuestion: was the song knoxville girl based on a true story",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Alcohol laws of Texas -- People must be at least 21 years of age to legally consume alcoholic beverages in Texas with certain exceptions, as in any other state in the United States. However, employment at a company serving alcoholic beverages can be entered into at age 18 but the person cannot actually serve the alcohol.\nQuestion: can you serve alcohol at 17 in texas",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Rebuild of Evangelion -- Rebuild of Evangelion, known in Japan as Evangelion: New Theatrical Edition (ヱヴァンゲリヲン新劇場版, Evangerion Shin Gekijōban), is a Japanese animated film series and a reboot of the original Neon Genesis Evangelion anime television series, produced by Studio Khara. Hideaki Anno served as the writer and general manager of the project, with Kazuya Tsurumaki and Masayuki directing the films themselves. Yoshiyuki Sadamoto, Ikuto Yamashita and Shirō Sagisu returned to provide character designs, mechanical designs and music respectively.\nQuestion: are the evangelion movies the same as the anime",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Double Jeopardy (1999 film) -- The Double Jeopardy Clause of the Fifth Amendment to the United States Constitution states plainly: ``(N)or shall any person be subject for the same offence to be twice put in jeopardy of life or limb ... '' The four essential protections included are prohibitions against, for the same offense: retrial after an acquittal; after a conviction; or after certain mistrials; and multiple punishment. The Double Jeopardy Clause has no bearing on separate crimes of the same nature. Harvard Professor Alan Dershowitz criticized the movie for allegedly misrepresenting the Double Jeopardy Clause of the Fifth Amendment. ``There are two separate incidents,'' Dershowitz claims. ``She was falsely accused the first time. And maybe she can sue for that or get some credit. But then she committed an entirely separate, or at least planned to commit, an entirely separate crime the second time. And there's just no defense of double jeopardy for doing it the second time.''\nQuestion: was the movie double jeopardy based on a true story",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Sun Dogs (2017 film) -- Sun Dogs is a 2017 comedy drama film written by Anthony Tambakis and starring Michael Angarano, Melissa Benoist, Xzibit, Allison Janney, and Ed O'Neill. The film marks the feature film directorial debut of Jennifer Morrison. The film premiered at the LA Film Festival in June 2017 and was released in Netflix at April 6, 2018.\nQuestion: is sun dogs based on a true story",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Vena amoris -- Vena amoris is a Latin name meaning, literally, ``vein of love''. Traditional belief established that this vein ran directly from the fourth finger of the left hand to the heart. This theory has been cited in western cultures as one of the reasons the engagement ring and/or wedding ring was placed on the fourth finger, or ``ring finger''. This traditional belief is factually inaccurate as all the fingers in the hand have a similar vein structure.\nQuestion: is the ring finger vein connected to the heart",
+    "label": "false"
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "SC": [
+    {
+      "sampling strategy": "full",
+      "dataset name": "glue_sst2"
+    },
+    {
+      "sampling strategy": "full",
+      "dataset name": "glue_cola"
+    }
+  ],
+  "QQP": [
+    {
+      "sampling strategy": "full",
+      "dataset name": "glue_mrpc"
+    }
+  ],
+  "NLI": [
+    {
+      "sampling strategy": "full",
+      "dataset name": "glue_rte"
+    },
+    {
+      "sampling strategy": "full",
+      "dataset name": "super_glue_cb"
+    }
+  ],
+  "BoolQA": [
+    {
+      "sampling strategy": "full",
+      "dataset name": "super_glue_boolq"
+    }
+  ],
+  "WiC": [
+    {
+      "sampling strategy": "full",
+      "dataset name": "super_glue_wic"
+    }
+  ],
+  "COPA": [
+    {
+      "sampling strategy": "full",
+      "dataset name": "super_glue_copa"
+    }
+  ]
+}

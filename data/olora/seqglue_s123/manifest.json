@@ -1,0 +1,102 @@
+{
+  "stream": "data/processed/seqglue_cl_tasks_train50_eval10.json",
+  "segments": [
+    {
+      "segment_id": 0,
+      "segment_name": "glue_sst2",
+      "task_type": "SC",
+      "dataset_name": "glue_sst2",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "negative",
+        "positive"
+      ]
+    },
+    {
+      "segment_id": 1,
+      "segment_name": "glue_mrpc",
+      "task_type": "QQP",
+      "dataset_name": "glue_mrpc",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "not_equivalent",
+        "equivalent"
+      ]
+    },
+    {
+      "segment_id": 2,
+      "segment_name": "glue_rte",
+      "task_type": "NLI",
+      "dataset_name": "glue_rte",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "entailment",
+        "not_entailment"
+      ]
+    },
+    {
+      "segment_id": 3,
+      "segment_name": "glue_cola",
+      "task_type": "SC",
+      "dataset_name": "glue_cola",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "acceptable",
+        "not_acceptable"
+      ]
+    },
+    {
+      "segment_id": 4,
+      "segment_name": "super_glue_boolq",
+      "task_type": "BoolQA",
+      "dataset_name": "super_glue_boolq",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "segment_id": 5,
+      "segment_name": "super_glue_wic",
+      "task_type": "WiC",
+      "dataset_name": "super_glue_wic",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "segment_id": 6,
+      "segment_name": "super_glue_cb",
+      "task_type": "NLI",
+      "dataset_name": "super_glue_cb",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "contradiction",
+        "entailment",
+        "neutral"
+      ]
+    },
+    {
+      "segment_id": 7,
+      "segment_name": "super_glue_copa",
+      "task_type": "COPA",
+      "dataset_name": "super_glue_copa",
+      "num_train": 50,
+      "num_eval": 10,
+      "labels": [
+        "choice1",
+        "choice2"
+      ]
+    }
+  ]
+}

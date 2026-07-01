@@ -1,0 +1,9 @@
+hf_hub retry 2026-06-17T19:35:34.533574
+FAIL glue/sst2: HfUriError: Invalid HF URI 'hf://datasets/glue@bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/.huggingface.yaml'. Repository id must be 'namespace/name', got 'glue'.
+FAIL glue/mrpc: HfUriError: Invalid HF URI 'hf://datasets/glue@bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/.huggingface.yaml'. Repository id must be 'namespace/name', got 'glue'.
+FAIL glue/rte: HfUriError: Invalid HF URI 'hf://datasets/glue@bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/.huggingface.yaml'. Repository id must be 'namespace/name', got 'glue'.
+FAIL glue/cola: HfUriError: Invalid HF URI 'hf://datasets/glue@bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c/.huggingface.yaml'. Repository id must be 'namespace/name', got 'glue'.
+FAIL super_glue/boolq: HfUriError: Invalid HF URI 'hf://datasets/super_glue@3de24cf8022e94f4ee4b9d55a6f539891524d646/.huggingface.yaml'. Repository id must be 'namespace/name', got 'super_glue'.
+FAIL super_glue/wic: HfUriError: Invalid HF URI 'hf://datasets/super_glue@3de24cf8022e94f4ee4b9d55a6f539891524d646/.huggingface.yaml'. Repository id must be 'namespace/name', got 'super_glue'.
+FAIL super_glue/cb: HfUriError: Invalid HF URI 'hf://datasets/super_glue@3de24cf8022e94f4ee4b9d55a6f539891524d646/.huggingface.yaml'. Repository id must be 'namespace/name', got 'super_glue'.
+FAIL super_glue/copa: HfUriError: Invalid HF URI 'hf://datasets/super_glue@3de24cf8022e94f4ee4b9d55a6f539891524d646/.huggingface.yaml'. Repository id must be 'namespace/name', got 'super_glue'.

@@ -1,0 +1,657 @@
+{
+  "summary": {
+    "num_core": 32,
+    "num_probe": 32,
+    "num_total": 64,
+    "core_segment_ids": [
+      0
+    ],
+    "probe_segment_ids": [
+      0
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s000_e0032",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Alternating hemiplegia of childhood and rapid-onset dystonia parkinsonism are two separate movement disorders with different dominant mutations in the same sodium-potassium transporter ATPase subunit gene, ATP1A3.', 'We present a child with topiramate-responsive alternating hemiplegia of childhood who was tested for an ATP1A3 gene mutation.', 'Gene sequencing revealed an identical ATP1A3 mutation as in three typical adult-onset rapid-onset dystonia parkinsonism cases but never previously described in an alternating hemiplegia of childhood case.",
+      "output": "0",
+      "split": "core",
+      "complexity": 936.0
+    },
+    {
+      "anchor_id": "s000_e0039",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Duodenal stump disruption remains one of the most dreadful postgastrectomy complications, posing an overwhelming therapeutic challenge.', 'The present report describes the extremely rare occurrence of a delayed duodenal stump disruption following total gastrectomy with Roux-en-Y esophagojejunostomy for cancer, because of mechanical obstruction of the distal jejunum resulting in increased backpressure on afferent limp and duodenal stump. Surgical management included repair of distal jejunum obstruction, mobilization and re-stapling of the duodenum at the level of its intact second part and retrograde decompressing tube duodenostomy through the proximal jejunum.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1010.0
+    },
+    {
+      "anchor_id": "s000_e0027",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Prostate cancer is the world's leading cause of cancer and the second cause of cancer-related death in men after lung cancer. Differentiation of prostate adenocarcinoma from benign prostate lesions and hyperplasia sometimes cannot be done on the basis of morphologic findings. Considering the fact that in the prostate adenocarcinoma there is no basal cell layer, basal cell markers can help to differentiate prostate adenocarcinoma from cancer mimickers.\", 'We studied 98 prostate biopsy blocks (40 adenocarcinoma and 58 benign lesions) for basal cell marker expression.', 'p63 and 34βE12 were negative in all prostate adenocarcinoma specimens, but all benign prostate hyperplasia and high grade intraepithelial neoplasia cases expressed them.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1158.0
+    },
+    {
+      "anchor_id": "s000_e0096",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The objective of this study was to examine the associations between objective measures of sleep duration and sleep efficiency with the grades obtained by healthy typically developing children in math, language, science, and art while controlling for the potential confounding effects of socioeconomic status (SES), age, and gender.', \"We studied healthy typically developing children between 7 and 11 years of age. Sleep was assessed for five week nights using actigraphy, and parents provided their child's most recent report card.\", 'Higher sleep efficiency (but not sleep duration) was associated with better grades in math, English language, and French as a second language, above and beyond the contributions of age, gender, and SES.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1190.0
+    },
+    {
+      "anchor_id": "s000_e0015",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To investigate whether epileptogenic focus localization is possible based on resting state connectivity analysis of magnetoencephalographic (MEG) data.', 'A multivariate autoregressive (MVAR) model was constructed using the sensor space data and was projected to the source space using lead field and inverse matrix. The generalized partial directed coherence was estimated from the MVAR model in the source space. The dipole with the maximum information inflow was hypothesized to be within the epileptogenic focus.', 'Applying the focus localization algorithm (FLA) to the interictal MEG recordings from five patients with neocortical epilepsy, who underwent presurgical evaluation for the identification of epileptogenic focus, we were able to correctly localize the focus, on the basis of maximum interictal information inflow in the presence or absence of interictal epileptic spikes in the data, with three out of five patients undergoing resective surgery and being seizure free since.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1428.0
+    },
+    {
+      "anchor_id": "s000_e0066",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Recently, pluripotency of induced pluripotent stem (iPS) cells has been displayed after producing adult mice, in tetraploid complementation assays. These studies lead us to the last piece of the puzzle for reprogramming somatic cells into fully pluripotent cells which function as embryonic stem cells in most applications. However, in all of previous studies, skin fibroblasts were used as the starting population for reprogramming, raising questions as to whether the pluripotency of the iPS cells was dependent on the particular starting cell type.', 'Our iPS cell lines were prepared from murine adipose stem cells (ASCs). Their multi-potency was first tested by teratoma formation in nude mice. Then, tetraploid complementation was performed to generate progeny from them.', 'We succeeded to the birth of viable and fertile adult mice derived entirely from reprogrammed ASC, indicating cell types other than fibroblasts can also be restored to the embryonic level of pluripotency.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1433.0
+    },
+    {
+      "anchor_id": "s000_e0017",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "In most cells, the cilium is formed within a compartment separated from the cytoplasm. Entry into the ciliary compartment is regulated by a specialized gate located at the base of the cilium in a region known as the transition zone. The transition zone is closely associated with multiple structures of the ciliary base, including the centriole, axoneme, and ciliary membrane. However, the contribution of these structures to the ciliary gate remains unclear.', 'Here we report that, in Drosophila spermatids, a conserved module of transition zone proteins mutated in Meckel-Gruber syndrome (MKS), including Cep290, Mks1, B9d1, and B9d2, comprise a ciliary gate that continuously migrates away from the centriole to compartmentalize the growing axoneme tip. We show that Cep290 is essential for transition zone composition, compartmentalization of the axoneme tip, and axoneme integrity and find that MKS proteins also delimit a centriole-independent compartment in mouse spermatids.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1495.0
+    },
+    {
+      "anchor_id": "s000_e0042",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Burns are common and recurrent events treated by physicians on a daily basis at most emergency rooms around the world. There is a constant need to understand the physiopathology of burns, so as to minimize their devastating results. The objective of the present report is to describe a burn apparatus in association with an innovative method of animal fixation, as to produce burns of varying sizes and depths.', 'Rats were subjected to burns of 60 °C, 70 °C, and 80 °C for 10 s and after 3 days half of the rats in each group were killed and the resulting lesions were analyzed using histological techniques. In the other half of the rats the wound was measured weakly until complete re-epithelialization.', 'All burns were easily visible and the histological feature for the 60 °C burn was a superficial second-degree burn (28% of the dermis), for 70 °C we observed a deep second-degree burn (72% of the dermis), and in the 80 °C group, a third degree-burn was present (100% of the dermis).",
+      "output": "0",
+      "split": "core",
+      "complexity": 1520.0
+    },
+    {
+      "anchor_id": "s000_e0003",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Publication bias compromises the validity of systematic reviews. This problem can be addressed in part through searching clinical trials registries to identify unpublished studies. This study aims to determine how often systematic reviews published in emergency medicine journals include clinical trials registry searches.', 'We identified all systematic reviews published in the 6 highest-impact emergency medicine journals between January 1 and December 31, 2013. Systematic reviews that assessed the effects of an intervention were further examined to determine whether the authors described searching a clinical trials registry and whether this search identified relevant unpublished studies.', 'Of 191 articles identified through PubMed search, 80 were confirmed to be systematic reviews. Our sample consisted of 41 systematic reviews that assessed a specific intervention. Eight of these 41 (20%) searched a clinical trials registry. For 4 of these 8 reviews, the registry search identified at least 1 relevant unpublished study.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1535.0
+    },
+    {
+      "anchor_id": "s000_e0011",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Pre-operative restaging CT scans are often performed routinely following neoadjuvant chemoradiotherapy for locally advanced rectal cancer. There is a paucity of data on the utility of this common practice. We sought to determine how often restaging CTs identified disease progression or regression that altered management.', 'We performed a single-institution retrospective study. From 2007 to 2011, 182 patients had newly-diagnosed, non-metastatic rectal adenocarcinoma, of which 96 were surgical candidates with clinical stage II/III disease. Ninety-one of these patients (95%) completed neoadjuvant chemoradiation.', 'Eighty-three out of 91 patients (91%) had restaging CTs. Four patients (5%) had new lesions suspicious for distant metastasis (2 lung, 2 liver) on restaging CT scan reports (1 of these was present on initial staging CT but not reported). All 4 patients had node-positive disease. In no case did restaging CT result in a change in surgical management.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1573.0
+    },
+    {
+      "anchor_id": "s000_e0010",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Larger food portions lead to increased intake but the mechanism behind this effect is unclear. We investigated the effect of portion size on bite size, eating rate, deceleration rate, and meal duration.', 'Thirty-seven overweight women attended 5 visits after a 3 h fast and consumed a 229, 303, 400, 529 or 700 g portion of a lunch meal in random order. Meal eating parameters were measured with the Sussex Ingestion Pattern Monitor. Data were analyzed with mixed effects models.', 'Average bite size increased by 0.22 g for every 100 g increase in portion size (p=0.001); portion size had a non-linear effect on eating rate, increasing with portion sizes up to about 540 g (p=0.01). Deceleration rate (reduction in speed of eating) decreased by 20% (p<0.001) and meal duration increased by 22.5% for every 100 g increase in portion size (p<0.001), relative to the smallest portion.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1607.0
+    },
+    {
+      "anchor_id": "s000_e0063",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Minimally invasive retroperitoneoscopic surgery (MIS) for psoas abscess (PA) in patients with thoracolumbar tuberculosis is not well-illustrated and has not reached the status of being fully clinically assessed when we review the English literatures. The aim of this study is to introduce and investigate on efficacy and feasibility of MIS (retroperitoneoscopic technique) for PA in patients with thoracolumbar tuberculosis.', 'From January 2008 to 2013, 39 consecutive patients of the diagnosis of PA with thoracolumbar tuberculosis received the debridement of abscesses and cavity walls of abscesses by the retroperitoneoscopic technique (MIS) in combination with anti-tuberculosis chemotherapy. Medical records and follow-up data were retrospectively studied. CRP and ESR of every patient preoperatively and postoperatively were analyzed', 'Immediate relief in clinical symptoms and signs, and amelioration in imaging and laboratory examinations were obviously observed in all the patients. The follow-up had proceeded for 12-48 (mean 23) months. No complication was observed during the follow-up postoperatively.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1656.0
+    },
+    {
+      "anchor_id": "s000_e0021",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To date, no data is available about procalcitonin (PCT) levels and its relevance to morbidity and graft function in the early phase after pediatric liver transplantation (pLTx). The aim of this study was to analyse the prognostic relevance of early postoperative PCT elevations in pediatric liver recipients.', 'Thirty pediatric patients who underwent 32 liver transplantations were included into this observational single-center study.', 'Patients with high PCT levels on postoperative day (POD) 2 had higher International Normalized Ratio values on POD 5 (p<0.05) and suffered more often from primary graft non-function (p<0.05). They also had a longer stay in the pediatric intensive care unit (p<0.01) and on mechanical ventilation (p=0.001). There was no correlation between PCT elevation and systemic infection. However, PCT levels were correlated with peak serum lactate levels immediately after graft reperfusion and elevation of serum aminotransferases on POD 1 (r2=0.61, p<0.001).",
+      "output": "1",
+      "split": "core",
+      "complexity": 1684.0
+    },
+    {
+      "anchor_id": "s000_e0009",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To measure the through-focus curve for eyes implanted with a type 1 Boston keratoprosthesis (KPro) and compare it to that of pseudophakic controls with fixed pupil sizes. The results should assist in evaluating postoperative visual quality after surgery. They should also help to determine the necessary KPro inventories in terms of refractive power steps.', 'Autorefraction and manifest refraction were performed on all eyes. The monocular through-focus acuity curve was plotted in reference to the best-corrected visual acuity by spectacle plane defocus ranging from +5.00 to -5.00\\xa0dioptres in 0.50\\xa0dioptre increments. These measurements were obtained on KPro-implanted eyes, pseudophakic eyes as controls, and on the same control eyes after fixing the pupil diameter to 3 and 2\\xa0mm using black painted iris contact lenses.', 'Ten KPro eyes and five control eyes were included. Good agreement was noted between the subjective refractions and autorefraction in KPro eyes. The average through-focus curve for the control eyes was significantly steeper than that of the KPro curve, but became comparable after fixing the control pupil to 2 and 3\\xa0mm.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1703.0
+    },
+    {
+      "anchor_id": "s000_e0007",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Activation of B cells is a hallmark of systemic lupus erythematosus (SLE). Syk and TRAF6 are key signaling molecules in B-cell activation through BCR and CD40/TLR, respectively. Nevertheless, whether expression of Syk and TRAF6 is altered in SLE B cells remains unknown.', 'Phosphorylation and/or expression of Syk and TRAF6 were analyzed by flow cytometry in peripheral blood mononuclear cells isolated from SLE patients.', 'Pronounced phosphorylation and expression of Syk were noted in B cells from SLE patients compared with healthy donors. Levels of Syk phosphorylation correlated with the disease activity score. TRAF6 was significantly over-expressed in B cells of SLE patients as compared with healthy donors, and significant correlation of levels of TRAF6 expression and Syk phosphorylation was observed in SLE patients. Levels of TRAF6 expression were more pronounced in CD27+ memory B cells than in CD27-naïve B cells. In vitro treatment of SLE B cells with a Syk inhibitor (BAY61-3606) reduced Syk phosphorylation as well as TRAF6 expression.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1714.0
+    },
+    {
+      "anchor_id": "s000_e0074",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Convulsions associated with fever and acute onset of unknown aetiology with case fatalities have become a long observed medical condition at the Child Health Department of the Korle-Bu Teaching Hospital. Children admitted to the department with seizures of undetermined origin and fever has been a source of diagnostic confusion. Studies from the Asia Pacific region suggest a link with non-polio enteroviruses. The aim of the study was to investigate the association between non-polio enterovirus and acute encephalopathy causing neurological morbidity in children.', 'One hundred and fifty cerebrospinal fluid (CSF), throat swab and serum samples were collected from participants at the Child Health Department of the Korle-Bu Teaching Hospital for virus isolation and characterization. Samples were cultured on cells and positive culture assayed by microneutralisation. Direct PCR as well as multiplex PCR were used to detect other viral agents present.', 'Enterovirus isolation rate was approximately 0.67%. Intratypic differentiation by molecular characterization identified a poliovirus from vaccine origin. Further screening by real-time RT-PCR identified the virus as normal Sabin and not vaccine-derive poliovirus. No arbovirus was however detected.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1746.0
+    },
+    {
+      "anchor_id": "s000_e0048",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Studies performed in Andean populations living in high altitude, indicate that the reduced availability of oxygen could be associated to both a fetal growth retardation and a lower birth weight. These variables are predictive of morbidity and mortality during the first year of life.', 'To study perinatal variables of newborns of mothers living at contrasting altitudinal levels, harboring different degrees of Aymara ancestry.', 'Review of medical records of 5,295 women whose deliveries occurred between February 2004 and August 2010. Information was obtained on place of residence, grouped into two categories: coast (150 to 3,000 m) and high plateau (3,000 to 4,300 m), ancestry was estimated using number of Aymara surnames that were homologated to percentages of Amerindian admixture, gestational age, birth weight, height, head circumference and obstetric variables.', 'Gestational age showed a tendency to increase and birth weight, height and head circumference to decrease with altitude of residence. Only weight reached statistical significance. Women with Aymara ancestry gave birth to children with a significantly higher gestational age, weight and cranial circumference.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1794.0
+    },
+    {
+      "anchor_id": "s000_e0070",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The prevalence of obesity in children is high, and many do not meet physical activity recommendations. The Safe Routes to School (SRTS) program encourages school-aged children to walk and bike to school. We assessed the condition of the walking/biking environment around schools in Louisiana prior to the state's first SRTS program.\", \"Assessments were made at the neighborhood level with the Pedestrian Environmental Data Scan (PEDS) instrument, and at the school and individual levels using the National SRTS Center's teacher tallies and parent surveys. PEDS scores were developed to rate conduciveness to walking/bicycling of proposed SRTS routes. Sites' scores were compared with the percentage of students who walk/bike to school. Five schools in Louisiana were evaluated.\", 'Overall, more students walked (range: 2.4-17.4%) than biked (range: 0.3-4.5%) to school with more students walking home than to school. Predictors of walking/biking to school include distance from school, speed of traffic, school encouragement, and if a student asked permission. Sites with the highest PEDS score had the highest percentage of students who walked/biked to school.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1805.0
+    },
+    {
+      "anchor_id": "s000_e0016",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To assess the effect of treatment of seminal Helicobacter pylori in infertile asthenozoospermic men.', 'In all, 223 infertile asthenozoospermic men were consecutively selected. They were subjected to history taking, clinical examination, semen analysis, and estimation of H pylori IgA antibodies in their seminal fluid. Infertile men with high seminal H pylori IgA were subjected to triple drug treatment, omeprazole, 20 mg; tinidazole, 500 mg; and clarithromycin, 250 mg twice a day for 2 weeks. Semen analysis as well as H pylori IgA antibodies was estimated after 3 months.', 'In all, 22 of 223 men (9.87%) demonstrated H pylori IgA antibodies in their seminal plasma. After treatment, mean seminal H pylori IgA levels demonstrated significant decrease (1.55 ± 0.4 vs 0.52 ± 0.26; 95% confidence interval, 0.83-1.21; P = .001) concomitant with improved progressive as well as nonprogressive sperm motility. H pylori IgA antibodies demonstrated significant negative correlation with progressive sperm motility, nonprogressive sperm motility, normal sperm morphology, and significant positive correlation with immotile sperm motility.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1891.0
+    },
+    {
+      "anchor_id": "s000_e0090",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Flow-mediated dilation (FMD) is a complex mechanism involving several mediators, and different hemodynamic forces. Temporally distinct FMD patterns can be elicited by ischemic stimulus. Some subjects dilate early after cuff release, while others dilate later or do not dilate at all. Aim of the present research was to verify if hemorheological and hemodynamic factors might influence different FMD pattern.', '148 free-living subjects were studied. FMD was measured at 50 s, 2 min and 3 min. Blood viscosity was measured and shear stress calculated. Shear stress stimulus was quantified as the area under the curve after ischemia (SSAUC) over the first 40-s post-occlusion.', 'Based on the timing or absence of arterial dilation, 82 subjects were classified as Early dilators, 37 as Late dilators and 29 as No dilators. Peak FMD was 7.9 ± 4.3 % in Early dilators, and 9.1 ± 5.7 in Late dilators (p = NS). SSAUC was not significantly different among three groups, while blood viscosity was significantly higher in Late FMD subjects. Regression analyses showed the independent predictive role of age and blood viscosity on FMD patterns, and the lack of any association between FMD pattern and the magnitude of SS.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1892.0
+    },
+    {
+      "anchor_id": "s000_e0044",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Mycobacterium abscessus has emerged as a major pathogen in cystic fibrosis (CF) patients and has been associated with poor clinical outcomes, particularly following lung transplant. We investigated the acquisition of this bacterium in a cohort of pediatric CF patients.', 'Demographic and patient location data were used to uncover epidemiological links between patients with genetically related strains of M. abscessus that had been previously typed by variable-number tandem repeat profiling. Whole-genome sequencing was applied to 27 M. abscessus isolates from the 20 patients in this cohort to provide definitive data on the genetic relatedness of strains.', 'Whole-genome sequencing data demonstrated that M. abscessus isolates from 16 patients were unrelated, differing by at least 34 single-nucleotide polymorphisms (SNPs) from any other isolate, suggesting that independent acquisition events have occurred. Only 2 clusters of very closely related (<25 SNPs) isolates from different patients were seen. The first cluster contained 8 isolates, differing by a maximum of 17 SNPs, from a sibling pair who had intense exposure to each other both inside and outside the hospital. The second cluster contained 3 isolates, differing by a maximum of 24 SNPs, from 2 individuals with no apparent epidemiological links.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1895.0
+    },
+    {
+      "anchor_id": "s000_e0091",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Neutrophils can synthesize leukotriene B4 (LTB4) by activating the 5-lipoxygenase (5-LO)signaling pathway. LTB4 is a pro-inflammatory mediator associated with the etiology and progression of atherosclerosis. It can increase function and number of neutrophils in an autocrine manner. Since hypercholesterolemia is associated with an increase in the number and function of neutrophils, we hypothesized that this effect could be mediated through increased production of LTB4 in neutrophils.', 'Hypercholesterolemia was modeled in Wistar rats by feeding them with a high cholesterol diet. The induction of hypercholesterolemia caused an increase in the plasma levels of LTB4, following lipopolysaccharide stimulation. This effect was recapitulated in vitro, both in the presence and absence of stimulation with the activator of 5-LO, A23187. Neutrophils in hypercholesterolemia rats expressed similar total levels of 5-LO as control rats, but displayed increased nuclear localization of 5-LO, as well as elevated levels of phosphorylated 5-LO and ERK1/2. In vitro, MβCD/cholesterol complexes enriched cholesterol in neutrophils, resulted in similar changes in 5-LO/LTB4. In addition, these alterations could be inhibited with the ERK inhibitor PD98059.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1900.0
+    },
+    {
+      "anchor_id": "s000_e0060",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Researchers studying the murine response to stress generally use mice housed under standard, nationally mandated conditions as controls. Few investigators are concerned whether basic physical aspects of mouse housing could be an additional source of stress, capable of influencing the subsequent impact of an experimentally applied stressor. We have recently become aware of the potential for housing conditions to impact important physiological and immunological properties in mice.', 'Here we sought to determine whether housing mice at standard temperature (ST; 22\\u2009°C) vs. thermoneutral temperature (TT; 30\\u2009°C) influences baseline expression of heat shock proteins (HSPs) and their typical induction following a whole body heating.', 'There were no significant differences in baseline expression of HSPs at ST and TT. However, in several cases, the induction of Hsp70, Hsp110 and Hsp90 in tissues of mice maintained at ST was greater than at TT following 6\\u2009h of heating (which elevated core body temperature to 39.5\\u2009°C). This loss of HSP induction was also seen when mice housed at ST were treated with propranolol, a β-adrenergic receptor antagonist, used clinically to treat hypertension and stress.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1902.0
+    },
+    {
+      "anchor_id": "s000_e0092",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The purpose of this study was to address the affects of mood modifying drugs on the transcriptome, in a tissue culture model, using qPCR arrays as a cost effective approach to identifying regulatory networks and pathways that might coordinate the cell response to a specific drug.', 'We addressed the gene expression profile of 90 plus genes associated with human mood disorders using the StellARray™ qPCR gene expression system in the human derived SH-SY5Y neuroblastoma cell line.', 'Global Pattern Recognition (GPR) analysis identified a total of 9 genes (DRD3(⁎), FOS(†), JUN(⁎), GAD1(⁎†), NRG1(⁎), PAFAH1B3(⁎), PER3(⁎), RELN(⁎) and RGS4(⁎)) to be significantly regulated in response to cellular challenge with the mood stabilisers sodium valproate ((⁎)) and lithium ((†)). Modulation of FOS and JUN highlights the importance of the activator protein 1 (AP-1) transcription factor pathway in the cell response. Enrichment analysis of transcriptional networks relating to this gene set also identified the transcription factor neuron restrictive silencing factor (NRSF) and the oestrogen receptor as an important regulatory mechanism.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1913.0
+    },
+    {
+      "anchor_id": "s000_e0008",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The aim of this study was to determine the reasons for which erupted third molars (3M) are extracted in a sample of Mexican patients.', \"A retrospective cross-sectional study was performed on a sample of 83 patients attending exodontia (minor oral surgery) clinics of a public university in Mexico (Autonomous University of Hidalgo State). The outcome variable was the reason for extractions using Kay and Blinkhorn's classification. The independent variables were age, gender, arch and tooth number according to the World Health Organization (WHO). For statistical analysis, we used the Chi-squared test in Stata 9.0.\", 'Eighty-three patients underwent 150 3M extractions. Mean age was 38.67 ± 13.96 years, and 71.1% were female. The four reasons for 3M extraction were prosthetic (44.0%), followed by orthodontic (24.7%), dental caries (20.0%) and periodontal disease (11.3%). Differences were observed in the reasons for 3M extractions across age groups (p < 0.05). No significant differences existed between men and women (p > 0.05), or the WHO tooth number (p > 0.05).",
+      "output": "1",
+      "split": "core",
+      "complexity": 1931.0
+    },
+    {
+      "anchor_id": "s000_e0072",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Genetic haploinsufficiency of SYNGAP1/Syngap1 commonly occurs in developmental brain disorders, such as intellectual disability, epilepsy, schizophrenia, and autism spectrum disorder. Thus, studying mouse models of Syngap1 haploinsufficiency may uncover pathologic developmental processes common among distinct brain disorders.', 'A Syngap1 haploinsufficiency model was used to explore the relationship between critical period dendritic spine abnormalities, cortical circuit assembly, and the window for genetic rescue to understand how damaging mutations disrupt key substrates of mouse brain development.', 'Syngap1 mutations broadly disrupted a developmentally sensitive period that corresponded to the period of heightened postnatal cortical synaptogenesis. Pathogenic Syngap1 mutations caused a coordinated acceleration of dendrite elongation and spine morphogenesis and pruning of these structures in neonatal cortical pyramidal neurons. These mutations also prevented a form of developmental structural plasticity associated with experience-dependent reorganization of brain circuits. Consistent with these findings, Syngap1 mutant mice displayed an altered pattern of long-distance synaptic inputs into a cortical area important for cognition. Interestingly, the ability to genetically improve the behavioral endophenotype of Syngap1 mice decreased slowly over postnatal development and mapped onto the developmental period of coordinated dendritic insults.",
+      "output": "0",
+      "split": "core",
+      "complexity": 1947.0
+    },
+    {
+      "anchor_id": "s000_e0073",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Immunologic abnormalities have been found in bipolar disorder but pentraxin 3, a marker of innate immunity, has not been studied in this population.', 'Levels of pentraxin 3 were measured in individuals with bipolar disorder, schizophrenia, and non-psychiatric controls. Linear regression models were used to compare the pentraxin 3 levels in each of the psychiatric groups to that in the control group, adjusting for demographic and clinical variables. Logistic regression models were used to calculate the odds ratios associated with levels of pentraxin 3 which differed from specified levels of the control group.', 'The sample consisted of 831 individuals: 256 with bipolar disorder, 309 with schizophrenia, and 266 without a psychiatric disorder. The levels of pentraxin 3 in the bipolar disorder, but not in the schizophrenia, group were significantly lower than those of controls, adjusting for age, gender, race, maternal education, smoking status, and body mass index (t = -3.78, p < 0.001). The individuals with bipolar disorder also had significantly increased odds of having low levels of pentraxin 3 relative to both the 10th and 25th percentile level of the controls and significantly decreased odds of having a level greater than the 75th and the 90th percentile level of the controls, adjusting for the same covariates.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1963.0
+    },
+    {
+      "anchor_id": "s000_e0069",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Assessment of the activity of thioridazine towards Mycobacterium tuberculosis (Mtb), in\\xa0vitro and in\\xa0vivo as a single drug and in combination with tuberculosis (TB) drugs.', 'The in\\xa0vitro activity of thioridazine as single drug or in combination with TB drugs was assessed in terms of MIC and by use of the time-kill kinetics assay. Various Mtb strains among which the Beijing genotype strain BE-1585 were included. In\\xa0vivo, mice with TB induced by BE-1585 were treated with a TB drug regimen with thioridazine during 13 weeks. Therapeutic efficacy was assessed by the change in mycobacterial load in the lung, spleen and liver during treatment and 13 weeks post-treatment.', 'In\\xa0vitro, thioridazine showed a concentration-dependent and time-dependent bactericidal activity towards both actively-replicating and slowly-replicating Mtb. Thioridazine at high concentrations could enhance the activity of isoniazid and rifampicin, and in case of isoniazid resulted in elimination of mycobacteria and prevention of isoniazid-resistant mutants. Thioridazine had no added value in combination with moxifloxacin or amikacin. In mice with TB, thioridazine was poorly tolerated, limiting the maximum tolerated dose (MTD). The addition of thioridazine at the MTD to an isoniazid-rifampicin-pyrazinamide regimen for 13 weeks did not result in enhanced therapeutic efficacy.",
+      "output": "1",
+      "split": "core",
+      "complexity": 1999.0
+    },
+    {
+      "anchor_id": "s000_e0033",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The principal oxidative-stress defense in the human parasite Trypanosoma cruzi is the tryparedoxin-dependent peroxide detoxification pathway, constituted by trypanothione reductase (TryR), tryparedoxin (TXN), tryparedoxin peroxidase (TXNPx) and tryparedoxin-dependent glutathione peroxidase A (GPxA). Here, Metabolic Control Analysis (MCA) was applied to quantitatively prioritize drug target(s) within the pathway by identifying its flux-controlling enzymes.', 'The recombinant enzymes were kinetically characterized at physiological pH/temperature. Further, the pathway was in vitro reconstituted using enzyme activity ratios and fluxes similar to those observed in the parasites; then, enzyme and substrate titrations were performed to determine their degree of control on flux. Also, kinetic characterization of the whole pathway was performed.', 'Analyses of the kinetic properties indicated that TXN is the less efficient pathway enzyme derived from its high Kmapp for trypanothione and low Vmax values within the cell. MCA established that the TXN-TXNPx and TXN-GPxA redox pairs controlled by 90-100% the pathway flux, whereas 10% control was attained by TryR. The Kmapp values of the complete pathway for substrates suggested that the pathway flux was determined by the peroxide availability, whereas at high peroxide concentrations, flux may be limited by NADPH.",
+      "output": "0",
+      "split": "core",
+      "complexity": 2007.0
+    },
+    {
+      "anchor_id": "s000_e0071",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Stroke is the third leading cause of invalidism and death in industrialized countries. There are conflicting reports about the effects of Angiotensin II on ischemia-reperfusion brain injuries and most data have come from chronic hypertensive rats. In this study, hypotensive and non-hypotensive doses of candesartan were used to investigate the effects of angiotensin II AT1 receptor blockade by transient focal cerebral ischemia in normotensive rats.', 'In this experimental study, 48 male Sprague-Dawley rats were randomly divided into four groups (n=12). Sham group, the control ischemic group, and two ischemic groups received candesartan at doses of 0.1 or 0.5 mg/kg at one hour before ischemia. Transient focal cerebral ischemia was induced by 60 minutes occlusion of the middle cerebral artery, followed by 24 h reperfusion. The neurological deficit score was evaluated at the end of the reperfusion period. The total cortical and striatal infarct volumes were determined using triphenyltetrazolium chloride staining technique. Tissue swelling was calculated for the investigation of ischemic brain edema formation.', 'In comparison with the control ischemic group, AT1 receptor blockade with both doses of candesartan (0.1 or 0.5 mg/kg) significantly improved neurological deficit and lowered cortical and striatal infarct sizes. In addition, pretreatment with candesartan significantly reduced ischemia induced tissue swelling.",
+      "output": "0",
+      "split": "core",
+      "complexity": 2022.0
+    },
+    {
+      "anchor_id": "s000_e0050",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The aims of this study were to demonstrate the tumorigenicity of CD133+ colon cancer cells in vitro, analyze the correlations between spheroid formation and clinicopathologic variables, and screen for overexpressed genes in CD133+ colon cancer stem cells. Moreover, the aim of this study was to establish a living tumor tissue bank using surgically resected specimens.', 'Using LoVo cell line, we isolated CD133+ cells and performed clonogenic assay and animal experiment to test tumorigenicity of CD133+ cells. Twenty-nine surgical samples were freshly collected from 27 patients who received curative or palliative surgery, and the samples were mechanically and enzymatically dissociated into single cells.', 'We confirmed the enhanced tumorigenicity of CD133+ cells isolated from LoVo cell line both in vitro and in vivo. Of these 29 samples, 8 (28%) contained >3% CD133+ cells. Sphere formation was significantly higher in samples from patients with lymphatic invasion than in those without lymphatic invasion [54.5% (6/11) vs. 12.5% (2/16); P=0.033] and in samples containing >3% of CD133+ cells than in those containing ≤3% of CD133+ cells [36.4% (4/11) vs. 0% (0/16); P=0.019].",
+      "output": "0",
+      "split": "core",
+      "complexity": 2052.0
+    },
+    {
+      "anchor_id": "s000_e0013",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To review UK newspaper reports relating to Do Not Attempt Cardiopulmonary Resuscitation (DNACPR) decisions in order to identify common themes and encourage dialogue.', 'An online media database (LexisNexis(®)) was searched for UK Newspaper articles between 1993 and 2013 that referenced DNACPR decisions. Legal cases, concerning resuscitation decisions, were identified using two case law databases (Lexis Law(®) and Westlaw(®)), and referenced back to newspaper publications. All articles were fully reviewed.', 'Three hundred and thirty one articles were identified, resulting from 77 identifiable incidents. The periods 2000-01 and 2011-13 encompassed the majority of articles. There were 16 high-profile legal cases, nine of which resulted in newspaper articles. Approximately 35 percent of newspaper reports referred to DNACPR decisions apparently made without adequate patient and/or family consultation. \"Ageism\" was referred to in 9 percent of articles (mostly printed 2000-02); and \"discrimination against the disabled\" in 8 percent (mostly from 2010-12). Only five newspaper articles (2 percent) discussed patients receiving CPR against their wishes. Eighteen newspaper reports (5 percent) associated DNACPR decisions with active euthanasia.",
+      "output": "1",
+      "split": "core",
+      "complexity": 2055.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s000_e0037",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "In recent years, the relationship between physical activity (PA) and smoking cessation has been increasingly studied. However, very few studies have investigated the possible protective role of PA on smoking relapse on the long term.', 'This study evaluated the impact of self-reported PA in precessation on smoking relapse. Other variables evaluated included measures of dependence, socio-demographic factors and smoking-related variables. Several possible interactions between PA and well identified factors influencing smoking relapse rate were also explored.', 'After the initial consultation, 345 smokers were consecutively recruited in a smoking-cessation unit. Smoking abstinence was collected regularly during consultation or by phone calls. PA was measured with the International Physical Activity Questionnaire short form. Cox proportional hazard model was performed to determine factors associated with smoking relapse.', 'Among the initial sample, 227 adults were included in the survival analysis. After adjustment for potential cofounders, PA was not associated with smoking relapse. Self-efficacy level, absence of professional activity, previous attempts to quit and alcohol use disorders were associated with relapse. Secondary analysis showed a statistically significant effect of an interaction term for PA and antidepressant use on reducing smoking relapse (HR\\u2009=\\u2009.81, 95% CI: .66-.99).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2071.0
+    },
+    {
+      "anchor_id": "s000_e0097",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Morbidly obese patients usually present vitamin D deficiency or secondary hyperparathyroidism. Low vitamin D levels have been recently related to non-alcoholic fatty liver disease (NAFLD). The aim of this study was to analyse the relationship between vitamin D, bone turnover markers and non-alcoholic fatty liver disease and metabolic syndrome in severely obese patients.', 'One hundred and ten patients who underwent bariatric surgery were included. Liver biopsy was taken during surgery. Two univariate analyses were carried out in order to i) analyse the relationship between liver histology and vitamin D-bone turnover markers (intact parathyroid hormone (PTH), osteocalcin and Carboxy-terminal collagen crosslinks) and ii) establish the association between metabolic syndrome components-insulin resistance (HOMA) and vitamin D-bone turnover markers.', '70% of the patients had lower levels of vitamin D or secondary hyperparathyroidism. None of the components of liver histology were associated with levels of vitamin D or with bone turnover parameters. Patients with metabolic syndrome showed lower levels of PTH and osteocalcin (72,42 (29,47) vs 61.25(19.59) p-Value: 0.022; 19.79 (10.43) vs 16.87(10.25) p-Value: 0,028, respectively). HOMA was not related to Vitamin D or bone turnover markers.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2127.0
+    },
+    {
+      "anchor_id": "s000_e0065",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To investigate the specific role of Frizzled-related protein (FRZB) and Secreted frizzled-related protein 1 (SFRP1) in the onset and progression of Osteoarthritis (OA) using Frzb(-/-) and Sfrp1(-/-) mice in the destabilization of medial meniscus model (DMM), a slowly progressing model of OA. Secreted frizzled-related proteins (SFRPs) were identified as secreted Wingless-type (Wnt) antagonists. The Wnt signaling cascade is a major regulator in cartilage development, homeostasis and degeneration.', 'The DMM model was surgically induced in eight-week-old male C57/Bl6 Frzb(-/-), Sfrp1(-/-) or wild-type mice by transection of the medial meniscotibial ligament. Cartilage damage in the femoral and tibial articular surfaces was calculated following the Osteoarthritis Research Society International (OARSI) histopathology initiative guidelines. Histomorphometry was used to evaluate the subchondral bone plate thickness.', 'OA severity scores were significantly higher in the tibia of Frzb(-/-) mice as compared to littermates, whereas no interaction was seen between genotype and intervention in Sfrp1(-/-) mice. Moreover, the DMM model resulted in significantly greater subchondral bone changes compared to sham but was not different between Frzb(-/-) mice and littermates. In contrast, the subchondral bone properties in Sfrp1(-/-) mice were significantly different from littermates.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2170.0
+    },
+    {
+      "anchor_id": "s000_e0084",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Gene flow from crops to their wild relatives has the potential to alter population growth rates and demography of hybrid populations, especially when a new crop has been genetically modified (GM). This study introduces a comprehensive approach to assess this potential for altered population fitness, and uses a combination of demographic data in two habitat types and mathematical (matrix) models that include crop rotations and outcrossing between parental species.', 'Full life-cycle demographic rates, including seed bank survival, of non-GM Brassica rapa\\u2009×\\u2009B. napus F1 hybrids and their parent species were estimated from experiments in both agricultural and semi-natural habitats. Altered fitness potential was modelled using periodic matrices including crop rotations and outcrossing between parent species.', 'The demographic vital rates (i.e. for major stage transitions) of the hybrid population were intermediate between or lower than both parental species. The population growth rate (λ) of hybrids indicated decreases in both habitat types, and in a semi-natural habitat hybrids became extinct at two sites. Elasticity analyses indicated that seed bank survival was the greatest contributor to λ. In agricultural habitats, hybrid populations were projected to decline, but with persistence times up to 20 years. The seed bank survival rate was the main driver determining persistence. It was found that λ of the hybrids was largely determined by parental seed bank survival and subsequent replenishment of the hybrid population through outcrossing of B. rapa with B. napus.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2172.0
+    },
+    {
+      "anchor_id": "s000_e0086",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Ascent to high altitude leads to a reduction in ambient pressure and a subsequent fall in available oxygen. The resulting hypoxia can lead to elevated pulmonary artery (PA) pressure, capillary stress, and an increase in interstitial fluid. This fluid can be assessed on lung ultrasound (LUS) by the presence of B-lines. We undertook a chamber and field study to assess the impact of high-intensity exercise in hypoxia on the development of pulmonary interstitial edema in healthy lowlanders.', 'Thirteen volunteers completed a high-intensity intermittent exercise (HIIE) test at sea level, in acute normobaric hypoxia (12% O2, approximately 4090 m equivalent altitude), and in hypobaric hypoxia during a field study at 4090 m after 6 days of acclimatization. Pulmonary interstitial edema was assessed by the evaluation of LUS B-lines.', 'After HIIE, no increase in B-lines was seen in normoxia, and a small increase was seen in acute normobaric hypoxia (2 ± 2; P < .05). During the field study at 4090 m, 12 participants (92%) demonstrated 7 ± 4 B-lines at rest, which increased to 17 ± 5 immediately after the exercise test (P < .001). An increase was evident in all participants. There was a reciprocal fall in peripheral arterial oxygen saturations (Spo2) after exercise from 88% ± 4% to 80% ± 8% (P < .01). B-lines and Spo2 in all participants returned to baseline levels within 4 hours.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2209.0
+    },
+    {
+      "anchor_id": "s000_e0005",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Schizophrenia is recognized as a disorder of the brain and neuronal connectivity. The neural cell adhesion molecule 1 (NCAM1) gene plays a crucial role in regulating neuronal connectivity.', 'We conducted a two-stage association analysis on 17 NCAM1 SNPs in two independent Han Chinese schizophrenia case-control cohorts (discovery sample from Hunan Province: 986 patients and 1040 normal controls; replication sample from Yunnan Province: 564 cases and 547 healthy controls). Allele, genotype and haplotype frequencies were compared between case and control samples. Transcription factor binding site prediction and luciferase reporter assays were employed to assess the potential function of promoter SNPs. We detected developmental changes at the transcriptional level of NCAM1 during neuron differentiation in Macaca mulatta neural progenitor cells (NPC). Serum levels of NCAM1 were measured in 72 cases and 88 controls.', 'A promoter variant, rs2301228, was found to be associated with schizophrenia at the allelic level and was validated in a replication cohort. Luciferase reporter assays demonstrated that risk allele rs2301228-A significantly down-regulated NCAM1 gene transcription compared to the G-allele. Concordantly, schizophrenia patients had a significantly lower level of serum NCAM1 compared to healthy donors. During the NPC neuronal differentiation, NCAM1 mRNA was significantly increased, suggesting a critical role of this gene in neural development.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2221.0
+    },
+    {
+      "anchor_id": "s000_e0076",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Immune monitoring (IM) has not been shown to be associated with cardiac allograft vasculopathy (CAV).', 'Maximal intimal area, average percent stenosis, plaque volume, and maximal intimal thickness (MIT) were measured for matched baseline and one-yr IVUS segments in a blinded fashion. Patients were divided into quartiles by IM scores and outcomes compared. Optimal IM cutoff was determined.', 'IM assays were measured at 63.7 ± 16.4 d after transplantation in fifty patients. Progression of maximal intimal area (p = 0.005), average percent stenosis (p < 0.001), plaque volume (p = 0.005), and MIT (p = 0.001) were increased across the quartiles. An optimal IM assay cutoff of 406.0 ng ATP/mL demonstrated a sensitivity of 66.7% and specificity of 94.3% for predicting rapid progression of MIT ≥ 0.5 mm. Mean IM scores for Group 1 vs. Group 2 were 176.4 ± 102.2 and 616.3 ± 239.5 ngATP/mL, respectively. Rapid progression of MIT ≥ 0.5 mm occurred in 5/38 patients (13.2%) in Group 1 vs. 10/12 patients (83.3%) in Group 2 (p < 0.001). The risk ratio for rapid progression with elevated IM was 11.7 (p < 0.001).",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2249.0
+    },
+    {
+      "anchor_id": "s000_e0018",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Active commuters have lower risk of chronic disease. Understanding which of the, to some extent, modifiable characteristics of public transportation that facilitate its use is thus important in a public health perspective. The aim of the study was to examine the association between individual public transportation accessibility and self-reported active commuting, and whether the associations varied with commute distance, age, and gender.', 'Twenty-eight thousand nine hundred twenty-eight commuters in The Capital Region of Denmark reported self-reported time spent either walking or cycling to work or study each day and the distance to work or study. Data were obtained from the Danish National Health Survey collected in February to April 2010. Individual accessibility by public transportation was calculated using a multi-modal network in a GIS. Multilevel logistic regression was used to analyze the association between accessibility, expressed as access area, and being an active commuter.', 'Public transport accessibility area based on all stops within walking and cycling distance was positively associated with being an active commuter. Distance to work, age, and gender modified the associations. Residing within 10\\u2009km commute distance and in areas of high accessibility was associated with being an active commuter and meeting the recommendations of physical activity. For the respondents above 29\\u2009years, individual public transportation accessibility was positively associated with being an active commuter. Women having high accessibility had significantly higher odds of being an active commuter compared to having a low accessibility. For men, the associations were insignificant.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2285.0
+    },
+    {
+      "anchor_id": "s000_e0085",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Progression from actinic keratosis (AK) to invasive squamous cell carcinoma (iSCC) of the skin is thought to occur after the development of full thickness epidermal neoplasia, as in the classic pathway of cervical cancer. Nevertheless, cutaneous iSCC may also directly arise from a proliferation of atypical basaloid cells limited mostly to the epidermal basal layer (AK I), akin to what happens in the 'differentiated pathway' of iSCC of the vulva, oral cavity and other locations.\", 'To evaluate the prevalence of classic and differentiated pathways in the development of cutaneous iSCC.', 'The epidermis adjacent to and overlying iSCC, assumed to be representative of pre-existing lesions, was histologically studied in 196 skin biopsy specimens showing iSCC.', 'AK I, AK II and AK III lesions overlying iSCC were present in 63.8%, 17.9% and 18.4% of cases respectively. The corresponding percentages in the epidermis adjacent to iSCC were 77.9%, 6.6% and 8.3% respectively (stage could not be assessed in 8.1% of cases). Focal epidermal ulceration overlying iSCC was seen in 32% of AK I, 28.6% of AK II and 33.3% of AK III instances. Adnexal involvement by atypical keratinocytes (proliferative AK) was present more frequently in cases with overlying AK I (39/125, 31.2%) than with AK II (8/35, 22.9%) and AKII I (5/36, 13.9%).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2301.0
+    },
+    {
+      "anchor_id": "s000_e0078",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Palmitate, a saturated fatty acid (FA), is known to induce toxicity and cell death in various types of cells. Resveratrol (RSV) is able to prevent pathogenesis and/or decelerate the progression of a variety of diseases. Several in vitro and in vivo studies have also shown a protective effect of RSV on fat accumulation induced by FAs. Additionally, endoplasmic reticulum (ER) stress has recently been linked to cellular adipogenic responses. To address the hypothesis that the RSV effect on excessive fat accumulation promoted by elevated saturated FAs could be partially mediated by a reduction of ER stress, we studied the RSV action on experimentally induced ER stress using palmitate in several cancer cell lines.', 'We show that, unexpectedly, RSV promotes an amplification of palmitate toxicity and cell death and that this mechanism is likely due to a perturbation of palmitate accumulation in the triglyceride form and to a less important membrane fluidity variation. Additionally, RSV decreases radical oxygen species (ROS) generation in palmitate-treated cells but leads to enhanced X-box binding protein-1 (XBP1) splicing and C/EBP homologous protein (CHOP) expression. These molecular effects are induced simultaneously to caspase-3 cleavage, suggesting that RSV promotes palmitate lipoapoptosis primarily through an ER stress-dependent mechanism. Moreover, the lipotoxicity reversion induced by eicosapentaenoic acid (EPA) or by a liver X receptor (LXR) agonist reinforces the hypothesis that RSV-mediated inhibition of palmitate channeling into triglyceride pools could be a key factor in the aggravation of palmitate-induced cytotoxicity.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2316.0
+    },
+    {
+      "anchor_id": "s000_e0035",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The capacity of toll-like receptor (TLR) 7/8 agonist-conjugated hepatitis B virus (HBV) proteins (HBV-Ag) to overcome established hepatitis B surface antigen (HBsAg)-specific immune tolerance was explored.', 'A TLR7/8 agonist, CL097, was conjugated with alum-absorbed HBsAg and hepatitis B core antigen (HBcAg), as confirmed by ultra performance liquid chromatography quadrupole time-of-flight mass spectrometry (UPLC-Q/TOF MS). Mice from two independently generated HBV-transgenic (HBV-Tg) colonies, C57BL/6J-TgN (AlblHBV) 44Bri/J mice and C57BL/6-HBV-1.3 genome-eq mice, were immunized with CL097-conjugated HBV-Ag every 2 weeks, four times.', 'After immunization, 8/11 (72.7%) of the AlblHBV mice and 10/13 (76.9%) of the HBV-1.3 genome-eq mice generated serum detectable antibodies against HBsAg (anti-HBs). HBsAg-specific interferon gamma (IFN-γ)-producing CD4(+) and CD8(+) T-cells were detected in splenocytes from these mice. Naïve normal mice receiving splenocytes from the mice immunized with CL097-conjugated HBV-Ag generated immediate recall immune responses, e.g., the mice that received CD4(+)CD25(+)-depleted splenocytes generated anti-HBs on day 3 after HBsAg challenge while those receiving cells from sham-immunized mice did not.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2317.0
+    },
+    {
+      "anchor_id": "s000_e0019",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Pathophysiological mechanisms leading to chordee in patients with hypospadias and to the hidden state of buried penis in the prepubic fat remain unclear. Resection of dartos tissue usually makes the penis straight in patients with hypospadias and corrects it in those with buried penis, suggesting a common pathophysiology related to dartos tissue.', 'Tissue samples from 113 children undergoing primary penile surgery for hypospadias (94 patients), epispadias (1) or buried penis (18) were collected between November 2011 and September 2013. Tissue samples from 79 children undergoing circumcision for nonmedical reasons served as controls. All samples were stained with smooth muscle actin and analyzed by the same pathologist, who was blinded to indication for surgery. Chi-square and Fisher exact tests were applied.', 'Three different dartos tissue patterns were observed. Pattern I (normal) consisted of smooth muscle fibers of dartos tissue organized in a parallel configuration in the subcutaneous tissue. Pattern II was characterized by poorly developed and hypotrophic smooth muscle fibers. Pattern III was determined by randomly distributed smooth muscle fibers in the subcutaneous tissue, without parallel configuration. Pattern I was observed in 45 circumcision specimens (64%). Of buried penis cases 78% were considered abnormal (pattern II in 4 cases and III in 10, p = 0.001). Of hypospadias cases 70% were considered abnormal (pattern II in 31 cases, III in 32, and mixed II and III in 3, p < 0.001). The only epispadias case was designated pattern II.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2355.0
+    },
+    {
+      "anchor_id": "s000_e0093",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Skeletal myoblasts fuse to form functional syncytial myotubes as an integral part of the skeletal muscle. During this differentiation process, expression of proteins for mechanical and electrical integration is seized, which is a major drawback for the application of skeletal myoblasts in cardiac regenerative cell therapy, because global heart function depends on intercellular communication.', 'Mechanically preconditioned engineered tissue constructs containing neonatal mouse skeletal myoblasts were transplanted epicardially. A Y-chromosomal specific polymerase chain reaction (PCR) was undertaken up to 10 weeks after transplantation to confirm the presence of grafted cells. Histologic and electrophysiologic analyses were carried out 1 week after transplantation.', 'Cells within the grafted construct expressed connexin 43 at the interface to the host myocardium, indicating electrical coupling, confirmed by sharp electrode recordings. Analyses of the maximum stimulation frequency (5.65 ± 0.37 Hz), conduction velocity (0.087 ± 0.011 m/s) and sensitivity for pharmacologic conduction block (0.736 ± 0.080 mM 1-heptanol) revealed effective electrophysiologic coupling between graft and host cells, although significantly less robust than in native myocardial tissue (maximum stimulation frequency, 11.616 ± 0.238 Hz, P\\xa0<\\xa0.001; conduction velocity, 0.300 ± 0.057 m/s, P\\xa0<\\xa0.01; conduction block, 1.983 ± 0.077 mM 1-heptanol, P\\xa0<\\xa0.001).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2420.0
+    },
+    {
+      "anchor_id": "s000_e0034",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The role of Kdr (VEGFR-2/Flk-1) in vascular formation has been well described, but the role of Flt1 (VEGFR-1) is not well studied and is generally considered as a decoy receptor for trapping VEGF.', 'The effects of VEGFR1/2 kinase inhibitor (VRI) and calycosin on Flt1 tyrosine kinase (TK) activity were evaluated by molecular docking, enzymatic inhibition assay, protein co-immunoprecipitation and siRNA gene knock-down analysis in HUVECs. Toxicities of the chemicals were examined using HUVECs viability. Their effects on angiogenesis and vessel formation were furthered studied in HUVECs in vitro and Tg(fli-1:EGFP) zebrafish in vivo. The gene and protein expression of VEGF and VEGF receptors were investigated by quantitative RT-PCR and Western blot.', 'VRI strongly inhibited physiological functions of both VEGF receptors and suppressed endothelial cell survival. This resulted in blood vessel loss in zebrafish embryos. Interestingly, calycosin co-treatment impeded VRI-induced blood vessel loss. Docking and kinase inhibition assay revealed that calycosin competed with VRI for the tyrosine kinase domain of Flt1 without affecting ATP binding. On the contrary, calycosin did not affect the interaction between VRI and Kdr-TK. Consistent with these results, calycosin counteracted the inhibition of Flt1-TK and PI3K phosphorylation induced by VRI in HUVECs. Further studies in vitro and in vivo showed that the minimizing effect of calycosin on VRI-mediated endothelial cytotoxicity was blocked by wortmannin (a PI3K inhibitor). The impeding effect of calycosin on VRI-induced blood vessel loss was absent in zebrafish embryos injected with Flt1 MO.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2467.0
+    },
+    {
+      "anchor_id": "s000_e0099",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Improper mechanical ventilation can exacerbate acute lung damage, causing a secondary ventilator-induced lung injury (VILI). We hypothesized that VILI can be reduced by modifying specific components of the ventilation waveform (mechanical breath), and we studied the impact of airway pressure release ventilation (APRV) and controlled mandatory ventilation (CMV) on the lung micro-anatomy (alveoli and conducting airways). The distribution of gas during inspiration and expiration and the strain generated during mechanical ventilation in the micro-anatomy (micro-strain) were calculated.', 'Rats were anesthetized, surgically prepared, and randomized into 1 uninjured control group (n\\xa0= 2) and 4 groups with lung injury: APRV 75% (n\\xa0= 2), time at expiration (TLow) set to terminate appropriately at 75% of peak expiratory flow rate (PEFR); APRV 10% (n\\xa0= 2), TLow set to terminate inappropriately at 10% of PEFR; CMV with PEEP 5 cm H2O (PEEP 5; n\\xa0= 2); or PEEP 16 cm H2O (PEEP 16; n\\xa0= 2). Lung injury was induced in the experimental groups by Tween lavage and ventilated with their respective settings. Lungs were fixed at peak inspiration and end expiration for standard histology. Conducting airway and alveolar air space areas were quantified and conducting airway micro-strain was calculated.', 'All lung injury groups redistributed inspired gas away from alveoli into the conducting airways. The APRV 75% minimized gas redistribution and micro-strain in the conducting airways and provided the alveolar air space occupancy most similar to control at both inspiration and expiration.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2480.0
+    },
+    {
+      "anchor_id": "s000_e0064",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To evaluate the thickness of cartilage at the posterior aspect of the medial and lateral condyle in Osteoarthritis (OA) knees compared to non-OA knees using computed tomography arthrography (CTA).', '535 consecutive knee CTAs (mean patient age = 48.7 ± 16.0; 286 males), were retrospectively analyzed. Knees were radiographically classified into OA or non-OA knees according to a modified Kellgren/Lawrence (K/L) grading scheme. Cartilage thickness at the posterior aspect of the medial and lateral femoral condyles was measured on sagittal reformations, and compared between matched OA and non-OA knees in the whole sample population and in subgroups defined by gender and age.', 'The cartilage of the posterior aspect of medial condyle was statistically significantly thicker in OA knees (2.43 mm (95% confidence interval (CI) = 2.36, 2.51)) compared to non-OA knees (2.13 mm (95%CI = 2.02, 2.17)) in the entire sample population (P < 0.001), as well as for all subgroups of patients over 40 years old (all P ≤ 0.01), except for females above 60 years old (P = 0.07). Increase in cartilage thickness at the posterior aspect of the medial condyle was associated with increasing K/L grade in the entire sample population, as well as for males and females separately (regression coefficient = 0.10-0.12, all P < 0.001). For the lateral condyle, there was no statistically significant association between cartilage thickness and OA (either presence of OA or K/L grade).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2489.0
+    },
+    {
+      "anchor_id": "s000_e0046",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Extranodal natural killer/T-cell lymphoma, nasal type (ENKTL), is an aggressive type of lymphoma whose standard treatment and validated prognostic model have not yet been defined.', 'CD30 expression was detected using immunohistochemistry in 96 ENKTL patients, and the data were used to evaluate its relationship with clinical features, treatment response and prognosis.', 'Expression of CD30 was detected in 31.2% of ENKTL patients, which was significantly correlated with B symptoms and elevated serum lactate dehydrogenase. The complete remission rate was not significantly different between CD30-positive and negative groups. After a median follow-up time of 31 months, 5-year overall survival (OS) and 5-year progression-free survival (PFS) rates in the CD30-positive group were both significantly lower than those in the CD30-negative group (34.1% vs. 64.4%, P=0.002, for 5 year-OS; 26.0% vs. 66.7%, P<0.001, for 5 year-PFS). In patients with an International Prognostic Index (IPI) or Korean Prognostic Index (KPI) score of 0-1, CD30 positivity was associated with shorter 5-year OS and PFS (IPI: P=0.001 and 0.002, respectively; KPI: P=0.018 and 0.023, respectively). In a multivariate Cox regression model, CD30 expression and stage were independent prognostic factors for OS (p=0.004 and p=0.012, respectively) and PFS (p=0.001 and p=0.022, respectively).",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2531.0
+    },
+    {
+      "anchor_id": "s000_e0029",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Phospholipase C epsilon 1 (PLCE1) plays a crucial role in carcinogenesis and progression of several types of cancers. A single nucleotide polymorphism (SNP, rs2274223) in PLCE1 has been identified as a novel susceptibility locus. The aim of the present study was to investigate the role of three potentially functional SNPs (rs2274223A > G, rs3765524C > T, and rs7922612C > T) of PLCE1 in gastric cancer patients from Kashmir Valley.', 'The study was conducted in 108 GC cases and 195 healthy controls from Kashmir Valley. Genotyping was performed by polymerase chain reaction-restriction fragment length polymorphism method. Data were statistically analyzed using c2 test and logistic regression models. A P value of less than 0.05 was regarded as statistically significant.', 'The frequency of PLCE1 A2274223C3765524T7922612, G2274223C3765524T7922612 , and G2274223T3765524C7922612 haplotypes were higher in patients compared with controls, conferred high risk for GC [odds ratio (OR) =6.29; P = 0.001; Pcorr = 0.003], (OR = 3.23; P = 0.011; Pcorr = 0.033), and (OR = 5.14; P = 0.011; Pcorr = 0.033), respectively. Smoking and salted tea are independent risk factors for GC, but we did not find any significant modulation of cancer risk by PLCE1 variants with smoking or excessive consumption of salted tea.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2631.0
+    },
+    {
+      "anchor_id": "s000_e0049",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "The aim of this study was to determine the association between 25-hydroxyvitamin D (25(OH)D) and neuroimaging correlates of cerebral small vessel disease.', 'We identified 759 consecutive patients with acute ischemic stroke or transient ischemic attack. Lacunes, white matter hyperintensity, and cerebral microbleed (CMB) were assessed using MR images. Deep CMB was defined as the presence of CMB in basal ganglia, thalamus, or brain stem. The association between 25(OH)D and small vessel disease was tested using linear and logistic regression analyses.', 'Mean age was 68 (±13) years. Mean level of 25(OH)D was 34.1±17.8 nmol/L. On bivariate analysis, a 25-nmol/L decrease in 25(OH)D was associated with lacunes (regression coefficient, 0.23; 95% confidence interval [CI], 0.02-0.45), severe white matter hyperintensity (odds ratio, 2.05; 95% CI, 1.41-3.08), and deep CMB (odds ratio, 1.28; 95% CI, 1.01-1.63). Also, 25(OH)D deficiency (≤25 nmol/L) was associated with lacunes (regression coefficient, 0.5; 95% CI, 0.04-0.95), severe white matter hyperintensity (odds ratio, 2.74; 95% CI, 1.31-6.45), and deep CMB (odds ratio, 1.68; 95% CI, 1.03-2.78). The association remained significant even after multivariable adjustment and in the subgroup of previously healthy patients.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2631.0
+    },
+    {
+      "anchor_id": "s000_e0023",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Vein bypass is an essential therapy for patients with advanced peripheral and coronary artery disease despite development of neointimal hyperplasia. We have shown that stimulation of the receptor tyrosine kinase ephrin type-B receptor 4 (Eph-B4) with its ligand ephrin-B2 prevents neointimal hyperplasia in murine vein grafts. This study determines whether Eph-B4 in adult human veins is capable of phosphorylation and activation of downstream signaling pathways, as well as functional to release nitric oxide (NO) and prevent neointimal hyperplasia in vitro.', 'Discarded human saphenous veins were taken from the operating room and placed in organ culture without or with ephrin-B2/Fc (2 μg/mL) for 14 days, and the neointima/media ratio was measured in matched veins. Primary human umbilical vein endothelial cells were treated with ephrin-B2/Fc (2 μg/mL) and examined with quantitative polymerase chain reaction, Western blot, immunoassays, and for release of NO. Ephrin-B2/Fc (2 μg/mL) was placed on the adventitia of saphenous veins treated with arterial shear stress for 24 hours in a bioreactor and activated Eph-B4 examined with immunofluorescence.', 'The baseline intima/media ratio in saphenous vein rings was 0.456 ± 0.097, which increased to 0.726 ± 0.142 in untreated veins after 14 days in organ culture but only to 0.630 ± 0.132 in veins treated with ephrin-B2/Fc (n = 19, P = .017). Ephrin-B2/Fc stimulated Akt, endothelial NO synthase and caveolin-1 phosphorylation, and NO release (P = .007) from human umbilical vein endothelial cells (n = 6). Ephrin-B2/Fc delivered to the adventitia stimulated endothelial Eph-B4 phosphorylation after 24 hours of arterial stress in a bioreactor (n = 3).",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2665.0
+    },
+    {
+      "anchor_id": "s000_e0080",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To compare optic nerve head (ONH) morphology between eyes with normal-tension glaucoma (NTG) and primary open-angle glaucoma (POAG).', 'Seventy-eight NTG patients and 78 POAG patients matched according to age and axial length were analyzed. Optic nerve head tilt and torsion were identified from cross-sectional images of optical coherence tomography. The degree of horizontal, vertical, and maximum ONH tilt and torsion was compared between NTG and POAG eyes, and additional comparisons were based on the presence of myopia and the location of the visual field defect. Logistic regression analysis was used to determine the factors related to the degree of ONH torsion.', 'Vertical (P = 0.610) and horizontal tilt degree (P = 0.746) did not differ between NTG and POAG eyes. However, torsion degree (P = 0.022) differed significantly between NTG and POAG eyes. Direction of vertical tilt (P = 0.040) and torsion (P < 0.001) showed more prevalent superior tilt and torsion in NTG eyes (21.8% and 33.3%, respectively) compared to POAG eyes (10.3% and 10.3%, respectively). Myopic NTG eyes showed greater torsion degree (P = 0.014) than nonmyopic NTG eyes, which was not observed in the comparison between myopic and nonmyopic POAG eyes. Only NTG eyes showed a significant difference in the degree of maximum tilt (P < 0.001) and torsion (P < 0.001) and the direction of vertical tilt (P < 0.001) and torsion (P = 0.010) by the location of visual field defect. Longer axial length, maximum tilt degree, and diagnosis of NTG were the factors related to the degree of ONH torsion.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2684.0
+    },
+    {
+      "anchor_id": "s000_e0028",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Disturbed sleep is associated with mood disorders. Both depression and insomnia may increase the risk of disability retirement. The longitudinal links among insomnia, depression and work incapacity are poorly known.', 'We examined association of self-reported sleep quality with incident symptoms of depression and disability retirement due to depressive disorders in a longitudinal population-based sample of twins (n=12,063 individuals). These adults were categorized by their sleep quality in 1975 and 1981, excluding individuals with depressed mood in 1975/1981. The outcomes were the Beck Depression Inventory (BDItot) and its subscale Negative Attitudes Towards Self (BDINATS) in 1990 as dichotomized measures, and the incidence of disability retirement due to depressive disorder during 1991-2004.', 'Onset of poor sleep between 1975 and 1981 predicted incident depression (BDItot OR=4.5, 95% CI: 2.7-7.4, BDINATS OR=2.0, 95% CI: 1.4-2.7), while persistent poor sleep showed somewhat weaker effects (BDItot; OR=2.5, 95% CI: 1.0-6.0, BDINATS OR=1.9, 95% CI: 1.1-3.3). Among those with few recent stressful life events, onset of poor sleep predicted strongly depression (BDINATS OR=9.5, 95% CI: 3.7-24.2). Likewise onset of poor sleep by 1981 increased the risk of disability retirement due to depression (OR=2.9, 95% CI: 1.8-4.9) with a similar risk among those with persistent poor sleep (OR=2.7, 95% CI: 1.3-5.7).",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2713.0
+    },
+    {
+      "anchor_id": "s000_e0089",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Excessive consumption of ethanol is one of the most common causes of acute and chronic pancreatitis. Alterations to the gene encoding the cystic fibrosis transmembrane conductance regulator (CFTR) also cause pancreatitis. However, little is known about the role of CFTR in the pathogenesis of alcohol-induced pancreatitis.', 'We measured CFTR activity based on chloride concentrations in sweat from patients with cystic fibrosis, patients admitted to the emergency department because of excessive alcohol consumption, and healthy volunteers. We measured CFTR levels and localization in pancreatic tissues and in patients with acute or chronic pancreatitis induced by alcohol. We studied the effects of ethanol, fatty acids, and fatty acid ethyl esters on secretion of pancreatic fluid and HCO3(-), levels and function of CFTR, and exchange of Cl(-) for HCO3(-) in pancreatic cell lines as well as in tissues from guinea pigs and CFTR knockout mice after administration of alcohol.', \"Chloride concentrations increased in sweat samples from patients who acutely abused alcohol but not in samples from healthy volunteers, indicating that alcohol affects CFTR function. Pancreatic tissues from patients with acute or chronic pancreatitis had lower levels of CFTR than tissues from healthy volunteers. Alcohol and fatty acids inhibited secretion of fluid and HCO3(-), as well as CFTR activity, in pancreatic ductal epithelial cells. These effects were mediated by sustained increases in concentrations of intracellular calcium and adenosine 3',5'-cyclic monophosphate, depletion of adenosine triphosphate, and depolarization of mitochondrial membranes. In pancreatic cell lines and pancreatic tissues of mice and guinea pigs, administration of ethanol reduced expression of CFTR messenger RNA, reduced the stability of CFTR at the cell surface, and disrupted folding of CFTR at the endoplasmic reticulum. CFTR knockout mice given ethanol or fatty acids developed more severe pancreatitis than mice not given ethanol or fatty acids.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 2729.0
+    },
+    {
+      "anchor_id": "s000_e0077",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Poultry remains a major source of foodborne bacterial infections. A variety of additives with presumed anti-microbial and/or growth-promoting effects are commonly added to poultry feed during commercial grow-out, yet the effects of these additives on the gastrointestinal microbial community (the GI microbiome) as the bird matures remain largely unknown. Here we compared temporal changes in the cecal microbiome to the effects of formic acid, propionic acid, and medium-chain fatty acids (MCFA) added to feed and/or drinking water.', 'Cecal bacterial communities at day of hatch (n\\u2009=\\u20095 birds), 7d (n\\u2009=\\u200932), 21d (n\\u2009=\\u200927), and 42d (n\\u2009=\\u200936) post-hatch were surveyed using direct 454 sequencing of 16S rRNA gene amplicons from each bird in combination with cultivation-based recovery of a Salmonella Typhimurium marker strain and quantitative-PCR targeting Clostridium perfringens. Treatment effects on specific pathogens were generally non-significant. S. Typhimurium introduced by oral gavage at day of hatch was recovered by cultivation from nearly all birds sampled across treatments at 7d and 21d, but by 42d, S. Typhimurium was only recovered from ca. 25% of birds, regardless of treatment. Sequencing data also revealed non-significant treatment effects on genera containing known pathogens and on the cecal microbiome as a whole. In contrast, temporal changes in the cecal microbiome were dramatic, highly significant, and consistent across treatments. At 7d, the cecal community was dominated by three genera (Flavonifractor, Pseudoflavonifractor, and a Lachnospiracea sequence type) that accounted for more than half of sequences. By 21d post-hatch, a single genus (Faecalibacterium) accounted for 23-55% of sequences, and the number of Clostridium 16S rRNA gene copies detected by quantitative-PCR reached a maximum.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 2839.0
+    },
+    {
+      "anchor_id": "s000_e0025",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Barrett's esophagus (BE) increases the risk of esophageal adenocarcinoma (EAC). We found the risk to be BE has been associated with single nucleotide polymorphisms (SNPs) on chromosome 6p21 (within the HLA region) and on 16q23, where the closest protein-coding gene is FOXF1. Subsequently, the Barrett's and Esophageal Adenocarcinoma Consortium (BEACON) identified risk loci for BE and esophageal adenocarcinoma near CRTC1 and BARX1, and within 100 kb of FOXP1. We aimed to identify further SNPs that increased BE risk and to validate previously reported associations.\", 'We performed a genome-wide association study (GWAS) to identify variants associated with BE and further analyzed promising variants identified by BEACON by genotyping 10,158 patients with BE and 21,062 controls.', 'We identified 2 SNPs not previously associated with BE: rs3072 (2p24.1; odds ratio [OR] = 1.14; 95% CI: 1.09-1.18; P = 1.8 × 10(-11)) and rs2701108 (12q24.21; OR = 0.90; 95% CI: 0.86-0.93; P = 7.5 × 10(-9)). The closest protein-coding genes were respectively GDF7 (rs3072), which encodes a ligand in the bone morphogenetic protein pathway, and TBX5 (rs2701108), which encodes a transcription factor that regulates esophageal and cardiac development. Our data also supported in BE cases 3 risk SNPs identified by BEACON (rs2687201, rs11789015, and rs10423674). Meta-analysis of all data identified another SNP associated with BE and esophageal adenocarcinoma: rs3784262, within ALDH1A2 (OR = 0.90; 95% CI: 0.87-0.93; P = 3.72 × 10(-9)).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 3098.0
+    },
+    {
+      "anchor_id": "s000_e0038",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Many assume that most patients hospitalized with heart failure (HF) are short of breath at rest (SOBAR). The National HF Audit for England and Wales suggests that this assumption is false, which has profound implications for management', 'A retrospective case-note review was carried out of patients hospitalized with HF to determine how many present with shortness of breath at rest or are comfortable at rest but breathless on slight exertion (CARBOSE). Vital signs were tracked for 24\\u2009h and mortality for 180 days. Of 311 patients, those who were SOBAR (42%) had higher median heart rate (HR) (100 vs. 85 b.p.m.; P\\u2009<\\u20090.001), systolic blood pressure (SBP) (141 vs. 122\\u2009mmHg; P\\u2009<\\u20090.001), and respiratory rate (RR) (24 vs. 18 breaths/min; P\\u2009<\\u20090.001) compared with those who were CARBOSE (56%). Vital signs changed little in those who were CARBOSE over the first 4-6\\u2009h, but SBP (141-128\\u2009mmHg; P\\u2009<\\u20090.001), HR (100-90 b.p.m.; P\\u2009=\\u20090.002), and RR (24-20 breaths/min; P\\u2009<\\u20090.001) fell in those who were SOBAR. At presentation, SBP was >125\\u2009mmHg in 73% of patients who were SOBAR and in 46% who were CARBOSE, dropping to 52% and 37%, respectively, by 4-6\\u2009h. Mortality amongst those who were SOBAR and those who were CARBOSE was, respectively, 19% and 34% (odds ratio 2.29; P\\u2009=\\u20090.005, 95% confidence interval 1.29-4.06).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 3267.0
+    },
+    {
+      "anchor_id": "s000_e0056",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Programs seek to expose trainees to research during residency. However, little is known in any formal sense regarding how to do this effectively, or whether these efforts result in more or better-quality research output.', 'The objective of our study was to evaluate a dedicated resident research program in terms of the quantity and quality of resident research peer-reviewed publications. Specifically we asked: (1) Did residents mentored through a dedicated resident research program have more peer-reviewed publications in higher-impact journals with higher citation rates compared with residents who pursued research projects under a less structured approach? (2) Did this effect continue after graduation?', 'In 2006, our department of orthopaedic surgery established a dedicated resident research program, which consisted of a new research policy and a research committee to monitor quality and compliance with this policy. Peer-reviewed publications (determined from PubMed) of residents who graduated 6 years before establishing the dedicated resident research program were compared with publications from an equal period of the research-program-directed residents. The data were assessed using descriptive statistics and regression analysis. Twenty-four residents graduated from 2001 to 2006 (before implementation of the dedicated resident research program); 27 graduated from 2007 to 2012 (after implementation of the dedicated resident research program). There were 74 eligible publications as defined by the study inclusion and exclusion criteria.', \"Residents who trained after implementation of the dedicated resident research program published more papers during residency than did residents who trained before the program was implemented (1.15 versus 0.79 publications per resident; 95% CI [0.05,0.93]; p = 0.047) and the journal impact factor was greater in the group that had the research program (1.25 versus 0.55 per resident; 95% CI [0.2,1.18]; p = 0.005). There were no differences between postresidency publications by trainees who graduated with versus without the research program in the number of publications, citations, and average journal impact factor per resident. A regression analysis showed no difference in citation rates of the residents' published papers before and since implementation of the research program.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 3276.0
+    },
+    {
+      "anchor_id": "s000_e0036",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Normal aging is associated with a decline in cognitive abilities, particularly in the domains of psychomotor speed and executive functioning. However, 'aging,' per se, is not a cause of cognitive decline but rather a variable that likely captures multiple accumulating biological changes over time that collectively affect mental abilities. Recent work has focused on the role of cerebrovascular disease as one of the biological changes. In the current study, we examined whether lobar microbleeds - magnetic resonance imaging (MRI) signal voids due to hemosiderin deposits secondary to cerebral amyloid angiopathy - are associated with cognitive decline in normal aging. Previous studies that reported a relationship between the presence of lobar microbleeds and decreased cognitive abilities have been primarily cross-sectional. Here, we used a retrospective longitudinal design to examine whether the presence of lobar microbleeds is associated with the rate of cognitive decline among non-demented older adults.\", 'Participants came from an ongoing longitudinal community-based aging study, in which subjects are evaluated at 18-24 months intervals and received a full medical, neurological, and neuropsychological examination at each of the follow-up visits. Gradient echo MRI scans were available on 197 non-demented participants (mean age: 84.15 ± 5.02 years). Microbleeds were rated visually on axial view and divided into subcortical (basal ganglia, cerebellum) and lobar (frontal, temporal, parietal, occipital lobe) regions, and confirmed with coronal and sagittal views to exclude artifacts. Cognition was assessed with a neuropsychological battery, providing summary scores for memory, language, executive, and visuospatial abilities. Using general estimating equations (GEE), we compared cognition cross-sectionally between individuals with 2 or more (n = 11) and fewer than 2 (n = 186) lobar microbleeds and examined longitudinal cognitive change beginning 9.47 ± 3.13 years before the MRI scan.', 'Subjects with 2 or more lobar microbleeds had worse executive functioning at the visit closest to the MRI scan (β = -0.044; p < 0.001) and had a faster decline in executive function over time (β = -0.072; p = 0.012) than subjects with fewer than 2 lobar microbleeds. The two groups were similar in age at scan date, education, ethnicity, sex distribution, and cognitive performance at first visit.",
+      "output": "0",
+      "split": "probe",
+      "complexity": 3345.0
+    },
+    {
+      "anchor_id": "s000_e0075",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Ex vivo heart perfusion (EVHP) provides the opportunity to resuscitate unused donor organs and facilitates assessments of myocardial function that are required to demonstrate organ viability before transplantation. We sought to evaluate the effect of different oxygen carriers on the preservation of myocardial function during EVHP.', 'Twenty-seven pig hearts were perfused ex vivo in a normothermic beating state for 6 hours and transitioned into working mode for assessments after 1 (T1), 3 (T3), and 5 (T5) hours. Hearts were allocated to 4 groups according to the perfusate composition. Red blood cell concentrate (RBC, n = 6), whole blood (RBC+Plasma, n = 6), an acellular hemoglobin-based oxygen carrier (HBOC, n = 8), or HBOC plus plasma (HBOC+Plasma, n = 7) were added to STEEN Solution (XVIVO Perfusion, Goteborg, Sweden) to achieve a perfusate hemoglobin concentration of 40 g/liter.', 'The perfusate composition affected the preservation of systolic (T5 dP/dtmax: RBC+Plasma = 903 ± 99, RBC = 771 ± 77, HBOC+Plasma = 691 ± 82, HBOC = 563 ± 52 mm Hg/sec; p = 0.047) and diastolic (T5 dP/dtmin: RBC+Plasma = -574 ± 48, RBC = -492 ± 63, HBOC+Plasma = -326 ± 32, HBOC = -268 ± 22 mm Hg/sec; p < 0.001) function, and the development of myocardial edema (weight gain: RBC+Plasma = 6.6 ± 0.9, RBC = 6.6 ± 1.2, HBOC+Plasma = 9.8 ± 1.7, HBOC = 16.3 ± 1.9 g/hour; p < 0.001) during EVHP. RBC+Plasma hearts exhibited less histologic evidence of myocyte damage (injury score: RBC+Plasma = 0.0 ± 0.0, RBC = 0.8 ± 0.3, HBOC+Plasma = 2.6 ± 0.2, HBOC = 1.75 ± 0.4; p < 0.001) and less troponin-I release (troponin-I fold-change T1-T5: RBC+Plasma = 7.0 ± 1.7, RBC = 13.1 ± 1.6, HBOC+Plasma = 20.5 ± 1.1, HBOC = 16.7 ± 5.8; p < 0.001). Oxidative stress was minimized by the addition of plasma to RBC and HBOC hearts (oxidized phosphatidylcholine compound fold-change T1-T5: RBC+Plasma = 1.83 ± 0.20 vs RBC = 2.31 ± 0.20, p < 0.001; HBOC+Plasma = 1.23 ± 0.17 vs HBOC = 2.80 ± 0.28, p < 0.001).",
+      "output": "0",
+      "split": "probe",
+      "complexity": 4077.0
+    },
+    {
+      "anchor_id": "s000_e0058",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Restoration of posterior condylar offset during TKA is believed to be important to improving knee kinematics, maximizing ROM, and minimizing flexion instability. However, controversy exists regarding whether there are important anatomic differences between sexes and whether a unisex knee prosthesis can restore the anatomy of knees in males and females.', 'The purposes of our study were to determine if sex differences exist in (1) absolute posterior condylar offset size, (2) relative posterior condylar offset size in relation to total condylar height, and (3) posterior condylar articular cartilage thickness.', 'We identified 100 patients (50 men and 50 women) without a history of arthritis, deformity, dysplasia, osteochondral defect, fracture, or surgery about the knee who had MRI of the knee performed. All MR images were ordered by primary care medical physicians for evaluation of nonspecific knee pain. Using a previously described three-dimensional MRI protocol, we measured posterior condylar offset, total condylar height, and articular cartilage thickness at the medial and lateral femoral condyles and compared values to evaluate for potential sex differences. We performed an a priori power calculation using a 2-mm posterior condylar offset difference as the minimum clinically important difference; with 2n = 100, our power to detect such a difference was 99.8%.', 'Compared with females, males had greater medial posterior condylar offset (30 mm [95% CI, 29.3-30.7 mm; SD, 2.5 mm] vs 28 mm [95% CI, 27.0-28.5 mm; SD, 2.7 mm]), lateral posterior condylar offset (27 mm [95% CI, 26.2-27.3 mm; SD, 2.0 mm] vs 25 mm [95% CI, 24.2-25.4 mm; SD, 2.0 mm]), medial condylar height (63 mm [SD, 3.2 mm] vs 57 mm [SD, 4.4 mm]), and lateral condylar height (71 mm [SD, 5.2 mm] vs 65 mm [SD: 4.0 mm]) (all p values < 0.001). However, the mean ratio of medial posterior condylar offset to medial condylar height (0.48 [SD, 0.04] vs 0.49 [SD, 0.05]) and the mean ratio of lateral posterior condylar offset to lateral condylar height (0.38 [SD, 0.05] vs 0.38 [SD, 0.03]) were not different between sexes (p = 0.08 and p = 0.8, respectively). There also was no sex difference in mean articular cartilage thickness at either condyle (medial condyle: 2.7 mm [SD, 0.5 mm] vs 2.5 mm [SD, 0.7 mm]; lateral condyle: 2.6 mm [SD, 0.6 mm] vs 2.5 mm [SD, 0.8 mm]) (both p values ≥ 0.1).",
+      "output": "1",
+      "split": "probe",
+      "complexity": 4285.0
+    },
+    {
+      "anchor_id": "s000_e0057",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "Heterotopic ossification (HO) may occur after musculoskeletal trauma, traumatic brain injury, and total joint arthroplasty. As such, HO is a compelling clinical concern in both military and civilian medicine. A possible etiology of HO involves dysregulated signals in the bone morphogenetic protein osteogenic cascade. Contemporary treatment options for HO (ie, nonsteroidal antiinflammatory drugs and radiation therapy) have adverse effects associated with their use and are not biologically engineered to abrogate the molecular mechanisms that govern osteogenic differentiation.', 'We hypothesized that (1) nanogel-mediated short interfering RNA (siRNA) delivery against Runt-related transcription factor 2 (Runx2) and osterix (Osx) genes will decrease messenger RNA expression; (2) inhibit activity of the osteogenic marker alkaline phosphatase (ALP); and (3) inhibit hydroxyapatite (HA) deposition in osteoblast cell cultures.', 'Nanogel nanostructured polymers delivered siRNA in 48-hour treatment cycles against master osteogenic regulators, Runx2 and Osx, in murine calvarial preosteoblasts (MC3T3-E1.4) stimulated for osteogenic differentiation by recombinant human bone morphogenetic protein (rhBMP-2). The efficacy of RNA interference (RNAi) therapeutics was determined by quantitation of messenger RNA knockdown (by quantitative reverse transcription-polymerase chain reaction), downstream protein knockdown (determined ALP enzymatic activity assay), and HA deposition (determined by OsteoImage™ assay).', 'Gene expression assays demonstrated that nanogel-based RNAi treatments at 1:1 and 5:1 nanogel:short interfering RNA weight ratios reduced Runx2 expression by 48.59%\\xa0±\\xa019.53% (p\\xa0<\\xa00.001) and 43.22%\\xa0±\\xa018.01% (both p\\xa0<\\xa00.001). The same 1:1 and 5:1 treatments against both Runx2 and Osx reduced expression of Osx by 51.65%\\xa0±\\xa010.85% and 47.65%\\xa0±\\xa09.80% (both p\\xa0<\\xa00.001). Moreover, repeated 48-hour RNAi treatment cycles against Runx2 and Osx rhBMP-2 administration reduced ALP activity after 4 and 7\\xa0days. ALP reductions after 4\\xa0days in culture by nanogel 5:1 and 10:1 RNAi treatments were 32.4%\\xa0±\\xa012.0% and 33.6%\\xa0±\\xa013.8% (both p\\xa0<\\xa00.001). After 7\\xa0days in culture, nanogel 1:1 and 5:1 RNAi treatments produced 35.9%\\xa0±\\xa014.0% and 47.7%\\xa0±\\xa03.2% reductions in ALP activity. Osteoblast mineralization data after 21\\xa0days suggested that nanogel 1:1, 5:1, and 10:1 RNAi treatments decreased mineralization (ie, HA deposition) from cultures treated only with rhBMP-2 (p\\xa0<\\xa00.001). However, despite RNAi attack on Runx2 and Osx, HA deposition levels remained greater than non-rhBMP-2-treated cell cultures.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 4726.0
+    },
+    {
+      "anchor_id": "s000_e0047",
+      "segment_id": 0,
+      "segment_name": "task848_pubmedqa_classification",
+      "instruction": "Given a passage classify if the passage has a definite objective/aim/goal or not. Output '1' if the passage has a defininte objective/aim/goal and output '0' if the passage does not have a definite objective/aim/goal.",
+      "input_text": "To observe the therapeutic effects of continuous plasma filtration absorption (CPFA) treatment on burn sepsis.', \"Thirty burn patients with sepsis hospitalized in Beijing Fengtai You'anmen Hospital from July 2009 to October 2012 were treated by CPFA for twice besides routine treatment. The blood samples were collected at five sites (A, B, C, D, and E, respectively) of blood purification equipment before and after CPFA, before and after hemoabsorption, and before hemofiltration. The plasma levels of TNF-α, IL-1β, IL-6, IL-10, interleukin-1 receptor antagonist (IL-1RA), soluble tumor necrosis factor receptor (sTNFR) I , and sTNFR-II from sites A, C, and E were determined with ELISA before CPFA was performed for the first time, and those from sites B and D were determined with ELISA after CPFA was performed for the first time. Plasma levels of the above-mentioned cytokines from sites A and B were determined with ELISA before CPFA and after CPFA was performed for the second time. The data of plasma levels of IL-1βP3, IL-1RA, sTNFR-I, sTNFR-II, and TNF-α before CPFA and after CPFA was performed for the second time were collected for calculation of the ratios of IL-1RA to IL-1β and sTNFR-I plus sTNFR-II to TNF-α. The expression rate of human leukocyte antigen DR (HLA-DR) on the CD14 positive monocytes, acute physiology and chronic health evaluation (APACHE) II score, body temperature, pulse, respiratory rate, and leukocyte count of patients were evaluated or recorded before CPFA and after CPFA was performed for the second time. Patients'condition was observed. Data were processed with paired t test.\", 'The plasma levels of TNF-α, IL-1β, IL-6 and IL-10 from site B after CPFA was performed for the second time were significantly lower than those from site A before CPFA was performed for the first time (with t values respectively 7.05, 5.23, 4.73, 2.37, P values below 0.01). After CPFA was performed for the first time, the plasma levels of TNF-α, IL-1β, and IL-6 from site D were significantly lower than those from site C before CPFA was performed for the first time (with t values respectively 5.48, 2. 17, 1.78, P < 0.05 or P <0.01). The plasma levels of all cytokines were close between site B after CPFA was performed for the first time and site E before CPFA was performed for the first time (with t values from 0.04 to 1.05, P values above 0.05). The plasma levels of TNF-α, IL-1β, and IL-6 from site B after CPFA was performed for the second time were significantly lower than those from site A before CPFA was performed for the second time (with t values from 1.87 to 5.93, P <0.05 or P <0.01). The ratios of IL-1RA to IL-1β and sTNFR-I plus sTNFR-II to TNF-α, and expression rate of HLA-DR were increased significantly after CPFA was performed for the second time as compared with those before CPFA (with t values from 3.99 to 7. 80, P values below 0.01). APACHE II score after CPFA was performed for the second time was 11 ± 6, which was lower than that before CPFA (22 ± 7, t =4.63, P <0.01). After CPFA was performed for the second time, body temperature, pulse, and respiratory rate of patients were improved (with t values from 1.95 to 3.55, P values below 0.05) , and the leukocyte count was significantly decreased (t =4.36, P <0.01) as compared with those before CPFA. All patients survived and were discharged with length of stay of (27 ± 31) d, and no adverse effects occurred during CPFA treatment.",
+      "output": "1",
+      "split": "probe",
+      "complexity": 5649.0
+    }
+  ]
+}

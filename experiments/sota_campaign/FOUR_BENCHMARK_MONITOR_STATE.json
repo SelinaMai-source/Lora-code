@@ -1,0 +1,16 @@
+{
+  "last_tick": "2026-06-24T03:49:26",
+  "trajectory": [
+    {
+      "segment_id": 0,
+      "seen": 1.0,
+      "ta": 1.0,
+      "f1": 1.0
+    }
+  ],
+  "early_stop_line": null,
+  "train_pid": null,
+  "finalized_run": "paper_instrdialog_sota_v3_ours_s123",
+  "active_run": null,
+  "sota_v3_doc_synced": true
+}

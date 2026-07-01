@@ -1,0 +1,657 @@
+{
+  "summary": {
+    "num_core": 32,
+    "num_probe": 32,
+    "num_total": 64,
+    "core_segment_ids": [
+      4
+    ],
+    "probe_segment_ids": [
+      4
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s004_e0052",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Here's your cup of coffee, Bob. ,M: Thanks. But what took you so long, Catherine? ,F: Sorry, Bob. I bumped into somebody I knew in the cafe and stopped for a chat.\n(A) M: Oh, who's that you talked with? (B) M: Excuse me, could you repeat the question? (C) M: Oh, are you ok since you bumped into a coffee table? (D) M: It's ok, it didn't take you much time.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1034.0
+    },
+    {
+      "anchor_id": "s004_e0062",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: I was thinking we should go to the local animal shelter, so I can pick out the perfect dog. ,F: Yeah, some dog really needs a good home.\n(A) M: Exactly, although those dogs don't need a good home,we can have a lot fun with a dog. (B) M: I’m sorry, I don’t understand. Could you say it again? (C) M: You are wrong, they don't need a good family, we can set those animals free. (D) M: Besides, there must be many dog trainers and we can choose one.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1095.0
+    },
+    {
+      "anchor_id": "s004_e0055",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: What's that, Bred? ,M: It's my new e-book reader. I'm just downloading some new books onto it. ,F: I haven't bought 1 yet. I still prefer a printed book.\n(A) M: I don't have an e-book reader yet so I am buying one right now. (B) M: I’m sorry, I don’t understand. Could you say it again? (C) M: Let's read e-books together. I know that you like e-books, too. (D) M: But I prefer e-books. Now I’m downloading some new books.",
+      "output": "D",
+      "split": "core",
+      "complexity": 1105.0
+    },
+    {
+      "anchor_id": "s004_e0032",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Tom, do you like stories? ,M: Yes, very much. You know I spent my childhood with my grandparents in the countryside. They often told me stories.\n(A) F: So you often told stories to your friends in your childhood, didn't you? (B) F: Now that you often listened to your grandparents'stories, why you don't like stories? (C) F: I am really sorry, I did not catch that. Would you slow down, please? (D) F: Really? You often wrote stories for your grandparents? You are so great.",
+      "output": "C",
+      "split": "core",
+      "complexity": 1143.0
+    },
+    {
+      "anchor_id": "s004_e0029",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Have you heard the news? Jim's office caught fire last night. ,M: What happened? Did someone forget to cut off the electricity? ,F: I heard that someone threw a cigarette button into the garbage bin last night.\n(A) M: Really? Did the police find the arsonist (B) M: You mean a cigarette butt on the carpet caused the fire? (C) M: There are many cases caused by forgetting to cut off the electricity. And now there's another example. (D) M: I am really sorry, I did not catch that. Would you slow down, please?",
+      "output": "D",
+      "split": "core",
+      "complexity": 1168.0
+    },
+    {
+      "anchor_id": "s004_e0098",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Have you ever heard a voice worse than gyms and he's been singing out of tune? ,F: Don't be so mean. I think he sings well, he just hasn't chosen the right song yet. ,M: So what kind of song is he could at?\n(A) F: I don't know. Jim is not a qualified singer at all. Though chose the right song, he sings bad. (B) F: I’m sorry, I didn’t catch that. Would you mind speaking more slowly? (C) F: I don't know. Let's go to the auditorium and watch the contest. (D) F: I don't know. Jim sings very well on TV.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1186.0
+    },
+    {
+      "anchor_id": "s004_e0088",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Ma'am! You forgot your phone. ,F: Oh, thanks. I couldn't live without this little thing. ,M: I know what you mean. It is of great significance to you. So, did you enjoy your dinner?\n(A) F: Oh, yes. It's strange. I never forget my phone anywhere. (B) F: Oh, yes, I want to thank you again. The phone is extremely important to me. (C) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (D) F: Oh, yes. I really enjoy the service with my phone.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1202.0
+    },
+    {
+      "anchor_id": "s004_e0071",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Hey, Helen! Want to play a new game I learned in school today? ,F: Yeah. How do you play it? ,M: You stand over there by the side of the house. I'm going to throw this ball at you.\n(A) F: But I think you should take a rest. You've been in the baseball practice all day today. You must be tired. (B) F: OK. I know how to play the game that you learned from work. (C) F: OK. So this is the new game that you learned at school today, right? (D) F: I’m sorry, I don’t understand. Could you say it again?",
+      "output": "C",
+      "split": "core",
+      "complexity": 1204.0
+    },
+    {
+      "anchor_id": "s004_e0041",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Now we have 5-day classes every week, so we have more spare time than before. ,F: How do you spend your spare time, Tom? ,M: I have much interest in playing the violin, and I'll continue to practice playing it.\n(A) F: Wow, you are most interested in playing the piano!It's cool. (B) F: I am really sorry, I did not catch that. Would you slow down, please? (C) F: Although you are most interested in playing the violin, we haven't spare time. (D) F: Since you are most interested in playing the violin, can you play it well?",
+      "output": "D",
+      "split": "core",
+      "complexity": 1208.0
+    },
+    {
+      "anchor_id": "s004_e0066",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Mike, can I be honest with you? ,M: Sure, Cindy. What's up? ,F: This food is tasty, but I'm not sure it's very healthy. ,M: Well, this was my first time to cook for you. I guess I was a little nervous. ,F: That's sweet. ,M: I put too much salt on the potatoes.\n(A) F: Great! The food is delicious. (B) F: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (C) F: I like delicious potatoes. (D) F: The salty food is healthy.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1208.0
+    },
+    {
+      "anchor_id": "s004_e0096",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Do you know what Jason's home phone number is? ,M: I can't think of it off the top of my head. You might want to look it up in the phonebook. ,F: I've checked it already, but it seems that his phone number is unlisted.\n(A) M: I think since you don't have Jason's home phone number, you can ask someone else. (B) M: Oh, maybe you can find your phone book in the lost and found office. (C) M: I’m sorry, I don’t understand. Could you say it again? (D) M: Don't worry, though you don't have Jason's home phone number, I remember it and I will tell you.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1224.0
+    },
+    {
+      "anchor_id": "s004_e0039",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Are you looking forward to your trip to China and? ,F: I can't wait to see China, but... ,M: But what? ,F: I'm scared of the journey. I read a news report yesterday. It said a plane with 128 passengers crashed and only 5 of them survived.\n(A) M: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (B) M: It was so scary that 123 passengers all died. (C) M: Don't worry. Although 123 people died in the air crash, it was only an accident. (D) M: It was so scary that 128 people died in the air crash.",
+      "output": "C",
+      "split": "core",
+      "complexity": 1288.0
+    },
+    {
+      "anchor_id": "s004_e0014",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Brian, have you heard that Mister Giddings will be awarded the prize for Best Car Design at the Hyatt Hotel next week? ,M: Yes, but I thought either Mister Zarba or Miss Miller would win. I feel they're more talented than Mister Giddings.\n(A) F: Exactly, and Mr Zarba will be awarded the prize for Best Car Design at the Hyatt Hotel next week. (B) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (C) F: Mr Giddings will be awarded the prize for Best Car Design at the Hyatt Hotel next month. (D) F: But Mr Giddings always works hard, so he deserved to be awarded.",
+      "output": "D",
+      "split": "core",
+      "complexity": 1293.0
+    },
+    {
+      "anchor_id": "s004_e0079",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hi, Tony. Have you finished reading these articles? ,M: Yes, but my eyes feel uncomfortable after staring at the computer screen for hours. ,F: I've read an article about eye problems recently. It says that people usually blink less when they use computer, so they may always feel tired and dry after using computers.\n(A) M: I am afraid I did not quite catch what you were saying. Please repeat it. (B) M: Which article did you learn about eye problems? Can you recommend it to me? (C) M: It's nice to have a friend who can tell you about eye problems. (D) M: Did the TV program you watched say how to treat these eye problems?",
+      "output": "B",
+      "split": "core",
+      "complexity": 1296.0
+    },
+    {
+      "anchor_id": "s004_e0011",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Gosh, we've been waiting for ages? What's the matter? ,M: Who knows? It always leaves on time more or less. But in the middle of winter, you have to expect the delay here sometimes. In fact, the trains also sometimes get delayed by snow on the lines or the planes by fog on the runway. Actually, it's probably rain that's holding up things for us right now.\n(A) F: Yes, the rain may be the reason that the trains get delayed. (B) F: I am afraid I did not quite catch what you were saying. Please repeat it. (C) F: It's probably flog that's holding up things for us right now. (D) F: The weather forecast says the rain has stopped.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1299.0
+    },
+    {
+      "anchor_id": "s004_e0090",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Sunrise Hotel. Good morning. ,M: Hello, my name's John Griffin. I'd like to make a booking for tonight please. ,F: OK. What kind of room do you want? ,M: Well, I'm on a business trip. So I only need a single room. ,F: Let's look. Yes, there is one left. Shall I book it for you?\n(A) M: Ok, please book that single room for me. Thank you. (B) M: Ok, thank you, a double room is exactly what I need. (C) M: Excuse me, could you repeat the question? (D) M: Since there are still many single rooms, please reserve a good one for me.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1303.0
+    },
+    {
+      "anchor_id": "s004_e0050",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Doctor, I'm feeling really bad today. ,M: Let me have a look. You seem to have a fever and a runny nose, and you're coughing all the time. How long have you been like this? ,F: Since Tuesday, about 3 days. ,M: Then you've got a cold, but it's not very serious. Here's some medicine. You'll feel better soon.\n(A) F: Ok, thank you,how long does it take for me to recover from a cold? (B) F: I am afraid I did not quite catch what you were saying. Please repeat it. (C) F: But how could I have a bad cold? (D) F: Fortunately, it's just a cold. I've been sick since Monday.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1306.0
+    },
+    {
+      "anchor_id": "s004_e0072",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Hey, Helen! Want to play a new game I learned in school today? ,F: Yeah. How do you play it? ,M: You stand over there by the side of the house. I'm going to throw this ball at you. ,F: Wait a minute! That's a big ball! You're going to hurt me!\n(A) M: Don't worry. I believe you can catch it!  We have played it many times. (B) M: Don't worry. Although it is a big ball, I'm not going to throw it too hard. (C) M: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (D) M: Although you're worried about the ball is too heavy, it won't hit you.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1314.0
+    },
+    {
+      "anchor_id": "s004_e0069",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Hello, Catherine. What about your test? ,F: Not too bad. But the travel was that I kept thinking of so many things at once, so I didn't have time to finish the test. ,M: How many questions did you answer? ,F: Oh, I did all nine of them. But I didn't really have time to finish the last one properly.\n(A) M: I’m sorry, I don’t understand. Could you say it again? (B) M: Take it easy, you completed nine of the ten questions in the test. (C) M: Oh, you're great,you had done all nine questions in the test. (D) M: Don't worry, though the test had ten questions, you finished eight of them.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1318.0
+    },
+    {
+      "anchor_id": "s004_e0024",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: You really have a good figure. How many sports do you do in your spare time? ,F: Quite a few. Walking, playing tennis, mountain climbing, yoga and some others. I like yoga best. ,M: Why do you like playing tennis? ,F: It's fun and good for developing coordination.\n(A) M: So you like playing tennis just because it can make you feel comfortable? (B) M: I am sorry. You spoke so rapidly that I did not catch the meaning of what you said. Could you repeat that? (C) M: You said playing tennis can develop coordination, how does this work? (D) M: Since it can help you to develop coordination, I know why you like playing tennis best.",
+      "output": "C",
+      "split": "core",
+      "complexity": 1338.0
+    },
+    {
+      "anchor_id": "s004_e0087",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: So how's your new job going, David? ,M: It's going really well. I started 2 months ago and it's great. ,F: Which countries are you flying to? ,M: Mostly those in South America. ,F: Do you have time to look around different cities? ,M: I'm too tired after we land.\n(A) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (B) F: Although you said the job was tiring, I still envy you. (C) F: So, as you said, you're not only not tired but also very well paid, right? (D) F: Although you are very tired in this job, you just started it a month ago and it will be all right in the future.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1364.0
+    },
+    {
+      "anchor_id": "s004_e0042",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Now we have 5-day classes every week, so we have more spare time than before. ,F: How do you spend your spare time, Tom? ,M: I have much interest in playing the violin, and I'll continue to practice playing it. ,F: Do you often take part in a concert? ,M: Yes, I like to go listening to some music. At present, my major purpose is to learn from others.\n(A) F: So for making new friends, you often go to listen to music, don't you? (B) F: I didn’t hear you. Please could you tell me again? (C) F: Exactly right, listening to music can kill time. (D) F: Yeah, learn from others when you listening music is good for you, but now we don't have any spare time.",
+      "output": "B",
+      "split": "core",
+      "complexity": 1396.0
+    },
+    {
+      "anchor_id": "s004_e0063",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: I was thinking we should go to the local animal shelter, so I can pick out the perfect dog. ,F: Yeah, some dog really needs a good home. ,M: OK. So we will just have the dog that you also want and no more unwanted animals. ,F: Sure. What kind of dog are you going to get? ,M: I don't know. I will know when I see the dog if that's the dog for me. ,F: Alright. Take me to the shelter. Can't wait.\n(A) M: Ok, let's go right now. I'm curious, too. (B) M: I didn’t hear you. Please could you tell me again? (C) M: Yeah, I'm as excited as you are. (D) M: Now that we are all excited and have decided which kind of dog to choose, let's go.",
+      "output": "C",
+      "split": "core",
+      "complexity": 1410.0
+    },
+    {
+      "anchor_id": "s004_e0065",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Why are you walking up and down in the room? Why not sit down just like me and watch the talk show about reading on TV? ,F: Well, I'm worrying about the children. After all, this is the first time they have been out without us. ,M: Don't worry. They are grown-ups. What's more, they are just having a party in their friend Mike's house. ,F: I know, but I couldn't help thinking. George, please call them up and tell them to be careful and come back earlier. ,M: Alright. I'll do that.\n(A) F: Excuse me, could you repeat the question? (B) F: Why you going to pick up the  children? (C) F: Yes, go out with me. (D) F: You should make a phone call to your colleagues",
+      "output": "A",
+      "split": "core",
+      "complexity": 1412.0
+    },
+    {
+      "anchor_id": "s004_e0028",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Merry Christmas, Michael. ,M: Merry Christmas, Tina. Nice to see you. The roast duck here really tastes good. By the way, do you have any activities planned for this special day? ,F: Yes. First, I'm going to get ready for the Grand March. I've already prepared some colorful clothes for it. Then, later in the evening, I'm going to church with my family to pray and sing.\n(A) M: So, going to church is your family tradition, right? (B) M: I am sorry. You spoke so rapidly that I did not catch the meaning of what you said. Could you repeat that? (C) M: Oh, you are going to attend a party in the evening, sounds great. (D) M: Wow, I will take part in the march this evening,too!",
+      "output": "A",
+      "split": "core",
+      "complexity": 1445.0
+    },
+    {
+      "anchor_id": "s004_e0046",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Susan, I was shocked to hear about your husband's illness. I'm so sorry. ,F: Thanks. I appreciate your sympathy. I hope he'll be alright, but this is his second heart attack in 5 years. He is not very strong physically. ,M: I understand how worried you must feel, but I'm sure things will come out all right. Is there anything I can do for you? I'll be glad to look after the kids while you go to the hospital.\n(A) F: It's not easy for you to nurse my husband at night, thank you so much. (B) F: This is his first heart attack in 5 years. Anyway, thank you for taking care of my kids. (C) F: Oh, It's very kind of you to help me do housework. I really appreciate it. (D) F: Excuse me, could you repeat the question?",
+      "output": "D",
+      "split": "core",
+      "complexity": 1448.0
+    },
+    {
+      "anchor_id": "s004_e0021",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Hi, Rebecca. Do you have any plans this weekend? if not, why don't we go to enjoy a concert together? ,F: Sorry, but I can't go this weekend. My mother is visiting from Georgia, and I want to show her around the city. ,M: Well, how about meeting for dinner on Saturday night after you've shown her the sights? I know a great Japanese restaurant. ,F: That would be great, but my mother doesn't like Japanese food. Let's meet at my place first and then decide where to go.\n(A) M: Look at this beautiful city! This city tour is really amazing! (B) M: I am really sorry, I did not catch that. Would you slow down, please? (C) M: Great! Hope you will enjoy this weekend! (D) M: It is unbelievable that your mom loves Japanese food!",
+      "output": "C",
+      "split": "core",
+      "complexity": 1487.0
+    },
+    {
+      "anchor_id": "s004_e0060",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Excuse me. Are you Anita Handley? ,F: Yes, that's me. How can I help you? ,M: I represent Comfort Tour. We're looking for a British company to help us with marketing in Britain. ,F: Ah, so you are looking for a British agent to represent you here? Is that right? ,M: Yes, exactly. ,F: Well, that's perfect. We already represent a number of companies, so I'm certainly interested in discussing a partnership of some kind.\n(A) M: That's great. Could you please tell me more about the cooperation? (B) M: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (C) M: Ok, I'm just looking for a travel agent. Can you recommend some? (D) M: Maybe we can make a win-win cooperation in Japan.",
+      "output": "A",
+      "split": "core",
+      "complexity": 1524.0
+    },
+    {
+      "anchor_id": "s004_e0004",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Is everything ready for Billy's birthday party? ,F: Yes. I finished making the birthday cake and I put everything on the table. Did you find the party hats? ,M: Yes, I did. I put one for each child on the table. I put up the big \"Happy Birthday\" sign, too. ,F: Thanks, honey. Do you think we have enough for the kids to eat and drink? ,M: I'm sure we do. Here's enough food to feed an army.\n(A) F: I believe you, you are my best friend. I trust you best except my husband. (B) F: Well, as a neighbor, do you need my help? (C) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (D) F: Well, I'm sure you're ready. We've been married for so many years that we always have enough food for every birthday party.",
+      "output": "D",
+      "split": "core",
+      "complexity": 1528.0
+    },
+    {
+      "anchor_id": "s004_e0013",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Gosh, we've been waiting for ages? What's the matter? ,M: Who knows? It always leaves on time more or less. But in the middle of winter, you have to expect the delay here sometimes. In fact, the trains also sometimes get delayed by snow on the lines or the planes by fog on the runway. Actually, it's probably rain that's holding up things for us right now. ,F: Well, I heard on the radio before I came out that there were some jams this morning, so even when we do finally get moving we'll probably find that it's going slow, especially as the rush hours now about to start. ,M: Oh, bad luck!\n(A) F: Don't feel so sad. (B) F: Don't feel so sad. We can change to other means of transportation. (C) F: I’m sorry, I don’t understand. Could you say it again? (D) F: Why do you look so happy?",
+      "output": "A",
+      "split": "core",
+      "complexity": 1537.0
+    },
+    {
+      "anchor_id": "s004_e0099",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Wow, this dance is surely cool. There are so many people here. Ah, what's your name? ,F: Susan, Susan Dors. You really don't know who I am? You sit behind me in geography class. ,M: Oh yeah, you're right. I guess I'm just used to looking at the back of your head, not your face. ,F: Are you OK? You're so nervous. ,M: I'm sorry for my strange behavior. I don't know why I pretended I didn't know who you were. I just didn't know how to start the conversation.\n(A) F: It doesn't matter. You look cool. You're not nervous at all. (B) F: It doesn't matter. We haven't seen each other before, so it's normal for you to feel a little awkward. (C) F: It doesn't matter. You're as polite as ever. (D) F: Excuse me, could you repeat the question?",
+      "output": "D",
+      "split": "core",
+      "complexity": 1547.0
+    },
+    {
+      "anchor_id": "s004_e0074",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hey, we should watch the kids more carefully when there in the pool. Did you ever hear about secondary drowning? ,M: No, never heard of it. Is that like when you get water up your nose? ,F: Don't joke about it! I learned it from the Internet. Some children die each year because they fall into a pool or a lake, but they didn't drown right away. Someone pulled them out of the water and they seemed OK for the first day. But a lot of water got into their lungs, and the next day, they died.\n(A) M: I am afraid I did not quite catch what you were saying. Please repeat it. (B) M: So the secondary drowning is dying from water up one's nose. I got it. (C) M: Dying after seeming fine temporarily called secondary drowning, I understand it. (D) M: The secondary drowning is dying after seeming fine temporarily. Oh, I have heard of it.",
+      "output": "C",
+      "split": "core",
+      "complexity": 1569.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s004_e0067",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Mike, can I be honest with you? ,M: Sure, Cindy. What's up? ,F: This food is tasty, but I'm not sure it's very healthy. ,M: Well, this was my first time to cook for you. I guess I was a little nervous. ,F: That's sweet. ,M: I put too much salt on the potatoes. ,F: Yeah. I like salty food, but that was a bit too much of a good thing. ,M: And I overcooked the steak. So I tried to cover it up by adding more butter. ,F: Well, it's not easy to cook a steak. My dad has been trying to teach me that forever, and I still never know how it's going to turn out.\n(A) M: I have put too much butter on potatoes. (B) M: All the food here were too salty. (C) M: I think that all the potatoes were overcooked. (D) M: I didn’t hear you. Please could you tell me again?",
+      "output": "D",
+      "split": "probe",
+      "complexity": 1603.0
+    },
+    {
+      "anchor_id": "s004_e0033",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Tom, do you like stories? ,M: Yes, very much. You know I spent my childhood with my grandparents in the countryside. They often told me stories. ,F: Do you have any story books now? ,M: Yes. Last year my friend bought me a collection of stories as a birthday present. It is so interesting that I have read it 3 times. ,F: Oh, could I borrow it from you? ,M: Certainly, I put it in a drawer in the living room. I will get it for you now.\n(A) F: Haha, why you put the collection of stories on the table in the kitchen? (B) F: You must like the collection of stories very much because you put it in a box in the dining room. (C) F: Thank you, now that you put it in a drawer in your living room, why don't you read it? (D) F: I am sorry. You spoke so rapidly that I did not catch the meaning of what you said. Could you repeat that?",
+      "output": "D",
+      "split": "probe",
+      "complexity": 1618.0
+    },
+    {
+      "anchor_id": "s004_e0030",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Have you heard the news? Jim's office caught fire last night. ,M: What happened? Did someone forget to cut off the electricity? ,F: I heard that someone threw a cigarette button into the garbage bin last night. ,M: That's terrible. Did anyone catch the fire before it caused a lot of damage? ,F: It was late at night, so no one was around. ,M: But there's a smoke alarm in every office, didn't it go off? ,F: I don't know. Maybe it worked, but no one heard it. Fortunately, nobody was injured in the fire, but some important papers and some computers are completely damaged.\n(A) M: If the smoke alarm works well, there may not be a fire. (B) M: Although the fire was small, you should catch the fire in time. (C) M: I didn’t hear you. Please could you tell me again? (D) M: Since it happened late at night, it's normal that no one caught the fire.",
+      "output": "D",
+      "split": "probe",
+      "complexity": 1642.0
+    },
+    {
+      "anchor_id": "s004_e0007",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: When I say I live in Sweden, people always want to know about the seasons. ,F: The seasons? ,M: Yeah, you know how cold it is in winter? What is it like when the days are so short? ,F: So what is it like? ,M: Well, it is cold, very cold in winter. Sometimes it is as cold as 26 degrees below centigrade. And of course, when you go out, you'll wrap up warm. But in the houses, is always very warm, much warmer than at home. Swedish people always complain that when they visit England, the houses are cold, even in a good winter.\n(A) F: So, as an Englishman living in Sweden, are you used to it? (B) F: Then, as an Englishman living in Sweden, you never enjoyed the long summer evenings, did you? (C) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (D) F: Wow, I really envy you can visits London nearly every winter.",
+      "output": "A",
+      "split": "probe",
+      "complexity": 1685.0
+    },
+    {
+      "anchor_id": "s004_e0040",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Are you looking forward to your trip to China and? ,F: I can't wait to see China, but... ,M: But what? ,F: I'm scared of the journey. I read a news report yesterday. It said a plane with 128 passengers crashed and only 5 of them survived. ,M: That's horrible. But don't worry, such things don't happen every day. So don't scare yourself. ,F: You're right. But what will you do during the summer? ,M: I want to take a trip to Canada, but I haven't made up my mind yet. Mary wants to go to Spain. I don't want to let it down.\n(A) F: I am really sorry, I did not catch that. Would you slow down, please? (B) F: Spain is a good place. If Mary wants to go, why don't you go with her? (C) F: Canada is a good place to visit. I want to go to there with her. (D) F: Since both you and Mary want to go to Spain, why not go together?",
+      "output": "B",
+      "split": "probe",
+      "complexity": 1690.0
+    },
+    {
+      "anchor_id": "s004_e0049",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: We really love living in the country, don't we, Peter? ,M: Yes. Everyone so friendly, and there such a relaxed atmosphere in the village. ,F: It's all very different from city life. In Manchester, everything was in such a rush. We never had any time to relax and enjoy ourselves, did we? ,M: No, I mean we lived in the suburbs of Manchester for over the years. My job was in the city center. I really hated driving to work every day. Now I get up at 8 o'clock and walk to work. ,F: And I've got a job in the village post office. It doesn't pay that much, but I enjoy meeting people and having a chat.\n(A) M: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (B) M: It's really a good job because you can meet people in work. (C) M: I know you don't like chatting with others, but you do meet people in work,and I think it's good for you. (D) M: Although you can't chat with others, it's within walking distance.",
+      "output": "B",
+      "split": "probe",
+      "complexity": 1755.0
+    },
+    {
+      "anchor_id": "s004_e0094",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hello, who's that? ,M: Hello, Mrs Black. I'm David. I'm coming to fix your TV set. ,F: Oh, come in please. ,M: But where is the TV? In the living room? ,F: No, not this one. This way please. It is laid in the bedroom. The old one which we bought when we got married. ,M: Oh, let me turn it on. Yes, it's really a little old, the scene is not clear. Why not change it? ,F: Well, it can mark the old days so I'd like to keep it. Can you help me make it better? ,M: Sure, I'll try my best. Perhaps it needs a new kinescope. Please wait for a moment.\n(A) F: Well. I don't want to save money. I'm going to buy a new TV set. (B) F: OK. That new TV set helps me to remember the old days. (C) F: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (D) F: Well. It can decorate the living room.",
+      "output": "C",
+      "split": "probe",
+      "complexity": 1759.0
+    },
+    {
+      "anchor_id": "s004_e0006",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Is everything ready for Billy's birthday party? ,F: Yes. I finished making the birthday cake and I put everything on the table. Did you find the party hats? ,M: Yes, I did. I put one for each child on the table. I put up the big \"Happy Birthday\" sign, too. ,F: Thanks, honey. Do you think we have enough for the kids to eat and drink? ,M: I'm sure we do. Here's enough food to feed an army. ,F: That birthday cake looks beautiful, but you haven't put any candles on it yet. ,M: Thanks for reminding me. I've prepared some party games for the children, too. ,F: Great. I bought a tape with a lot of children songs on it.\n(A) M: Oh, you are so thoughtful, children will love the tapes you bought. (B) M: The big sign you have put up is very beautiful. (C) M: Now that you have bought the tape, let's put up the big \"Happy Birthday\" sign. (D) M: I am really sorry, I did not catch that. Would you slow down, please?",
+      "output": "A",
+      "split": "probe",
+      "complexity": 1781.0
+    },
+    {
+      "anchor_id": "s004_e0015",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Brian, have you heard that Mister Giddings will be awarded the prize for Best Car Design at the Hyatt Hotel next week? ,M: Yes, but I thought either Mister Zarba or Miss Miller would win. I feel they're more talented than Mister Giddings. ,F: They are excellent designers, too. The competition must have been fierce. Will the winner receive a lot of money? ,M: Maybe, I don't know. By the way, do you know where the Hyatt Hotel is? ,F: It's right across from the Belagio Department Store on Granville Avenue, on the left side of a bank. The hotel just opened a week ago. I've heard they provide excellent food and service. Are you going to attend the ceremony?\n(A) M: The competition wasn't fierce at all for there were few competitors. (B) M: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (C) M: The competition was very competitive that many outstanding designers took part in it. (D) M: But it's so pity that there will be no prize money.",
+      "output": "C",
+      "split": "probe",
+      "complexity": 1782.0
+    },
+    {
+      "anchor_id": "s004_e0017",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Today's guest is singer Alisha Ryan, who Congratulations on becoming a champion a few years ago Tell me, Alisha, was becoming a famous singer something you'd always wanted to do? ,F: Not really, no. I'd always enjoyed singing of course, but the idea of becoming a star never occured to me until I saw Katie Wyatt, who'd been in my class back in my secondary school days in a talent show. And my brother said I got a better voice than her. I suddenly knew it was something I at least had to try to do. ,M: And how did you feel when you first went on live TV, and you had that victory?\n(A) F: Excited. When I was a little girl, I wanted to be a scientist instead of a star. (B) F: I was so happy that I was the winner of the famous TV talent show and I should thank my brother for his encouragement. (C) F: Happy. My brother gave me a lot of encouragement. So I won the champion of the famous TV show this year！ (D) F: I am sorry. You spoke so rapidly that I did not catch the meaning of what you said. Could you repeat that?",
+      "output": "B",
+      "split": "probe",
+      "complexity": 1784.0
+    },
+    {
+      "anchor_id": "s004_e0053",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Here's your cup of coffee, Bob. ,M: Thanks. But what took you so long, Catherine? ,F: Sorry, Bob. I bumped into somebody I knew in the cafe and stopped for a chat. ,M: OK, well. Catherine, did you know that coffee houses were originally a meeting place for lively debates and intellectual discussions? ,F: Really? I didn't know that, Bob. So how long ago was this debating society formed? ,M: The first coffee house was set up in Oxford in one thousand six hundred and fifty, but they quickly became popular and soon they were all over London too. You paid a penny to get in, and this included access to newspapers and stimulating conversation.\n(A) F: Since newspapers were given out to customers, there were must many customers. (B) F: I didn’t hear you. Please could you tell me again? (C) F: Oh, I never thought that an entrance fee was charged for getting in it. (D) F: Wow, it's cool that the earlier coffee house was the meeting place for debating clubs for free.",
+      "output": "C",
+      "split": "probe",
+      "complexity": 1786.0
+    },
+    {
+      "anchor_id": "s004_e0000",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: We still have one more day to go before we return home. What do you want to see tomorrow? ,F: No idea. We've enjoyed both the natural scenery and the city sights? What else is there to see? ,M: How about a factory tour? ,F: You mean visit a factory? ,M: Yes, I heard there's a large car company nearby that is open to the public every weekend. We can go there to see how a car is made and learn more about the car industry. ,F: Good idea. I've always been interested in that. How much is the entrance fee? ,M: I'm not sure, but as far as I know, most factory tours are free. They are sponsored by the car company providing the tour.\n(A) F: Wow, we can't miss the opportunity since it is sponsored by the car company. (B) F: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (C) F: Now that it is sponsored by the car company, let's visit it next Monday. (D) F: I don't want to visit it because it is only good for the company and we can learn nothing about the car industry.",
+      "output": "A",
+      "split": "probe",
+      "complexity": 1818.0
+    },
+    {
+      "anchor_id": "s004_e0034",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Do you know anything about Tim Berners Lee? ,M: Sure. He is a great scientist. He invented the software program known as the World Wide Web in one thousand nine hundred and eighty-nine. ,F: Can you tell me more about him? ,M: Of course. He was born in London, on June eighth one thousand nine hundred and fifty-five. He studied at Queen's College, Oxford University from one thousand nine hundred and seventy-three to one thousand nine hundred and seventy-six. ,F: Did he show an interest in computers when he was young? ,M: Yes. As a boy, he liked making toy computers out of old TV sets.\n(A) F: Sounds great, his success can not be separated from his interest in making toy computers. (B) F: I’m sorry, I didn’t catch that. Would you mind speaking more slowly? (C) F: That's interesting. Then he must like watching TV at home when he was a boy. (D) F: It is because he liked making toy computers when he was young that he could invent the software program known as the World Wide Web in one thousand nine hundred and eighty-six..",
+      "output": "A",
+      "split": "probe",
+      "complexity": 1840.0
+    },
+    {
+      "anchor_id": "s004_e0061",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Excuse me. Are you Anita Handley? ,F: Yes, that's me. How can I help you? ,M: I represent Comfort Tour. We're looking for a British company to help us with marketing in Britain. ,F: Ah, so you are looking for a British agent to represent you here? Is that right? ,M: Yes, exactly. ,F: Well, that's perfect. We already represent a number of companies, so I'm certainly interested in discussing a partnership of some kind. ,M: Oh, what other partnerships do you have? ,F: Well, we represent a large Japanese company and we have agreements with agents in Australia and Greece. We handle all their marketing in Britain. ,M: That sounds great. Why don't we sit down and talk a bit more about it? ,F: Fine. Let's get a coffee at the same time.\n(A) M: Ok, let's start doing market research outside. (B) M: Ok, then we can have a discussion. (C) M: Ok, which restaurant would you like to go? (D) M: Excuse me, could you repeat the question?",
+      "output": "B",
+      "split": "probe",
+      "complexity": 1853.0
+    },
+    {
+      "anchor_id": "s004_e0026",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: You really have a good figure. How many sports do you do in your spare time? ,F: Quite a few. Walking, playing tennis, mountain climbing, yoga and some others. I like yoga best. ,M: Why do you like playing tennis? ,F: It's fun and good for developing coordination. ,M: What's mountain climbing good for? ,F: Many things, especially breathing. ,M: You also do yoga? ,F: Yes. Yoga helps me keep my shape and relax. It also makes me feel comfortable. ,M: But it is quite expensive to do yoga, isn't it? ,F: Not really. The prices vary from club to club. Compare them before you decide. ,M: Good idea. I've been considering starting up.\n(A) F: If you plan to climb mountains, I can recommend some places for you. (B) F: Just a minute! I do not quite follow what you are saying, would you mind repeating that? (C) F: Now that you plan to start doing yoga, I hope you can stick to it. (D) F: Oh, you plan to join in a tennis club, sounds great.",
+      "output": "C",
+      "split": "probe",
+      "complexity": 1861.0
+    },
+    {
+      "anchor_id": "s004_e0073",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Hey, Helen! Want to play a new game I learned in school today? ,F: Yeah. How do you play it? ,M: You stand over there by the side of the house. I'm going to throw this ball at you. ,F: Wait a minute! That's a big ball! You're going to hurt me! ,M: Don't worry. It's a light ball and I won't throw it too hard. Anyway, when I throw it at you, you have to try to get away from it. Don't let it hit you. You have to move fast. Sometimes, you might have to lower your head to get out of the way. ,F: You're going to throw it at my head? ,M: Like I said, I'll throw it gently. The point is, you always have to try to avoid the ball by moving away from it.\n(A) F: I am afraid I did not quite catch what you were saying. Please repeat it. (B) F: Avoid getting hit by the ball? Ok, I will try to do that. (C) F: Although I will catch the ball quickly, I still worry it will hurt me, I was hurt by it before. (D) F: Although I will try to avoid getting hit by the ball, it's too heavy.",
+      "output": "B",
+      "split": "probe",
+      "complexity": 1863.0
+    },
+    {
+      "anchor_id": "s004_e0057",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: What's that, Bred? ,M: It's my new e-book reader. I'm just downloading some new books onto it. ,F: I haven't bought 1 yet. I still prefer a printed book. ,M: But if you haven't tried it yet, how do you know you wouldn't like it better, Fiona? This e-book reader can store over 10,000 digital books. Imagine trying to carry an entire library from place to place. ,F: I don't usually read 10,000 books all at once, and I like the look of text on a printed page. ,M: You mean that faded taxed on that yellowed page? On an e-book reader, you can adjust the text size and even line spacing. ,F: Can I get all of the out of print books on my shelves in digital format? ,M: Well, I'm not sure.\n(A) F: I don't read much so there is no printed book on my shelves. (B) F: I like printed books but I don't like the the look of text on printed pages. (C) F: I prefer the printed books than digital ones, because I’ll have more choices. (D) F: I’m sorry, I don’t understand. Could you say it again?",
+      "output": "C",
+      "split": "probe",
+      "complexity": 1874.0
+    },
+    {
+      "anchor_id": "s004_e0059",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Excuse me. Are you Anita Handley? ,F: Yes, that's me. How can I help you? ,M: I represent Comfort Tour. We're looking for a British company to help us with marketing in Britain. ,F: Ah, so you are looking for a British agent to represent you here? Is that right? ,M: Yes, exactly. ,F: Well, that's perfect. We already represent a number of companies, so I'm certainly interested in discussing a partnership of some kind. ,M: Oh, what other partnerships do you have? ,F: Well, we represent a large Japanese company and we have agreements with agents in Australia and Greece. We handle all their marketing in Britain.\n(A) M: Great, your're company is exactly the one we are looking for because your company is in Britain. (B) M: Since you represent a large Japanese company,then your company must be in Japan and handle all your marketing in Japan.. (C) M: I’m sorry, I don’t understand. Could you say it again? (D) M: So your company is in Australia, but why you handle your marketing in Japan?",
+      "output": "A",
+      "split": "probe",
+      "complexity": 1882.0
+    },
+    {
+      "anchor_id": "s004_e0058",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: What's that, Bred? ,M: It's my new e-book reader. I'm just downloading some new books onto it. ,F: I haven't bought 1 yet. I still prefer a printed book. ,M: But if you haven't tried it yet, how do you know you wouldn't like it better, Fiona? This e-book reader can store over 10,000 digital books. Imagine trying to carry an entire library from place to place. ,F: I don't usually read 10,000 books all at once, and I like the look of text on a printed page. ,M: You mean that faded taxed on that yellowed page? On an e-book reader, you can adjust the text size and even line spacing. ,F: Can I get all of the out of print books on my shelves in digital format? ,M: Well, I'm not sure. ,F: Until I can I'll stick to my low tech books. Let's take our seats. The class is about to begin.\n(A) M: I am afraid I did not quite catch what you were saying. Please repeat it. (B) M: Sorry, I forget my library card. (C) M: The class is over. (D) M: We are going to have Chinese class.",
+      "output": "D",
+      "split": "probe",
+      "complexity": 1901.0
+    },
+    {
+      "anchor_id": "s004_e0085",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Wow, this dance is surely cool. There are so many people here. Uh, what's your name? ,F: Susan, Susan Dawes. You really don't know who I am? You sit behind me in geography class. ,M: Oh yeah, you're right. I guess I'm just used to looking at the back of your head, not your face. ,F: Are you OK? You're so nervous. ,M: I'm sorry for my strange behavior. I don't know why I pretended I didn't know who you were. I just didn't know how to start the conversation. ,F: That's OK. It's refreshing to talk to somebody who's actually honest for once. So, do you like this music? ,M: Not really. I prefer rock and roll mostly, but I like to listen to blues when I'm alone. Anything but this pop stuff.\n(A) F: I am really sorry, I did not catch that. Would you slow down, please? (B) F: Although I like blues, I don't like this one playing at the dance. (C) F: When I'm alone I like to listen to rock and roll, just like you. But this pop playing at the dance sounds good. (D) F: Yeah, the pop playing at the dance doesn't sound good.",
+      "output": "D",
+      "split": "probe",
+      "complexity": 1942.0
+    },
+    {
+      "anchor_id": "s004_e0076",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hi, Rob. Do you mind if I eat lunch with you? ,M: No, Mrs. Evans, not at all. ,F: Thanks. I've just heard you study nutrition and you've got quite a lot of experience working in the cafeteria, so I wonder if you are interested in a small project we're doing this term. ,M: What is the project about? ,F: More and more students prefer not to buy meals here and we want to attract them back. I want to know what the students would like to eat. Your job will be finding this out. Of course, I also like to hear any of your ideas. ,M: Well, if the menus were changed, maybe I wouldn't have to listen to so much criticism this term. You know, everyone in the nutrition class sees me when I serve food here, so they always complain to me about the food here.\n(A) F: Excuse me, could you repeat the question? (B) F: Now that your job is cooking food for the students, you can ask them what they like to eat. (C) F: As more and more students prefer to buy meals here, you must very busy everyday when serving food for the students. (D) F: Then you should tell them that you have improved meals' nutritional value, it's your job to tell them.",
+      "output": "A",
+      "split": "probe",
+      "complexity": 1958.0
+    },
+    {
+      "anchor_id": "s004_e0080",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hi, Tony. Have you finished reading these articles? ,M: Yes, but my eyes feel uncomfortable after staring at the computer screen for hours. ,F: I've read an article about eye problems recently. It says that people usually blink less when they use computer, so they may always feel tired and dry after using computers. ,M: That is what I am doing. And I am suffering from dry eyes. ,F: It is so common for people who have eye problems. ,M: But what does it have to do with the computer? ,F: The article found that people blink 22 times a minute in average when relaxed, but just 7 times a minute while staring at things on a computer screen. ,M: Really? That's quite a difference.\n(A) F: Yes, when we stare at the computer, our eyes will blink five times more than usual,we will blink 27 times a minute. (B) F: Yes, although people blink only 7 times a minute when staring at the computer, they may feel less dry after using computers. (C) F: Excuse me, could you repeat the question? (D) F: Yes, I never knew that people blink only 7 times in a minute when staring at the computer. That’s a lot fewer than usual.",
+      "output": "D",
+      "split": "probe",
+      "complexity": 1975.0
+    },
+    {
+      "anchor_id": "s004_e0003",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: What a nice garden! Look at these flowers. ,F: That would be a good shot. Can you take my picture here, dear? Please try to get the garden in the frame as well. ,M: Alright. Would you please stand closer to the flowers? Good. Smile. Say cheese. OK, got it. That's terrific. ,F: Thanks. Could you take one more from this angle? ,M: No problem. Got it! ,F: Now let's take one together. ,M: Do you know how to set it to take a picture of the 2 of us? ,F: Let me see. We just push this button. OK, come here! ,M: OK. Here I come! ,F: Cheese! ,M: Did it come out? ,F: Yes, but it's a little dark. ,M: Never mind. Let's go to the falls and try again. ,F: OK, let's go.\n(A) M: Ok, you stand in front of the garden. I'll take a picture of you (B) M: I am afraid I did not quite catch what you were saying. Please repeat it. (C) M: Ah! Stand near the falls. It's perfect for taking pictures. (D) M: Please stand near the falls, I'll take the third photo of you.",
+      "output": "C",
+      "split": "probe",
+      "complexity": 2011.0
+    },
+    {
+      "anchor_id": "s004_e0044",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Now we have 5-day classes every week, so we have more spare time than before. ,F: How do you spend your spare time, Tom? ,M: I have much interest in playing the violin, and I'll continue to practice playing it. ,F: Do you often take part in a concert? ,M: Yes, I like to go listening to some music. At present, my major purpose is to learn from others. ,F: Do you like classical music or pop? ,M: I like both. How do you spend your spare time then, Lily? ,F: Playing the piano is my favorite activity. ,M: Our hobbies are similar to each other. I hope we can often exchange experiences together. ,F: So do I, but I'm weak in the theory of music. ,M: Me too. Would you like to go with me to my uncle? He is a professor of music. ,F: I'm glad to go with you. I would ask him for his advice.\n(A) M: Although my uncle isn't a professor of music, we can ask him for advice to improve ourselves. (B) M: Excuse me, could you repeat the question? (C) M: I think we can improve our theory of music by practicing playing music. (D) M: And how about improving our theory of music by exchanging experience with each other?",
+      "output": "B",
+      "split": "probe",
+      "complexity": 2037.0
+    },
+    {
+      "anchor_id": "s004_e0036",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: It's already 5:30. How about preparing supper now? ,F: But I don't want to cook today. I'm tired of cooking every day. ,M: Then how about having supper out tonight? There is a new Chinese restaurant on third Street. Tom went there yesterday and he said it was great. ,F: Really? What kind of food does it have? You know, I don't like food that's too spicy. ,M: Don't worry. One of the chefs is from Guangdong. ,F: That's great. Guangdong food is my favorite kind of Chinese food. Do you know how to get there? ,M: Not exactly. I just know it's on third Street. Don't worry. I'm sure we'll find it. ,F: But I don't feel like walking now. It's still so hot outside. ,M: Then how about asking Tom to pick us up? We can treat him to supper. ,F: That's a good idea.\n(A) M: Ok, honey,let's go, I know where is it. (B) M: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (C) M: So since your Sichuan food is your favorite kind of Chinese food, why don't we go there after work? (D) M: Great. After school we can go there to eat your favorite Sichuan food.",
+      "output": "B",
+      "split": "probe",
+      "complexity": 2054.0
+    },
+    {
+      "anchor_id": "s004_e0082",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hi, Tony. Have you finished reading these articles? ,M: Yes, but my eyes feel uncomfortable after staring at the computer screen for hours. ,F: I've read an article about eye problems recently. It says that people usually blink less when they use computer, so they may always feel tired and dry after using computers. ,M: That is what I am doing. And I am suffering from dry eyes. ,F: It is so common for people who have eye problems. ,M: But what does it have to do with the computer? ,F: The article found that people blink 22 times a minute in average when relaxed, but just 7 times a minute while staring at things on a computer screen. ,M: Really? That's quite a difference. ,F: Yeah, so you need to blink your eyes and take a break from the computer. ,M: I wonder if I drops will make me feel better. ,F: That might help. But the best way is to take a break and rest your eyes. ,M: OK. Let's go have a cup of tea. I can finish this later tonight.\n(A) F: Don't worry. Let's keep on reading first. (B) F: Ok, you'll feel better after having some tea. (C) F: Ok, you can stare at the computer screen while we are drinking tea. (D) F: I’m sorry, I didn’t catch that. Would you mind speaking more slowly?",
+      "output": "B",
+      "split": "probe",
+      "complexity": 2158.0
+    },
+    {
+      "anchor_id": "s004_e0035",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Do you know anything about Tim Berners Lee? ,M: Sure. He is a great scientist. He invented the software program known as the World Wide Web in one thousand nine hundred and eighty-nine. ,F: Can you tell me more about him? ,M: Of course. He was born in London, on June eighth one thousand nine hundred and fifty-five. He studied at Queen's College, Oxford University from one thousand nine hundred and seventy-three to one thousand nine hundred and seventy-six. ,F: Did he show an interest in computers when he was young? ,M: Yes. As a boy, he liked making toy computers out of old TV sets. ,F: That's interesting. Where did he work after he left college? ,M: He worked as a software engineer at CERN in Geneva, Switzerland in one thousand nine hundred and eighty. From one thousand nine hundred and eighty-one to one thousand nine hundred and eighty-four, he worked at John Paul's Image Computer Systems Limited in England. But he returned to CERN in one thousand nine hundred and eighty-four.\n(A) F: Why he went back to work at CERN in Geneva in 1984? (B) F: I’m sorry, I didn’t catch that. Would you mind speaking more slowly? (C) F: In 1984, he also joined John Poole¡¯s Image Computer Systems, Ltd,didn't he? (D) F:  So he worked as a software manager at CERN in Geneva since 1980 to 1984.",
+      "output": "A",
+      "split": "probe",
+      "complexity": 2300.0
+    },
+    {
+      "anchor_id": "s004_e0092",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Sunrise Hotel. Good morning. ,M: Hello, my name's John Griffin. I'd like to make a booking for tonight please. ,F: OK. What kind of room do you want? ,M: Well, I'm on a business trip. So I only need a single room. ,F: Let's look. Yes, there is one left. Shall I book it for you? ,M: Yes, please. I went to a conference and I've stayed in your hotel twice last year. ,F: That's great, so what's your name again, please? ,M: John Griffin. That's John Griffin. ,F: That's OK. And what time can we expect you tonight? Mister Griffin. ,M: Well, the plane lands at 9:15 PM, so by the time I get there, I'll be hungry. Is the restaurant open then? ,F: I'm afraid not, Mister Griffin. Can I arrange to have a snack left in your room, a burger, fries, a sandwich? ,M: Yes, that would be great. How about a cheese sandwich with fries. ,F: No problem, sir. I'll see to that. Oh, the fries might be cold by the time you arrive. ,M: Aah, yes, just the sandwich then.\n(A) F: Ok, I'll prepare a cheese sandwich for you in advance. (B) F: I am really sorry, I did not catch that. Would you slow down, please? (C) F: Ok, a cheese sandwich will be offered to you in your double room. (D) F: Ok, a burger with chips will be prepared for you by the time you arrive",
+      "output": "A",
+      "split": "probe",
+      "complexity": 2421.0
+    },
+    {
+      "anchor_id": "s004_e0078",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Hi, Rob. Do you mind if I eat lunch with you? ,M: No, Mrs. Evans, not at all. ,F: Thanks. I've just heard you study nutrition and you've got quite a lot of experience working in the cafeteria, so I wonder if you are interested in a small project we're doing this term. ,M: What is the project about? ,F: More and more students prefer not to buy meals here and we want to attract them back. I want to know what the students would like to eat. Your job will be finding this out. Of course, I also like to hear any of your ideas. ,M: Well, if the menus were changed, maybe I wouldn't have to listen to so much criticism this term. You know, everyone in the nutrition class sees me when I serve food here, so they always complain to me about the food here. ,F: That makes you perfect for the project. Would you be interested? ,M: I'm not sure. What sort of changes are you thinking of? ,F: We'd like to make some changes in the way we prepare the food and we want to give students more choices. Do you think that will appeal to the students? ,M: Well, you're right. You'd better find out what they think. Oh, sorry. I've got to go back to work now. I'll drop in at your office later. ,F: OK. See you then.\n(A) M: I’m sorry, I don’t understand. Could you say it again? (B) M: Ok, see you. By the way, I think your project is beneficial to students and I am curious about it. (C) M: Ok, see you. Anyway, your project is very amazed because they never complain about the food here. (D) M: Ok, see you then. Anyway, your project is quite confused because I never worked in a cafeteria before.",
+      "output": "B",
+      "split": "probe",
+      "complexity": 2655.0
+    },
+    {
+      "anchor_id": "s004_e0010",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: When I say I live in Sweden, people always want to know about the seasons. ,F: The seasons? ,M: Yeah, you know how cold it is in winter? What is it like when the days are so short? ,F: So what is it like? ,M: Well, it is cold, very cold in winter. Sometimes it is as cold as 26 degrees below centigrade. And of course, when you go out, you'll wrap up warm. But in the houses, is always very warm, much warmer than at home. Swedish people always complain that when they visit England, the houses are cold, even in a good winter. ,F: And what about the darkness? ,M: Well, yeah, around Christmas time there's only one hour of daylight, so you really look forward to the spring. It is sometimes a bit depressing, but you see the summers are amazing. From May to July in the North of Sweden, the sun never sets. It's still light at midnight. You can walk in the mountains and read a newspaper. ,F: Oh yeah, the land of the midnight sun. ,M: Yeah, that's right, but it's wonderful. You wanna stay up all night. And the Swedes make the most of it. They often start work earlier in summer and then leave at 2:00 or 3:00 in the afternoon, so that they can really enjoy the long summer evenings. They'd like to work hard, but play hard, too. I think Londoners work longer hours, but I'm not sure whether this is a good thing.\n(A) F: If they often stay up late reading, as you said, they are all very knowledgeable, aren't they? (B) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please? (C) F: You said they work hard and play hard, so do you think they have longer summer than other countries？ (D) F: Sounds interesting, why do they like to go camping in summer?",
+      "output": "C",
+      "split": "probe",
+      "complexity": 2777.0
+    },
+    {
+      "anchor_id": "s004_e0020",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "M: Today's guest is singer Alisha Ryan, who was the winner of a well-known TV talent show a few years ago. Tell me, Alisha, was becoming a famous singer something you'd always wanted to do? ,F: Not really, no. I'd always enjoyed singing of course, but the idea of becoming a star never occured to me until I saw Katie Wyatt, who'd been in my class back in my secondary school days in a talent show. And my brother said I got a better voice than her. I suddenly knew it was something I at least had to try to do. ,M: And how did you feel when you first went on live TV, and you had that victory? ,F: Well, I didn't actually sing that well. I was annoyed with myself and I thought my family and friends were a bit disappointed, too. At one point I was convinced I'd lost, so afterwards I was just glad when the scores were announced and it became clear I hadn't. ,M: You did in fact become famous overnight. ,F: Yes, I realized that the next morning when the national press had all the news about me. ,M: I imagine they said a lot of nice things. ,F: Yes, though it was mostly about how I had the right look, how stylish my clothes were and that sort of thing, rather than how I'd actually performed or what they thought of my singing voice. ,M: How do you feel about friendships among famous people? ,F: I wouldn't say that exactly. Just remember it's probably going to end sometime, and when it does you'll want to go back to those you were close to before you were famous, so don't lose touch with them. ,M: Thank you, Alisha.\n(A) F: Remember, keep in touch with your old friends. Thanks. (B) F: It's necessary to keep in touch with friends. But making new friends is more important. Thanks. (C) F: Thanks. If you succeed, celebrities will learn from you. (D) F: I’m sorry, I didn’t understand. Could you repeat a little louder, please?",
+      "output": "A",
+      "split": "probe",
+      "complexity": 2889.0
+    },
+    {
+      "anchor_id": "s004_e0054",
+      "segment_id": 4,
+      "segment_name": "task611_mutual_multi_turn_dialogue",
+      "instruction": "In this task you are given a small conversation between two persons and 4 options on how the conversation should continue. Your job is to choose the most reasonable option. The conversation and the options are separated by a newline character. Each dialogue in the conversation are separated by a comma. F and M indicate female and male, respectively.",
+      "input_text": "F: Here's your cup of coffee, Bob. ,M: Thanks. But what took you so long, Catherine? ,F: Sorry, Bob. I bumped into somebody I knew in the cafe and stopped for a chat. ,M: OK, well. Catherine, did you know that coffee houses were originally a meeting place for lively debates and intellectual discussions? ,F: Really? I didn't know that, Bob. So how long ago was this debating society formed? ,M: The first coffee house was set up in Oxford in one thousand six hundred and fifty, but they quickly became popular and soon they were all over London too. You paid a penny to get in, and this included access to newspapers and stimulating conversation. ,F: But I have to say, while I was getting our coffees earlier, there was nobody else in the cafe talking except me and my friend. Everybody was sitting on their own, typing away on their laptops. So the spirit of those 17 century coffee houses has disappeared then? No more lively debates and intellectual discussions? ,M: It seems so. As Douglas Fraser, BBC Business and Economy editor says, the coffee shop's free Wi-Fi is transporting its customers to different destinations far from the person beside them. As you can see, so many people sit along plugged into their laptops, and they're all doing different things working, writing, messing about on social media. ,F: I think at the cafe owners should turn off the free Wi-Fi. I don't think people should be allowed to sit all day using the Internet, occupying tables and not talking to anybody, especially when some of them don't even buy a coffee. ,M: That's a bit extreme, Catherine. Cafe owners needs customers and they encourage people to stay by having comfortable sofas and newspapers to read and the free Wi-Fi.\n(A) F: Yeah, it has lot of customers just because it's owners provide free laptops for use. (B) F: I didn’t hear you. Please could you tell me again? (C) F: Although they make sofas comfortable to sit on, there are no Wi-Fi. (D) F: Anyway. I hate the Cafe owners attract customers by engaging them in stimulating conversation.",
+      "output": "B",
+      "split": "probe",
+      "complexity": 3127.0
+    }
+  ]
+}

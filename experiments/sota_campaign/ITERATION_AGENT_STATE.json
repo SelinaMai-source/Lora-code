@@ -1,0 +1,25 @@
+{
+  "campaign": "ours_sota_three_suite",
+  "version_dir": "v1_citb_kalman_drift",
+  "version_label": "v1_citb_kalman_drift",
+  "next_version_dir": "v1_1_ccir_router_kl",
+  "phase": "loop",
+  "status": "paused",
+  "current_run": "",
+  "blocking_fix": "overlap_loss_cuda_cpu_device_mismatch",
+  "fix_status": "applied",
+  "queue_priority": [
+    "suite1_citb_instrdialog",
+    "suite1b_instrdialogpp",
+    "suite2_peft_cl",
+    "suite3_arper_todcl"
+  ],
+  "smoke_v1": "completed_2026-06-24",
+  "sota_met": false,
+  "wandb_project": "ours-sota-campaign",
+  "tmux_session": "sota_loop",
+  "loop_paused": true,
+  "launch_script": "experiments/sota_campaign/launch_order1_v1_rerun.sh",
+  "updated_at": "2026-06-24T07:39:48.371149+00:00",
+  "loop_pid": 641006
+}

@@ -1,0 +1,657 @@
+{
+  "summary": {
+    "num_core": 32,
+    "num_probe": 32,
+    "num_total": 64,
+    "core_segment_ids": [
+      7
+    ],
+    "probe_segment_ids": [
+      7
+    ]
+  },
+  "core": [
+    {
+      "anchor_id": "s007_e0020",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: None \n Sentence: Ahmed has always loved ice cream. \n Character: Ahmed",
+      "output": "to enjoy himself",
+      "split": "core",
+      "complexity": 758.0
+    },
+    {
+      "anchor_id": "s007_e0025",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: None \n Sentence: Holly loved crafting things for her halloween decorations. \n Character: Holly",
+      "output": "to be creative",
+      "split": "core",
+      "complexity": 783.0
+    },
+    {
+      "anchor_id": "s007_e0072",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Rob had a new toy. It was a drone! \n Sentence: He loved flying it around his neighborhood. \n Character: Rob",
+      "output": "None",
+      "split": "core",
+      "complexity": 810.0
+    },
+    {
+      "anchor_id": "s007_e0011",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: I went to the airport yesterday. \n Sentence: I was waiting for a very long time. \n Character: I (myself)",
+      "output": "None",
+      "split": "core",
+      "complexity": 811.0
+    },
+    {
+      "anchor_id": "s007_e0017",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Allie was exhausted earlier. She had wanted sleep. \n Sentence: Now all the sudden she was not tired. \n Character: Allie",
+      "output": "None",
+      "split": "core",
+      "complexity": 822.0
+    },
+    {
+      "anchor_id": "s007_e0056",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: At the airport Sheri realized she didn't have her passport. \n Sentence: She had to get home and get it and not miss the plane! \n Character: Sheri",
+      "output": "to travel",
+      "split": "core",
+      "complexity": 842.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "core",
+      "complexity": 862.0
+    }
+  ],
+  "probe": [
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0090",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. \n Sentence: But he noticed that there was hair in his burger. \n Character: Mike",
+      "output": "None",
+      "split": "probe",
+      "complexity": 862.0
+    },
+    {
+      "anchor_id": "s007_e0047",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Alan was the coach of a little league baseball team. His son was on the team. \n Sentence: Alan was very excited because the team was doing well. \n Character: Alan",
+      "output": "None",
+      "split": "probe",
+      "complexity": 865.0
+    },
+    {
+      "anchor_id": "s007_e0027",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Holly loved crafting things for her halloween decorations. This year she made a cat using carved pumpkins. \n Sentence: She displayed it proudly on her porch. \n Character: Holly",
+      "output": "show how hard she worked",
+      "split": "probe",
+      "complexity": 879.0
+    },
+    {
+      "anchor_id": "s007_e0074",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Rob had a new toy. It was a drone! He loved flying it around his neighborhood. He took videos with it as well. \n Sentence: The drone was a fun new thing to play with. \n Character: Rob",
+      "output": "None",
+      "split": "probe",
+      "complexity": 902.0
+    },
+    {
+      "anchor_id": "s007_e0064",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Tom was walking home. He noticed some change on the side of the road. It was just a few quarters and dimes. Tom picked it all up. \n Sentence: He considered himself lucky even if it wasn't much. \n Character: Tom",
+      "output": "to have a little extra money",
+      "split": "probe",
+      "complexity": 929.0
+    },
+    {
+      "anchor_id": "s007_e0093",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Mike was at a burger restaurant. And he ordered a cheeseburger and a milkshake. But he noticed that there was hair in his burger. So he told the waiter about it. \n Sentence: Mike wasn't given a new burger and he left. \n Character: Waiter",
+      "output": "None",
+      "split": "probe",
+      "complexity": 956.0
+    },
+    {
+      "anchor_id": "s007_e0084",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Luna moved to Brazil. She got a lot of sunlight. The sunlight was good for her skin. When she took selfies she turned out looking super hot. \n Sentence: Her boyfriend in United States missed her after seeing the pics. \n Character: Boyfriend",
+      "output": "None",
+      "split": "probe",
+      "complexity": 965.0
+    },
+    {
+      "anchor_id": "s007_e0053",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Alan was the coach of a little league baseball team. His son was on the team. Alan was very excited because the team was doing well. He chose to enter them into the little league World Series. \n Sentence: Alan took his team to the World Series and they won. \n Character: Alan",
+      "output": "to encourage them",
+      "split": "probe",
+      "complexity": 1002.0
+    },
+    {
+      "anchor_id": "s007_e0039",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Jerome entered himself into a chili cook off. He decided to make his grandpa's old family recipe. He went to the store and bought the ingredients. Jerome spent a full day perfecting the chili. \n Sentence: He got up early the next morning and drove to the cook off. \n Character: Jerome",
+      "output": "to show interest",
+      "split": "probe",
+      "complexity": 1003.0
+    },
+    {
+      "anchor_id": "s007_e0069",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Terrell was a terrible bowler. He decided to bowl more often to get better. He went to the bowling alley 4 times a week during the summer. His average improved from a 61 to a 73. \n Sentence: Now Terrell was not as terrible as he was when he started. \n Character: Terrell",
+      "output": "None",
+      "split": "probe",
+      "complexity": 1011.0
+    },
+    {
+      "anchor_id": "s007_e0024",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Ahmed has always loved ice cream. He used to sell ice cream sandwiches on the playground. He knew one day he'd open an ice cream parlor. After selling enough ice cream, he finally bought a shop. \n Sentence: He could finally sell his ice cream sandwiches from inside a building. \n Character: Ahmed",
+      "output": "a shop on his own",
+      "split": "probe",
+      "complexity": 1021.0
+    },
+    {
+      "anchor_id": "s007_e0059",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: At the airport Sheri realized she didn't have her passport. She had to get home and get it and not miss the plane! She ran through the airport, hailed a cab and headed back. At home, she dug through the box looking for the passport. \n Sentence: She found it and made it back just in time. \n Character: Sheri",
+      "output": "get there",
+      "split": "probe",
+      "complexity": 1040.0
+    },
+    {
+      "anchor_id": "s007_e0009",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Ian bought some seedlings to plant in his new garden. Ian also underestimated the work and time involved in moving. The seedlings sat around much longer than they should have. He knew they'd probably be stunted but he planted them anyway. \n Sentence: The herbs all did fine but he never did get any tomatoes! \n Character: Ian",
+      "output": "None",
+      "split": "probe",
+      "complexity": 1044.0
+    },
+    {
+      "anchor_id": "s007_e0034",
+      "segment_id": 7,
+      "segment_name": "task294_storycommonsense_motiv_text_generation",
+      "instruction": "In this task, you're given a context, a sentence,  and a character. The sentence describes an action or job of the given character. Also, the context provides more information about the sentence or the character. Your task is to write the character's motivation by doing a specific job, which is given in the sentence. You can use context to find the motivation; however, all the inputs do not provide context. Also, in some inputs, there can be zero motivation; output, 'None' in this case.",
+      "input_text": "Context: Haylee hates to do her taxes every year around April. She has boxes of receipts and papers that she needs to go through. She finally sat down and started making a list of her deductions. She put it away for a few weeks and then brought it back out. \n Sentence: She sat down again and spent 4 hours finishing up this awful task. \n Character: Haylee",
+      "output": "to finish her task",
+      "split": "probe",
+      "complexity": 1072.0
+    }
+  ]
+}

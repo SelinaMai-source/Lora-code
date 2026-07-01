@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Cabinet (government) -- A cabinet is a body of high-ranking state officials, typically consisting of the top leaders of the executive branch. They are usually called ministers, but in some jurisdictions are sometimes called secretaries. The functions of a cabinet are varied: in some countries it is a collegiate decision-making body with collective responsibility, while in others it may function either as a purely advisory body or an assisting institution to a decision making head of state or head of government. Cabinets are typically the body responsible for the day-to-day management of the government and response to sudden events, whereas the legislative and judicial branches work in a measured pace, in sessions according to lengthy procedures.\nQuestion: is the cabinet part of the executive branch",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Whale shark -- The whale shark is found in open waters of the tropical oceans and is rarely found in water below 21 °C (70 °F). Modeling suggests a lifespan of about 70 years, but measurements have proven difficult. Whale sharks have very large mouths and are filter feeders, which is a feeding mode that occurs in only two other sharks, the megamouth shark and the basking shark. They feed almost exclusively on plankton and are not known to pose a threat to humans.\nQuestion: can you get eaten by a whale shark",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Uncaught third strike -- In Little League, in the Tee-Ball and Minor League divisions, the batter is out after the third strike regardless of whether the pitched ball is caught cleanly by the catcher. In Little League (or the Major Division), Junior, Senior, and Big League divisions, a batter may attempt to advance to first base on an uncaught third strike. Little League Major Division Softball and many other youth baseball leagues (such as the USSSA) also follow the rule.\nQuestion: can you run on a dropped third strike in little league",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Muscular system -- The muscular system is an organ system consisting of skeletal, smooth and cardiac muscles. It permits movement of the body, maintains posture, and circulates blood throughout the body. The muscular system in vertebrates is controlled through the nervous system, although some muscles (such as the cardiac muscle) can be completely autonomous. Together with the skeletal system it forms the musculoskeletal system, which is responsible for movement of the human body.\nQuestion: is the heart apart of the muscular system",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: 2018 FIFA World Cup -- The 2018 FIFA World Cup was the 21st FIFA World Cup, an international football tournament contested by the men's national teams of the member associations of FIFA once every four years. It took place in Russia from 14 June to 15 July 2018. It was the first World Cup to be held in Eastern Europe, and the 11th time that it had been held in Europe. At an estimated cost of over $14.2 billion, it was the most expensive World Cup. It was also the first World Cup to use the video assistant referee (VAR) system.\nQuestion: are all world cup matches played in russia",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Benzalkonium chloride -- Benzalkonium chloride is also used in many non-consumer processes and products, including as an active ingredient in surgical disinfection. A comprehensive list of uses includes industrial applications. An advantage of benzalkonium chloride, not shared by ethanol-based antiseptics or hydrogen peroxide antiseptic, is that it does not cause a burning sensation when applied to broken skin. . However, prolonged or repeated skin contact may cause dermatitis.\nQuestion: is benzalkonium chloride the same as hydrogen peroxide",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Kansas City metropolitan area -- In Wyandotte County lies Kansas City, Kansas, which is locally called ``KCK'' to distinguish it from the larger Kansas City, Missouri (KCMO). It contains many residential neighborhoods, the Fairfax Industrial District, and the Village West entertainment district. The General Motors Fairfax Assembly Plant is located in the Fairfax Industrial District. Village West contains many area attractions. This includes many sporting venues such as Children's Mercy Park, home of the area MLS soccer team Sporting Kansas City, the Kansas Speedway, which hosts many NASCAR races, and Community America Ballpark, home of the independent baseball team, the Kansas City T-Bones. Other Village West attractions include the Legends shopping district, the Providence Medical Center Amphitheater, and Schlitterbahn Waterpark.\nQuestion: are kansas city ks and kansas city mo the same city",
+    "label": "false"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Cool flame -- Cool flame is a flame having maximal temperature below about 400 °C (752 °F). It is usually produced in a chemical reaction of a certain fuel-air mixture. Contrary to conventional flame, the reaction is not vigorous and releases very little heat, light, and carbon dioxide. Cold fires are difficult to observe and are uncommon in everyday life, but they are responsible for engine knock -- the undesirable, erratic, and noisy combustion of low-octane fuels in internal combustion engines.\nQuestion: is there such a thing as cold fire",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Fainting goat -- The myotonic goat, otherwise known as the fainting goat, is a domestic goat that temporarily seizes when it feels panic. If startled by sudden movements or loud noises, they will attempt to escape from the disturbance, generally followed by a startle reaction. In more severe cases, this reaction results in strong tetanic contractions of the agonist and antagonist muscles, causing an uncontrolled stiffness that may cause the goat to remain ``frozen'' in the position that it was in previous to the attack, or cause it to fall to the ground on its side. During an attack, which may last from 5-20 seconds, the goat can often be picked up without any bending or movement occurring in its body. In the case of goats that are less severely affected with the condition, there may be some minor localized stiffness observed in the legs, however, they are still capable of running away. This behaviour is caused by a hereditary genetic disorder called myotonia congenita. The myotonic goat, similar to humans with congenital myotonia, exhibits no obvious muscle wasting, is rarely incapacitated by the condition, and lives a normal and healthy life span.\nQuestion: is there such a thing as a fainting goat",
+    "label": "true"
+  },
+  {
+    "sentence": "Answer the question based on the passage with true or false.\nPassage: Lungo -- A caffè lungo should not be mistaken for a caffè americano (an espresso with hot water added to it) or a long black (hot water with a short black added to it, which is the inverse order to an Americano and done to preserve the crema).\nQuestion: is a lungo the same as an americano",
+    "label": "false"
+  }
+]

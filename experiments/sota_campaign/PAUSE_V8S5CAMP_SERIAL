@@ -1,0 +1,3 @@
+SOTA campaign priority: pause v8s5camp_serial auto-relaunch.
+Created: 2026-06-16T00:25 CST
+Reason: user requested direct sota-v1 run; supervisor must not relaunch campaign serial.

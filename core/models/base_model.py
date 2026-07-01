@@ -127,10 +127,19 @@ def build_backbone(model_cfg: Dict[str, Any], *, mode: str, seed: int, debug_loa
     - baseline/ours: intended to load HuggingFace model (scaffold)
     """
 
+    architecture = str(model_cfg.get("architecture", "")).strip()
+
     if mode == "debug":
         if debug_loading == "hf":
+            if architecture == "seq2seq_lm":
+                from core.models.seq2seq_lora_wrapper import build_seq2seq_backbone
+                return build_seq2seq_backbone(model_cfg, seed=seed)
             return build_hf_backbone(model_cfg, seed=seed)
         return DebugTextModel(DebugTextModelConfig(), seed=seed)
+
+    if architecture == "seq2seq_lm":
+        from core.models.seq2seq_lora_wrapper import build_seq2seq_backbone
+        return build_seq2seq_backbone(model_cfg, seed=seed)
 
     return build_hf_backbone(model_cfg, seed=seed)
 
