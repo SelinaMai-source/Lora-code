@@ -17,6 +17,7 @@ from core.methods.drift_detector import DriftDetector
 from core.methods.lora_bank import LoRABank
 from core.methods.overlap_loss import compute_overlap_loss
 from core.methods.router import Router
+from core.methods.ours_spectral_replay import SpectralSparseReplayGate
 from core.models.base_model import build_backbone
 from core.models.lora_wrapper import build_lora_wrapper
 from core.utils import RunPaths, SimpleLogger, ensure_dir, load_yaml_config, make_run_paths, save_json, save_csv, set_seed
@@ -287,6 +288,10 @@ def run_ours(
     overlap_cfg = cfg.get("overlap", {}) if isinstance(cfg.get("overlap", {}), dict) else {}
     beta = float(overlap_cfg.get("beta", 0.1))
 
+    use_replay = bool(modules.get("use_replay", True))
+    replay_cfg = cfg.get("replay", {}) if isinstance(cfg.get("replay", {}), dict) else {}
+    replay_gate = SpectralSparseReplayGate(replay_cfg) if use_replay else None
+
     # Initialize bank with first branch if enabled
     if lora_bank is not None:
         lora_bank.initialize(lora_wrapper=lora, initial_branch="b0", segment_id=0)
@@ -307,6 +312,7 @@ def run_ours(
                 lr=lr,
                 epochs=epochs,
                 batch_size=batch_size,
+                replay_gate=replay_gate,
             )
         elif lora_bank is not None and router is None:
             # No router: always use the active branch
@@ -317,6 +323,7 @@ def run_ours(
                 lr=lr,
                 epochs=epochs,
                 batch_size=batch_size,
+                replay_gate=replay_gate,
             )
         else:
             # No bank: fall back to single default adapter
@@ -329,6 +336,7 @@ def run_ours(
                 lr=lr,
                 epochs=epochs,
                 batch_size=batch_size,
+                replay_gate=replay_gate,
             )
 
         # Optional overlap loss (logged as a scalar proxy)
@@ -429,11 +437,28 @@ def _build_baseline_method(baseline_name: str, cfg: Dict[str, Any]) -> Any:
     )
 
 
-def _train_on_active_branch(*, segment: Segment, model: Any, lora: Any, lr: float, epochs: int, batch_size: int) -> Dict[str, Any]:
+def _train_on_active_branch(*, segment: Segment, model: Any, lora: Any, lr: float, epochs: int, batch_size: int, replay_gate: Optional[SpectralSparseReplayGate] = None) -> Dict[str, Any]:
     from baselines.sequential_lora.method import _batch, _format_prompt
 
     pairs = [(_format_prompt(ex.instruction, ex.input), ex.input) for ex in segment.train]
     targets = [ex.output for ex in segment.train]
+
+
+    if replay_gate is not None:
+        import hashlib
+        def get_features(p):
+            h = hashlib.sha256(p.encode("utf-8")).digest()
+            return [float(b) / 255.0 for b in h]
+        features = [get_features(p) for p, _ in pairs]
+        replay_gate.update_buffer(segment.segment_id, features, pairs, targets)
+        rp_pairs, rp_targets = replay_gate.sample_replay(int(len(pairs) * replay_gate.get_replay_ratio()))
+        pairs = pairs + rp_pairs
+        targets = targets + rp_targets
+        import random
+        combined = list(zip(pairs, targets))
+        random.shuffle(combined)
+        pairs, targets = zip(*combined) if combined else ([], [])
+        pairs, targets = list(pairs), list(targets)
 
     batch_accs: List[float] = []
     batches = 0
@@ -456,11 +481,32 @@ def _train_with_router(
     lr: float,
     epochs: int,
     batch_size: int,
+    replay_gate: Optional[SpectralSparseReplayGate] = None,
 ) -> Dict[str, Any]:
     from baselines.sequential_lora.method import _batch, _format_prompt
 
     pairs = [(_format_prompt(ex.instruction, ex.input), ex.input) for ex in segment.train]
     targets = [ex.output for ex in segment.train]
+
+
+    # Update Replay buffer and mix
+    if replay_gate is not None:
+        import hashlib
+        def get_features(p):
+            h = hashlib.sha256(p.encode("utf-8")).digest()
+            return [float(b) / 255.0 for b in h]
+        features = [get_features(p) for p, _ in pairs]
+        replay_gate.update_buffer(segment.segment_id, features, pairs, targets)
+        rp_pairs, rp_targets = replay_gate.sample_replay(int(len(pairs) * replay_gate.get_replay_ratio()))
+        pairs = pairs + rp_pairs
+        targets = targets + rp_targets
+        
+        # shuffle
+        import random
+        combined = list(zip(pairs, targets))
+        random.shuffle(combined)
+        pairs, targets = zip(*combined) if combined else ([], [])
+        pairs, targets = list(pairs), list(targets)
 
     routed = 0
     batch_accs: List[float] = []
