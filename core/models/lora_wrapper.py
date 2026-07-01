@@ -98,3 +98,13 @@ class LoRAWrapper:
             "active_adapter": self._active_adapter_name,
             "adapters": {k: dict(v) for k, v in self._adapters.items()},
         }
+
+def build_lora_wrapper(base_model: Any, lora_cfg_dict: Dict[str, Any]) -> LoRAWrapper:
+    cfg = LoRAConfig(
+        enabled=bool(lora_cfg_dict.get("enabled", True)),
+        r=int(lora_cfg_dict.get("r", 16)),
+        alpha=int(lora_cfg_dict.get("alpha", 32)),
+        dropout=float(lora_cfg_dict.get("dropout", 0.0)),
+        target_modules=list(lora_cfg_dict.get("target_modules", [])) or None,
+    )
+    return LoRAWrapper(base_model=base_model, cfg=cfg)

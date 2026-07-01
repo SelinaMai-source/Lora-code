@@ -101,7 +101,7 @@ class Router:
 
         return RoutingDecision(branch_name=best_b, scores=scores, hard=True, reason="wasserstein_routing")
 
-    def predict_branch(self, prompt: str, branch_names: List[str], branch_meta: Dict[str, Any], *, features: Any = None) -> RoutingDecision:
+    def predict_branch(self, prompt: str, branch_names: List[str], branch_meta: Dict[str, Any], *, features: Any = None, segment_id: int = 0) -> RoutingDecision:
         latest = branch_names[-1]
         if len(branch_names) <= self.router_warmup_segments:
             scores = {b: (1.0 if b == latest else 0.0) for b in branch_names}
