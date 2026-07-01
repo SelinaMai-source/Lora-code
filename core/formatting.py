@@ -23,26 +23,19 @@ def build_chat_messages(instruction: str, input_text: str, target: str | None = 
     return messages
 
 
-def format_for_infer(
-    tokenizer: Any,
-    instruction: str,
-    input_text: str,
-    *,
-    add_generation_prompt: bool = True,
-) -> str:
-    messages = build_chat_messages(instruction, input_text, target=None)
-    return tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=bool(add_generation_prompt),
-    )
-
+def format_for_infer(tokenizer: Any, instruction: str, input_text: str, add_generation_prompt: bool = True) -> str:
+    fmt = getattr(tokenizer, "_ours_format_style", "citb_t5")
+    if fmt == "citb_t5":
+        if input_text:
+            return f"{instruction} {input_text}"
+        return instruction
+    try:
+        messages = [{"role": "user", "content": build_user_content(instruction, input_text)}]
+        return tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=add_generation_prompt)
+    except:
+        return build_user_content(instruction, input_text)
 
 def format_for_train(tokenizer: Any, instruction: str, input_text: str, target: str) -> Dict[str, str]:
     prompt_text = format_for_infer(tokenizer, instruction, input_text)
-    full_text = tokenizer.apply_chat_template(
-        build_chat_messages(instruction, input_text, target=str(target)),
-        tokenize=False,
-        add_generation_prompt=False,
-    )
+    full_text = prompt_text + " " + str(target)
     return {"prompt_text": prompt_text, "full_text": full_text}
