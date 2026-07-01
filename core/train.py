@@ -209,6 +209,19 @@ def run_baseline(
 
         logger.log(f"Train metrics: {json.dumps(train_metrics, ensure_ascii=False)}")
 
+        # Update router prototypes using all training prompts for the current active branch
+        if router is not None:
+            all_prompts = [_format_prompt(ex.instruction, ex.input) for ex in seg.train]
+            active_b = lora.get_active_adapter_name()
+            # Feed current branch as the pseudo label
+            router.update_with_pseudo_labels(
+                batch_prompts=all_prompts,
+                pseudo_labels=[active_b] * len(all_prompts),
+                branch_names=[active_b]
+            )
+            logger.log(f"Updated router prototypes for branch {active_b} with {len(all_prompts)} examples.")
+
+
         # Evaluate on seen segments (unified)
         seen_segments.append(seg)
         eval_metrics = evaluate_stream(
@@ -352,6 +365,19 @@ def run_ours(
 
         logger.log(f"Train metrics: {json.dumps(train_metrics, ensure_ascii=False)}")
 
+        # Update router prototypes using all training prompts for the current active branch
+        if router is not None:
+            all_prompts = [_format_prompt(ex.instruction, ex.input) for ex in seg.train]
+            active_b = lora.get_active_adapter_name()
+            # Feed current branch as the pseudo label
+            router.update_with_pseudo_labels(
+                batch_prompts=all_prompts,
+                pseudo_labels=[active_b] * len(all_prompts),
+                branch_names=[active_b]
+            )
+            logger.log(f"Updated router prototypes for branch {active_b} with {len(all_prompts)} examples.")
+
+
         # Evaluate
         seen_segments.append(seg)
         eval_metrics = evaluate_stream(
@@ -446,9 +472,17 @@ def _train_on_active_branch(*, segment: Segment, model: Any, lora: Any, lr: floa
 
     if replay_gate is not None:
         import hashlib
+
         def get_features(p):
-            h = hashlib.sha256(p.encode("utf-8")).digest()
-            return [float(b) / 255.0 for b in h]
+            vec = [0.0] * 256
+            p_text = p[:200].lower()
+            if len(p_text) < 3: p_text = p_text.ljust(3, ' ')
+            for i in range(len(p_text) - 2):
+                tri = p_text[i:i+3]
+                idx = sum(ord(c)*(31**j) for j,c in enumerate(tri)) % 256
+                vec[idx] += 1.0
+            return vec
+
         features = [get_features(p) for p, _ in pairs]
         replay_gate.update_buffer(segment.segment_id, features, pairs, targets)
         rp_pairs, rp_targets = replay_gate.sample_replay(int(len(pairs) * replay_gate.get_replay_ratio()))
@@ -492,9 +526,17 @@ def _train_with_router(
     # Update Replay buffer and mix
     if replay_gate is not None:
         import hashlib
+
         def get_features(p):
-            h = hashlib.sha256(p.encode("utf-8")).digest()
-            return [float(b) / 255.0 for b in h]
+            vec = [0.0] * 256
+            p_text = p[:200].lower()
+            if len(p_text) < 3: p_text = p_text.ljust(3, ' ')
+            for i in range(len(p_text) - 2):
+                tri = p_text[i:i+3]
+                idx = sum(ord(c)*(31**j) for j,c in enumerate(tri)) % 256
+                vec[idx] += 1.0
+            return vec
+
         features = [get_features(p) for p, _ in pairs]
         replay_gate.update_buffer(segment.segment_id, features, pairs, targets)
         rp_pairs, rp_targets = replay_gate.sample_replay(int(len(pairs) * replay_gate.get_replay_ratio()))

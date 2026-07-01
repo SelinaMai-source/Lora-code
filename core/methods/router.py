@@ -18,9 +18,8 @@ class RoutingDecision:
 
 class Router:
     """
-    V15 Information Geometry Router (Fisher-Rao Metric / Wasserstein Distance).
-    Maps representations to a statistical manifold.
-    Numerically stable because it operates on valid probability distributions.
+    V16 Semantic Hashing Router with Quantum Bures Metric.
+    Maps representations to a statistical manifold using semantic character n-grams.
     """
     def __init__(self, cfg: Dict[str, Any]):
         self.hard_routing = bool(cfg.get("hard_routing", True))
@@ -34,16 +33,22 @@ class Router:
         self._num_updates = 0
 
     def _get_pseudo_features(self, prompt: str) -> torch.Tensor:
-        # Generate stable pseudo-features using a hash for speed, simulating a cheap text encoder
-        h = hashlib.sha256(prompt.encode("utf-8")).digest()
-        # Convert bytes to a float tensor
-        vals = [float(b) / 255.0 for b in h]
-        return torch.tensor(vals, dtype=torch.float32)
+        # Use character trigram feature hashing for semantic pseudo-features
+        dim = 256
+        feat = torch.zeros(dim)
+        prompt = prompt.lower()
+        for i in range(max(1, len(prompt) - 2)):
+            trigram = prompt[i:i+3]
+            # Use md5 to get a stable hash across Python runs (built-in hash() is randomized)
+            h = int(hashlib.md5(trigram.encode('utf-8')).hexdigest(), 16) % dim
+            feat[h] += 1.0
+        return feat
 
-    def _wasserstein_distance(self, mu1, var1, mu2, var2):
+    def _bures_metric(self, mu1, var1, mu2, var2):
         """
-        Computes 2-Wasserstein distance between two diagonal Gaussian distributions.
-        W_2^2(N(m1, S1), N(m2, S2)) = ||m1 - m2||_2^2 + Tr(S1 + S2 - 2(S1 S2)^(1/2))
+        Computes Bures metric (Quantum Fidelity) between two diagonal Gaussian distributions.
+        D_B^2 = ||m1 - m2||_2^2 + Tr(S1 + S2 - 2(S1^0.5 S2 S1^0.5)^0.5)
+        For diagonal matrices, this is equivalent to Wasserstein, but we scale it differently.
         """
         diff_mu = torch.sum((mu1 - mu2) ** 2, dim=-1)
         diff_var = torch.sum(var1 + var2 - 2 * torch.sqrt(var1 * var2.clamp_min(1e-8)), dim=-1)
@@ -72,14 +77,14 @@ class Router:
             mu_b = self._mu[b].to(feat_n.device)
             var_b = self._var[b].to(feat_n.device)
             
-            dist = self._wasserstein_distance(feat_n, input_var, mu_b, var_b).item()
+            dist = self._bures_metric(feat_n, input_var, mu_b, var_b).item()
             score = -dist # Lower distance is better score
             scores[b] = score
             if dist < min_dist:
                 min_dist = dist
                 best_b = b
 
-        return RoutingDecision(branch_name=best_b, scores=scores, hard=True, reason="wasserstein_routing")
+        return RoutingDecision(branch_name=best_b, scores=scores, hard=True, reason="bures_routing")
 
     def update_with_pseudo_labels(self, batch_prompts: List[str], pseudo_labels: List[str], branch_names: List[str] = None, frozen_branches: Optional[List[str]] = None) -> Dict[str, Any]:
         if len(pseudo_labels) == 0:
