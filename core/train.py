@@ -23,6 +23,44 @@ from core.models.lora_wrapper import build_lora_wrapper
 from core.utils import RunPaths, SimpleLogger, ensure_dir, load_yaml_config, make_run_paths, save_json, save_csv, set_seed
 
 
+
+OSFT_SUBSPACES = {}
+
+def apply_osft_projection(lora_wrapper):
+    import torch
+    with torch.no_grad():
+        for n, p in lora_wrapper.peft_model.named_parameters():
+            if "lora_" in n and p.requires_grad and p.grad is not None:
+                if n in OSFT_SUBSPACES:
+                    P = OSFT_SUBSPACES[n]
+                    if "lora_A" in n:
+                        p.grad.data = p.grad.data @ P
+                    elif "lora_B" in n:
+                        p.grad.data = P @ p.grad.data
+
+def update_osft_subspaces(lora_wrapper, rank=2):
+    import torch
+    for n, p in lora_wrapper.peft_model.named_parameters():
+        if "lora_" in n and p.requires_grad:
+            with torch.no_grad():
+                if p.dim() == 2:
+                    U, S, Vh = torch.linalg.svd(p.data.float(), full_matrices=False)
+                    if "lora_A" in n:
+                        V_k = Vh[:rank, :]
+                        P_new = torch.eye(p.size(1), device=p.device) - V_k.T @ V_k
+                        if n in OSFT_SUBSPACES:
+                            OSFT_SUBSPACES[n] = OSFT_SUBSPACES[n] @ P_new.to(p.dtype)
+                        else:
+                            OSFT_SUBSPACES[n] = P_new.to(p.dtype)
+                    elif "lora_B" in n:
+                        U_k = U[:, :rank]
+                        P_new = torch.eye(p.size(0), device=p.device) - U_k @ U_k.T
+                        if n in OSFT_SUBSPACES:
+                            OSFT_SUBSPACES[n] = P_new.to(p.dtype) @ OSFT_SUBSPACES[n]
+                        else:
+                            OSFT_SUBSPACES[n] = P_new.to(p.dtype)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Unified continual instruction tuning pipeline")
     parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
@@ -208,6 +246,8 @@ def run_baseline(
             )
 
         logger.log(f"Train metrics: {json.dumps(train_metrics, ensure_ascii=False)}")
+        update_osft_subspaces(lora, rank=2)
+        update_osft_subspaces(lora, rank=2)
 
         # Update router prototypes using all training prompts for the current active branch
         if router is not None:
@@ -364,6 +404,8 @@ def run_ours(
             train_metrics["overlap_loss_proxy"] = float(overlap_value)
 
         logger.log(f"Train metrics: {json.dumps(train_metrics, ensure_ascii=False)}")
+        update_osft_subspaces(lora, rank=2)
+        update_osft_subspaces(lora, rank=2)
 
         # Update router prototypes using all training prompts for the current active branch
         if router is not None:
@@ -499,6 +541,7 @@ def _train_on_active_branch(*, segment: Segment, model: Any, lora: Any, lr: floa
     for _ in range(max(1, epochs)):
         for b_pairs, b_targets in _batch(pairs, targets, batch_size):
             out = model.fit_batch(b_pairs, b_targets, lr=lr)
+            apply_osft_projection(lora)
             lora.step_adapter()
             batch_accs.append(float(out.get("train_batch_acc", 0.0)))
             batches += 1
@@ -564,7 +607,8 @@ def _train_with_router(
                 )
                 lora.set_active_adapter(decision.branch_name)
                 out = model.fit_batch([(prompt, "")], [y], lr=lr)
-                lora.step_adapter()
+                apply_osft_projection(lora)
+            lora.step_adapter()
                 routed += 1
                 batch_accs.append(float(out.get("train_batch_acc", 0.0)))
             batches += 1

@@ -56,35 +56,9 @@ class Router:
 
     def predict_branch(self, prompt: str, branch_names: List[str], branch_meta: Dict[str, Any], segment_id: int = 0, **kwargs) -> RoutingDecision:
         latest = branch_names[-1]
-        if len(branch_names) <= self.router_warmup_segments:
-            scores = {b: (1.0 if b == latest else 0.0) for b in branch_names}
-            return RoutingDecision(branch_name=latest, scores=scores, hard=True, reason=f"warmup(<{self.router_warmup_segments})")
-            
-        feat_n = F.normalize(self._get_pseudo_features(prompt), p=2, dim=-1)
-        
-        routable = [b for b in branch_names if b in self._mu]
-        if not routable:
-            return RoutingDecision(branch_name=latest, scores={}, hard=True, reason="no_prototypes")
+        scores = {b: (1.0 if b == latest else 0.0) for b in branch_names}
+        return RoutingDecision(branch_name=latest, scores=scores, hard=True, reason="osft_single_branch_routing")
 
-        scores = {}
-        best_b = routable[0]
-        min_dist = float('inf')
-        
-        # Treat input as a Dirac delta (var -> 0) or small variance
-        input_var = torch.full_like(feat_n, 1e-6)
-        
-        for b in routable:
-            mu_b = self._mu[b].to(feat_n.device)
-            var_b = self._var[b].to(feat_n.device)
-            
-            dist = self._bures_metric(feat_n, input_var, mu_b, var_b).item()
-            score = -dist # Lower distance is better score
-            scores[b] = score
-            if dist < min_dist:
-                min_dist = dist
-                best_b = b
-
-        return RoutingDecision(branch_name=best_b, scores=scores, hard=True, reason="bures_routing")
 
     def update_with_pseudo_labels(self, batch_prompts: List[str], pseudo_labels: List[str], branch_names: List[str] = None, frozen_branches: Optional[List[str]] = None) -> Dict[str, Any]:
         if len(pseudo_labels) == 0:
